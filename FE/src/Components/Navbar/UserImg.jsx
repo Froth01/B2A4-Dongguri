@@ -1,4 +1,4 @@
-import './UserImg.css'
+import './css/UserImg.css'
 
 function UserImg() {
   return (
