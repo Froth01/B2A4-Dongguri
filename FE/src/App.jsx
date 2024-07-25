@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import StoryBook from './Components/StoryBook/StoryBook'
-import Home from './Components/Home/Home'
+import StoryBook from './Pages/StoryBook'
+import Home from './Pages/Home'
 function App() {
 
   return (
-    <Routes>
-      <Route>
-        <Route path="/" element={<Home />} />
-        <Route path="/storybook" element={<StoryBook />} />
-      </Route>
-    </Routes>
+    <div className='app'>
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/storybook" element={<StoryBook />} />
+      </Routes>
+    </div>
   )
 }
 
