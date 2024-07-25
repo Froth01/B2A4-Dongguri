@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers';
+import imgUrlReducer from './slices/imgUrlSlice';
 
 const store = configureStore({
-  reducer: rootReducer
+  reducer: {
+    imgUrl: imgUrlReducer
+  }
 });
 
 export default store;
