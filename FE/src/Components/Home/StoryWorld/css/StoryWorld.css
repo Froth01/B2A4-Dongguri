@@ -1,0 +1,7 @@
+.storyworld { 
+  margin-top: 5vh;
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
