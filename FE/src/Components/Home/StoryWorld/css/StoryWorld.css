@@ -1,7 +1,4 @@
-.storyworld { 
-  margin-top: 5vh;
-  height: 80vh;
+.storyworld {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
 }

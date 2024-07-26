@@ -1,0 +1,13 @@
+.main { 
+  margin-top: 5vh;
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mainbtn { 
+  width: 30%;
+  height: 40%;
+  margin: 0% 2% 2.5% 2%
+}
