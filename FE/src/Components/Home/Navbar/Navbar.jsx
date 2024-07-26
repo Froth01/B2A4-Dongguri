@@ -12,10 +12,9 @@ function Navbar() {
         <img src="/img/navbar/logocut.png" alt="Logo" />
       </div>
       <div className='menus'>
-        <Menu imgUrl={imgUrlList[0]}/>
-        <Menu imgUrl={imgUrlList[1]}/>
-        <Menu imgUrl={imgUrlList[2]}/>
-        <Menu imgUrl={imgUrlList[3]}/>
+        {imgUrlList.map((imgUrl, index) => (
+          <Menu key={index} imgUrl={imgUrl} />
+        ))}
       </div>
       <div>
         <UserImg />
