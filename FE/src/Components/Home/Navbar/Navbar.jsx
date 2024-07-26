@@ -8,7 +8,7 @@ function Navbar() {
   
   return (
     <div className='navbar'>
-      <div>
+      <div className='logo'>
         <img src="/img/navbar/logocut.png" alt="Logo" />
       </div>
       <div className='menus'>
@@ -16,9 +16,7 @@ function Navbar() {
           <Menu key={index} imgUrl={imgUrl} />
         ))}
       </div>
-      <div>
-        <UserImg />
-      </div>
+      <UserImg />
     </div>
   )
 }
