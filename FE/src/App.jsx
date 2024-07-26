@@ -1,4 +1,4 @@
-import { BrowserRouter as Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import StoryBook from './Pages/StoryBook'
 import Home from './Pages/Home'

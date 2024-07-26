@@ -1,22 +1,22 @@
 import './css/Navbar.css'
 import Menu from './Menu'
 import UserImg from './UserImg'
+import { useSelector } from 'react-redux'
 
 function Navbar() {
+  const imgUrlList = useSelector(state => state.imgUrl.list)
+  
   return (
     <div className='navbar'>
-      <div>
+      <div className='logo'>
         <img src="/img/navbar/logocut.png" alt="Logo" />
       </div>
       <div className='menus'>
-        <Menu imgUrl={'/img/navbar/storybook.png'}/>
-        <Menu imgUrl={'/img/navbar/storyworld.png'}/>
-        <Menu imgUrl={'/img/navbar/avatars.png'}/>
-        <Menu imgUrl={'/img/navbar/sns.png'}/>
+        {imgUrlList.map((imgUrl, index) => (
+          <Menu key={index} imgUrl={imgUrl} />
+        ))}
       </div>
-      <div>
-        <UserImg />
-      </div>
+      <UserImg />
     </div>
   )
 }
