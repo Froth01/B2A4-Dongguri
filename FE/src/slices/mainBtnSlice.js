@@ -4,10 +4,10 @@ const mainBtnSlice = createSlice({
   name: 'mainBtn',
   initialState: {
     list: [
-      '/img/home/todaytale.png',
-      '/img/home/freetale.png',
-      '/img/home/mypage.png',
-      '/img/home/mydong.png'
+      ['/img/home/todaytale.png','/storybook/storytoday'],
+      ['/img/home/freetale.png','/storybook/storyfree'],
+      ['/img/home/mypage.png','/storyworld'],
+      ['/img/home/mydong.png','/avatars']
     ]},
     reducers: {
       setList(state,action) {

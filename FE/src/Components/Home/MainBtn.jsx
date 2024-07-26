@@ -3,9 +3,9 @@ import './css/MainBtn.css'
 
 function MainBtn({imgUrl}) {
   return (
-    <div className='mainbtn'>
+    <>
       <img src={imgUrl} alt="MainBtn" />
-    </div>
+    </>
   )
 }
 
