@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2%;
+  padding-right: 2%;
+  height: 15vh;
+}
+
+.logo{
+  flex: 0 1 auto;
+}
+
+.logo img{
+  height: 100%;
+}
+
+.menus {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+.menus > div { 
+  height: 100%;
+}
