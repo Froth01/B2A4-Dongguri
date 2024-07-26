@@ -8,13 +8,12 @@ const mainBtnSlice = createSlice({
       '/img/home/freetale.png',
       '/img/home/mypage.png',
       '/img/home/mydong.png'
-    ],
+    ]},
     reducers: {
       setList(state,action) {
         state.list = action.payload;
       }
     }
-  }
 });
 
 export const { setList } = mainBtnSlice.actions;

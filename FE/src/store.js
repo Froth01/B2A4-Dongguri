@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import imgUrlReducer from './slices/imgUrlSlice';
-import mainnBtnReducer from './slices/mainBtnSlice';
+import navBarBtnReducer from './slices/navBarBtnSlice';
+import mainBtnReducer from './slices/mainBtnSlice';
 
 const store = configureStore({
   reducer: {
-    imgUrl: imgUrlReducer,
-    mainBtn: mainnBtnReducer
+    navBarBtn: navBarBtnReducer,
+    mainBtn: mainBtnReducer
   }
 });
 
