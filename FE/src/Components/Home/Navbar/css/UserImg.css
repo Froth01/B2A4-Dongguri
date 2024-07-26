@@ -1,0 +1,8 @@
+.userimg {
+  flex: 0 1 auto;
+}
+
+.userimg img{
+  width: 100%;
+  height: 100%;
+}
