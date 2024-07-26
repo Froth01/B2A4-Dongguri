@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import imgUrlReducer from './slices/imgUrlSlice';
+import mainnBtnReducer from './slices/mainBtnSlice';
 
 const store = configureStore({
   reducer: {
-    imgUrl: imgUrlReducer
+    imgUrl: imgUrlReducer,
+    mainBtn: mainnBtnReducer
   }
 });
 
