@@ -12,6 +12,7 @@
 
 .logo img{
   height: 100%;
+  width: 100%;
 }
 
 .menus {
@@ -23,6 +24,13 @@
   padding-left: 7%;
   padding-right: 7%;
 }
-.menus > div { 
+
+.menus a {
   height: 100%;
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }

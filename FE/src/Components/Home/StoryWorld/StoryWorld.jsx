@@ -1,8 +1,11 @@
+import UserInfo from './UserInfo'
 import './css/StoryWorld.css'
 
 function StoryWorld() {
   return (
-    <div>StoryWorld</div>
+    <div className='storyworld'>
+      <UserInfo />
+    </div>
   )
 }
 
