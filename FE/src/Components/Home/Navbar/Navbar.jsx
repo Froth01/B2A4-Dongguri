@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './css/Navbar.css'
 import Menu from './Menu'
-import UserImg from './UserImg'
+import UserImg from '../Common/UserImg'
 import { useSelector } from 'react-redux'
 
 function Navbar() {
