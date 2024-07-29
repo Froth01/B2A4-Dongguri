@@ -1,0 +1,23 @@
+.pausebtn {
+  text-align: end;
+  height: 8vh;
+  /* width: 100%; */
+  margin: 0%;
+  
+}
+
+.pausebtn button {
+  background-color: white;
+  border: none;
+  height: 8vh;
+  width: 8vh;
+  position: fixed;
+  top: 3%;
+  right: 3%;
+  /* padding: 0%; */
+}
+
+.pausebtn img {
+  height: 100%;
+}
+

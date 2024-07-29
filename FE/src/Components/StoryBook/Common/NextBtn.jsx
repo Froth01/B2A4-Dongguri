@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './css/NextBtn.css'
 
 const NextBtn = ({ to }) => {
   return (
-    <Link to={ to }>
-      <img src="/img/storybook/common/NextBtn.png" alt="다음 버튼" />
-    </Link>
+    <div className='nextbtn'>
+      <Link to={ to }>
+        <img src="/img/storybook/common/NextBtn.png" alt="다음 버튼" />
+      </Link>
+    </div>
   )
 }
 

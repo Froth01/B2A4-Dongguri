@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './css/Modal.css'
 
 function Modal({setModal}) {
   return (
-    <div>
+    <div className='modal'>
       <img src="/img/storybook/pausebtn/GoGoRing.png" alt="묻고 떠블로 가! 버튼" onClick={()=>setModal(false)}/>
 
       <Link to='/'>

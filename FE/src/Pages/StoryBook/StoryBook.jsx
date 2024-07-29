@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import './css/StoryBook.css'
 import StoryMode from "./StoryMode"
 import PauseBtn from '../../Components/StoryBook/PauseBtn/PauseBtn'
 import StoryFree from "./StoryFree"

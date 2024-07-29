@@ -1,8 +1,10 @@
+import './css/StoryModeBtn.css'
+
 import { Link } from 'react-router-dom';
 
 function StoryModeBtn() {
   return(
-    <div>
+    <div className='storymodebtn'>
       <Link to="storyfree">
         <img src={"/img/storybook/storymode/StoryFreeBtn.png"} alt="자유주제 버튼" />
       </Link>

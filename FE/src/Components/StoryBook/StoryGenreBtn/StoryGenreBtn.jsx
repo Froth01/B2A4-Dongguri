@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom"
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux'
+import './css/StoryGenreBtn.css'
 
-const StoryGenreBtn = ({ to, src, alt }) => {
-  return (
-    <Link to = { to }>
-      <img src={src} alt={alt} />
-    </Link>
+function StoryGenreBtn() {
+  const genreBtnList = useSelector(state => state.genreBtn.list)
+
+  return(
+    <div className="storygenrebtn">
+    {genreBtnList.map(([src,alt,to], index)=> (
+      <Link to = { to } key={index} >
+        <img src={src} alt={alt} />
+      </Link>
+    ))}
+    </div>
   )
 }
-
-StoryGenreBtn.propTypes = {
-  to: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
-};
 
 
 export default StoryGenreBtn
