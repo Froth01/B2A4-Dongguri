@@ -1,17 +1,16 @@
 import './css//UserInfo.css'
-import '../Navbar/css/UserImg.css'
-import UserImg from '../Navbar/UserImg'
+import '../Common/css/UserImg.css'
+import UserImg from '../Common/UserImg'
+import FollowBtn from './FollowBtn'
 
 function UserInfo() {
   return (
     <div className='userinfo'>
       <UserImg />
       <div className='userinfomiddle'>
-        middle
+        <p>username</p>
       </div>
-      <div>
-        follow button
-      </div>
+      <FollowBtn />
     </div>
   )
 }

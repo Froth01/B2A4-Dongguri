@@ -1,0 +1,7 @@
+.myworld {
+  width: 90%;
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  background-color: grey;
+}

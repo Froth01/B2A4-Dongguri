@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import StoryBook from './Pages/StoryBook/StoryBook'
-import Home from './Pages/Home'
+import Home from './Pages/Home/Home'
 function App() {
 
   return (
