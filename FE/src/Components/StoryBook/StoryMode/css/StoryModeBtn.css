@@ -1,0 +1,13 @@
+.storymodebtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  /* width: 100vh; */
+  /* height: 100%; */
+}
+
+.storymodebtn a img {
+  width: 50vh;
+  height: 50vh;
+}
