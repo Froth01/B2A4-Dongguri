@@ -1,8 +1,13 @@
+import AvatarInfo from './AvatarInfo'
+import AvatarList from './AvatarList'
 import './css/Avatars.css'
 
 function Avatars() {
   return (
-    <div>Avatars</div>
+    <div className='avatars'>
+      <AvatarInfo />
+      <AvatarList />
+    </div>
   )
 }
 

@@ -1,0 +1,4 @@
+.avatars {
+  display: flex;
+  flex-direction: column;
+}
