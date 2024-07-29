@@ -1,7 +1,7 @@
 .minicard {
   width: 20vw;
   height: 20vw;
-  margin: 2% 1%;
+  margin: 2% 1vw;
   display: flex;
   flex-direction: column;
   justify-content: center;

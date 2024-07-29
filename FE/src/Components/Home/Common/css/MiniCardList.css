@@ -1,6 +1,5 @@
 .minicardlist {
-  width: 100%;
+  width: 88vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }

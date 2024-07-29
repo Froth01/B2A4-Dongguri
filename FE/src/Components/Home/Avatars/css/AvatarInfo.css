@@ -1,0 +1,17 @@
+.avatarinfo {
+  width: 90vw;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  margin: 3% 5% 3% 5%;
+}
+
+.infodetail {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.infodetail img {
+  height: 100%;
+}

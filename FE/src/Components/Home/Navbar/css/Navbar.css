@@ -1,5 +1,9 @@
 .navbar {
+  position: sticky;
+  top: 0;
   display: flex;
+  background-color: white;
+  box-shadow: 0px 5px 5px 5px lightgrey ;
   justify-content: space-between;
   padding-left: 2%;
   padding-right: 2%;

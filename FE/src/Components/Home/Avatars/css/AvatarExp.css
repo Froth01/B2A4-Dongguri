@@ -1,0 +1,17 @@
+.avatarexp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expdetail {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40vh;
+}
+
+.expdetail img {
+  width: 8vh;
+  height: 8vh;
+}
