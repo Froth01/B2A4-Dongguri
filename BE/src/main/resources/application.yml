@@ -11,3 +11,25 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+management:
+  server:
+    port: ${MONITORING_PORT}
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
