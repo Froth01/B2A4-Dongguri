@@ -12,19 +12,12 @@ import userInfoReducer from './slices/userInfoSlice';
 const persistConfig = {
   key: 'root', // 기본 키 이름
   storage,     // localStorage를 사용
-  whitelist: ['userInfo'] // 유지할 리듀서 설정 (예: userInfo)
+  whitelist: ['auth'] // 유지할 리듀서 설정 (예: userInfo)
 };
 
-const persistedReducer = persistReducer(persistConfig, userInfoReducer);
-
-// Persist config 설정
-const persistConfig = {
-  key: 'root',
-  storage,
-};
+const persistedReducer = persistReducer(persistConfig, authReducer);
 
 // persist reducer 설정
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 const store = configureStore({
   reducer: {
@@ -32,7 +25,8 @@ const store = configureStore({
     mainBtn: mainBtnReducer,
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
-    userInfo: persistedReducer, // persistor를 적용한 리듀서 사용
+    userInfo: userInfoReducer,
+    auth: persistedReducer    // persistor를 적용한 리듀서 사용
   },
 });
 
