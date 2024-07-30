@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Avatars from '../../Components/Home/Avatars/Avatars'
 import Main from '../../Components/Home/Main'
 import StoryWorld from '../../Components/Home/StoryWorld/StoryWorld'
+import SNS from '../../Components/Home/SNS/SNS'
 
 
 function Home() {
@@ -13,7 +14,8 @@ function Home() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/avatars" element={<Avatars />} />
-        <Route path="storyworld" element={<StoryWorld />} />
+        <Route path="/storyworld" element={<StoryWorld />} />
+        <Route path='/sns' element={<SNS />} />
       </Routes>
     </div>
   )
