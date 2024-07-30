@@ -1,6 +1,9 @@
 import { useState } from "react"
+import './css/StoryKeyword.css'
+import Guide from "../../Components/StoryBook/Common/Guide"
 import NextBtn from "../../Components/StoryBook/Common/NextBtn"
 import StoryKeywordInput from "../../Components/StoryBook/StoryKeywordInput/KeywordInput"
+import StoryImgBtn from "../../Components/StoryBook/StoryImg/StoryImgBtn"
 
 const StoryKeyword = () => {
   const [keywords, setKeywords] = useState(['','','',''])
@@ -12,11 +15,16 @@ const StoryKeyword = () => {
   };
 
   return (
-    <div>
-      {keywords.map((keywords,index) => (
-        <StoryKeywordInput key={index} value={keywords} onChange={(event) => handleChange(index,event)} />
-      ))}
-
+    <div className="storykeyword">
+      <Guide />
+      <div className="content-wrapper">
+        <StoryImgBtn />
+        <div className="keyword-input-grid">
+          {keywords.map((keyword, index) => (
+            <StoryKeywordInput key={index} value={keyword} onChange={(event) => handleChange(index, event)} />
+          ))}
+        </div>
+      </div>
       <NextBtn to='/storybook/storyend' />
     </div>
   )

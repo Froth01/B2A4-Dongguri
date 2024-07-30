@@ -12,7 +12,7 @@ import StoryEnd from './StoryEnd'
 
 function StoryBook() {
   return (
-    <div>
+    <div className='container'>
       <PauseBtn/>
       <Routes>
           <Route path="/" element={<StoryMode />} />

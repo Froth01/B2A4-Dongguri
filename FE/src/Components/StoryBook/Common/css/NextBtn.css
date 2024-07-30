@@ -2,4 +2,6 @@
   display: flex;
   justify-content: center;
   margin-top: 15%;
+  width: 10vh;
+  height: 10vh;
 }
