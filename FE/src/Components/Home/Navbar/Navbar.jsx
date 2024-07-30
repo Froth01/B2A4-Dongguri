@@ -9,7 +9,7 @@ function Navbar() {
   
   return (
     <div className='navbar'>
-      <div className='logo'>
+      <div className='logo pulse-shrink'>
         <Link to="/">
           <img src="/img/navbar/logocut.png" alt="Logo" />
         </Link>

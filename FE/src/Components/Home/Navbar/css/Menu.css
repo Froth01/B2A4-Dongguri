@@ -5,3 +5,26 @@
 img {
   height: 100%;
 }
+
+
+
+@keyframes pulse-grow {
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.pulse-grow {
+  display: inline-block;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);  
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.pulse-grow:hover {
+    animation-name: pulse-grow;
+    animation-duration: .5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
