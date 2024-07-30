@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/test").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/api/file/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
