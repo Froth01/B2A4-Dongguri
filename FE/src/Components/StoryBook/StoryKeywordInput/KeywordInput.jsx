@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types'
+import './css/KeywordInput.css'
 
 const KeywordInput = ({value,onChange}) => {
-  return <input type="text" value={value} onChange={onChange} />
+  return (
+    <div className='keyworldinput'>
+      <input type="text" value={value} onChange={onChange} />
+    </div>
+  )
 
 }
 

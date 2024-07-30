@@ -1,0 +1,37 @@
+.storyimg{
+  position: relative;
+}
+
+.clickable-image {
+  cursor: pointer;
+  max-width: 100%;
+  height: auto;
+}
+
+.storyimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.base-image {
+  width: 90vh;
+  object-fit: cover; /* 이미지 비율을 유지하며 크기 조정 */
+}
+
+.uploaded-image {
+  position: absolute;
+  width: 45%;
+  max-height: 70%;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* height: 50%; */
+  /*object-fit: cover;  이미지 비율을 유지하며 크기 조정 */
+  /*opacity: 0.8;  투명도를 조정하여 겹친 이미지를 볼 수 있도록 설정 */
+}

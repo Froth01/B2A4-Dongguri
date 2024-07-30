@@ -1,0 +1,20 @@
+.storykeyword {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬 */
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center; /* 가로로 정렬 */
+  align-items: center; /* 위쪽 정렬 */
+  gap: 5vh; /* 요소 간의 간격 */
+  margin-bottom: 1vh; /* NextBtn과의 간격 */
+}
+
+.keyword-input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2개의 열로 설정 */
+  grid-gap: 5vh; /* 그리드 아이템 간의 간격 */
+
+}

@@ -1,0 +1,15 @@
+.circlebtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vh;
+}
+
+.circlebtn a{
+  width: 40vh;
+  margin-top: 10vh;
+}
+
+.circlebtn a img{
+  width: 100%;
+}

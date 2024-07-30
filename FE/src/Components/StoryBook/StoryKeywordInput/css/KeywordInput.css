@@ -1,0 +1,9 @@
+.keywordinput{
+  display: flex;
+  flex-direction: column;
+}
+
+.keywordinput input {
+  width: 200vh; /* 너비 조정 */
+  height: 40vh; /* 높이 조정 */
+}

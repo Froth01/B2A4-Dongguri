@@ -1,3 +1,14 @@
 .storygenrebtn {
-  
+  display: flex;
+  justify-content: center;
+  gap: 3vh;
+}
+
+.storygenrebtn a{
+  width: 35vh;
+  margin-top: 8%;
+}
+
+.storygenrebtn a img{
+  width: 100%;
 }
