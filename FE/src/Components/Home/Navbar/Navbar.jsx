@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 
 function Navbar() {
   const navBarBtnList = useSelector(state => state.navBarBtn.list)
-  
+  const userInfo = useSelector(state => state.userInfo.object)
   return (
     <div className='navbar'>
       <div className='logo pulse-shrink'>
@@ -30,9 +30,11 @@ function Navbar() {
         <nav className="popup-window">
           <ul>
             <li>
-              <button>
-                <span>프로필 변경</span>
-              </button>
+              <Link to={`/users/${userInfo.id}`}>
+                <button>
+                  <span>프로필 변경</span>
+                </button>
+              </Link>
             </li>
             <li>
               <button>

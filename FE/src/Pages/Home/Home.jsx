@@ -5,7 +5,7 @@ import Avatars from '../../Components/Home/Avatars/Avatars'
 import Main from '../../Components/Home/Main'
 import StoryWorld from '../../Components/Home/StoryWorld/StoryWorld'
 import SNS from '../../Components/Home/SNS/SNS'
-
+import UserUpdate from '../../Components/Home/Account/UserUpdate'
 
 function Home() {
   return (
@@ -16,6 +16,7 @@ function Home() {
         <Route path="/avatars" element={<Avatars />} />
         <Route path="/storyworld" element={<StoryWorld />} />
         <Route path='/sns' element={<SNS />} />
+        <Route path='/users/*' element={<UserUpdate />} />
       </Routes>
     </div>
   )
