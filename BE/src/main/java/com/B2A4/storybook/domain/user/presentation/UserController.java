@@ -27,4 +27,10 @@ public class UserController {
     public SignUpResponse signUpUser(@RequestBody @Valid SignUpUserRequest signUpUserRequest, HttpServletResponse response) {
         return userService.signUp(signUpUserRequest, response);
     }
+
+    @Operation(summary = "로그아웃")
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse response) {
+        userService.logout(response);
+    }
 }

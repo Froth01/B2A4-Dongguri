@@ -8,6 +8,7 @@ import com.B2A4.storybook.domain.user.domain.repository.UserRepository;
 import com.B2A4.storybook.domain.user.presentation.dto.request.SignUpUserRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
 import com.B2A4.storybook.global.security.JwtTokenProvider;
+import com.B2A4.storybook.global.utils.security.SecurityUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -48,4 +49,12 @@ public class UserService {
         return new SignUpResponse(user.getUserInfo(), false);
     }
 
+    @Transactional
+    public void logout(HttpServletResponse response) {
+        Long currentUserId = SecurityUtils.getCurrentUserId();
+        refreshTokenRepository.deleteByUserId(currentUserId);
+
+        jwtTokenProvider.setHeaderAccessTokenEmpty(response);
+        jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
+    }
 }
