@@ -29,7 +29,7 @@ const KakaoCallback = () => {
     };
 
     handleKakaoLogin();
-  }, [dispatch, navigate, location]);
+  }, [dispatch, navigate, location.search]);
 
   return <div>카카오 로그인 처리 중...</div>;
 };

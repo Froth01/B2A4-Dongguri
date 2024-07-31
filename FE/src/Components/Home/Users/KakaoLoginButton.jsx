@@ -10,7 +10,7 @@ const KakaoLoginButton = () => {
       script.crossOrigin = 'anonymous';
       script.onload = () => {
         if (window.Kakao) {
-          window.Kakao.init('65c79327b948613354ca939c2c67db0f'); 
+          window.Kakao.init('72f3a79dc0f4715f7c74c8706bc085f5'); 
         }
       };
       document.body.appendChild(script);
