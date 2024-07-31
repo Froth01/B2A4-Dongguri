@@ -1,16 +1,3 @@
-@font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'MangoDdobak-B';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
 
 .userform {
   width: 50%;
@@ -28,8 +15,8 @@
   display: flex;
   justify-content: center;
   margin: 5%;
-  width: 70%;
-  height: 50%;
+  width: 30vh;
+  height: 30vh;
   border-radius: 70%;
   overflow: hidden;
 }
