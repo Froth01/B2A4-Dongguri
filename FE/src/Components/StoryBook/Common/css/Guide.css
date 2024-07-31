@@ -1,5 +1,22 @@
 .guide { 
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.speechbubble {
+  /* display: block;  */
   height: 23vh;
+  position: absolute;
+}
+
+.guide-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* word-wrap: break-word; */
+  position: relative;
+  z-index: 1;
+  font-family: 'MangoDdobak-B';
 }

@@ -5,7 +5,7 @@ import CircleBtn from '../../Components/StoryBook/Common/CircleBtn'
 function StoryImgSelect() {
   return (
     <div>
-      <Guide />
+      <Guide page="storyImgSelect"/>
 
       <CircleBtn />
     </div>
