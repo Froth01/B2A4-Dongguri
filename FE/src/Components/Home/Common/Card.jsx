@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import './css/Card.css';
-import hachiwareImage from '../../../../public/img/sns/sample/hachiware.jpg';
+import hachiwareImage from '/img/sns/sample/hachiware.jpg';
 
 const Card = ({ content, tags }) => {
   if (!tags || !Array.isArray(tags)) {

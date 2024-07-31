@@ -18,8 +18,8 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
     );
   };
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+    <div className="f-modal-overlay" onClick={onClose}>
+      <div className="f-modal-content" onClick={e => e.stopPropagation()}>
         <h2>{type === 'followers' ? '팔로워' : '팔로우'}</h2>
         <ul className="user-list">
           {users.map(user => (

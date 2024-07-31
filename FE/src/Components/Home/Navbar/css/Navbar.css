@@ -1,37 +1,30 @@
-@font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'MangoDdobak-B';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
 
 .navbar {
   position: sticky;
   top: 0;
   display: flex;
   background-color: white;
-  box-shadow: 0px 5px 5px 5px lightgrey ;
+  box-shadow: 0px 2px 2px 2px rgba(121, 121, 121, 0.2) ;
   justify-content: space-between;
+  align-items: center;
   padding-left: 2%;
   padding-right: 2%;
-  height: 15vh;
+  width: 100%;
+  height: 15%;
+  box-sizing: border-box;
   z-index: 1000;
 }
 
 .logo{
   flex: 0 1 auto;
+  width: 15%;
+  height: 100%;
 }
 
 .logo img{
-  height: 100%;
   width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .menus {
@@ -100,15 +93,15 @@
   --nav-shadow-color: rgba(0, 0, 0, 0.2);
   --nav-shadow-width: 0 1px 5px;
   --nav-bg: #eee;
-  --nav-font-family: "Poppins", sans-serif;
+  --nav-font-family: "SUIT-Regular";
   --nav-default-scale: 0.8;
-  --nav-active-scale: 1;
+  --nav-active-scale: 2;
   --nav-position-left: 0;
   --nav-position-right: unset;
   /* if you want to change sides just switch one property */
   /* from properties to "unset" and the other to 0 */
   /* title */
-  --nav-title-size: 0.625em;
+  --nav-title-size: 50%;
   --nav-title-color: #777;
   --nav-title-padding-x: 1rem;
   --nav-title-padding-y: 0.25em;
@@ -116,10 +109,12 @@
   --nav-button-padding-x: 1rem;
   --nav-button-padding-y: 0.375em;
   --nav-button-border-radius: 0.375em;
-  --nav-button-font-size: 2.5vh;
+  --nav-button-font-size: 22px;
   --nav-button-hover-bg: #FCE73C;
   --nav-button-hover-text-color: black;
   --nav-button-distance: 0.875em;
+  --nav-button-height: 50%;
+  --nav-li-height: 50% !important; 
   /* underline */
   --underline-border-width: 0.0625em;
   --underline-border-color: #ccc;
@@ -129,7 +124,9 @@
 /* popup settings 👆 */
 
 .popup {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-rendering: optimizeLegibility;
   position: relative;
   flex: 0 1 auto;
@@ -145,8 +142,8 @@
   align-items: center;
   justify-content: center;
   background: var(--burger-bg);
-  width: 12vh;
-  height: 12vh;
+  width: 100%;
+  height: 80%;
   border-radius: var(--burger-btn-border-radius);
   border: none;
   cursor: pointer;
@@ -161,11 +158,12 @@
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  padding: 0.625rem 0.25rem;
+  padding: 5% 5%;
+  height: 100%;
   background: #eee;
   font-family: 'SUIT-Regular';
   color: black;
-  border-radius: 0.375rem;
+  border-radius: 8%;
   box-shadow: 0 1px 5px rgba(0,0,0,0.2);
   border: 0.0625rem solid #ccc;
   top: calc(
@@ -174,7 +172,11 @@
   left: -80%;
   right: 2%;
   transition: all 0.1s ease-in-out;
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.popup-window li {
+  height: 50%;
 }
 
 .popup-window ul {
@@ -186,6 +188,7 @@
 .popup-window ul button {
   outline: none;
   width: 100%;
+  height: 100%;
   border: none;
   background: none;
   display: flex;
@@ -224,13 +227,18 @@
 /* actions */
 
 .popup-window ul button:hover,
-.popup-window ul button:focus-visible,
-.popup-window ul button:hover svg,
-.popup-window ul button:focus-visible svg {
+.popup-window ul button:focus-visible {
   color: var(--nav-button-hover-text-color);
   background: var(--nav-button-hover-bg);
   font-weight: bold;
 }
+
+.popup-window ul button:active {
+  background-color: #e7d235;
+  box-shadow: 10px 5px 5px -5px #cebc34 inset;
+  transition: 0.05s;
+}
+
 
 .burger:hover {
   transform: scale(var(--burger-hover-scale));
@@ -262,7 +270,7 @@
 }
 
 .popup input:checked ~ nav {
-  transform: scale(var(--nav-active-scale));
+  transform: scale(1);
   visibility: visible;
   opacity: 1;
 }
