@@ -1,6 +1,7 @@
 package com.B2A4.storybook.domain.oauth.domain;
 
 import com.B2A4.storybook.domain.oauth.domain.vo.OauthMemberInfoVO;
+import com.B2A4.storybook.global.database.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
-public class OauthMember {
+public class OauthMember extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
