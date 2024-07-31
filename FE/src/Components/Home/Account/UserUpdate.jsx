@@ -1,3 +1,4 @@
+import UserForm from './UserForm'
 import './css/UserUpdate.css'
 import { useSelector } from 'react-redux'
 
@@ -6,9 +7,7 @@ function UserUpdate() {
 
   return (
     <div className='userupdate'>
-      <div>
-      {userInfo.id}
-      </div>
+      <UserForm userInfo={userInfo}/>
     </div>
   )
 }
