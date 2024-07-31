@@ -46,6 +46,10 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	implementation 'com.amazonaws:aws-java-sdk-s3control:1.12.469'
+
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {
