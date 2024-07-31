@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/file/**").permitAll()
                         .requestMatchers("/api/oauth/**").permitAll()
+                        .requestMatchers("/api/users/signup").permitAll()
                         .requestMatchers(SwaggerPatterns).permitAll()
                         .anyRequest().authenticated()
                 )
