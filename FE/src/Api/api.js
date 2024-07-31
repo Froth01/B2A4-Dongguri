@@ -2,7 +2,7 @@
 import axiosInstance from './AxiosIstance';
 
 // 로그인
-export const fetchLogin = (code, oauthServerType) => {
+export const fetchLogin = (oauthServerType, code) => {
   return axiosInstance.post(`/oauth/login/${oauthServerType}`, { code })
     .then(response => response.data)
     .catch(error => { throw error; });

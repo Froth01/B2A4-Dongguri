@@ -4,7 +4,7 @@ import { fetchLogin, fetchSignup } from '../Api/api'
 // 비동기 로그인 액션
 export const login = createAsyncThunk('auth/login', async ({ oauthServerType, code }, { rejectWithValue }) => {
   try {
-    const data = await fetchLogin(code, oauthServerType);
+    const data = await fetchLogin(oauthServerType, code);
     return data;
   } catch (error) {
     return rejectWithValue(error.response.data);

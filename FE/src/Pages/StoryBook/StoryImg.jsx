@@ -10,7 +10,7 @@ function StoryImg() {
   return (
     <div className='storyimg'> 
       <div className='guide'>
-        <Guide />
+        <Guide page="storyImg"/>
       </div>
       <div className='content-wrapper'>
         <StoryImgBtn setIsUpload={setIsUpload}/>

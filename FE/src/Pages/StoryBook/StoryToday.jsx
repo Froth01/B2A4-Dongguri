@@ -1,6 +1,10 @@
+import Guide from "../../Components/StoryBook/Common/Guide"
+
 function StoryToday() {
   return (
-    <div>오늘의 주제입니답</div>
+    <div>
+      <Guide page="storyToday"/>
+    </div>
   )
 }
 

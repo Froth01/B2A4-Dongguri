@@ -1,13 +1,27 @@
+import { useSelector } from "react-redux"
+import PropTypes from 'prop-types';
 import './css/Guide.css'
+import { selectDialogs } from "../../../slices/guideSlice"
 
-function Guide() {
+const Guide = ({ page }) => {
+  const dialogs = useSelector(selectDialogs)
+
   return (
-    <div className="guide">
-      {/* 유저가 키우는 동그리 이미지 불러오기 */}
-      {/* 유저 이름 대사에 나오도록 하기 */}
-      <img src="/img/storybook/common/SpeechBubble.png" alt="말풍선" />
+    <div className="guide-box">
+      {dialogs[page] && dialogs[page].map((dialog,index) => (
+        <div key={index} className="guide">
+          <div className="speechbubble" >
+            <img src="/img/storybook/common/SpeechBubble.png" alt="" />
+          </div>
+          <div className="guide-text">{dialog}</div>
+        </div>
+      ))}
     </div>
   )
 }
+
+Guide.propTypes = {
+  page: PropTypes.string.isRequired,
+};
 
 export default Guide
