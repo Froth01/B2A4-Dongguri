@@ -27,9 +27,9 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/test").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/file/**").permitAll()
+                        .requestMatchers("/api/oauth/**").permitAll()
                         .requestMatchers(SwaggerPatterns).permitAll()
                         .anyRequest().authenticated()
                 )
