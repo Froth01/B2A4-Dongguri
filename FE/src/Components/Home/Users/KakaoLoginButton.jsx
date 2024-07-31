@@ -11,7 +11,6 @@ const KakaoLoginButton = () => {
       script.onload = () => {
         if (window.Kakao) {
           window.Kakao.init('65c79327b948613354ca939c2c67db0f'); 
-          displayToken();
         }
       };
       document.body.appendChild(script);
@@ -23,35 +22,8 @@ const KakaoLoginButton = () => {
   const loginWithKakao = () => {
     if (window.Kakao) {
       window.Kakao.Auth.authorize({
-        // redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-        redirectUri: 'http://localhost:5173/',
+        redirectUri: 'http://localhost:5173/kakao-callback',  // 리디렉션 URI 설정
       });
-    }
-  };
-
-  const displayToken = () => {
-    const token = getCookie('authorize-access-token');
-
-    if (token) {
-      window.Kakao.Auth.setAccessToken(token);
-      window.Kakao.Auth.getStatusInfo()
-        .then((res) => {
-          if (res.status === 'connected') {
-            document.getElementById('token-result').innerText
-              = 'login success, token: ' + window.Kakao.Auth.getAccessToken();
-          }
-        })
-        .catch((error) => {
-          error,
-          window.Kakao.Auth.setAccessToken(null);
-        });
-    }
-  };
-
-  const getCookie = (name) => {
-    const parts = document.cookie.split(name + '=');
-    if (parts.length === 2) {
-      return parts[1].split(';')[0];
     }
   };
 
@@ -60,7 +32,6 @@ const KakaoLoginButton = () => {
       <button id="kakao-login-btn" onClick={loginWithKakao}>
         <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" alt="카카오 로그인 버튼" />
       </button>
-      <p id="token-result"></p>
     </div>
   );
 };

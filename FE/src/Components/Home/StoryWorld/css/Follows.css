@@ -1,0 +1,11 @@
+.follows {
+  width: 20%;
+  font-family: 'SUIT-Regular';
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.following {
+  background-color: #FCE73C;
+}

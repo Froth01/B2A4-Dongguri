@@ -2,11 +2,20 @@ import { Link } from 'react-router-dom'
 import './css/Navbar.css'
 import Menu from './Menu'
 import UserImg from '../Common/UserImg'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserId } from '../../../slices/navBarBtnSlice'
 
 function Navbar() {
   const navBarBtnList = useSelector(state => state.navBarBtn.list)
   const userInfo = useSelector(state => state.userInfo.object)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (userInfo.id) {
+      dispatch(setUserId(userInfo.id));
+    }
+  },[userInfo.id,dispatch]);
+
   return (
     <div className='navbar'>
       <div className='logo pulse-shrink'>
@@ -25,7 +34,7 @@ function Navbar() {
       <label className="popup">
         <input type="checkbox" />
         <div tabIndex="0" className="burger">
-          <UserImg />
+          <UserImg userInfo={userInfo}/>
         </div>
         <nav className="popup-window">
           <ul>

@@ -16,7 +16,7 @@ const StoryKeyword = () => {
 
   return (
     <div className="storykeyword">
-      <Guide />
+      <Guide page="storyKeyword"/>
       <div className="content-wrapper">
         <StoryImgBtn />
         <div className="keyword-input-grid">

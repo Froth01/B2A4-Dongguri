@@ -7,6 +7,7 @@ import mainBtnReducer from './slices/mainBtnSlice';
 import genreBtnReducer from './slices/genreBtnSlice';
 import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
+import guideReducer from './slices/guideSlice';
 
 // persist 설정
 const persistConfig = {
@@ -26,8 +27,14 @@ const store = configureStore({
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
     userInfo: userInfoReducer,
-    auth: persistedReducer    // persistor를 적용한 리듀서 사용
+    auth: persistedReducer,    // persistor를 적용한 리듀서 사용
+    guide: guideReducer,
   },
+  middleware: getDefaultMiddleware => getDefaultMiddleware({
+    serializableCheck: {   // 직렬화 가능성 검사
+      ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'], // 직렬화 가능성 검사 제외 액션 타입 지정
+    },
+  }),
 });
 
 // persistor를 만들어서 store와 함께 export

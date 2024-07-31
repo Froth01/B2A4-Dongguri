@@ -1,0 +1,82 @@
+
+.userform {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 3% 5% 3% 5%;
+  border: 5px solid #FCE73C;
+  border-radius: 30px;
+}
+
+.userprofileimg {
+  display: flex;
+  justify-content: center;
+  margin: 5%;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 70%;
+  overflow: hidden;
+}
+
+.userprofileimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.input {
+  border-radius: 10px;
+  outline: 4px solid #FCE73C;
+  height: 40%;
+  border: 0;
+  font-family: 'SUIT-Regular';
+  font-size: 17px;
+  background-color: #ffffff;
+  outline-offset: 3px;
+  padding: 10px 1rem;
+  transition: 0.25s;
+}
+
+.input:focus {
+  outline-offset: 5px;
+  background-color: #fff
+}
+
+.nickname {
+  font-family: 'SUIT-Regular';
+  font-weight: bold;
+  width: 60%;
+  height: 17%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nickname label {
+  font-size: 20px;
+}
+
+.updatebtn {
+  background: #FCE73C;
+  font-family: 'SUIT-Regular';
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+}
+
+.updatebtn:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.updatebtn:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
+}
