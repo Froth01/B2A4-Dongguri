@@ -22,11 +22,13 @@ public enum ErrorCode {
 
     /* 403 */
     REGISTER_EXPIRED_TOKEN(403,"만료된 리프레쉬 토큰입니다."),
+    USER_INFO_NOT_FOUND(404, "회원가입을 진행해 주세요."),
 
     /* 404 NOT_FOUND : Resource를 찾을 수 없음 */
     USER_NOT_FOUND(404, "해당하는 정보의 사용자를 찾을 수 없습니다."),
     NO_ERROR_TYPE(404, "오류 발생"),
     FILE_EMPTY(404, "업로드 된 파일을 찾을 수 없습니다."),
+    OAUTH_MEMBER_NOT_FOUND(404, "해당하는 로그인 정보를 찾을 수 없습니다."),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러");
