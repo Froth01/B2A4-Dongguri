@@ -9,6 +9,7 @@ import StoryImg from './StoryImg'
 import StoryImgSelect from './StoryImgSelect'
 import StoryKeyword from './StoryKeyword'
 import StoryEnd from './StoryEnd'
+import StoryRecord from './StoryRecord'
 
 function StoryBook() {
   return (
@@ -24,6 +25,7 @@ function StoryBook() {
           <Route path="storyimg/storyimgselect" element={<StoryImgSelect />} />
           <Route path="storykeyword" element={<StoryKeyword />} />
           <Route path="storyend" element={<StoryEnd />} />
+          <Route path="storyrecord" element={<StoryRecord />} />
       </Routes>
   
 

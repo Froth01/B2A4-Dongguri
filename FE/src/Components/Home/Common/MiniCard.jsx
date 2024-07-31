@@ -1,20 +1,24 @@
-import PropTypes from 'prop-types'
-import './css/MiniCard.css'
+import PropTypes from 'prop-types';
+import './css/MiniCard.css';
 
+function MiniCard({ num, handleCardClick }) {
+  const handleClick = () => {
+    handleCardClick(num);
+  };
 
-function MiniCard({num}) {
   return (
-    <div className='minicard'>
+    <div className='minicard' onClick={handleClick}>
       <div className='minicardimg'>
-        minicard,{num}
+        minicard, {num}
       </div>
       <h3 className='hash'>#미니카드</h3>
     </div>
-  )
+  );
 }
 
 MiniCard.propTypes = {
   num: PropTypes.string.isRequired,
-}
+  handleCardClick: PropTypes.func.isRequired,
+};
 
-export default MiniCard
+export default MiniCard;

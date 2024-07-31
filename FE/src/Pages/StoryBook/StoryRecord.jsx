@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Guide from "../../Components/StoryBook/Common/Guide";
 import Card from "../../Components/Home/Common/Card";
 import "./css/StoryEnd.css";
-import ReplayBtn from '../../Components/StoryBook/Common/ReplayBtn';
+import RecordBtn from '../../Components/StoryBook/Common/RecordBtn';
 
-function StoryEnd() {
+function StoryRecord() {
   // eslint-disable-next-line no-unused-vars
   const [isUpload, setIsUpload] = useState(false);
 
@@ -19,11 +19,11 @@ function StoryEnd() {
       <div>
         <Guide />
         <div>
-          <ReplayBtn setIsUpload={setIsUpload} />
+          <RecordBtn setIsUpload={setIsUpload} />
         </div>
       </div>
     </>
   );
 }
 
-export default StoryEnd;
+export default StoryRecord;

@@ -12,8 +12,21 @@
   background-color: pink;
   width: 80%;
   height: 80%;
+
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+  
 }
 
-.hash {
+/* .hash {
   margin-top: 4%;
+}
+
+.minicard:hover {
+  opacity: 0.7;
+} */
+
+.minicard:hover .minicardimg {
+  opacity: 0.7;
 }

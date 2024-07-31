@@ -1,0 +1,47 @@
+.card-container {
+  flex: 1;
+  background-color: rgb(255, 251, 241);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.card-image {
+  flex: 1;  /* flex를 사용하여 높이 비율을 조정 */
+  width: 100%;
+}
+
+.card-story {
+  flex: 1;  /* 여기에도 같은 값의 flex를 부여하여 이미지와 같은 비율로 높이를 설정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.card-storyline {
+  text-align: left;
+}
+
+.card-tag-list {
+  margin-top: auto;
+  padding-bottom: 10px;
+  display: flex;
+}
+
+.tags {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.card-record-listen {
+  margin-left: auto;
+}
+
+.community-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+}

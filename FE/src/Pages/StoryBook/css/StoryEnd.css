@@ -1,0 +1,34 @@
+/* Guide 컴포넌트 스타일 */
+.guide {
+  padding: 20px; /* 내부 여백 */
+  font-size: 16px; /* 글씨 크기 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+/* Card 컴포넌트 스타일 */
+.card {
+  background-color: #fff; /* 배경색 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 그림자 */
+  padding: 20px; /* 내부 여백 */
+  border-radius: 15px; /* 모서리 둥글게 */
+  display: flex; /* 자식 요소를 가로로 배열 */
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 20px; /* 자식 요소 사이의 간격 */
+}
+
+/* CircleBtn 컴포넌트 스타일 */
+.circle-btn {
+  background-color: #ff0; /* 버튼 배경색 */
+  width: 50px; /* 너비 */
+  height: 50px; /* 높이 */
+  border-radius: 50%; /* 원형 */
+  color: black; /* 글자 색상 */
+  display: flex; /* 내부 요소를 flex로 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  font-size: 14px; /* 글씨 크기 */
+  cursor: pointer; /* 마우스 오버 시 포인터 */
+  margin: 10px; /* 여백 */
+}
