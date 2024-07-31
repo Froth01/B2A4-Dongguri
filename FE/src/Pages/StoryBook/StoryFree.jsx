@@ -6,7 +6,9 @@ function StoryFree() {
   return (
     <div className="storyfree">
       <Guide page='storyFree' />
-      <NextBtn to='storygenre' />
+      <div className='free-nextbtn'>
+        <NextBtn to='storygenre' />
+      </div>
     </div>
   )
 }
