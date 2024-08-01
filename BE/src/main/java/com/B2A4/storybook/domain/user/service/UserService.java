@@ -1,4 +1,4 @@
-package com.B2A4.storybook.domain.user.domain.service;
+package com.B2A4.storybook.domain.user.service;
 
 import com.B2A4.storybook.domain.oauth.domain.repository.OauthMemberRepository;
 import com.B2A4.storybook.domain.user.domain.RefreshToken;
