@@ -50,10 +50,8 @@ public class UserController {
     }
 
     @Operation(summary = "회원정보 수정")
-    @PatchMapping("/{userId}")
+    @PatchMapping()
     public UserProfileResponse updateUserProfile(
-            @Parameter(description = "링크 Id", in = PATH)
-            @PathVariable Long userId,
             @RequestBody @Valid UpdateUserRequest updateUserRequest,
             HttpServletResponse response) {
         return userService.updateUserProfile(updateUserRequest, response);
