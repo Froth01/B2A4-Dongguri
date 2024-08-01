@@ -58,4 +58,10 @@ public class UserController {
             HttpServletResponse response) {
         return userService.updateUserProfile(updateUserRequest, response);
     }
+
+    @Operation(summary = "닉네임 중복 체크")
+    @PostMapping("/check-nickname")
+    public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
+        return userService.checkNickname(nicknameCheckRequest);
+    }
 }

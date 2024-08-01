@@ -67,4 +67,15 @@ public class UserService {
 
         return new UserProfileResponse(user.getUserInfo());
     }
+
+    public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest, HttpServletResponse response) {
+        User user = userUtils.getUserFromSecurityContext();
+        user.updateUser(updateUserRequest.nickname(), updateUserRequest.profileImageUrl());
+        userRepository.save(user);
+        return new UserProfileResponse(user.getUserInfo());
+    }
+
+    public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
+        return new CheckNicknameResponse(userRepository.findByNickname(nicknameCheckRequest.nickname()).isEmpty());
+    }
 }
