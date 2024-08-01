@@ -35,8 +35,8 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
             </li>
           ))}
         </ul>
-        <button onClick={onClose} className="close-button">닫기</button>
       </div>
+      <button onClick={onClose} className="f-close-button">X</button>
     </div>
   );
 }
