@@ -31,6 +31,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    // 회원 가입
     @Transactional
     public SignUpResponse signUp(SignUpUserRequest signUpUserRequest, HttpServletResponse response) {
         User user = User.createUser(
@@ -53,6 +54,7 @@ public class UserService {
         return new SignUpResponse(user.getUserInfo(), false);
     }
 
+    // 회원 로그아웃
     @Transactional
     public void logout(HttpServletResponse response) {
         Long currentUserId = SecurityUtils.getCurrentUserId();
@@ -62,12 +64,14 @@ public class UserService {
         jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
     }
 
+    // 회원 정보 조회
     public UserProfileResponse getUserProfile(long userId) {
         User user = userUtils.getUserById(userId);
 
         return new UserProfileResponse(user.getUserInfo());
     }
 
+    // 회원 정보 수정
     @Transactional
     public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest, HttpServletResponse response) {
         User user = userUtils.getUserFromSecurityContext();
@@ -77,6 +81,7 @@ public class UserService {
         return new UserProfileResponse(user.getUserInfo());
     }
 
+    // 닉네임 중복 체크
     public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
         return new CheckNicknameResponse(userRepository.findByNickname(nicknameCheckRequest.nickname()).isEmpty());
     }
