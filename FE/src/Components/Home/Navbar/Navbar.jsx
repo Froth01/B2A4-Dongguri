@@ -41,13 +41,13 @@ function Navbar() {
             <li>
               <Link to={`/users/${userInfo.id}`}>
                 <button>
-                  <span>프로필 변경</span>
+                  프로필 변경
                 </button>
               </Link>
             </li>
             <li>
               <button>
-                <span>로그아웃</span>
+                로그아웃
               </button>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 .main { 
-  margin-top: 5vh;
-  height: 80vh;
+  margin-top: 2%;
+  height: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -9,5 +9,5 @@
 .mainbtn { 
   width: 30%;
   height: 40%;
-  margin: 0% 2% 2.5% 2%
+  margin: 1% 2% 1% 2%
 }

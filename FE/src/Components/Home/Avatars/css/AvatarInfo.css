@@ -1,9 +1,9 @@
 .avatarinfo {
   width: 90vw;
-  height: 35vh;
+  height: 30vh;
   display: flex;
   flex-direction: column;
-  margin: 3% 5% 3% 5%;
+  margin: 3% 5% 1% 5%;
 }
 
 .infodetail {
