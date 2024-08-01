@@ -5,8 +5,12 @@ import com.B2A4.storybook.domain.user.domain.RefreshToken;
 import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.domain.user.domain.repository.RefreshTokenRepository;
 import com.B2A4.storybook.domain.user.domain.repository.UserRepository;
+import com.B2A4.storybook.domain.user.presentation.dto.request.CheckNicknameRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.SignUpUserRequest;
+import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest;
+import com.B2A4.storybook.domain.user.presentation.dto.response.CheckNicknameResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
+import com.B2A4.storybook.domain.user.presentation.dto.response.UserProfileResponse;
 import com.B2A4.storybook.global.security.JwtTokenProvider;
 import com.B2A4.storybook.global.utils.security.SecurityUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
@@ -56,5 +60,11 @@ public class UserService {
 
         jwtTokenProvider.setHeaderAccessTokenEmpty(response);
         jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
+    }
+
+    public UserProfileResponse getUserProfile(long userId) {
+        User user = userUtils.getUserById(userId);
+
+        return new UserProfileResponse(user.getUserInfo());
     }
 }

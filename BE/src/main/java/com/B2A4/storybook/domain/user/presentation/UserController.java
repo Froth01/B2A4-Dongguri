@@ -33,4 +33,13 @@ public class UserController {
     public void logout(HttpServletResponse response) {
         userService.logout(response);
     }
+
+    @Operation(summary = "회원정보 조회")
+    @GetMapping("/{userId}")
+    public UserProfileResponse getUserProfile(
+            @Parameter(description = "유저 Id", in = PATH)
+            @PathVariable Long userId
+    ) {
+        return userService.getUserProfile(userId);
+    }
 }
