@@ -1,12 +1,16 @@
-package com.B2A4.storybook.domain.user.domain.service;
+package com.B2A4.storybook.domain.user.service;
 
 import com.B2A4.storybook.domain.oauth.domain.repository.OauthMemberRepository;
 import com.B2A4.storybook.domain.user.domain.RefreshToken;
 import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.domain.user.domain.repository.RefreshTokenRepository;
 import com.B2A4.storybook.domain.user.domain.repository.UserRepository;
+import com.B2A4.storybook.domain.user.presentation.dto.request.CheckNicknameRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.SignUpUserRequest;
+import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest;
+import com.B2A4.storybook.domain.user.presentation.dto.response.CheckNicknameResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
+import com.B2A4.storybook.domain.user.presentation.dto.response.UserProfileResponse;
 import com.B2A4.storybook.global.security.JwtTokenProvider;
 import com.B2A4.storybook.global.utils.security.SecurityUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
@@ -27,6 +31,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    // 회원 가입
     @Transactional
     public SignUpResponse signUp(SignUpUserRequest signUpUserRequest, HttpServletResponse response) {
         User user = User.createUser(
@@ -49,6 +54,7 @@ public class UserService {
         return new SignUpResponse(user.getUserInfo(), false);
     }
 
+    // 회원 로그아웃
     @Transactional
     public void logout(HttpServletResponse response) {
         Long currentUserId = SecurityUtils.getCurrentUserId();
@@ -56,5 +62,27 @@ public class UserService {
 
         jwtTokenProvider.setHeaderAccessTokenEmpty(response);
         jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
+    }
+
+    // 회원 정보 조회
+    public UserProfileResponse getUserProfile(long userId) {
+        User user = userUtils.getUserById(userId);
+
+        return new UserProfileResponse(user.getUserInfo());
+    }
+
+    // 회원 정보 수정
+    @Transactional
+    public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest, HttpServletResponse response) {
+        User user = userUtils.getUserFromSecurityContext();
+
+        user.updateUser(updateUserRequest.nickname(), updateUserRequest.profileImageUrl());
+
+        return new UserProfileResponse(user.getUserInfo());
+    }
+
+    // 닉네임 중복 체크
+    public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
+        return new CheckNicknameResponse(userRepository.findByNickname(nicknameCheckRequest.nickname()).isEmpty());
     }
 }
