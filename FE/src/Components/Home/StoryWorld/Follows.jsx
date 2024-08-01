@@ -27,13 +27,17 @@ function Follows({userInfo, currentUserId}) {
 
   return (
     <div className='follows'>
-      <div onClick={() => openModal('following')}>
-        <h2>1324</h2>
-        <h3>팔로우</h3>
+      <div className='followinfo' onClick={() => openModal('following')}>
+        <div className="follownum">
+          123123
+        </div>
+        <h2>팔로우</h2>
       </div>
-      <div onClick={() => openModal('followers')}>
-        <h2>113322</h2>
-        <h3>팔로워</h3>
+      <div className='followinfo' onClick={() => openModal('followers')}>
+        <div className="follownum">
+          123123
+        </div>
+        <h2>팔로워</h2>
       </div>
       {modalOpen && (
         <FollowModal 

@@ -16,7 +16,7 @@ function UserInfo({userInfo}) {
         <UserImg userInfo={userInfo}/>
       </div>
       <div className='userinfomiddle'>
-        <h1>{userInfo.name}</h1>
+        {userInfo.name}
       </div>
       {userInfo.name === 
       // 현재유저정보의 id값 
