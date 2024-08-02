@@ -8,6 +8,7 @@ import genreBtnReducer from './slices/genreBtnSlice';
 import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
+import makeStoryReducer from './slices/makeStorySlice';
 import imgReducer from './slices/imgSlice';
 
 // persist 설정
@@ -31,6 +32,7 @@ const store = configureStore({
     userInfo: persistedUserInfoReducer,
     auth: persistedAuthReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
+    makeStory: makeStoryReducer,
     image: imgReducer, 
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
