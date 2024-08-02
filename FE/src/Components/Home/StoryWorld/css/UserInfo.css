@@ -1,0 +1,28 @@
+.userinfo { 
+  display: flex;
+  justify-content: space-between;
+  margin: 1% 5%;
+  height: 15%;
+}
+
+.userinfoimg {
+  width: 7%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userinfoimg img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.userinfomiddle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 3%;
+  font-size: 30px;
+}

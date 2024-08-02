@@ -1,0 +1,19 @@
+.circlebtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  gap: 10%;
+}
+
+.circlebtn >a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+}
+
+.circlebtn > a> img {
+  height: 100%;
+}
+

@@ -1,0 +1,25 @@
+.pausebtn {
+  text-align: end;
+  height: 15%;
+  /* background-color: aqua; */
+  width: 100%;
+  margin: 0%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.pausebtn > button {
+  background-color: white;
+  border: none;
+  height: 80%; 
+  width: 10%; 
+  top: 3%;
+  right: 3%; 
+  padding: 0%;
+}
+
+.pausebtn img {
+  height: 100%; 
+}
+
