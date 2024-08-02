@@ -52,7 +52,7 @@ const SignupForm = () => {
           ...formData,
           profileImageUrl: imgUrlBack,
         });
-        setPreview(URL.createObjectURL(file));
+        setPreview(imgUrlBack);
       } catch (error) {
         console.log(error)
       }
