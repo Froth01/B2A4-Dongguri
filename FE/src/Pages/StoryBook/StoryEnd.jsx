@@ -12,17 +12,17 @@ function StoryEnd() {
   const sampleTags = ["tag1", "tag2", "tag3"];
 
   return (
-    <>
-      <div>
+    <div className='page-container end-wrapper'>
+      <div className='end-left'>
         <Card content={sampleContent} tags={sampleTags} />
       </div>
-      <div>
-        <Guide />
-        <div>
+      <div className='end-right'>
+        <Guide page="storyEnd"/>
+        <div className='replay-btn'>
           <ReplayBtn setIsUpload={setIsUpload} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

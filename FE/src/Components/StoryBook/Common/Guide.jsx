@@ -10,10 +10,8 @@ const Guide = ({ page }) => {
     <div className="guide-box">
       {dialogs[page] && dialogs[page].map((dialog,index) => (
         <div key={index} className="guide">
-          <div className="speechbubble" >
-            <img src="/img/storybook/common/SpeechBubble.png" alt="" />
-          </div>
-          <div className="guide-text">{dialog}</div>
+            <img className="speechbubble-img" src="/img/storybook/common/SpeechBubble.png" alt="" />
+          <div className="guide-text" style={{ whiteSpace: 'pre-line', lineHeight: '1.5'  }} >{dialog}</div>
         </div>
       ))}
     </div>

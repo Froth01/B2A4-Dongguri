@@ -7,15 +7,18 @@ function Modal({setModal}) {
     <div className='modal'>
       <div className='btn'> 
         <img src="/img/storybook/pausebtn/GoGoRing.png" alt="묻고 떠블로 가! 버튼" onClick={()=>setModal(false)}/>
-        <h3>계속하기</h3>
+        <h1>계속하기</h1>
       </div>
       
-      <div className='btn'> 
+      
         <Link to='/'>
+        <div className='btn'> 
           <img src="/img/storybook/pausebtn/Stop.png" alt="나가기 버튼" />  
+          <h1>나가기</h1>
+        </div>
         </Link>
-        <h3>나가기</h3>
-      </div>
+        
+      
     </div>
   )
 }

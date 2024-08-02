@@ -1,17 +1,8 @@
-.storyimg{
-  position: relative;
-}
-
-.clickable-image {
-  cursor: pointer;
-  max-width: 100%;
-  height: auto;
-}
-
 .storyimg {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 90%;
 }
 
 .image-container {
@@ -20,7 +11,6 @@
 }
 
 .base-image {
-  width: 90vh;
   object-fit: cover; /* 이미지 비율을 유지하며 크기 조정 */
 }
 

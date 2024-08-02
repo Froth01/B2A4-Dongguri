@@ -6,8 +6,8 @@ const NextBtn = ({ to, disabled = false}) => {
 
   return (
     <div className={`nextbtn ${disabled ? 'disabled':''}`}>
-      <Link to={ disabled ? '#' : to } >
-        <img src="/img/storybook/common/NextBtn.png" alt="다음 버튼" />
+      <Link to={ disabled ? '#' : to } className='next-link'>
+        <img src="/img/storybook/common/NextBtn.png" alt="다음 버튼" className='next-img' />
       </Link>
     </div>
   )

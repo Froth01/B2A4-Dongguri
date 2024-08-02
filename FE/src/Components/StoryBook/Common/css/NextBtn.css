@@ -1,7 +1,19 @@
-.nextbtn{
+.nextbtn, 
+.disabled{
   display: flex;
   justify-content: center;
-  margin-top: 15%;
-  width: 10vh;
-  height: 10vh;
+  /* margin-top: 15%; */
+  /* height: 100%; */
+  /* width: auto; */
 }
+
+/* .next-link{
+  justify-self: center;
+  align-self: center;
+} */
+
+
+/* .next-img{
+  width: 100%;
+  height: 100%;
+} */

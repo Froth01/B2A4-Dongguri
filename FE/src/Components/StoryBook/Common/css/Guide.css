@@ -1,16 +1,27 @@
-.guide { 
+.guide-box{
+  /* background-color: greenyellow; */
+  height: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.speechbubble {
-  /* display: block;  */
-  height: 23vh;
-  position: absolute;
+.guide-box > .guide { 
+  height: 80%;
+  margin: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
+.speechbubble-img {
+  height: 100%;
+  position: absolute;
+} 
+
 .guide-text {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,4 +31,4 @@
   z-index: 1;
   font-family: 'MangoDdobak-B';
   font-size: 3vh;
-}
+} 

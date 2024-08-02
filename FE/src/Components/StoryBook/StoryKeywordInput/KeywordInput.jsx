@@ -3,8 +3,8 @@ import './css/KeywordInput.css'
 
 const KeywordInput = ({value,onChange}) => {
   return (
-    <div className='keyworldinput'>
-      <input type="text" value={value} onChange={onChange} />
+    <div className='keywordinput'>
+      <input type="text" value={value} onChange={onChange} placeholder='예)잠자리'/>
     </div>
   )
 
