@@ -1,0 +1,106 @@
+/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+import './css/Card.css';
+
+const Card = ({ card }) => {
+  if (!card.keywords || !Array.isArray(card.keywords)) {
+    return <div>No tags available</div>;
+  }
+
+  return (
+    <div className="card-container">
+      <img src={card.transformImgUrl} alt={'minicard image'}  className="card-image" />
+      <div className="card-story">
+        <p className="card-storyline">{card.content}</p>
+        <div className="card-tag-list">
+          <div className="tags">
+            {card.keywords.map((keyword, index) => (
+              <h3 key={index} className='hash'>#{keyword}</h3>
+            ))}
+          </div>
+          <button className="card-record-listen">녹음듣기</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+Card.propTypes = {
+  card: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    isTodayKeyword: PropTypes.bool.isRequired,
+    keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
+    content: PropTypes.string.isRequired,
+    originalImgUrl: PropTypes.string.isRequired,
+    transformImgUrl: PropTypes.string.isRequired,
+    voiceRecord: PropTypes.string.isRequired,
+    isMine: PropTypes.bool.isRequired,
+    createdDate: PropTypes.string.isRequired,
+    modifiedDate: PropTypes.string
+  }),
+  handleCardClick: PropTypes.func.isRequired,
+};
+
+export default Card;
+
+
+
+
+
+.card-container {
+    flex: 1;
+    background-color: rgb(255, 251, 241);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .card-image {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .card-story {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .card-storyline {
+    font-size: 1.3rem;
+    text-align: left;
+  }
+  
+  .card-tag-list {
+    margin-top: auto;
+    padding-bottom: 10px;
+    display: flex;
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+  }
+  
+  .hash {
+    font-size: 1.5rem;
+  }
+  
+  .card-record-listen {
+    margin-left: auto;
+  }
+  
+  .community-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+  }
+  
