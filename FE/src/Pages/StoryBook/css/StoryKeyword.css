@@ -1,0 +1,32 @@
+
+.keyword-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  width: 100%;
+}
+
+.keyword-right{
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  width: 40%;
+}
+
+.keyword-input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2개의 열로 설정 */
+  width: 100%;
+  height: 40%;
+  grid-row-gap: 10%; /* 그리드 행 간의 간격 */
+  grid-column-gap: 5%; /* 그리드 열 간의 간격 */
+}
+
+.keyword-nextbtn {
+  margin-top: 10%;
+  height: 15%;
+}
+

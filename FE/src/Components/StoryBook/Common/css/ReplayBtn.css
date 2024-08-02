@@ -1,0 +1,23 @@
+.circlebtn-ver2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+  }
+  
+  .round-button {
+    width: 50%;
+    height: 80%;
+    background-color: yellow; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .round-button:hover {
+    background-color: yellowgreen;  /* 마우스 오버 시 배경색 변경 */
+  }

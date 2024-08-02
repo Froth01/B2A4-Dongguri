@@ -1,0 +1,21 @@
+.end-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+  width: 100%;
+}
+
+.end-left{
+  width: 50%;
+}
+
+.end-right{
+  width: 50%;
+}
+
+.replay-btn{
+  height: 50%;
+  width: 100%;
+  margin-top: 10%;
+}
