@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { login, signup } from '../../../slices/authSlice';
 import UserForm from '../Account/UserForm';
 import '../Account/css/UserForm.css'
+import './css/SignupForm.css'
 import { imgUpload } from '../../../slices/imgSlice';
 import { setUserObject } from '../../../slices/userInfoSlice';
 
@@ -72,9 +73,8 @@ const SignupForm = () => {
   };
 
   return (
-    <div>
-      {error && <p>{error.message}</p>}
-      <UserForm />
+    <div className='signupform'>
+      {/* {error && <p>{error.message}</p>} */}
       <form onSubmit={handleSubmit}>
         <input type="text" name="nickname" value={formData.nickname} onChange={handleChange} placeholder="닉네임" />
         <input type="file" name="profileImage"  onChange={handleImageChange} />

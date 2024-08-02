@@ -30,7 +30,7 @@ function Navbar() {
           </Link>
         ))}
       </div>
-      <div className='userimg'>
+      <div className='userimgdiv'>
       <label className="popup">
         <input type="checkbox" />
         <div tabIndex="0" className="burger">

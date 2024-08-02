@@ -10,7 +10,7 @@ function UserImg({userInfo}) {
 }
 
 UserImg.propTypes = {
-  userInfo:PropTypes.object.isRequired
+  userInfo:PropTypes.object
 }
 
 export default UserImg

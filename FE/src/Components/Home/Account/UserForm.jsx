@@ -1,14 +1,19 @@
 import './css/UserForm.css'
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUserObject } from '../../../slices/userInfoSlice';
+import { useNavigate } from 'react-router-dom';
 
 function UserForm({userInfo}) {
   const [nowNick, setNowNick] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (userInfo && userInfo.nickName) {
-      setNowNick(userInfo.nickName);
+    if (userInfo && userInfo.nickname) {
+      setNowNick(userInfo.nickname);
     }
     if (userInfo && userInfo.profileImageUrl) {
       setSelectedImage(userInfo.profileImageUrl);
@@ -29,13 +34,15 @@ function UserForm({userInfo}) {
 
   const handleFormSubmit = () => {
     // 업로드한 이미지와 수정된 닉네임을 유저정보에 저장하는 로직 구현
-    const updatedUserInfo = {
-      nickName: nowNick,
+    dispatch(setUserObject({
+      ...userInfo,
+      nickname: nowNick,
       profileImageUrl: selectedImage
-    };
+    }));
 
-    console.log('Updated User Info:', updatedUserInfo);
+    console.log('Updated User Info:', userInfo);
     // 예: API 요청을 통해 서버에 업데이트된 유저 정보를 보냅니다.
+    navigate('/')
   };
 
   return (
@@ -69,7 +76,7 @@ function UserForm({userInfo}) {
 
 UserForm.propTypes = {
   userInfo: PropTypes.shape({
-    nickName: PropTypes.string,
+    nickname: PropTypes.string,
     profileImageUrl: PropTypes.string
   })
 };
