@@ -1,5 +1,6 @@
 package com.B2A4.storybook.domain.user.service;
 
+import com.B2A4.storybook.domain.avatar.service.AvatarServiceUtils;
 import com.B2A4.storybook.domain.oauth.domain.repository.OauthMemberRepository;
 import com.B2A4.storybook.domain.user.domain.RefreshToken;
 import com.B2A4.storybook.domain.user.domain.User;
@@ -30,6 +31,7 @@ public class UserService {
     private final UserUtils userUtils;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final AvatarServiceUtils avatarServiceUtils;
 
     // 회원 가입
     @Transactional
@@ -42,6 +44,8 @@ public class UserService {
                 signUpUserRequest.oauthServerType()
         );
         userRepository.save(user);
+
+        avatarServiceUtils.createAllAvatars();
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId());
