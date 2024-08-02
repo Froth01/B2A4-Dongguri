@@ -9,3 +9,20 @@
 .following {
   background-color: #FCE73C;
 }
+
+.followinfo{
+  height: 100%;
+}
+
+.follownum {
+  height: 50%;
+  font-weight: bold;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.followinfo h2{
+  height: 50%;
+}

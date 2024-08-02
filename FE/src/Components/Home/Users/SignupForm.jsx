@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signup } from '../../../slices/authSlice';
+import UserForm from '../Account/UserForm';
+import '../Account/css/UserForm.css'
 
 const SignupForm = () => {
   const location = useLocation();
@@ -64,9 +66,8 @@ const SignupForm = () => {
   return (
     <div>
       {error && <p>{error.message}</p>}
+      <UserForm />
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" value={formData.name} readOnly placeholder="이름" />
-        <input type="email" name="email" value={formData.email} readOnly placeholder="이메일" />
         <input type="text" name="nickName" value={formData.nickName} onChange={handleChange} placeholder="닉네임" />
         <input type="file" name="profileImage" accept="image/*" onChange={handleImageChange} />
         {preview && <img src={preview} alt="프로필 미리보기" style={{ width: '100px', height: '100px' }} />}
