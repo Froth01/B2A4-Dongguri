@@ -1,5 +1,6 @@
 package com.B2A4.storybook.domain.user.domain;
 
+import com.B2A4.storybook.domain.avatar.domain.Avatar;
 import com.B2A4.storybook.domain.oauth.domain.OauthServerType;
 import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
 import com.B2A4.storybook.global.database.BaseEntity;
@@ -7,6 +8,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -20,6 +24,9 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Avatar> avatarList = new ArrayList<>();
 
     private String name;
     private String email;
