@@ -10,14 +10,17 @@ function StoryImg() {
   return (
     <div className='page-container'> 
       <Guide page="storyImg"/>
+
       <div className='img-wrapper'>
         <div className='img-upload'>
           <StoryImgBtn setIsUpload={setIsUpload}/>
         </div>
         <div className='img-nextbtn'>
             <NextBtn to='storyimgselect' disabled={!isUpload} />
-          </div>
       </div>
+      </div>
+
+      
     </div>
   )
 }
