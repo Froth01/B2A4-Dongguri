@@ -14,26 +14,40 @@ const Card = ({ card }) => {
     setShowOriginal(!showOriginal); // 상태 토글
   };
 
+  // 녹음듣기 기능 핸들러 (가정)
+  const handleListenRecording = () => {
+    console.log('Playing recording:', card.voiceRecord); // 실제 구현시에는 녹음 재생 로직 필요
+  };
+
   return (
-    <div className="card-container">
-      <img
-        src={showOriginal ? card.originalImgUrl : card.transformImgUrl}
-        alt={showOriginal ? 'Original image' : 'Transformed image'}
-        className="card-image"
-        onClick={toggleImage} // 이미지 클릭 시 이미지 전환
-      />
-      <div className="card-story">
-        <p className="card-storyline">{card.content}</p>
-        <div className="card-tag-list">
-          <div className="tags">
-            {card.keywords.map((keyword, index) => (
-              <h3 key={index} className='hash'>#{keyword}</h3>
-            ))}
-          </div>
-          <button className="card-record-listen">녹음듣기</button>
+<div className="card-container">
+  <img
+    src={showOriginal ? card.originalImgUrl : card.transformImgUrl}
+    alt={showOriginal ? 'Original image' : 'Transformed image'}
+    className="card-image"
+    onClick={toggleImage}
+  />
+  <div className="card-story">
+    <p className="card-storyline">{card.content}</p>
+    <div className="card-tag-mic-container">
+      <div className="tags-container">
+        <div className="tags" >
+          {card.keywords.map((keyword, index) => (
+            <h3 key={index} className='hash'>#{keyword}</h3>
+          ))}
         </div>
       </div>
+      <div className="mic-container">
+        <img
+          src="/img/sns/mic.png"
+          alt="녹음듣기"
+          className="card-record-listen"
+          onClick={handleListenRecording}
+        />
+      </div>
     </div>
+  </div>
+</div>
   );
 };
 
@@ -51,7 +65,6 @@ Card.propTypes = {
     createdDate: PropTypes.string.isRequired,
     modifiedDate: PropTypes.string
   }),
-  handleCardClick: PropTypes.func.isRequired, // 이 프롭은 사용되지 않고 있습니다. 필요 없다면 제거 가능
 };
 
 export default Card;

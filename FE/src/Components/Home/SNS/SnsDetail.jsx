@@ -5,14 +5,13 @@ import Community from './Community';
 
 function SnsDetail({ card, toggleModal, dummyList }) {
   const [emojiCounts, setEmojiCounts] = useState([0, 0, 0, 0]);
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
+  const [selectedEmoji, setSelectedEmoji] = useState(new Set()); // 초기화 수정
   const [comments, setComments] = useState([]);
   const modalRef = useRef(null);
 
   const handleEmojiClick = (index) => {
     let newCounts = emojiCounts.slice();
-
-    const updatedSelectedEmojis = new Set(selectedEmoji)  ;
+    const updatedSelectedEmojis = new Set(selectedEmoji);
     
     if (updatedSelectedEmojis.has(index)) {
       updatedSelectedEmojis.delete(index);
@@ -25,14 +24,13 @@ function SnsDetail({ card, toggleModal, dummyList }) {
     setSelectedEmoji(updatedSelectedEmojis);
     setEmojiCounts(newCounts);
   };
-  
 
   const handleAddComment = (newComment) => {
     setComments(prevComments => [...prevComments, newComment]);
   };
 
   const handleCloseClick = (e) => {
-    if (!modalRef.current.contains(e.target)) {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
       toggleModal();
     }
   };
@@ -49,8 +47,8 @@ function SnsDetail({ card, toggleModal, dummyList }) {
                 handleCardClick={() => {}}
               />
               <Community
+                cardId={card.id}
                 dummyList={dummyList}
-                storybookId={card.storybookId} // 카드의 storybookId를 Community로 전달
                 comments={comments}
                 handleAddComment={handleAddComment}
                 emojiCounts={emojiCounts}

@@ -9,11 +9,13 @@ function MiniCard({ card, handleCardClick }) {
   return (
     <div className='minicard' onClick={handleClick}>
       <div className='minicardimg'>
-      <img src={card.transformImgUrl} alt={'minicard image'} />
+        <img src={card.transformImgUrl} alt={'minicard image'} />
       </div>
-      {card.keywords.map((keyword, index) => (
-        <h3 key={index} className='hash'>#{keyword}</h3>
-      ))}
+      <div className='hash-container'>
+        {card.keywords.map((keyword, index) => (
+          <h3 key={index} className='hash'>#{keyword}</h3>
+        ))}
+      </div>
     </div>
   );
 }
