@@ -1,14 +1,15 @@
 .storygenrebtn {
+  /* background-color: blueviolet; */
   display: flex;
   justify-content: center;
-  gap: 3vh;
+  gap: 1%;
+  margin-top: 3%;
+  height: 55%;
 }
 
-.storygenrebtn a{
-  width: 35vh;
-  margin-top: 8%;
-}
 
 .storygenrebtn a img{
+  margin: 0%;
+  height: 100%;
   width: 100%;
 }

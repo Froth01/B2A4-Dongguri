@@ -9,7 +9,7 @@ function ReplayBtn() {
   ];
 
   return (
-    <div className="circlebtn">
+    <div className="circlebtn-ver2">
       {buttons.map((button, index) => (
         <Link to={button.to} key={index} className="round-button">
           {button.text}

@@ -14,16 +14,32 @@
   gap: 10%
 }
 
-.modal img {
-  cursor: pointer; /* 클릭 가능한 커서 설정 */
-  width: 25vh;
-  height: 25vh;
+.modal .btn {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  /* gap: 10px; */
 }
 
-.btn{
+.modal .btn img {
+  width: 50%;
+  height: 50%;
+  cursor: pointer; /* 클릭 가능한 커서 설정 */
+}
+
+.modal .btn a {
+  width: 100%;
+  height: 100%;
+  cursor: pointer; /* 클릭 가능한 커서 설정 */
+}
+
+
+/* .btn{
   display: flex;
   flex-direction: column;
   align-items: center;
   color: rgb(255, 255, 255);
-  gap: 3vh;
-}
+  gap: 3%;
+} */

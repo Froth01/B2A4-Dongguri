@@ -15,17 +15,23 @@ const StoryKeyword = () => {
   };
 
   return (
-    <div className="storykeyword">
+    <div className="page-container">
       <Guide page="storyKeyword"/>
-      <div className="content-wrapper">
+
+      <div className="keyword-wrapper">
         <StoryImgBtn />
-        <div className="keyword-input-grid">
-          {keywords.map((keyword, index) => (
-            <StoryKeywordInput key={index} value={keyword} onChange={(event) => handleChange(index, event)} />
-          ))}
+        <div className="keyword-right">
+          <div className="keyword-input-grid">
+            {keywords.map((keyword, index) => (
+              <StoryKeywordInput key={index} value={keyword} onChange={(event) => handleChange(index, event)} />
+            ))}
+          </div>
+          <div className="keyword-nextbtn">
+            <NextBtn to='/storybook/storyend' />
+          </div>
         </div>
       </div>
-      <NextBtn to='/storybook/storyend' />
+      
     </div>
   )
 }

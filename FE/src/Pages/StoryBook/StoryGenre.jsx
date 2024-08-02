@@ -3,10 +3,9 @@ import StoryGenreBtn from '../../Components/StoryBook/StoryGenreBtn/StoryGenreBt
 
 const StoryGenre = () => {
   return (
-    <div>
+    <div className="page-container">
       <Guide page="storyGenre"/>
       <StoryGenreBtn />
-
     </div>
   )
 }

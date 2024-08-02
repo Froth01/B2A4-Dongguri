@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Guide from "../../Components/StoryBook/Common/Guide";
 import Card from "../../Components/Home/Common/Card";
-import "./css/StoryEnd.css";
+import "./css/StoryRecord.css";
 import RecordBtn from '../../Components/StoryBook/Common/RecordBtn';
 
 function StoryRecord() {
@@ -12,17 +12,18 @@ function StoryRecord() {
   const sampleTags = ["tag1", "tag2", "tag3"];
 
   return (
-    <>
-      <div>
+    <div className='page-container record-wrapper'>
+      <div className='record-left'>
         <Card content={sampleContent} tags={sampleTags} />
       </div>
-      <div>
-        <Guide />
-        <div>
+      
+      <div className='record-right'>
+        <Guide page="storyRecode"/>
+        <div className='record-btn'>
           <RecordBtn setIsUpload={setIsUpload} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
