@@ -9,15 +9,17 @@ const KakaoCallback = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleKakaoLogin = async () => {
+      const handleKakaoLogin = async () => {
       const params = new URLSearchParams(location.search);
       const code = params.get('code');
 
       if (code) {
         try {
           const user = await dispatch(login({ oauthServerType: 'KAKAO', code })).unwrap();
-          if (!user.isRegistered) {
-            navigate('/signup', { state: { user } });
+          console.log(user.data.isFirst)
+          if (user.data.isFirst) {
+            console.log(user)
+            navigate('/signup', { state: { user , code: code }});
           } else {
             navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
           }
@@ -29,7 +31,7 @@ const KakaoCallback = () => {
     };
 
     handleKakaoLogin();
-  }, [dispatch, navigate, location.search]);
+  }, [dispatch, navigate, location]);
 
   return <div>카카오 로그인 처리 중...</div>;
 };

@@ -8,15 +8,17 @@ import genreBtnReducer from './slices/genreBtnSlice';
 import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
+import imgReducer from './slices/imgSlice';
 
 // persist 설정
 const persistConfig = {
   key: 'root', // 기본 키 이름
   storage,     // localStorage를 사용
-  whitelist: ['auth'] // 유지할 리듀서 설정 (예: userInfo)
+  whitelist: ['auth', 'userInfo'] // 유지할 리듀서 설정 (예: userInfo)
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const persistedUserInfoReducer = persistReducer(persistConfig, userInfoReducer);
 
 // persist reducer 설정
 
@@ -26,9 +28,10 @@ const store = configureStore({
     mainBtn: mainBtnReducer,
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
-    userInfo: userInfoReducer,
-    auth: persistedReducer,    // persistor를 적용한 리듀서 사용
+    userInfo: persistedUserInfoReducer,
+    auth: persistedAuthReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
+    image: imgReducer, 
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

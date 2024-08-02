@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchLogin, fetchSignup } from '../Api/api'
 
 // 비동기 로그인 액션
-export const login = createAsyncThunk('auth/login', async ({ oauthServerType, code }, { rejectWithValue }) => {
+export const login = createAsyncThunk((args) => `auth/login/${args.oauthServerType}`, async (args, { rejectWithValue }) => {
   try {
-    const data = await fetchLogin(oauthServerType, code);
+    const data = await fetchLogin(args.oauthServerType, args.code);
     return data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -12,9 +12,9 @@ export const login = createAsyncThunk('auth/login', async ({ oauthServerType, co
 });
 
 // 비동기 회원가입 액션
-export const signup = createAsyncThunk('auth/signup', async ({ name, email, nickName, profileImageUrl, oauthServerType }, { rejectWithValue }) => {
+export const signup = createAsyncThunk('auth/signup', async ({ name, email, nickname, profileImageUrl, oauthServerType }, { rejectWithValue }) => {
   try {
-    const data = await fetchSignup(name, email, nickName, profileImageUrl, oauthServerType);
+    const data = await fetchSignup(name, email, nickname, profileImageUrl, oauthServerType);
     return data;
   } catch (error) {
     return rejectWithValue(error.response.data);
