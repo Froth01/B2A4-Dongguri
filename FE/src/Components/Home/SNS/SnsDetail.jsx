@@ -3,35 +3,29 @@ import './css/SnsDetail.css';
 import Card from '../Common/Card';
 import Community from './Community';
 
-// eslint-disable-next-line react/prop-types
-function SnsDetail({ num, toggleModal }) {
+function SnsDetail({ card, toggleModal, dummyList }) {
   const [emojiCounts, setEmojiCounts] = useState([0, 0, 0, 0]);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   const [comments, setComments] = useState([]);
   const modalRef = useRef(null);
 
   const handleEmojiClick = (index) => {
-    let newCounts = emojiCounts.map((count, i) => {
-      if (i === index) {
-        return selectedEmoji === i ? count - 1 : count + 1;
-      } else if (i === selectedEmoji) {
-        return count - 1;
-      }
-      return count;
-    });
+    let newCounts = emojiCounts.slice();
 
-    setSelectedEmoji(selectedEmoji === index ? null : index);
+    const updatedSelectedEmojis = new Set(selectedEmoji)  ;
+    
+    if (updatedSelectedEmojis.has(index)) {
+      updatedSelectedEmojis.delete(index);
+      newCounts[index] -= 1;
+    } else {
+      updatedSelectedEmojis.add(index);
+      newCounts[index] += 1;
+    }
+  
+    setSelectedEmoji(updatedSelectedEmojis);
     setEmojiCounts(newCounts);
-
-    fetch("https://api/updateEmojiCounts", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emojiCounts: newCounts })
-    })
-    .then(response => response.json())
-    .then(data => console.log("DB Updated: ", data))
-    .catch(error => console.error('Error updating emoji counts:', error));
   };
+  
 
   const handleAddComment = (newComment) => {
     setComments(prevComments => [...prevComments, newComment]);
@@ -51,14 +45,12 @@ function SnsDetail({ num, toggleModal }) {
             <button className="close-button" onClick={toggleModal}>✕</button>
             <div className="modal-body">
               <Card 
-                imageSrc="/path/to/image.png"
-                content={`미니카드 ${num}번의 상세 내용`}
-                tags={["미니카드", `${num}번`]}
+                card={card}
+                handleCardClick={() => {}}
               />
               <Community
-                profileImg="/path/to/profile.png"
-                nickname="핫겸"
-                date="2024-07-29"
+                dummyList={dummyList}
+                storybookId={card.storybookId} // 카드의 storybookId를 Community로 전달
                 comments={comments}
                 handleAddComment={handleAddComment}
                 emojiCounts={emojiCounts}

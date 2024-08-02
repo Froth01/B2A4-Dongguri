@@ -1,23 +1,28 @@
 import PropTypes from 'prop-types';
 import './css/MiniCard.css';
 
-function MiniCard({ num, handleCardClick }) {
+function MiniCard({ card, handleCardClick }) {
   const handleClick = () => {
-    handleCardClick(num);
+    handleCardClick(card);
   };
 
   return (
     <div className='minicard' onClick={handleClick}>
       <div className='minicardimg'>
-        minicard, {num}
+      <img src={card.transformImgUrl} alt={'minicard image'} />
       </div>
-      <h3 className='hash'>#미니카드</h3>
+      {card.keywords.map((keyword, index) => (
+        <h3 key={index} className='hash'>#{keyword}</h3>
+      ))}
     </div>
   );
 }
 
 MiniCard.propTypes = {
-  num: PropTypes.string.isRequired,
+  card: PropTypes.shape({
+    keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
+    transformImgUrl: PropTypes.string.isRequired,
+  }),
   handleCardClick: PropTypes.func.isRequired,
 };
 

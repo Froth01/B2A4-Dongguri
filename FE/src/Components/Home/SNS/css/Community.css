@@ -1,0 +1,81 @@
+.community-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    overflow: hidden;
+  }
+  
+  .profile-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+
+  .nickname, .date {
+    margin-left: 10px;
+  }
+  
+  .nickname {
+    font-weight: bold;
+    font-size: large;
+  }
+  
+  .date {
+    padding-top: 0;
+    margin-top: 0;
+    padding-left: 20px;
+    color: #888;
+  }
+
+  .action-button {
+    margin-left: auto;
+  }
+  
+  .sns-comments {
+    flex: 7;  /* 코멘트 섹션 비율 */
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .comment-input {
+    width: 77%;
+    border: none;
+    padding: 15px 15px 5px 0px;
+  
+    outline: none;
+    border-bottom: 2px solid #777;
+  }
+  
+  .emojis {
+    flex: 2;  /* 이모지 섹션 비율 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3vw;
+    text-align: center;
+    margin-top: auto;
+    padding-bottom: 10px;
+  }
+  
+  .emoji img {
+    width: 5vw;
+    height: auto;
+    cursor: pointer;
+  }
+  
+  .emoji p {
+    margin-top: 5px;
+  }
+
+  .emoji img:hover {
+    opacity: 0.8; 
+  }

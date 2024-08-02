@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 import './css/Card.css';
 
 const Card = ({ card }) => {
-  const [showOriginal, setShowOriginal] = useState(false); // 이미지 상태를 관리하는 state
-
   if (!card.keywords || !Array.isArray(card.keywords)) {
     return <div>No tags available</div>;
   }
 
-  // 이미지 클릭 이벤트 핸들러
-  const toggleImage = () => {
-    setShowOriginal(!showOriginal); // 상태 토글
-  };
-
   return (
     <div className="card-container">
-      <img
-        src={showOriginal ? card.originalImgUrl : card.transformImgUrl}
-        alt={showOriginal ? 'Original image' : 'Transformed image'}
-        className="card-image"
-        onClick={toggleImage} // 이미지 클릭 시 이미지 전환
-      />
+      <img src={card.transformImgUrl} alt={'minicard image'}  className="card-image" />
       <div className="card-story">
         <p className="card-storyline">{card.content}</p>
         <div className="card-tag-list">
@@ -51,7 +39,68 @@ Card.propTypes = {
     createdDate: PropTypes.string.isRequired,
     modifiedDate: PropTypes.string
   }),
-  handleCardClick: PropTypes.func.isRequired, // 이 프롭은 사용되지 않고 있습니다. 필요 없다면 제거 가능
+  handleCardClick: PropTypes.func.isRequired,
 };
 
 export default Card;
+
+
+
+
+
+.card-container {
+    flex: 1;
+    background-color: rgb(255, 251, 241);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .card-image {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .card-story {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .card-storyline {
+    font-size: 1.3rem;
+    text-align: left;
+  }
+  
+  .card-tag-list {
+    margin-top: auto;
+    padding-bottom: 10px;
+    display: flex;
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+  }
+  
+  .hash {
+    font-size: 1.5rem;
+  }
+  
+  .card-record-listen {
+    margin-left: auto;
+  }
+  
+  .community-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+  }
+  

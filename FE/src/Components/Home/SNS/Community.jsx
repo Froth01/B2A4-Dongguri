@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import './css/SnsDetail.css';
-import cool from '../../../../public/img/sns/cool.png';
-import fun from '../../../../public/img/sns/fun.png';
-import good from '../../../../public/img/sns/good.png';
-import like from '../../../../public/img/sns/like.png';
-import chiikawaImage from '../../../../public/img/sns/sample/chiikawa.jpg'
+import './css/Community.css';
+import cool from '/img/sns/cool.png';
+import fun from '/img/sns/fun.png';
+import good from '/img/sns/good.png';
+import like from '/img/sns/like.png';
+// import chiikawaImage from '/img/sns/sample/chiikawa.jpg'
 import CommentItem from './CommentItem';
 
-const Community = ({ nickname, date, initialComments, emojiCounts, handleEmojiClick }) => {
+const Community = ({ dummyList, storybookId, emojiCounts, handleEmojiClick }) => {
     const [comments, setComments] = useState(initialComments || []); // 초기 댓글을 props로 받고, 없으면 빈 배열로 초기화
     const [commentText, setCommentText] = useState('');
 
@@ -44,13 +44,22 @@ const Community = ({ nickname, date, initialComments, emojiCounts, handleEmojiCl
         { img: like, alt: 'like', count: emojiCounts[3] }
     ];
 
+    const storybook = dummyList.find(book => book.storybookId === storybookId);
+    const profileImgUrl = storybook ? storybook.profileImgUrl : '';
+    const author = storybook ? storybook.author : '';
+    const createdDate = storybook ? storybook.createdDate : '';
+
     return (
         <div className="community-container">
             <div className="profile-section">
-                <img src={chiikawaImage} alt="예시 프로필" className="profile-image" />
-                <div className="nickname">{nickname}</div>
-                <div className="date">{date}</div>
-                <button className="share-button">공유하기</button>
+                <img src={profileImgUrl} alt="예시 프로필" className="profile-image" />
+                <div className="nickname">{author}</div>
+                <div className="date">{createdDate}</div>
+                <div className="action-button">
+                    <button className="share-button">공유하기</button>
+                    <button className="report-button">신고하기</button>
+                </div>
+                
             </div>
             <div className="sns-comments">
                 <form onSubmit={onCommentSubmit}>
