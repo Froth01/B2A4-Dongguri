@@ -1,18 +1,14 @@
-import { useState } from "react"
+// import { useState } from "react"
 import './css/StoryKeyword.css'
 import Guide from "../../Components/StoryBook/Common/Guide"
 import NextBtn from "../../Components/StoryBook/Common/NextBtn"
 import StoryKeywordInput from "../../Components/StoryBook/StoryKeywordInput/KeywordInput"
 import StoryImgBtn from "../../Components/StoryBook/StoryImg/StoryImgBtn"
+import { useSelector } from "react-redux"
+import { selectKeyword } from "../../slices/makeStorySlice"
 
 const StoryKeyword = () => {
-  const [keywords, setKeywords] = useState(['','','',''])
-
-  const handleChange = (index, event) => {
-    const newKeywords = [...keywords];
-    newKeywords[index] = event.target.value;
-    setKeywords(newKeywords);
-  };
+  const keywords = useSelector(selectKeyword)
 
   return (
     <div className="page-container">
@@ -23,7 +19,7 @@ const StoryKeyword = () => {
         <div className="keyword-right">
           <div className="keyword-input-grid">
             {keywords.map((keyword, index) => (
-              <StoryKeywordInput key={index} value={keyword} onChange={(event) => handleChange(index, event)} />
+              <StoryKeywordInput key={index} index={index} />
             ))}
           </div>
           <div className="keyword-nextbtn">
