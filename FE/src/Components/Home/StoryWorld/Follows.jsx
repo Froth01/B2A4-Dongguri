@@ -11,7 +11,9 @@ function Follows({userInfo, currentUserId}) {
     setModalType(type);
     setModalOpen(true);
   };
+  //비동기 팔로잉 목록 조회
 
+  //비동기 팔로워 목록 조회
   const dummyUsers = [
     { id: 2, name: "User 2", profileImg: "https://via.placeholder.com/50", isFollowing: true },
     { id: 3, name: "User 3", profileImg: "https://via.placeholder.com/50", isFollowing: false },

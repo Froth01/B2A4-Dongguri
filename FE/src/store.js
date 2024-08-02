@@ -10,6 +10,8 @@ import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
 import imgReducer from './slices/imgSlice';
+import followingReducer from './slices/followingSlice';
+import followersReducer from './slices/followersSlice';
 
 // persist 설정
 const persistConfig = {
@@ -34,6 +36,8 @@ const store = configureStore({
     guide: guideReducer,
     makeStory: makeStoryReducer,
     image: imgReducer, 
+    following: followingReducer,
+    followers: followersReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

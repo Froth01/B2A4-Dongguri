@@ -29,3 +29,8 @@ export const fetchImgUrl = (file) => {
     .then(response => response.data)
     .catch(error => { throw error; });
 }
+
+//팔로잉 조회
+export const fetchFollowing = () => {
+  
+}
