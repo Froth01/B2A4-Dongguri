@@ -2,14 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5vh;
+  width: 80%;
+  gap: 10%;
 }
 
-.circlebtn a{
-  width: 40vh;
-  margin-top: 10vh;
+.circlebtn >a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
 }
 
-.circlebtn a img{
-  width: 100%;
+.circlebtn > a> img {
+  height: 100%;
 }
+

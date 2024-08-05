@@ -1,8 +1,9 @@
 import StoryModeBtn from "../../Components/StoryBook/StoryMode/StoryModeBtn"
+// import './css/StoryMode.css'
 
 function StoryMode() {
   return (
-    <div className="container">
+    <div className="page-container">
       <StoryModeBtn />
     </div>
   )

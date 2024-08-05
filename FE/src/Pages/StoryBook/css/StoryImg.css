@@ -1,19 +1,25 @@
-.storyimg {
+.img-wrapper{
+  margin-left: 13%;
+  height: 70%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 5%;
+}
+
+.img-upload {
+  height: 100%;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.guide {
-  height: 20vh;
-  margin-top: 10%;
-}
 
-.content-wrapper {
+.img-nextbtn {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 5%; /* 이미지와 버튼 사이의 간격 조정 */
-  margin-top: 10%; /* 필요에 따라 조정 */
-  width: 100vh;
+  height: 15%;
+  width: 10%;
+  margin-bottom: 5%;
 }
-

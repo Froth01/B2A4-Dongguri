@@ -8,15 +8,15 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
   if (!isOpen) return null;
 
   const toggleFollow = (userId) => {
-    // 상태 업데이트: 불변성을 유지하기 위해 새로운 배열 생성
     setUsers(prevUsers =>
       prevUsers.map(user =>
         user.id === userId
-          ? { ...user, isFollowing: !user.isFollowing } // 상태 변경
+          ? { ...user, isFollowing: !user.isFollowing }
           : user
       )
     );
   };
+
   return (
     <div className="f-modal-overlay" onClick={onClose}>
       <div className="f-modal-content" onClick={e => e.stopPropagation()}>
@@ -27,7 +27,7 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
               <img src={user.profileImg} alt={user.name} className="user-avatar" />
               <span className="user-name">{user.name}</span>
               {type === 'followers' && user.id !== currentUserId && (
-                <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={()=> toggleFollow(user.id)} >
+                <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.id)}>
                   <span className="follow-text">{user.isFollowing ? '팔로우 중' : '팔로우'}</span>
                   <span className="unfollow-text">언팔로우</span>
                 </button>

@@ -8,16 +8,19 @@ function StoryImg() {
   const [isUpload, setIsUpload] = useState(false)
 
   return (
-    <div className='storyimg'> 
-      <div className='guide'>
-        <Guide page="storyImg"/>
-      </div>
-      <div className='content-wrapper'>
-        <StoryImgBtn setIsUpload={setIsUpload}/>
-        <div className='nextbtn'>
-          <NextBtn to='storyimgselect' disabled={!isUpload} />
+    <div className='page-container'> 
+      <Guide page="storyImg"/>
+
+      <div className='img-wrapper'>
+        <div className='img-upload'>
+          <StoryImgBtn setIsUpload={setIsUpload}/>
         </div>
+        <div className='img-nextbtn'>
+            <NextBtn to='storyimgselect' disabled={!isUpload} />
       </div>
+      </div>
+
+      
     </div>
   )
 }

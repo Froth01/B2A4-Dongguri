@@ -26,6 +26,7 @@
 .user-list {
   list-style-type: none;
   padding: 0;
+  margin: 0; /* 마진 초기화 */
 }
 .f-modal-content > h2{
   height: 10%;
@@ -43,6 +44,7 @@
   height: 80%;
   border-radius: 50%;
   margin-right: 10px;
+  flex-shrink: 0; /* 이미지 크기 고정 */
 }
 
 .user-name {
@@ -78,9 +80,10 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  width: 80px; /* 버튼 너비 고정 */
-  height: 32px; /* 버튼 높이 고정 */
+  width: 70px; /* 버튼 너비 줄이기 */
+  height: 30px; /* 버튼 높이 줄이기 */
   transition: background-color 0.3s ease;
+  font-size: 12px; /* 버튼 글자 크기 줄이기 */
 }
 
 .follow-button.following {
