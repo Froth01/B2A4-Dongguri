@@ -1,0 +1,65 @@
+package com.B2A4.storybook.domain.user.presentation;
+
+import com.B2A4.storybook.domain.user.presentation.dto.request.CheckNicknameRequest;
+import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest;
+import com.B2A4.storybook.domain.user.presentation.dto.response.CheckNicknameResponse;
+import com.B2A4.storybook.domain.user.presentation.dto.response.UserProfileResponse;
+import com.B2A4.storybook.domain.user.service.UserService;
+import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
+import com.B2A4.storybook.domain.user.presentation.dto.request.SignUpUserRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+
+@Tag(name = "유저", description = "유저 관련 API")
+@RestController
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
+public class UserController {
+    private final UserService userService;
+
+    @SecurityRequirements
+    @Operation(summary = "회원가입")
+    @PostMapping("/signup")
+    public SignUpResponse signUpUser(
+            @RequestBody @Valid SignUpUserRequest signUpUserRequest,
+            HttpServletResponse response) {
+        return userService.signUp(signUpUserRequest, response);
+    }
+
+    @Operation(summary = "로그아웃")
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse response) {
+        userService.logout(response);
+    }
+
+    @Operation(summary = "회원정보 조회")
+    @GetMapping("/{userId}")
+    public UserProfileResponse getUserProfile(
+            @Parameter(description = "유저 Id", in = PATH)
+            @PathVariable Long userId
+    ) {
+        return userService.getUserProfile(userId);
+    }
+
+    @Operation(summary = "회원정보 수정")
+    @PatchMapping()
+    public UserProfileResponse updateUserProfile(
+            @RequestBody @Valid UpdateUserRequest updateUserRequest,
+            HttpServletResponse response) {
+        return userService.updateUserProfile(updateUserRequest, response);
+    }
+
+    @Operation(summary = "닉네임 중복 체크")
+    @PostMapping("/check-nickname")
+    public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
+        return userService.checkNickname(nicknameCheckRequest);
+    }
+}
