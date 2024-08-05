@@ -42,7 +42,9 @@ public class StorybookService implements StorybookServiceUtils {
                 createStorybookRequest.isTodayKeyword()
         );
 
-        List<String> keywords = createStorybookRequest.keyword();
+        storybookRepository.save(storybook);
+
+        List<String> keywords = createStorybookRequest.keywords();
 
         for (String keyword : keywords) {
             Keyword keywordEntity = Keyword.createKeyword(storybook, keyword);
@@ -51,6 +53,8 @@ public class StorybookService implements StorybookServiceUtils {
 
 //        return new  StorybookResponse(storybook.getStorybookInfoVO(storybook, keywords))
         return null;
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, true);
+    }
     }
 
     @Override
