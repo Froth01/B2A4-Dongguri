@@ -9,7 +9,13 @@ import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
+
 import pathHistoryReducer from './slices/pathHistorySlice';import imgReducer from './slices/imgSlice';
+
+import imgReducer from './slices/imgSlice';
+import followingReducer from './slices/followingSlice';
+import followersReducer from './slices/followersSlice';
+
 
 // persist 설정
 // const persistConfig = {
@@ -54,9 +60,16 @@ const store = configureStore({
     auth: persistedAuthReducer, 
     // auth: persistedReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
+
     makeStory: persistedMakeStoryReducer,
     // makeStory: makeStoryPersistedReducer,
     pathHistory: persistedPathHistroyReducer,
+
+    makeStory: makeStoryReducer,
+    image: imgReducer, 
+    following: followingReducer,
+    followers: followersReducer,
+
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

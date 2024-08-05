@@ -40,3 +40,12 @@ export const transformStorybook = (formData) => {
     .then(response => response.data)
     .catch(error => { throw error; });
 };
+
+//팔로잉,팔로워 목록 조회
+export const fetchGetUserList = (userId,type) => {
+  console.log(userId, type)
+  return axiosInstance.get(`/users/${userId}/${type}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+}
+

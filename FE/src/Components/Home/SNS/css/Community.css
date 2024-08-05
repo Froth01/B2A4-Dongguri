@@ -1,0 +1,81 @@
+.community-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2%;  /* 패딩을 %로 조정 */
+  overflow: hidden;
+}
+
+.profile-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.profile-image {
+  width: 10%;  /* 너비를 %로 조정 */
+  height: auto;  /* 높이를 자동으로 조절하도록 변경 */
+  border-radius: 50%;  /* 원형 이미지 유지 */
+}
+
+.nickname, .date {
+  margin-left: 1%;  /* 마진을 %로 조정 */
+}
+
+.nickname {
+  font-weight: bold;
+  font-size: 2%;  /* 폰트 크기를 %로 조정 */
+}
+
+.date {
+  padding-top: 0;
+  margin-top: 0;
+  padding-left: 1%;  /* 패딩을 %로 조정 */
+  color: #888;
+}
+
+.action-button {
+  margin-left: auto;
+}
+
+.sns-comments {
+  flex: 7;  /* 코멘트 섹션 비율 유지 */
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;  /* 마진을 %로 조정 */
+}
+
+.comment-input {
+  width: 50%;  /* 너비 유지 */
+  border: none;
+  padding: 1% 1%;  /* 패딩을 %로 조정 */
+  outline: none;
+  border-bottom: 0.3%;  /* 하단 선을 백분율로 조정 */
+  margin: 0 auto;  /* 중앙 정렬 유지 */
+}
+
+.emojis {
+  flex: 2;  /* 이모지 섹션 비율 유지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+  text-align: center;
+  margin-top: auto;
+  padding-bottom: 2%;  /* 패딩을 %로 조정 */
+}
+
+.emoji img {
+  width: 10%;  /* 너비를 %로 조정 */
+  height: auto;  /* 높이 자동 조정 */
+  cursor: pointer;
+}
+
+.emoji p {
+  margin-top: 0.5%;  /* 마진을 %로 조정 */
+}
+
+.emoji img:hover {
+  opacity: 0.8;
+}
