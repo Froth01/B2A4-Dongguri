@@ -51,10 +51,62 @@ public class StorybookService implements StorybookServiceUtils {
             keywordRepository.save(keywordEntity);
         }
 
-//        return new  StorybookResponse(storybook.getStorybookInfoVO(storybook, keywords))
-        return null;
         return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, true);
     }
+
+    @Override
+    public StorybookResponse getStorybook(Long storybookId) {
+        User user = userUtils.getUserFromSecurityContext();
+        Storybook storybook = queryStorybook(storybookId);
+        boolean isMine = user.equals(storybook.getUser());
+
+        List<String> keywords = new ArrayList<>();
+        for (Keyword keyword : storybook.getKeywords()) {
+            keywords.add(keyword.getKeyword());
+        }
+
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, isMine);
+    }
+
+    @Override
+    public List<StorybookResponse> getStorybookListByUser(long userId) {
+        User user = userUtils.getUserById(userId);
+
+        List<Storybook> storybooks = storybookRepository.findByUser(user);
+
+        List<StorybookResponse> storybookResponseList = new ArrayList<>();
+        boolean isMine = user.equals(userUtils.getUserFromSecurityContext());
+        for (Storybook storybook : storybooks) {
+            List<String> keywords = new ArrayList<>();
+            for (Keyword keyword : storybook.getKeywords()) {
+                keywords.add(keyword.getKeyword());
+            }
+            storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywords, isMine));
+        }
+
+        return storybookResponseList;
+    }
+
+    @Override
+    public List<StorybookResponse> getStorybookListByKeyword(String keyword) {
+        User user = userUtils.getUserFromSecurityContext();
+
+        List<Keyword> keywords = keywordRepository.findByKeyword(keyword);
+
+        List<StorybookResponse> storybookResponseList = new ArrayList<>();
+        for (Keyword keywordEntity : keywords) {
+            Storybook storybook = keywordEntity.getStorybook();
+            List<String> keywordList = new ArrayList<>();
+            for (Keyword kw : storybook.getKeywords()) {
+                keywordList.add(kw.getKeyword());
+            }
+            boolean isMine = user.equals(storybook.getUser());
+            storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
+        }
+
+        return storybookResponseList;
+    }
+
     }
 
     @Override
