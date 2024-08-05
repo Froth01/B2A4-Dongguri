@@ -83,8 +83,8 @@ public class Storybook extends BaseEntity {
         );
     }
 
-    public void validUserIsHost(Long id) {
-        if (!user.getId().equals(id)) {
+    public void validUserIsHost(User user) {
+        if (!this.user.equals(user)) {
             throw UserNotStorybookHostException.EXCEPTION;
         }
     }
