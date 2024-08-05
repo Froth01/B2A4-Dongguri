@@ -9,7 +9,8 @@ import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
-import pathHistoryReducer from './slices/pathHistorySlice';
+import pathHistoryReducer from './slices/pathHistorySlice';import imgReducer from './slices/imgSlice';
+
 // persist 설정
 // const persistConfig = {
 //   key: 'root', // 기본 키 이름

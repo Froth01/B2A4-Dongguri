@@ -2,22 +2,23 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { signup } from '../../../slices/authSlice';
+import { login, signup } from '../../../slices/authSlice';
 import UserForm from '../Account/UserForm';
 import '../Account/css/UserForm.css'
+import { imgUpload } from '../../../slices/imgSlice';
+import { setUserObject } from '../../../slices/userInfoSlice';
 
 const SignupForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const initialUserData = location.state ? location.state.user : {};
+  const initialUserData = location.state ? location.state.user.data : {};
   const [formData, setFormData] = useState({
-    name: initialUserData.name || '',
-    email: initialUserData.email || '',
-    nickName: '',
+    name: `${initialUserData.name}`,
+    email:`${initialUserData.email}`,
+    nickname: '',
     profileImageUrl: '',
     oauthServerType: initialUserData.oauthServerType || 'KAKAO',
   });
-
   const [preview, setPreview] = useState(null);
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
@@ -40,27 +41,34 @@ const SignupForm = () => {
     });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData({
-        ...formData,
-        profileImageUrl: file,
-      });
-      setPreview(URL.createObjectURL(file));
+      try {
+        const resultAction = await dispatch(imgUpload(file))
+        const imgUrlBack = resultAction.payload
+        setFormData({
+          ...formData,
+          profileImageUrl: imgUrlBack,
+        });
+        setPreview(URL.createObjectURL(file));
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const formDataToSubmit = new FormData();
-    formDataToSubmit.append('name', formData.name);
-    formDataToSubmit.append('email', formData.email);
-    formDataToSubmit.append('nickName', formData.nickName);
-    formDataToSubmit.append('profileImageUrl', formData.profileImageUrl);
-    formDataToSubmit.append('oauthServerType', formData.oauthServerType);
-    
-    dispatch(signup(formDataToSubmit));
+    try {
+      // 회원가입 처리
+      const user = await dispatch(signup(formData)).unwrap();
+      // 유저 정보 저장
+      await dispatch(setUserObject(user.data)); // 유저 정보를 저장
+      navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
@@ -68,8 +76,8 @@ const SignupForm = () => {
       {error && <p>{error.message}</p>}
       <UserForm />
       <form onSubmit={handleSubmit}>
-        <input type="text" name="nickName" value={formData.nickName} onChange={handleChange} placeholder="닉네임" />
-        <input type="file" name="profileImage" accept="image/*" onChange={handleImageChange} />
+        <input type="text" name="nickname" value={formData.nickname} onChange={handleChange} placeholder="닉네임" />
+        <input type="file" name="profileImage"  onChange={handleImageChange} />
         {preview && <img src={preview} alt="프로필 미리보기" style={{ width: '100px', height: '100px' }} />}
         <button type="submit">회원가입</button>
       </form>

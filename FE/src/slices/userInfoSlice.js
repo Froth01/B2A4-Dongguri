@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState: {
@@ -16,11 +17,11 @@ const userInfoSlice = createSlice({
     },
   },
     reducers: {
-      setObject(state,action) {
+      setUserObject(state,action) {
         state.object = action.payload;
       }
     }
 });
 
-export const { setList } = userInfoSlice.actions;
+export const { setUserObject } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

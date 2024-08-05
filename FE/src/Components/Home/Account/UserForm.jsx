@@ -71,7 +71,7 @@ UserForm.propTypes = {
   userInfo: PropTypes.shape({
     nickName: PropTypes.string,
     profileImageUrl: PropTypes.string
-  }).isRequired
+  })
 };
 
 export default UserForm;
