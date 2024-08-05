@@ -14,3 +14,15 @@ export const fetchSignup = (name, email, nickName, profileImageUrl, oauthServerT
     .then(response => response.data)
     .catch(error => { throw error; });
 };
+
+
+// 동화 그림, 스토리 생성
+export const transformStorybook = (formData) => {
+  return axiosInstance.post('/api/storybooks/transform', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};

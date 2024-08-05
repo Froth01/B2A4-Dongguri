@@ -9,15 +9,37 @@ import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
-
+import pathHistoryReducer from './slices/pathHistorySlice';
 // persist 설정
-const persistConfig = {
-  key: 'root', // 기본 키 이름
-  storage,     // localStorage를 사용
-  whitelist: ['auth'] // 유지할 리듀서 설정 (예: userInfo)
+// const persistConfig = {
+//   key: 'root', // 기본 키 이름
+//   storage,     // localStorage를 사용
+//   whitelist: ['auth', 'makeStory'] // 유지할 리듀서 설정 (예: userInfo)
+// };
+
+const authPersistConfig = {
+  key: 'auth',
+  storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const makeStoryPersistConfig = {
+  key: 'makeStory',
+  storage,
+};
+
+const pathHistoryPersistConfig = {
+  key: 'pathHistroy',
+  storage,
+};
+
+
+// const persistedReducer = persistReducer(persistConfig, authReducer);
+// const makeStoryPersistedReducer = persistReducer(persistConfig, makeStoryReducer);
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedMakeStoryReducer = persistReducer(makeStoryPersistConfig, makeStoryReducer);
+const persistedPathHistroyReducer = persistReducer(pathHistoryPersistConfig, pathHistoryReducer);
+
 
 // persist reducer 설정
 
@@ -28,9 +50,12 @@ const store = configureStore({
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
     userInfo: userInfoReducer,
-    auth: persistedReducer,    // persistor를 적용한 리듀서 사용
+    auth: persistedAuthReducer, 
+    // auth: persistedReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
-    makeStory: makeStoryReducer,
+    makeStory: persistedMakeStoryReducer,
+    // makeStory: makeStoryPersistedReducer,
+    pathHistory: persistedPathHistroyReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사
