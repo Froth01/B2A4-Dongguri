@@ -27,7 +27,7 @@ const initialState = {
     storyEnd: [
       "새로 만든 그림과 동화 설명이 마음에 드니?\n마음에 들지 않으면 다시 해봐!"
     ],
-    storyRecode: [
+    storyRecord: [
        "그림과 동화 설명을 보고 \n직접 동화를 만들고 녹음해봐!"
     ],
 

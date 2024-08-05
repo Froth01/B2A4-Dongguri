@@ -47,7 +47,10 @@
     border-radius: 20px;
   }
   
-  .card-container, .community-container {
-    flex: 1;
-    /* padding: 10px; */
+  .card-container {
+      flex: 6;  /* 카드 컨테이너의 유연성을 6으로 설정 */
+  }
+
+  .community-container {
+      flex: 4;  /* 커뮤니티 컨테이너의 유연성을 4로 설정 */
   }
