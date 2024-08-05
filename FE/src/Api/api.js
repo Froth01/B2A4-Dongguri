@@ -30,6 +30,17 @@ export const fetchImgUrl = (file) => {
     .catch(error => { throw error; });
 }
 
+// 동화 그림, 스토리 생성
+export const transformStorybook = (formData) => {
+  return axiosInstance.post('/api/storybooks/transform', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
 //팔로잉,팔로워 목록 조회
 export const fetchGetUserList = (userId,type) => {
   console.log(userId, type)
@@ -37,3 +48,4 @@ export const fetchGetUserList = (userId,type) => {
     .then(response => response.data)
     .catch(error => { throw error; });
 }
+

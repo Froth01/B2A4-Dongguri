@@ -1,4 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import './css/StoryBook.css'
 import StoryMode from "./StoryMode"
 import PauseBtn from '../../Components/StoryBook/PauseBtn/PauseBtn'
@@ -10,8 +12,31 @@ import StoryImgSelect from './StoryImgSelect'
 import StoryKeyword from './StoryKeyword'
 import StoryEnd from './StoryEnd'
 import StoryRecord from './StoryRecord'
+import { resetStory } from '../../slices/makeStorySlice'
+import { addPath, resetPaths } from '../../slices/pathHistorySlice'
 
 function StoryBook() {
+  const location = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const resetPathsArray = ['/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', '/storybook/storytoday']
+    const fullResetPathsArray = ['http://localhost:5173/', '/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', ]
+    
+    console.log('Current Path:', location.pathname)
+    dispatch(addPath(location.pathname)) // 현재 경로를 경로 배열에 추가
+
+    if (resetPathsArray.includes(location.pathname)) {
+      console.log('Resetting Redux state and path history')
+      dispatch(resetStory())
+    }
+
+    if (fullResetPathsArray.includes(location.pathname)) {
+      console.log('Resetting path history')
+      dispatch(resetPaths())
+    }
+  }, [location, dispatch])
+  
   return (
     <div className='container'>
       <PauseBtn/>

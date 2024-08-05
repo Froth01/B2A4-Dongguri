@@ -1,11 +1,12 @@
-import {useState} from 'react'
 import './css/StoryImg.css'
 import Guide from "../../Components/StoryBook/Common/Guide"
 import NextBtn from "../../Components/StoryBook/Common/NextBtn"
 import StoryImgBtn from "../../Components/StoryBook/StoryImg/StoryImgBtn"
+import { useSelector } from 'react-redux'
+import { selectOriginalImageUrl } from '../../slices/makeStorySlice'
 
 function StoryImg() {
-  const [isUpload, setIsUpload] = useState(false)
+  const originalImageUrl = useSelector(selectOriginalImageUrl)
 
   return (
     <div className='page-container'> 
@@ -13,10 +14,10 @@ function StoryImg() {
 
       <div className='img-wrapper'>
         <div className='img-upload'>
-          <StoryImgBtn setIsUpload={setIsUpload}/>
+          <StoryImgBtn />
         </div>
         <div className='img-nextbtn'>
-            <NextBtn to='storyimgselect' disabled={!isUpload} />
+            <NextBtn to='storyimgselect' disabled={!originalImageUrl} />
       </div>
       </div>
 

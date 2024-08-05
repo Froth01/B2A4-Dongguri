@@ -25,7 +25,8 @@ const makeStorySlice = createSlice({
       state.genre = '';
       state.transformType = '';
       state.originalImageUrl = '';
-      state.keyword = [];
+      state.keyword = ['', '', '', ''];
+      localStorage.removeItem('uploadedImage')
     }
   }
 })
@@ -38,5 +39,6 @@ export const selectGenre = (state) => state.makeStory.genre;
 export const selectTransformType = (state) => state.makeStory.transformType;
 export const selectOriginalImageUrl = (state) => state.makeStory.originalImageUrl;
 export const selectKeyword = (state) => state.makeStory.keyword;
+export const selectMakeStory = (state) => state.makeStory;
 
 export default makeStorySlice.reducer;
