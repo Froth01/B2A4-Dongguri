@@ -32,6 +32,9 @@ public class Keyword {
     }
 
     public static Keyword createKeyword(Storybook storybook, String keyword) {
-        return null;
+        return builder()
+                .storybook(storybook)
+                .keyword(keyword)
+                .build();
     }
 }
