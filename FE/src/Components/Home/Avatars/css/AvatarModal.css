@@ -1,0 +1,132 @@
+/* FollowModal.css */
+.a-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  padding: 0% 0% 0% 0%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.a-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  height: 70%;
+  overflow: auto;
+}
+
+.user-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* 마진 초기화 */
+}
+.f-modal-content > h2{
+  height: 10%;
+}
+.user-item {
+  display: flex;
+  height: 15%;
+  align-items: center;
+  margin-bottom: 5%;
+  border-bottom: 2px solid #FCE73C;
+}
+
+.user-avatar {
+  width: 16%;
+  height: 80%;
+  border-radius: 50%;
+  margin-right: 10px;
+  flex-shrink: 0; /* 이미지 크기 고정 */
+}
+
+.user-name {
+  flex-grow: 1;
+  display: flex;
+  margin-left: 5%;
+  font-size: 20px;
+  align-items: center;
+}
+
+
+.f-close-button {
+  position: absolute;
+  right: 32%;
+  bottom: 82%;
+  margin-top: 10px;
+  padding: 5px 10px;
+  width: 3%;
+  height: 5%;
+  font-size: 30px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.follow-button {
+  padding: 5px 10px;
+  background-color: #eee;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 70px; /* 버튼 너비 줄이기 */
+  height: 30px; /* 버튼 높이 줄이기 */
+  transition: background-color 0.3s ease;
+  font-size: 12px; /* 버튼 글자 크기 줄이기 */
+}
+
+.follow-button.following {
+  background-color: #FFA8A8;
+}
+
+.follow-button .follow-text,
+.follow-button .unfollow-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.follow-button .unfollow-text {
+  opacity: 0;
+}
+
+.follow-button.following:hover {
+  background-color: #dc3545;
+}
+
+.follow-button.following:hover .follow-text {
+  opacity: 0;
+}
+
+.follow-button.following:hover .unfollow-text {
+  opacity: 1;
+}
+
+.f-modal-content::-webkit-scrollbar {
+  width: 10px;  
+}
+
+.f-modal-content::-webkit-scrollbar-thumb {
+  background: #FCE73C; /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.f-modal-content::-webkit-scrollbar-track {
+  background: rgba(49, 45, 16, 0.342);  /*스크롤바 뒷 배경 색상*/
+  border-radius: 30px;
+}

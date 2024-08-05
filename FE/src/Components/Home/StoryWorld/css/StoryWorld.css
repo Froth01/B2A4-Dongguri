@@ -2,13 +2,15 @@
   height: 85%;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow: scroll;
 }
 
 .myworlddiv {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  width: 90%;
+  min-height: 500px;
+  height: 100%;
+  margin: 0% 5%;
+
 }
 
 .minicardlistdiv {
