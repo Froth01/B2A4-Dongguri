@@ -2,80 +2,120 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 2%;  /* 패딩을 %로 조정 */
-  overflow: hidden;
 }
 
 .profile-section {
-  flex: 1;
   display: flex;
   align-items: center;
-  width: 100%;
+  flex: 1;
+}
+
+.profile-image-container {
+  width: 20%;
+  display: flex;
+  justify-content: center;
 }
 
 .profile-image {
-  width: 10%;  /* 너비를 %로 조정 */
-  height: auto;  /* 높이를 자동으로 조절하도록 변경 */
-  border-radius: 50%;  /* 원형 이미지 유지 */
+  width: 80%;
+  height: auto;
+  border-radius: 50%; 
 }
 
-.nickname, .date {
-  margin-left: 1%;  /* 마진을 %로 조정 */
-}
-
-.nickname {
+.author, .date {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
-  font-size: 2%;  /* 폰트 크기를 %로 조정 */
-}
+} 
 
 .date {
-  padding-top: 0;
-  margin-top: 0;
-  padding-left: 1%;  /* 패딩을 %로 조정 */
   color: #888;
 }
 
 .action-button {
-  margin-left: auto;
+  display: flex;
+  width: 50%;
+  height: 30%;
 }
 
-.sns-comments {
-  flex: 7;  /* 코멘트 섹션 비율 유지 */
+.comments-section {
   display: flex;
   flex-direction: column;
-  margin-top: 1%;  /* 마진을 %로 조정 */
+  flex: 7;
+}
+
+.comment-input-container {
+  flex: 1;
+}
+
+.comment-input-container form{
+  display: flex;
 }
 
 .comment-input {
-  width: 50%;  /* 너비 유지 */
+  width: 100%;
   border: none;
-  padding: 1% 1%;  /* 패딩을 %로 조정 */
   outline: none;
-  border-bottom: 0.3%;  /* 하단 선을 백분율로 조정 */
-  margin: 0 auto;  /* 중앙 정렬 유지 */
+  border-bottom: 2px solid #777;
 }
 
-.emojis {
-  flex: 2;  /* 이모지 섹션 비율 유지 */
+.comments-list {
+  flex: 9;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  overflow-y: auto; 
+  height: 100%;
+}
+
+.submit-comment-button {
+  border: none;
+  cursor: pointer;
+}
+  
+.emojis-section {
+  display: flex;
+  flex: 2;
+  justify-content: space-between;
   align-items: center;
-  gap: 3%;
-  text-align: center;
-  margin-top: auto;
-  padding-bottom: 2%;  /* 패딩을 %로 조정 */
+}
+
+.emoji {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
 }
 
 .emoji img {
-  width: 10%;  /* 너비를 %로 조정 */
-  height: auto;  /* 높이 자동 조정 */
+  width: 50%;
+  height: auto;
   cursor: pointer;
 }
 
 .emoji p {
-  margin-top: 0.5%;  /* 마진을 %로 조정 */
+  margin-top: 5%;
+  text-align: center; 
 }
 
 .emoji img:hover {
-  opacity: 0.8;
+  opacity: 0.8; 
+}
+
+
+
+.comment-item {
+  min-height: 10%;
+  max-height: 10%;
+  display: flex;
+  flex: 1;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-actions {
+    display: flex;
 }

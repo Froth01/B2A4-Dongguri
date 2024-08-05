@@ -1,0 +1,62 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  
+  .audio-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .play-btn, .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  
+  .time-display {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    background: #ccc;
+    outline: none;
+    transition: opacity .2s;
+    border-radius: 5px;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
+    cursor: pointer;
+  }
+  
+  .progress-indicator {
+  position: absolute;
+  top: 0;
+  width: 15px; /* 동그라미의 너비 */
+  height: 15px; /* 동그라미의 높이 */
+  border-radius: 50%; /* 동그라미 형태 */
+  background: red; /* 동그라미 색상 */
+  transform: translate(-50%, -50%); /* 동그라미를 가운데 정렬 */
+  pointer-events: none; /* 동그라미가 클릭 이벤트를 방지 */
+}
