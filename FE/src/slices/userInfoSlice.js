@@ -8,7 +8,7 @@ const userInfoSlice = createSlice({
       "id": 1,
       "email": "test1@testing.com",
       "name": "testname",
-      "nickName": "testandtest",
+      "nickname": "testandtest",
       "profileImageUrl": "/img/home/test.png",
       "oauthServerType": "KAKAO",
       "isFirst": true,

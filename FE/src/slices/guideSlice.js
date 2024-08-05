@@ -14,7 +14,7 @@ const initialState = {
     ],
     storyGenre: [
       "어떤 이야기가 좋아?\n하나 선택해줘!"
-    ], 
+    ],
     storyImg: [
       "동화에 넣을 그림을 자랑해줘!"
     ],

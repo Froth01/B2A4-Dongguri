@@ -2,15 +2,34 @@ import { useState } from 'react';
 import './css/Follows.css';
 import PropTypes from 'prop-types';
 import FollowModal from './FollowModal';
+import { fetchGetUserList } from '../../../Api/api';
 
 function Follows({userInfo, currentUserId}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('followers');
-
-  const openModal = (type) => {
+  const [userList, setUserList ] = useState([])
+  const openModal = async(type) => {
     setModalType(type);
+    const users = await getUsers(currentUserId, modalType);
+    setUserList(users)
     setModalOpen(true);
   };
+
+  //비동기 팔로잉 목록 조회
+  const getUsers = async(userId, type) => {
+    try {
+      const gaveUsers = await fetchGetUserList(userId, type).unwrap();
+      if (type === 'following') {
+        return gaveUsers.followings;
+      } else if (type === 'followers') {
+        return gaveUsers.followers;
+      } else {
+        return [];
+      }
+    } catch { 
+      error => { throw error; }
+    }
+  }
 
   const dummyUsers = [
     { id: 2, name: "User 2", profileImg: "https://via.placeholder.com/50", isFollowing: true },
@@ -44,7 +63,7 @@ function Follows({userInfo, currentUserId}) {
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           type={modalType}
-          users={dummyUsers}
+          users={userList}
           currentUserId={currentUserId}
         />
       )}
@@ -53,7 +72,8 @@ function Follows({userInfo, currentUserId}) {
 }
 
 Follows.propTypes = {
-  userInfo: PropTypes.object.isRequired
+  userInfo: PropTypes.object.isRequired,
+  currentUserId: PropTypes.number
 };
 
 export default Follows;

@@ -9,17 +9,44 @@ import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
+
+import pathHistoryReducer from './slices/pathHistorySlice';import imgReducer from './slices/imgSlice';
+
 import imgReducer from './slices/imgSlice';
+import followingReducer from './slices/followingSlice';
+import followersReducer from './slices/followersSlice';
+
 
 // persist 설정
-const persistConfig = {
-  key: 'root', // 기본 키 이름
-  storage,     // localStorage를 사용
-  whitelist: ['auth', 'userInfo'] // 유지할 리듀서 설정 (예: userInfo)
+// const persistConfig = {
+//   key: 'root', // 기본 키 이름
+//   storage,     // localStorage를 사용
+//   whitelist: ['auth', 'makeStory'] // 유지할 리듀서 설정 (예: userInfo)
+// };
+
+const authPersistConfig = {
+  key: 'auth',
+  storage,
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-const persistedUserInfoReducer = persistReducer(persistConfig, userInfoReducer);
+const makeStoryPersistConfig = {
+  key: 'makeStory',
+  storage,
+};
+
+const pathHistoryPersistConfig = {
+  key: 'pathHistroy',
+  storage,
+};
+
+
+// const persistedReducer = persistReducer(persistConfig, authReducer);
+// const makeStoryPersistedReducer = persistReducer(persistConfig, makeStoryReducer);
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedMakeStoryReducer = persistReducer(makeStoryPersistConfig, makeStoryReducer);
+const persistedPathHistroyReducer = persistReducer(pathHistoryPersistConfig, pathHistoryReducer);
+
 
 // persist reducer 설정
 
@@ -29,11 +56,20 @@ const store = configureStore({
     mainBtn: mainBtnReducer,
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
-    userInfo: persistedUserInfoReducer,
-    auth: persistedAuthReducer,    // persistor를 적용한 리듀서 사용
+    userInfo: userInfoReducer,
+    auth: persistedAuthReducer, 
+    // auth: persistedReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
+
+    makeStory: persistedMakeStoryReducer,
+    // makeStory: makeStoryPersistedReducer,
+    pathHistory: persistedPathHistroyReducer,
+
     makeStory: makeStoryReducer,
     image: imgReducer, 
+    following: followingReducer,
+    followers: followersReducer,
+
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

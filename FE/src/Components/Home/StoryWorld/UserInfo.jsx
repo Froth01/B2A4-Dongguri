@@ -9,6 +9,7 @@ function UserInfo({userInfo}) {
 
   //test
   const currentUserId = 1;
+  console.log(userInfo)
 
   return (
     <div className='userinfo'>
@@ -16,7 +17,7 @@ function UserInfo({userInfo}) {
         <UserImg userInfo={userInfo}/>
       </div>
       <div className='userinfomiddle'>
-        {userInfo.name}
+        {userInfo.nickname}
       </div>
       {userInfo.name === 
       // 현재유저정보의 id값 
