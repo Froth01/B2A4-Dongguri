@@ -1,5 +1,6 @@
 package com.B2A4.storybook.domain.storybook.service;
 
+import com.B2A4.storybook.domain.file.service.FileService;
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -25,6 +27,9 @@ public class StorybookService implements StorybookServiceUtils {
     private final StorybookRepository storybookRepository;
     private final KeywordRepository keywordRepository;
     private final UserUtils userUtils;
+    private final FileService fileService;
+
+    private final OpenApiUtils openApiUtils;
 
     @Transactional
     public StorybookResponse createStorybook(CreateStorybookRequest createStorybookRequest) {
@@ -107,6 +112,13 @@ public class StorybookService implements StorybookServiceUtils {
         return storybookResponseList;
     }
 
+    @Override
+    @Transactional
+    public void deleteStorybook(Long storybookId) {
+        User user = userUtils.getUserFromSecurityContext();
+        Storybook storybook = queryStorybook(storybookId);
+        storybook.validUserIsHost(user);
+        storybookRepository.delete(storybook);
     }
 
     @Override
