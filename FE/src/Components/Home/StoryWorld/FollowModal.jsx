@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId }) {
   const [users, setUsers ] = useState(initialUsers)
-
+  console.log(initialUsers)
   if (!isOpen) return null;
 
   const toggleFollow = (userId) => {
