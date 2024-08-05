@@ -1,6 +1,5 @@
 package com.B2A4.storybook.domain.storybook.presentation.dto.response;
 
-import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.storybook.domain.Genre;
 import com.B2A4.storybook.domain.storybook.domain.vo.StorybookInfoVO;
 
@@ -12,9 +11,15 @@ public record StorybookResponse(
         String content,
         String originalImageUrl,
         String transformedImageUrl,
+        String transparentImageUrl,
         String voiceRecording,
         boolean isTodayKeyword,
-        List<String> keywords
+        List<String> keywords,
+        boolean isMine
 ) {
-//    public Storybook(StorybookInfoVO storybookInfoVO, List<String> keywords)
+    public StorybookResponse(StorybookInfoVO storybookInfoVO, List<String> keywords, boolean isMine) {
+        this(storybookInfoVO.id(), storybookInfoVO.genre(), storybookInfoVO.content(), storybookInfoVO.originalImageUrl()
+                , storybookInfoVO.transformedImageUrl(), storybookInfoVO.transparentImageUrl(), storybookInfoVO.voiceRecordingUrl()
+                , storybookInfoVO.isTodayKeyword(), keywords, isMine);
+    }
 }
