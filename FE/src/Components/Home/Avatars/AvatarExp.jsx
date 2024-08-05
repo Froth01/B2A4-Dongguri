@@ -11,12 +11,12 @@ function AvatarExp() {
       <div className="expdetail">
         {[...Array(parseInt(done))].map((num) => (
           <div key={num} className="book">
-            <img src="/img/avatars/bookopen.png" alt="" />
+            <img src="/img/avatars/bookopen.png" alt="exp1" />
           </div>
         ))}
-        {[...Array(parseInt(10-done))].map((num) => (
+        {[...Array(parseInt(4,10-done))].map((num) => (
           <div key={num} className="book">
-            <img src="/img/avatars/bookclose.png" alt="" />
+            <img src="/img/avatars/bookclose.png" alt="exp0" />
           </div>
         ))}
       </div>

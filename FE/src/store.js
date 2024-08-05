@@ -10,8 +10,7 @@ import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
 
-import pathHistoryReducer from './slices/pathHistorySlice';import imgReducer from './slices/imgSlice';
-
+import pathHistoryReducer from './slices/pathHistorySlice';
 import imgReducer from './slices/imgSlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
