@@ -34,8 +34,9 @@ public class StorybookService implements StorybookServiceUtils {
     @Transactional
     public StorybookResponse createStorybook(CreateStorybookRequest createStorybookRequest) {
         User user = userUtils.getUserFromSecurityContext();
-        String transparentImageUrl = "투명 이미지 URL";
-        String voiceRecordingUrl = "녹음 파일 URL";
+        String transparentImageUrl = "투명이미지";
+        String voiceRecordingUrl = fileService.uploadAudio(createStorybookRequest.voiceRecordingFile()).url();
+
         Storybook storybook = Storybook.createStorybook(
                 user,
                 createStorybookRequest.genre(),

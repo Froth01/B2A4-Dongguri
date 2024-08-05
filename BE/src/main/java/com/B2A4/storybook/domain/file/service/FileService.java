@@ -34,14 +34,12 @@ public class FileService implements FileUtils {
 
     public UploadFileResponse uploadImage(MultipartFile file) {
         validateFile(file, IMAGE_SIZE, new String[]{"jpg", "HEIC", "jpeg", "png", "heic"});
-        String url = uploadToS3(file);
-        return new UploadFileResponse(url);
+        return new UploadFileResponse(uploadToS3(file));
     }
 
     public UploadFileResponse uploadAudio(MultipartFile file) {
         validateFile(file, AUDIO_SIZE, new String[]{"mp3"});
-        String url = uploadToS3(file);
-        return new UploadFileResponse(url);
+        return new UploadFileResponse(uploadToS3(file));
     }
 
     private void validateFile(MultipartFile file, int sizeThreshold, String[] exts) {
