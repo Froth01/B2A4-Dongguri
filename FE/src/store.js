@@ -10,12 +10,12 @@ import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
 
-import pathHistoryReducer from './slices/pathHistorySlice';import imgReducer from './slices/imgSlice';
+import pathHistoryReducer from './slices/pathHistorySlice';
 
 import imgReducer from './slices/imgSlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
-
+import representativeReducer from './slices/representativeSlice';
 
 // persist 설정
 // const persistConfig = {
@@ -39,6 +39,10 @@ const pathHistoryPersistConfig = {
   storage,
 };
 
+const representativePersistConfig = {
+  key: 'representative',
+  storage,
+};
 
 // const persistedReducer = persistReducer(persistConfig, authReducer);
 // const makeStoryPersistedReducer = persistReducer(persistConfig, makeStoryReducer);
@@ -46,7 +50,7 @@ const pathHistoryPersistConfig = {
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedMakeStoryReducer = persistReducer(makeStoryPersistConfig, makeStoryReducer);
 const persistedPathHistroyReducer = persistReducer(pathHistoryPersistConfig, pathHistoryReducer);
-
+const persistedRepresentativeReducer = persistReducer(representativePersistConfig, representativeReducer)
 
 // persist reducer 설정
 
@@ -60,17 +64,15 @@ const store = configureStore({
     auth: persistedAuthReducer, 
     // auth: persistedReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
-
     makeStory: persistedMakeStoryReducer,
-    // makeStory: makeStoryPersistedReducer,
     pathHistory: persistedPathHistroyReducer,
-
-    makeStory: makeStoryReducer,
+    // makeStory: makeStoryReducer,
     image: imgReducer, 
     following: followingReducer,
     followers: followersReducer,
+    representative : persistedRepresentativeReducer,
 
-  },
+  },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사
       ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'], // 직렬화 가능성 검사 제외 액션 타입 지정

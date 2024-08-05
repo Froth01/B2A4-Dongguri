@@ -49,3 +49,11 @@ export const fetchGetUserList = (userId,type) => {
     .catch(error => { throw error; });
 }
 
+// 대표동그리 조회
+export const fetchRepresentative = () => {
+  console.log()
+  return axiosInstance.get('/avatars/representative')
+  .then(response => response.data)
+  .catch(error => { throw error })
+}
+
