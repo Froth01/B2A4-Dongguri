@@ -35,7 +35,7 @@ const makeStoryPersistConfig = {
 };
 
 const pathHistoryPersistConfig = {
-  key: 'pathHistroy',
+  key: 'pathHistory',
   storage,
 };
 

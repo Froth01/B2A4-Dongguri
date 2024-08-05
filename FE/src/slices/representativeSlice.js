@@ -4,17 +4,19 @@ import { fetchRepresentative } from '../Api/api';
 const representativeSlice = createSlice({
   name: 'representative',
   initialState: {
+  object: {
     avatarId: '',
-    name: '',
-    exp: '',
-    isRepresentative: '',
-    avatarType: '',
-    avatarLevel: '',
-    displayLevel: ''
-  },
+      name: '동글동글동그리',
+      exp: '3',
+      isRepresentative: 'true',
+      avatarType: 'bini',
+      avatarLevel: 'TWO',
+      displayLevel: 'TWO'
+    }
+},
   reducers: {
     setRepresentative(state, action) {
-      state.representative = action.payload
+      state.object= action.payload
     }
   }
 })
@@ -23,12 +25,22 @@ const representativeSlice = createSlice({
 export const { setRepresentative } = representativeSlice.actions
 
 // selector
-export const selectRepresentative = (state) => state.representative
+export const selectRepresentative = (state) => state.representative.object
 
 // thunk
 export const representativeApi = () => async (dispatch) => {
   try {
-    const data = await fetchRepresentative();
+    // 더미
+    const data = {
+      avatarId: 1,
+      name: '동글동글동그리',
+      exp: 7,
+      isRepresentative: 'true',
+      avatarType: 'ili',
+      avatarLevel: 'TWO',
+      displayLevel: 'THREE'
+    };
+    // const data = await fetchRepresentative();
     dispatch(setRepresentative(data)); // 응답이 배열 형태이므로 첫 번째 요소를 사용
   } catch (error) {
     console.error('error', error);

@@ -62,7 +62,3 @@ export const fetchRepresentative = () => {
   .catch(error => { throw error })
 }
 
-//아바타 목록 조회
-export const fetchGetAvatarList = () => {
-  return axiosInstance.get
-}

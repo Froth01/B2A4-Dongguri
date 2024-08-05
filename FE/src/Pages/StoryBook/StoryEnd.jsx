@@ -14,6 +14,7 @@ function StoryEnd() {
     originalImgUrl: "/path/to/original/image.jpg"
   };
 
+
   return (
     <div className='page-container end-wrapper'>
       <div className='end-left'>

@@ -7,6 +7,7 @@ function Avatars() {
     <div className='avatars'>
       <AvatarInfo />
       <AvatarList />
+      {/* <AvatarRepresent /> */}
     </div>
   )
 }
