@@ -36,9 +36,9 @@ export const representativeApi = () => async (dispatch) => {
       name: '동글동글동그리',
       exp: 7,
       isRepresentative: 'true',
-      avatarType: 'ili',
+      avatarType: 'bini',
       avatarLevel: 'TWO',
-      displayLevel: 'THREE'
+      displayLevel: 'TWO'
     };
     // const data = await fetchRepresentative();
     dispatch(setRepresentative(data)); // 응답이 배열 형태이므로 첫 번째 요소를 사용

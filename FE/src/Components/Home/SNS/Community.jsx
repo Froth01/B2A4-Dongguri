@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './css/Community.css';
 import cool from '/img/sns/cool.png';
 import fun from '/img/sns/fun.png';
@@ -46,12 +46,15 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
             .filter(comment => comment.storybookId === cardId)
             .sort((a, b) => a.commentId - b.commentId);
         setComments(filteredComments);
+        console.log(filteredComments)
     }, [cardId]);
 
     const onUpdateComment = (commentId, newText) => {
-        const updatedComments = comments.map(comment =>
-            comment.commentId === commentId ? { ...comment, content: newText, modifiedDate: new Date().toISOString() } : comment
-        );
+        const updatedComments = comments.map((comment) => {
+            if (comment.commentId === commentId) {
+              comment = { ...comment, content: newText, modifiedDate: new Date().toISOString() }
+            }
+            });
         setComments(updatedComments);
     };
     

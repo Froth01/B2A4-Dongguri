@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 
 function StoryWorld() {
   const userInfo = useSelector(state => state.userInfo.object)
-
+  
   return (
     <div className='storyworld'>
       <UserInfo userInfo={userInfo}/>
@@ -15,7 +15,7 @@ function StoryWorld() {
       </div>
       <div className="minicardlistdiv">
         <h3>내가 만든 카드</h3>
-        <MiniCardList userInfo={userInfo}/>
+        <MiniCardList userInfo={userInfo} />
       </div>
     </div>
   )

@@ -62,3 +62,15 @@ export const fetchRepresentative = () => {
   .catch(error => { throw error })
 }
 
+// 내 카드리스트 조회
+export const fetchCardList = (getCardForm) => {
+  if (getCardForm.type === 'mine') {
+  return axiosInstance.get(`/storybooks/users/${getCardForm.userId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; })
+  } else if (getCardForm.type === 'keyword') {
+    return axiosInstance.get(`/storybooks/users/`)
+    .then(response => response.data)
+    .catch(error => { throw error; })
+  }
+}

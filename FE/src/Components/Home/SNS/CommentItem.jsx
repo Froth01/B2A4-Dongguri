@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types'
 
-const CommentItem = ({ comment, onUpdate, onDelete, onReport }) => {
+const CommentItem = ({ comment, onUpdate, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(comment.content);
     const [showActions, setShowActions] = useState(false); // 액션 메뉴를 표시할지 여부
@@ -69,4 +70,9 @@ const CommentItem = ({ comment, onUpdate, onDelete, onReport }) => {
     );
 };
 
+CommentItem.propTypes = {
+  comment: PropTypes.object.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+}
 export default CommentItem;
