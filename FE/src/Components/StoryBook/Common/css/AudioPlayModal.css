@@ -1,4 +1,4 @@
-.audio-modal-overlay {
+.audio-play-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     z-index: 1000;
 }
 
-.audio-modal-content {
+.audio-play-modal-content {
     position: relative;
     background: white;
     padding: 20px; /* 상단 공간 확보를 위해 조정할 수 있음 */
@@ -28,7 +28,7 @@
     align-items: center; /* 가로 중앙 정렬 */
 }
 
-.audio-close-btn {
+.audio-play-close-btn {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -38,7 +38,7 @@
     border: none;
 }
 
-.audio-controls {
+.audio-play-controls {
     width: 100%; /* 전체 너비 사용 */
     display: flex;
     flex-direction: column;
@@ -46,11 +46,11 @@
     justify-content: center; /* 중앙 정렬 */
 }
 
-.audio-play-btn, .audio-time-display, .audio-slider {
+.audio-play-btn, .audio-time-display, .audio-play-slider {
     width: 100%; /* 전체 너비 사용 */
 }
 
-.audio-slider {
+.audio-play-slider {
     -webkit-appearance: none;
     height: 10px;
     outline: none;
@@ -58,7 +58,7 @@
     background-image: linear-gradient(to right, yellow 0%, yellow 50%, #ffff99 50%); /* 연노랑색 적용 */
 }
 
-.audio-slider::-webkit-slider-thumb {
+.audio-play-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 15px;
     height: 15px;

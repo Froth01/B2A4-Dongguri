@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './css/AudioPlayModal.css'; // 필요한 CSS 파일
+import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import './css/AudioPlayModal.css';
 
 function AudioPlayModal({ audioSrc, isOpen, onClose }) {
   const modalRef = useRef(null);
@@ -7,7 +8,7 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState('00:00');
-
+  // const [duration, setDuration] = useState('00:00');
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -26,17 +27,16 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
 
       const slider = document.querySelector('.slider');
       if (slider) {
-        slider.style.background = `linear-gradient(to right, red 0%, red ${newProgress}%, gray ${newProgress}%, gray 100%)`;
+        slider.style.background = `linear-gradient(to right, yellow 0%, yellow ${newProgress}%, gray ${newProgress}%, gray 100%)`;
       }
     };
 
-    const handleOutsideClick = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
         onClose();
       }
     };
 
-    // Setup
     if (isOpen) {
       document.addEventListener('click', handleOutsideClick);
       audio.addEventListener('timeupdate', updateProgress);
@@ -59,7 +59,7 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
         });
       }
     };
-  }, [isOpen, audioSrc]);
+  }, [isOpen, audioSrc, onClose]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -72,21 +72,20 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
     }
   };
   
-
-  const handleSliderChange = (event) => {
-    const newTime = (event.target.value / 100) * audioRef.current.duration;
+  const handleSliderChange = (e) => {
+    const newTime = (e.target.value / 100) * audioRef.current.duration;
     audioRef.current.currentTime = newTime;
-    setProgress(event.target.value);
+    setProgress(e.target.value);
   };
 
-  if (!isOpen) return null; // isOpen이 false일 경우 아무것도 렌더링하지 않음
+  if (!isOpen) return null;
 
   return (
-    <div className="audio-modal-overlay">
-      <div className="audio-modal-content">
-        <button className="audio-close-btn" onClick={onClose}>&times;</button>
+    <div className="audio-play-modal-overlay">
+      <div className="audio-play-modal-content">
+        <button className="audio-play-close-btn" onClick={onClose}>&times;</button>
         <audio ref={audioRef} src={audioSrc} />
-        <div className="audio-controls">
+        <div className="audio-play-controls">
           <button onClick={togglePlay} className="audio-play-btn">
             {isPlaying ? '||' : '▶'}
           </button>
@@ -97,7 +96,7 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
             max="100"
             value={progress}
             onChange={handleSliderChange}
-            className="audio-slider"
+            className="audio-play-slider"
             style={{ backgroundImage: `linear-gradient(to right, yellow 0%, yellow ${progress}%, gray ${progress}%, gray 100%)` }}
           />
         </div>
@@ -105,5 +104,11 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
     </div>
   );
 }
+
+AudioPlayModal.propTypes = {
+  audioSrc: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default AudioPlayModal;
