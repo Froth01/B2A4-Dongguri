@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Base64;
 import java.util.UUID;
 
 @Slf4j
@@ -34,14 +38,12 @@ public class FileService implements FileUtils {
 
     public UploadFileResponse uploadImage(MultipartFile file) {
         validateFile(file, IMAGE_SIZE, new String[]{"jpg", "HEIC", "jpeg", "png", "heic"});
-        String url = uploadToS3(file);
-        return new UploadFileResponse(url);
+        return new UploadFileResponse(uploadToS3(file));
     }
 
     public UploadFileResponse uploadAudio(MultipartFile file) {
         validateFile(file, AUDIO_SIZE, new String[]{"mp3"});
-        String url = uploadToS3(file);
-        return new UploadFileResponse(url);
+        return new UploadFileResponse(uploadToS3(file));
     }
 
     private void validateFile(MultipartFile file, int sizeThreshold, String[] exts) {
@@ -91,6 +93,20 @@ public class FileService implements FileUtils {
         String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
         String randomName = UUID.randomUUID().toString();
         return randomName + "." + ext;
+    }
+
+    public String encodeImageToBase64(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            try (InputStream inputStream = url.openStream()) {
+                byte[] imageBytes = IOUtils.toByteArray(inputStream);
+                return Base64.getEncoder().encodeToString(imageBytes);
+            }
+        } catch (MalformedURLException e) {
+            throw InvalidUrlException.EXCEPTION;
+        } catch (Exception e) {
+            throw ImageProcessingException.EXCEPTION;
+        }
     }
 
     @Override

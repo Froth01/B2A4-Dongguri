@@ -42,8 +42,7 @@ public class User extends BaseEntity {
     private OauthServerType oauthServerType;
 
     @Builder
-    public User(Long id, String name, String email, String nickname, String profileImageUrl, OauthServerType oauthServerType) {
-        this.id = id;
+    public User(String name, String email, String nickname, String profileImageUrl, OauthServerType oauthServerType) {
         this.name = name;
         this.email = email;
         this.nickname = nickname;
