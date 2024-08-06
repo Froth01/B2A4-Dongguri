@@ -47,7 +47,7 @@ function SnsDetail({ card, toggleModal, dummyList }) {
                 handleCardClick={() => {}}
               />
               <Community
-                cardId={card.id}
+                cardId={card.storybookId}
                 dummyList={dummyList}
                 comments={comments}
                 handleAddComment={handleAddComment}

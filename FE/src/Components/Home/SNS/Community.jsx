@@ -30,7 +30,7 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
     const [commentText, setCommentText] = useState('');
 
     // Find card data using cardId
-    const cardData = dummyList.find(card => card.id === cardId);
+    const cardData = dummyList.find(card => card.storybookId === cardId);
 
 
     const emojis = [
@@ -68,13 +68,15 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
         event.preventDefault();
         if (commentText.trim()) {
             const newComment = {
-                id: comments.length + 1,
-                storybookId: cardId, // Ensure new comments are associated with the current storybook
-                text: commentText,
-                isMine: true // This should depend on user authentication logic
+                commentId: comments.length + 1, // `id` 대신 `commentId`를 사용
+                storybookId: cardId, // 현재 스토리북 ID
+                content: commentText, // 댓글 내용
+                isMine: true, // 사용자 인증 로직에 따라 변경될 수 있음
+                createdDate: new Date().toISOString(), // 댓글 생성 날짜
+                modifiedDate: null // 수정 날짜는 초기에 null
             };
-            setComments([...comments, newComment]);
-            setCommentText('');
+            setComments([...comments, newComment]); // 댓글 리스트에 새 댓글 추가
+            setCommentText(''); // 입력 필드 초기화
         }
     };
 

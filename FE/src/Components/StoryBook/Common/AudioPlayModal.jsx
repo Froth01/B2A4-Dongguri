@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './css/AudioPlayModal.css';
+import './css/AudioPlayModal.css'; // 필요한 CSS 파일
 
 function AudioPlayModal({ audioSrc, isOpen, onClose }) {
+  const modalRef = useRef(null);
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState('00:00');
-  const [duration, setDuration] = useState('00:00');
+
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -22,43 +23,55 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
       const newProgress = (audio.currentTime / audio.duration) * 100;
       setProgress(newProgress);
       setCurrentTime(formatTime(audio.currentTime));
+
+      const slider = document.querySelector('.slider');
+      if (slider) {
+        slider.style.background = `linear-gradient(to right, red 0%, red ${newProgress}%, gray ${newProgress}%, gray 100%)`;
+      }
     };
 
-    const handleLoadedMetadata = () => {
-      setDuration(formatTime(audio.duration));
-      updateProgress();
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
     };
 
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', () => {
-      setIsPlaying(false);
-      setProgress(0);
-      setCurrentTime('00:00');
-      audio.currentTime = 0;
-    });
+    // Setup
+    if (isOpen) {
+      document.addEventListener('click', handleOutsideClick);
+      audio.addEventListener('timeupdate', updateProgress);
+      audio.addEventListener('ended', () => {
+        setIsPlaying(false);
+        setProgress(0);
+        setCurrentTime('00:00');
+        audio.currentTime = 0;
+      });
+    }
 
     return () => {
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      audio.removeEventListener('timeupdate', updateProgress);
+      if (isOpen) {
+        document.removeEventListener('click', handleOutsideClick);
+        audio.removeEventListener('timeupdate', updateProgress);
+        audio.removeEventListener('ended', () => {
+          setIsPlaying(false);
+          setCurrentTime('00:00');
+          audio.currentTime = 0;
+        });
+      }
     };
-  }, [audioSrc]);
+  }, [isOpen, audioSrc]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
-    if (!audio) return; // audio가 없으면 함수 종료
-
     if (audio.paused) {
-      audio.play().then(() => {
-        setIsPlaying(true);
-      }).catch((error) => {
-        console.error("Error playing audio:", error);
-      });
+      audio.play();
+      setIsPlaying(true);
     } else {
       audio.pause();
       setIsPlaying(false);
     }
   };
+  
 
   const handleSliderChange = (event) => {
     const newTime = (event.target.value / 100) * audioRef.current.duration;
@@ -66,30 +79,27 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
     setProgress(event.target.value);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) return null; // isOpen이 false일 경우 아무것도 렌더링하지 않음
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="close-btn" onClick={onClose}>&times;</button>
+    <div className="audio-modal-overlay">
+      <div className="audio-modal-content">
+        <button className="audio-close-btn" onClick={onClose}>&times;</button>
         <audio ref={audioRef} src={audioSrc} />
         <div className="audio-controls">
-          <button onClick={togglePlay} className="play-btn">
+          <button onClick={togglePlay} className="audio-play-btn">
             {isPlaying ? '||' : '▶'}
           </button>
-          <div className="time-display">{currentTime} / {duration}</div>
-          <div className="slider-container">
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={progress}
-              onChange={handleSliderChange}
-              className="slider"
-              style={{ backgroundSize: `${progress}% 100%` }}
-            />
-            <div className="progress-indicator" style={{ left: `${progress}%` }} />
-          </div>
+          <span>{currentTime}</span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={progress}
+            onChange={handleSliderChange}
+            className="audio-slider"
+            style={{ backgroundImage: `linear-gradient(to right, yellow 0%, yellow ${progress}%, gray ${progress}%, gray 100%)` }}
+          />
         </div>
       </div>
     </div>

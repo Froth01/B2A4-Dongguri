@@ -1,10 +1,28 @@
+.record-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-height: 50px; /* 버튼의 최소 높이 지정 */
+}
+
 .record-controls button {
+  flex: 1; /* 모든 버튼이 동일한 공간을 차지하도록 설정 */
   cursor: pointer;
   border: none;
   background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .record-controls button.disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.record-controls button img {
+  width: 80%; /* 이미지 너비를 버튼 너비의 80%로 설정 */
+  height: auto; /* 비율 유지 */
 }

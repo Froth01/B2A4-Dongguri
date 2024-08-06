@@ -7,7 +7,7 @@ import './css/MiniCardList.css';
 function MiniCardList() {
   const dummyList = [
     {
-      id: 1,
+      storybookId: 1,
       genre: '기쁨',
       isTodayKeyword: true,
       keywords: ['모험', '짐승', '친구','정말로 눈물나게 감동적이고 어쨋뜬 좋은 이야기'],
@@ -22,7 +22,7 @@ function MiniCardList() {
       modifiedDate: '2024-08-01'
     },
     {
-      id: 2,
+      storybookId: 2,
       genre: '행복',
       isTodayKeyword: true,
       keywords: ['토끼', '목걸이', '태풍'],
@@ -37,7 +37,7 @@ function MiniCardList() {
       modifiedDate: '2024-08-02'
     },
     {
-      id: 3,
+      storybookId: 3,
       genre: '슬픔',
       isTodayKeyword: false,
       keywords: ['손수건', '공주'],
@@ -52,7 +52,7 @@ function MiniCardList() {
       modifiedDate: '2024-08-03'
     },
     {
-      id: 4,
+      storybookId: 4,
       genre: '즐거움',
       isTodayKeyword: false,
       keywords: ['운동회', '꼴등'],
@@ -84,7 +84,7 @@ function MiniCardList() {
     <div className='minicardlist'>
       {dummyList.map((card) => (
         <MiniCard 
-          key={card.id} 
+          key={card.storybookId} 
           card={card} 
           handleCardClick={handleCardClick}
         />
