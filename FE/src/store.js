@@ -9,7 +9,7 @@ import circleBtnReducer from './slices/circleBtnSlice';
 import userInfoReducer from './slices/userInfoSlice';
 import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
-
+import imgReducer from './slices/imgSlice'
 import pathHistoryReducer from './slices/pathHistorySlice';
 
 // import imgReducer from './slices/imgSlice';
