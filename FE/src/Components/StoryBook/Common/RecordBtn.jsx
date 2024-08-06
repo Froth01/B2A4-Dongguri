@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import AudioPlayModal from './AudioPlayModal';
-import './css/RecordBtn.css';  // Ensure you have this CSS for styling
+import './css/RecordBtn.css';  // CSS 스타일
 
 function RecordBtn({ onRecord, isRecording, onShowResults }) {
   const [audioSrc, setAudioSrc] = useState('');
   const [showPlayer, setShowPlayer] = useState(false);
   const [recorder, setRecorder] = useState(null);
-  const [hasRecorded, setHasRecorded] = useState(false);  // 녹음 여부 상태 추가
+  const [hasRecorded, setHasRecorded] = useState(false);  // 녹음 여부 상태
 
   useEffect(() => {
     if (!navigator.mediaDevices) {
@@ -33,7 +33,7 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
     if (recorder && recorder.state === "inactive") {
       recorder.start();
       onRecord(true);
-      setHasRecorded(true);  // 녹음 시작 시 상태 업데이트
+      setHasRecorded(true);
     }
   };
 
@@ -46,6 +46,7 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
 
   const handlePlayClick = () => {
     setShowPlayer(true);
+    console.log('클릭');
   };
 
   return (
