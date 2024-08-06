@@ -6,7 +6,7 @@ spring:
     password: ${MYSQL_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
@@ -47,6 +47,10 @@ aws:
   s3:
     bucket: ${AWS_S3_BUCKET}
     base-url: ${AWS_S3_BASE_URL}
+
+api:
+  anthropic-key: ${ANTHROPIC_KEY}
+  openai-key: ${OPENAI_KEY}
 
 management:
   server:

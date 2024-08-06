@@ -31,9 +31,7 @@ public class AvatarService implements AvatarServiceUtils{
     private final UserUtils userUtils;
 
     @Transactional
-    public Avatar createAvatar(AvatarType avatarType, boolean isRepresentative) {
-        User user = userUtils.getUserFromSecurityContext();
-
+    public Avatar createAvatar(User user, AvatarType avatarType, boolean isRepresentative) {
         Avatar avatar = Avatar.createAvatar(
                 user,
                 avatarType,
@@ -47,10 +45,10 @@ public class AvatarService implements AvatarServiceUtils{
 
     @Override
     @Transactional
-    public void createAllAvatars() {
+    public void createAllAvatars(User user) {
         for (AvatarType avatarType : AvatarType.values()) {
             boolean isRepresentative = avatarType.equals(AvatarType.GYEOMI);
-            createAvatar(avatarType, isRepresentative);
+            createAvatar(user, avatarType, isRepresentative);
         }
     }
 

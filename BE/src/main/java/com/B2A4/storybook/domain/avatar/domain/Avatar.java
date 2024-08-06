@@ -3,6 +3,7 @@ package com.B2A4.storybook.domain.avatar.domain;
 import com.B2A4.storybook.domain.avatar.domain.vo.AvatarInfoVO;
 import com.B2A4.storybook.domain.avatar.exception.UserNotAvatarHostException;
 import com.B2A4.storybook.domain.user.domain.User;
+import com.B2A4.storybook.global.database.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Avatar {
+public class Avatar extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
