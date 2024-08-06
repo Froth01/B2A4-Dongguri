@@ -1,12 +1,29 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { representativeApi, selectRepresentative } from '../../../slices/representativeSlice'; 
 import './css/AvatarExp.css'
 
 function AvatarExp() {
-  const done = 4
+  const dispatch = useDispatch();
+  const representative = useSelector(selectRepresentative);
+
+  useEffect(() => {
+    dispatch(representativeApi());
+  }, [dispatch]);
+  
+  const levelMap = {
+    'ONE': 1,
+    'TWO': 2,
+    'THREE': 3,
+
+  }
+
+  const done = representative.exp
 
   return (
     <div className="avatarexp">
       <div className="avatarlv">
-        겨미 레벨 투~
+      {representative.name} : {levelMap[representative.avatarLevel]}
       </div>
       <div className="expdetail">
         {[...Array(parseInt(done))].map((num) => (
