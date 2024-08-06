@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './css/Community.css';
 import cool from '/img/sns/cool.png';
 import fun from '/img/sns/fun.png';
 import good from '/img/sns/good.png';
@@ -65,9 +66,11 @@ const Community = ({ card }) => {
     }, [card.storybookId]);
 
     const onUpdateComment = (commentId, newText) => {
-        const updatedComments = comments.map(comment =>
-            comment.commentId === commentId ? { ...comment, content: newText, modifiedDate: new Date().toISOString() } : comment
-        );
+        const updatedComments = comments.map((comment) => {
+            if (comment.commentId === commentId) {
+              comment = { ...comment, content: newText, modifiedDate: new Date().toISOString() }
+            }
+            });
         setComments(updatedComments);
     };
     

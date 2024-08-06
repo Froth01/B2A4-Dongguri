@@ -18,6 +18,7 @@ function Follows({userInfo, currentUserId}) {
   //비동기 팔로잉 목록 조회
   const getUsers = async(userId, type) => {
     try {
+      // const gaveUsers = await fetchGetUserList(userId, type).unwrap();
       const gaveUsers = await fetchGetUserList(userId, type).unwrap();
       if (type === 'following') {
         return gaveUsers.followings;

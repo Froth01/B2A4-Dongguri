@@ -16,6 +16,7 @@ import pathHistoryReducer from './slices/pathHistorySlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
 import representativeReducer from './slices/representativeSlice';
+import cardListReducer from './slices/cardListSlice'
 
 // persist 설정
 // const persistConfig = {
@@ -71,7 +72,7 @@ const store = configureStore({
     following: followingReducer,
     followers: followersReducer,
     representative : persistedRepresentativeReducer,
-
+    cardList: cardListReducer
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사
