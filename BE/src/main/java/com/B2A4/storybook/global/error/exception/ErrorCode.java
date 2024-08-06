@@ -25,6 +25,7 @@ public enum ErrorCode {
     REGISTER_EXPIRED_TOKEN(403,"만료된 리프레쉬 토큰입니다."),
     USER_INFO_NOT_FOUND(404, "회원가입을 진행해 주세요."),
     USER_NOT_AVATAR_HOST(403, "해당하는 동그리의 소유자가 아닙니다."),
+    USER_NOT_STORY_WORLD_HOST(403, "해당하는 동화나라의 소유자가 아닙니다."),
 
     /* 404 NOT_FOUND : Resource를 찾을 수 없음 */
     USER_NOT_FOUND(404, "해당하는 정보의 사용자를 찾을 수 없습니다."),
@@ -33,6 +34,7 @@ public enum ErrorCode {
     OAUTH_MEMBER_NOT_FOUND(404, "해당하는 로그인 정보를 찾을 수 없습니다."),
     REPRESENTATIVE_AVATAR_NOT_FOUND(404, "해당 유저의 대표 동그리를 찾을 수 없습니다."),
     AVATAR_NOT_FOUND(404, "해당하는 동그리를 찾을 수 없습니다."),
+    STORY_WORLD_NOT_FOUND(404, "해당하는 동화나라를 찾을 수 없습니다."),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러");
