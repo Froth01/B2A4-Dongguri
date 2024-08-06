@@ -3,11 +3,14 @@ package com.B2A4.storybook.domain.storybook.service;
 import com.B2A4.storybook.domain.file.service.FileService;
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
+import com.B2A4.storybook.global.openapi.service.OpenAPIService;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.domain.repository.StorybookRepository;
 import com.B2A4.storybook.domain.storybook.exception.StorybookNotFoundException;
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.CreateStorybookRequest;
+import com.B2A4.storybook.domain.storybook.presentation.dto.request.TransformStorybookRequest;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.StorybookResponse;
+import com.B2A4.storybook.domain.storybook.presentation.dto.response.TransformStorybookResponse;
 import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +31,18 @@ public class StorybookService implements StorybookServiceUtils {
     private final KeywordRepository keywordRepository;
     private final UserUtils userUtils;
     private final FileService fileService;
+    private final OpenAPIService openaiService;
 
-    private final OpenApiUtils openApiUtils;
 
+    @Override
+    public TransformStorybookResponse transform(TransformStorybookRequest transformStorybookRequest) {
+        String content = openaiService.generateChatgpt(transformStorybookRequest);
+        String prompt = openaiService.generateClaude(transformStorybookRequest);
+        String transformedImageUrl = openaiService.generateDalle(prompt);
+        return new TransformStorybookResponse(transformStorybookRequest.genre(), transformStorybookRequest.keywords(), content, transformStorybookRequest.originalImageUrl(), transformedImageUrl);
+    }
+
+    @Override
     @Transactional
     public StorybookResponse createStorybook(CreateStorybookRequest createStorybookRequest) {
         User user = userUtils.getUserFromSecurityContext();
