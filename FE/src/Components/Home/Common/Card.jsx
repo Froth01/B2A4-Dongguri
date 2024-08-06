@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import AudioPlayModal from '../../../Components/StoryBook/Common/AudioPlayModal'; // AudioPlayModal 임포트
+import AudioPlayModal from '../../../Components/StoryBook/Common/AudioPlayModal';
 import './css/Card.css';
 
 const Card = ({ card, showMic = true }) => {
   const [showOriginal, setShowOriginal] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!card || !card.keywords || !Array.isArray(card.keywords) || card.keywords.length === 0) {
     return <div>No tags available</div>;
@@ -16,11 +16,11 @@ const Card = ({ card, showMic = true }) => {
   };
 
   const handleListenRecording = () => {
-    setIsModalOpen(true); // 모달 열기
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // 모달 닫기
+    setIsModalOpen(false);
   };
 
   return (
@@ -54,9 +54,9 @@ const Card = ({ card, showMic = true }) => {
         </div>
       </div>
       <AudioPlayModal 
-        audioSrc={card.voiceRecord} // 음원 URL 전달
-        isOpen={isModalOpen} // 모달 열림 상태
-        onClose={closeModal} // 모달 닫기 함수 전달
+        audioSrc={card.voiceRecord}
+        isOpen={isModalOpen}
+        onClose={closeModal}
       />
     </div>
   );

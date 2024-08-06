@@ -3,7 +3,6 @@ import MiniCard from './MiniCard';
 import SnsDetail from '../SNS/SnsDetail';
 import './css/MiniCardList.css';
 
-// S11P12B309\FE\public\img\card\dummy1.png
 function MiniCardList() {
   const dummyList = [
     {
@@ -71,7 +70,7 @@ function MiniCardList() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleCardClick = (card) => {
-    console.log("Opening modal for card:", card);  // 로그로 카드 정보 확인
+    console.log("Opening modal for card:", card);
     setSelectedCard(card);
     setModalOpen(true);
 };
@@ -93,7 +92,6 @@ function MiniCardList() {
         <SnsDetail 
           card={selectedCard}
           toggleModal={toggleModal}
-          dummyList={dummyList} // 여기에서 dummyList를 전달합니다.
         />
       )}
     </div>

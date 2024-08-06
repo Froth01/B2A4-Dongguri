@@ -1,33 +1,11 @@
-import { useState, useRef } from 'react';
-import './css/SnsDetail.css';
+import { useRef } from 'react';
+import PropTypes from 'prop-types';
 import Card from '../Common/Card';
 import Community from './Community';
+import './css/SnsDetail.css';
 
-function SnsDetail({ card, toggleModal, dummyList }) {
-  const [emojiCounts, setEmojiCounts] = useState([0, 0, 0, 0]);
-  const [selectedEmoji, setSelectedEmoji] = useState(new Set()); // 초기화 수정
-  const [comments, setComments] = useState([]);
+function SnsDetail({ card, toggleModal }) {
   const modalRef = useRef(null);
-
-  const handleEmojiClick = (index) => {
-    let newCounts = emojiCounts.slice();
-    const updatedSelectedEmojis = new Set(selectedEmoji);
-    
-    if (updatedSelectedEmojis.has(index)) {
-      updatedSelectedEmojis.delete(index);
-      newCounts[index] -= 1;
-    } else {
-      updatedSelectedEmojis.add(index);
-      newCounts[index] += 1;
-    }
-  
-    setSelectedEmoji(updatedSelectedEmojis);
-    setEmojiCounts(newCounts);
-  };
-
-  const handleAddComment = (newComment) => {
-    setComments(prevComments => [...prevComments, newComment]);
-  };
 
   const handleCloseClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -47,12 +25,7 @@ function SnsDetail({ card, toggleModal, dummyList }) {
                 handleCardClick={() => {}}
               />
               <Community
-                cardId={card.storybookId}
-                dummyList={dummyList}
-                comments={comments}
-                handleAddComment={handleAddComment}
-                emojiCounts={emojiCounts}
-                handleEmojiClick={handleEmojiClick}
+                card={card}
               />
             </div>
           </div>
@@ -61,5 +34,10 @@ function SnsDetail({ card, toggleModal, dummyList }) {
     </div>
   );
 }
+
+SnsDetail.propTypes = {
+  card: PropTypes.object,
+  toggleModal: PropTypes.func.isRequired,
+};
 
 export default SnsDetail;
