@@ -75,7 +75,7 @@ public class Storybook extends BaseEntity {
     public StorybookInfoVO getStorybookInfoVO() {
         return new StorybookInfoVO(
                 id,
-                user,
+                user.getUserInfo(),
                 genre,
                 content,
                 originalImageUrl,

@@ -87,10 +87,10 @@ public class UserService {
     }
 
     // 회원 정보 조회
-    public UserProfileResponse getUserProfile(long userId) {
+    public UserBasicProfileResponse getUserBasicProfile(long userId) {
         User user = userUtils.getUserById(userId);
 
-        return new UserProfileResponse(user.getUserInfo());
+        return new UserBasicProfileResponse(user.getUserInfo());
     }
 
     // 회원 정보 수정

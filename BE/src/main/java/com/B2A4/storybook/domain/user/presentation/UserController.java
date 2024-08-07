@@ -42,11 +42,11 @@ public class UserController {
 
     @Operation(summary = "회원정보 조회")
     @GetMapping("/{userId}")
-    public UserProfileResponse getUserProfile(
+    public UserBasicProfileResponse getUserProfile(
             @Parameter(description = "유저 Id", in = PATH)
             @PathVariable Long userId
     ) {
-        return userService.getUserProfile(userId);
+        return userService.getUserBasicProfile(userId);
     }
 
     @Operation(summary = "회원정보 수정")
