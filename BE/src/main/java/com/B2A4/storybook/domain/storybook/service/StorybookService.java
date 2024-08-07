@@ -124,6 +124,20 @@ public class StorybookService implements StorybookServiceUtils {
     }
 
     @Override
+    public List<Storybook> getStorybookListByStorybookIds(List<Long> storybookIds) {
+        User user = userUtils.getUserFromSecurityContext();
+        List<Storybook> storybookList = storybookRepository.findAllById(storybookIds);
+
+        for (Storybook storybook : storybookList) {
+            if (!storybook.getUser().getId().equals(user.getId())) {
+                throw UserNotStorybookHostException.EXCEPTION;
+            }
+        }
+
+        return storybookList;
+    }
+
+    @Override
     @Transactional
     public void deleteStorybook(Long storybookId) {
         User user = userUtils.getUserFromSecurityContext();
