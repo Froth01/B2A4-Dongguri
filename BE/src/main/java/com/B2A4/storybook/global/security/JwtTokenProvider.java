@@ -164,6 +164,7 @@ public class JwtTokenProvider {
         accessTokenCookie.setMaxAge(86400);
         accessTokenCookie.setPath("/");
         accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setDomain("localhost");
 
         response.addCookie(accessTokenCookie);
     }
@@ -172,6 +173,7 @@ public class JwtTokenProvider {
         accessTokenCookie.setMaxAge(0);
         accessTokenCookie.setPath("/");
         accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setDomain("localhost");
 
         response.addCookie(accessTokenCookie);
     }
@@ -182,6 +184,7 @@ public class JwtTokenProvider {
         refreshTokenCookie.setMaxAge(604800);
         refreshTokenCookie.setPath("/");
         refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setDomain("localhost");
 
         response.addCookie(refreshTokenCookie);
     }
@@ -190,6 +193,7 @@ public class JwtTokenProvider {
         refreshTokenCookie.setMaxAge(0);
         refreshTokenCookie.setPath("/");
         refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setDomain("localhost");
 
         response.addCookie(refreshTokenCookie);
     }
