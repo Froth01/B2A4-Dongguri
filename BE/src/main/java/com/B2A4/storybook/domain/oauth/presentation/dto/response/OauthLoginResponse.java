@@ -8,7 +8,7 @@ public record OauthLoginResponse(
         String email,
         String name,
         OauthServerType oauthServerType,
-        UserInfoVO userInfoVO
+        UserInfoVO user
 ) {
     public OauthLoginResponse (OauthMemberInfoVO oauthMemberInfoVO, UserInfoVO userInfoVO) {
         this(oauthMemberInfoVO.email(), oauthMemberInfoVO.name(), oauthMemberInfoVO.oauthServerType(), userInfoVO);
