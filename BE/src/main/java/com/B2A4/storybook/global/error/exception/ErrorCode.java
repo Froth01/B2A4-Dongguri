@@ -38,6 +38,7 @@ public enum ErrorCode {
     AVATAR_NOT_FOUND(404, "해당하는 동그리를 찾을 수 없습니다."),
     STORYBOOK_NOT_FOUND(404, "해당하는 동화를 찾을 수 없습니다."),
     STORY_WORLD_NOT_FOUND(404, "해당하는 동화나라를 찾을 수 없습니다."),
+    REPORT_NOT_FOUND(404, "해당하는 신고를 찾을 수 없습니다."),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러"),
