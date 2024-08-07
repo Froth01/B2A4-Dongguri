@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import './css/MyWorld.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWorldObject } from '../../../slices/worldInfoSlice';
+import MyWorldUpdate from './MyWorldUpdate';
 
   function MyWorld({userInfo, myCardList}) {
     const dispatch = useDispatch();
@@ -32,19 +33,19 @@ import { setWorldObject } from '../../../slices/worldInfoSlice';
     return () => clearInterval(intervalId);
   }, []);
   
-  //내 월드 axios요청하여 불러오기
-  useEffect (() => {
-    async function getWorldInfo (userId) {
-      const resultAction = await getWorldInfo(userId).unrwap();
-      // const gaveWorlds = resultAction.payload
-      dispatch(setWorldObject(resultAction))
-    }
-    getWorldInfo(userInfo.userId)
-    console.log(worldInfo)
-  }, [])
+  // //내 월드 axios요청하여 불러오기
+  // useEffect (() => {
+  //   async function getWorldInfo (userId) {
+  //     const resultAction = await getWorldInfo(userId).unwrap();
+  //     // const gaveWorlds = resultAction.payload
+  //     dispatch(setWorldObject(resultAction))
+  //   }
+  //   getWorldInfo(userInfo.userId)
+  //   console.log(worldInfo)
+  // }, [])
   return (
     <div className="myworld" ref={myWorldRef}>
-      
+      <MyWorldUpdate />
       {myCardList.map(card => (
         <img key={card.storybookId} src={card.originalImageUrl} className="floating-image" alt={card.storybookId} />
       ))}

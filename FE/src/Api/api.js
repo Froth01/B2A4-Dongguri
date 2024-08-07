@@ -24,12 +24,17 @@ export const fetchLogout = () => {
   .catch(error => { throw error; })
 }
 
+// 유저정보 가져오기
+export const fetchUser = (userId) => {
+  return axiosInstance.get(`/users/${userId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
 
 // 이미지 Url 변환
 export const fetchImgUrl = (file) => {
   const formData = new FormData();
   formData.append('file', file);
-  console.log(formData)
   return axiosInstance.post('/file/image', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

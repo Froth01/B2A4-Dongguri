@@ -3,7 +3,7 @@ import './css/UserUpdate.css'
 import { useSelector } from 'react-redux'
 
 function UserUpdate() {
-  const userInfo = useSelector(state => state.userInfo.object)
+  const userInfo = useSelector(state => state.auth.object)
 
   return (
     <div className='userupdate'>

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchLogin, fetchSignup } from '../Api/api'
+import { fetchLogin, fetchSignup, fetchUser } from '../Api/api'
 
 // 비동기 로그인 액션
 export const login = createAsyncThunk((args) => `auth/login/${args.oauthServerType}`, async (args, { rejectWithValue }) => {
@@ -17,6 +17,18 @@ export const signup = createAsyncThunk('auth/signup', async ({ name, email, nick
     const data = await fetchSignup(name, email, nickname, profileImageUrl, oauthServerType);
     return data;
   } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+// 비동기 userId - 유저정보 추출
+export const getUserInfo = createAsyncThunk('user/userId', async (userId, { rejectWithValue }) => {
+  try {
+    const data = await fetchUser(userId);
+    console.log(data)
+    return data.data;
+  } catch (error) {
+    console.log(error)
     return rejectWithValue(error.response.data);
   }
 });

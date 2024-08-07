@@ -5,7 +5,6 @@ import { fetchCardList } from "../Api/api";
 export const getCardList = createAsyncThunk('getCardList', async (getCardForm, { rejectWithValue }) => {
   try {
     const data = await fetchCardList(getCardForm);
-    console.log(data.data)
     return data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

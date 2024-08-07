@@ -17,11 +17,11 @@ const KakaoCallback = () => {
         if (code) {
           try {
             const user = await dispatch(login({ oauthServerType: 'KAKAO', code })).unwrap();
-            console.log(user.data.user)
             if (user.data.user === null) {
               navigate('/signup', { state: { user , code: code }});
             } else {
               dispatch(setAuthObject(user.data.user))
+              console.log('KakaoCallback > currentUser : ', user.data.user)
               navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
             }
           } catch (error) {
