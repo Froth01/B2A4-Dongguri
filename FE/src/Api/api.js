@@ -32,8 +32,8 @@ export const fetchImgUrl = (file) => {
 }
 
 // 동화 그림, 스토리 생성
-export const transformStorybook = (genre,transformType,keywords,originalImageUrl) => {
-  return axiosInstance.post('/storybooks/transform', {genre,transformType,keywords,originalImageUrl})
+export const transformStorybook = (formData) => {
+  return axiosInstance.post('/storybooks/transform', formData)
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -79,4 +79,17 @@ export const fetchStoryBooks = (data) => {
   .catch(error => { throw error })
 }
 
+// 오디오 등록
+export const fetchAudioUrl = (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  console.log(formData)
+  return axiosInstance.post('/file/audio',formData,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  .then(response => response.data )
+  .catch(error => { throw error })
+}
 

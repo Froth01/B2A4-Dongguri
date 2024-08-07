@@ -9,6 +9,7 @@ import { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedI
 import { transformStorybook } from '../../Api/api';
 import { useNavigate } from 'react-router-dom';
 
+
 const StoryKeyword = () => {
   const keywords = useSelector(selectKeyword);
   const originalImageUrl = useSelector(selectOriginalImageUrl);
@@ -27,28 +28,27 @@ const StoryKeyword = () => {
 
     try {
       
-      // const formData = new FormData();
-      // formData.append('genre', makeStory.genre);
-      // formData.append('transformType', makeStory.transformType);
-      // formData.append('originalImageUrl', makeStory.originalImageUrl);
-      // makeStory.keywords.forEach((keywords, index) => {
-      //   formData.append(`keywords[${index}]`, keywords);
-      // });
+      const formData = new FormData();
+      formData.append('genre', makeStory.genre);
+      formData.append('transformType', makeStory.transformType);
+      formData.append('originalImageUrl', makeStory.originalImageUrl);
+      makeStory.keywords.forEach((keywords, index) => {
+        formData.append(`keywords[${index}]`, keywords);
+      });
+
       console.log(makeStory.genre,
         makeStory.transformType,
         makeStory.originalImageUrl,
         makeStory.keywords)
 
-      const response = await transformStorybook(
-        makeStory.genre,
-        makeStory.transformType,
-        makeStory.originalImageUrl,
-        makeStory.keywords
-      )
+      const response = await transformStorybook(formData)
       console.log('기다리는중1')
-      const data = await response.json()
+      console.log(response)
+      // const data = await response.json()
+      const data = response.data
       console.log('기다리는중2')
       console.log('data',data)
+      console.log('장르테스트',data.genre)
       
       // 리덕스에 저장
       dispatch(setGenre(data.genre));
@@ -56,6 +56,7 @@ const StoryKeyword = () => {
       dispatch(setContent(data.content));
       dispatch(setOriginalImageUrl(data.originalImageUrl));
       dispatch(setTransformedImageUrl(data.transformedImageUrl));
+
 
       navigate('/storybook/storyend');
     } catch (error) {

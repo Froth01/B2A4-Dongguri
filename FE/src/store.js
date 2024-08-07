@@ -16,12 +16,13 @@ import pathHistoryReducer from './slices/pathHistorySlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
 import representativeReducer from './slices/representativeSlice';
-<<<<<<< HEAD
+
 import cardListReducer from './slices/cardListSlice'
 
-=======
+
 import storyBookReducer from './slices/storyBookSlice';
->>>>>>> 4e1bbc545695f38a21ff187070f92e4af3d09e8c
+import audioReducer from './slices/audioSlice';
+
 // persist 설정
 // const persistConfig = {
 //   key: 'root', // 기본 키 이름
@@ -81,11 +82,11 @@ const store = configureStore({
     following: followingReducer,
     followers: followersReducer,
     representative : persistedRepresentativeReducer,
-<<<<<<< HEAD
-    cardList: cardListReducer
-=======
+
+    cardList: cardListReducer,
+
     storyBook : persistedStoryBookReducer,
->>>>>>> 4e1bbc545695f38a21ff187070f92e4af3d09e8c
+    audio: audioReducer,
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

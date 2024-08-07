@@ -19,9 +19,10 @@ function StoryEnd() {
 
 
   const storybookData = useSelector(selectStorybook);
-
+  console.log(storybookData)
   return (
     <div className='page-container end-wrapper'>
+
       <div className='end-left'>
         {storybookData && <Card card={storybookData} showMic={false} />}
       </div>
