@@ -46,7 +46,7 @@ public class OauthService {
         Optional<User> savedUser = userRepository.findByOauthServerTypeAndEmail(saved.getOauthServerType(), saved.getEmail());
 
         if (!savedUser.isPresent()) {
-            return new OauthLoginResponse(saved.getOauthMemberInfo(), true);
+            return new OauthLoginResponse(saved.getOauthMemberInfo(), null);
         }
 
         String accessToken = jwtTokenProvider.generateAccessToken(savedUser.get().getId());
@@ -60,7 +60,7 @@ public class OauthService {
         jwtTokenProvider.setHeaderAccessToken(response, accessToken);
         jwtTokenProvider.setHeaderRefreshToken(response, refreshToken);
 
-        return new OauthLoginResponse(saved.getOauthMemberInfo(), false);
+        return new OauthLoginResponse(saved.getOauthMemberInfo(), savedUser.get().getUserInfo());
     }
 
     @Transactional
