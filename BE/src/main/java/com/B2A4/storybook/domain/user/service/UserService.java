@@ -9,6 +9,8 @@ import com.B2A4.storybook.domain.user.domain.RefreshToken;
 import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.domain.user.domain.repository.RefreshTokenRepository;
 import com.B2A4.storybook.domain.user.domain.repository.UserRepository;
+import com.B2A4.storybook.domain.user.exception.NicknameDuplicationException;
+import com.B2A4.storybook.domain.user.exception.UserDuplicationException;
 import com.B2A4.storybook.domain.user.presentation.dto.request.CheckNicknameRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.SignUpUserRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest;
@@ -48,6 +50,15 @@ public class UserService {
                 signUpUserRequest.profileImageUrl(),
                 signUpUserRequest.oauthServerType()
         );
+
+        if(userRepository.existsByEmailAndOauthServerType(signUpUserRequest.email(), signUpUserRequest.oauthServerType())) {
+            throw UserDuplicationException.EXCEPTION;
+        }
+
+        if(userRepository.existsByNickname(signUpUserRequest.nickname())) {
+            throw NicknameDuplicationException.EXCEPTION;
+        }
+
         userRepository.save(user);
 
         avatarServiceUtils.createAllAvatars(user);
