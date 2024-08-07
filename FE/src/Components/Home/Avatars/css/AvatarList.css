@@ -1,0 +1,22 @@
+.avatarlist {
+  width: 90vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  margin: 3% 5% 3% 5%;
+}
+
+.listdetail {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.avatar {
+  text-align: center;
+  width: 15vw;
+}
+
+.avatar img {
+  width: 15vw;
+  height: 15vw;
+}

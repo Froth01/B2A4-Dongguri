@@ -1,0 +1,43 @@
+.guide-box{
+  /* background-color: greenyellow; */
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guide-box > .guide { 
+  height: 80%;
+  margin: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.speechbubble-img {
+  position: absolute;
+  height: 100%;
+} 
+
+.speechbubble-avatar {
+  position: absolute;
+  margin-right: 45%;
+  height: 50%;
+  z-index: 2; /* speechbubble-avatar의 z-index를 높게 설정 */
+}
+
+
+.guide-text {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* word-wrap: break-word; */
+  position: relative;
+  z-index: 1;
+  font-family: 'MangoDdobak-B';
+  font-size: 3vh;
+} 

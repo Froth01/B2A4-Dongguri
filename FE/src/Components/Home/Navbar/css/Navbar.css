@@ -1,17 +1,30 @@
+
 .navbar {
+  position: sticky;
+  top: 0;
   display: flex;
+  background-color: white;
+  box-shadow: 0px 2px 2px 2px rgba(121, 121, 121, 0.2) ;
   justify-content: space-between;
+  align-items: center;
   padding-left: 2%;
   padding-right: 2%;
-  height: 15vh;
+  width: 100%;
+  height: 15%;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .logo{
   flex: 0 1 auto;
+  width: 15%;
+  height: 100%;
 }
 
 .logo img{
+  width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .menus {
@@ -23,6 +36,251 @@
   padding-left: 7%;
   padding-right: 7%;
 }
-.menus > div { 
+
+.menus a {
   height: 100%;
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes pulse-shrink {
+  to {
+    transform: scale(.9);
+  }
+}
+
+.pulse-shrink {
+  display: inline-block;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);  
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.pulse-shrink:hover {
+    animation-name: pulse-shrink;
+    animation-duration: .5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.popup {
+  --burger-line-width: 1.125em;
+  --burger-line-height: 0.125em;
+  --burger-offset: 0.625em;
+  --burger-bg: #FCE73C;
+  --burger-color: #333;
+  --burger-line-border-radius: 0.1875em;
+  --burger-diameter: 100%;
+  --burger-btn-border-radius: calc(var(--burger-diameter) / 2);
+  --burger-line-transition: 0.3s;
+  --burger-transition: all 0.1s ease-in-out;
+  --burger-hover-scale: 1.1;
+  --burger-active-scale: 0.95;
+  --burger-enable-outline-color: var(--burger-bg);
+  --burger-enable-outline-width: 0.125em;
+  --burger-enable-outline-offset: var(--burger-enable-outline-width);
+  /* nav */
+  --nav-padding-x: 0.25em;
+  --nav-padding-y: 0.625em;
+  --nav-border-radius: 0.375em;
+  --nav-border-color: #ccc;
+  --nav-border-width: 0.0625em;
+  --nav-shadow-color: rgba(0, 0, 0, 0.2);
+  --nav-shadow-width: 0 1px 5px;
+  --nav-bg: #eee;
+  --nav-font-family: "SUIT-Regular";
+  --nav-default-scale: 0.8;
+  --nav-active-scale: 2;
+  --nav-position-left: 0;
+  --nav-position-right: unset;
+  /* if you want to change sides just switch one property */
+  /* from properties to "unset" and the other to 0 */
+  /* title */
+  --nav-title-size: 50%;
+  --nav-title-color: #777;
+  --nav-title-padding-x: 1rem;
+  --nav-title-padding-y: 0.25em;
+  /* nav button */
+  --nav-button-padding-x: 1rem;
+  --nav-button-padding-y: 0.375em;
+  --nav-button-border-radius: 0.375em;
+  --nav-button-font-size: 22px;
+  --nav-button-hover-bg: #FCE73C;
+  --nav-button-hover-text-color: black;
+  --nav-button-distance: 0.875em;
+  --nav-button-height: 50%;
+  --nav-li-height: 50% !important; 
+  /* underline */
+  --underline-border-width: 0.0625em;
+  --underline-border-color: #ccc;
+  --underline-margin-y: 0.3125em;
+}
+
+/* popup settings 👆 */
+
+.popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  flex: 0 1 auto;
+}
+
+.popup input {
+  display: none;
+}
+
+.burger {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background: var(--burger-bg);
+  width: 100%;
+  height: 80%;
+  border-radius: var(--burger-btn-border-radius);
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: var(--burger-transition);
+  outline: var(--burger-enable-outline-width) solid transparent;
+  outline-offset: 0;
+}
+
+.popup-window {
+  transform: scale(1);
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  padding: 5% 5%;
+  height: 100%;
+  background: #eee;
+  font-family: 'SUIT-Regular';
+  color: black;
+  border-radius: 8%;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+  border: 0.0625rem solid #ccc;
+  top: calc(
+    100% + 0.125em + 0.125em
+  );
+  left: -80%;
+  right: 2%;
+  transition: all 0.1s ease-in-out;
+  margin-top: 10px;
+}
+
+.popup-window li {
+  height: 50%;
+}
+
+.popup-window ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.popup-window ul button {
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  color: var(--burger-color);
+  font-family: 'SUIT-Regular';
+  font-size: var(--nav-button-font-size);
+  padding: var(--nav-button-padding-y) var(--nav-button-padding-x);
+  white-space: nowrap;
+  border-radius: var(--nav-button-border-radius);
+  cursor: pointer;
+  column-gap: var(--nav-button-distance);
+}
+
+.popup-window ul li:nth-child(1) svg,
+.popup-window ul li:nth-child(2) svg {
+  color: #00bf63;
+}
+
+.popup-window ul li:nth-child(4) svg,
+.popup-window ul li:nth-child(5) svg {
+  color: rgb(153, 153, 153);
+}
+
+.popup-window ul li:nth-child(7) svg {
+  color: red;
+}
+
+.popup-window hr {
+  margin: var(--underline-margin-y) 0;
+  border: none;
+  border-bottom: var(--underline-border-width) solid
+    var(--underline-border-color);
+}
+
+/* actions */
+
+.popup-window ul button:hover,
+.popup-window ul button:focus-visible {
+  color: var(--nav-button-hover-text-color);
+  background: var(--nav-button-hover-bg);
+  font-weight: bold;
+}
+
+.popup-window ul button:active {
+  background-color: #e7d235;
+  box-shadow: 10px 5px 5px -5px #cebc34 inset;
+  transition: 0.05s;
+}
+
+
+.burger:hover {
+  transform: scale(var(--burger-hover-scale));
+}
+
+.burger:active {
+  transform: scale(var(--burger-active-scale));
+}
+
+.burger:focus:not(:hover) {
+  outline-color: var(--burger-enable-outline-color);
+  outline-offset: var(--burger-enable-outline-offset);
+}
+
+.popup input:checked + .burger span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.popup input:checked + .burger span:nth-child(2) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+.popup input:checked + .burger span:nth-child(3) {
+  transform: translateX(
+    calc(var(--burger-diameter) * -1 - var(--burger-line-width))
+  );
+}
+
+.popup input:checked ~ nav {
+  transform: scale(1);
+  visibility: visible;
+  opacity: 1;
+}
+
+.userimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
 }

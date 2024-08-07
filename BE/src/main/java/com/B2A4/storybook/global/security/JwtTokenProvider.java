@@ -165,7 +165,8 @@ public class JwtTokenProvider {
         accessTokenCookie.setPath("/");
         accessTokenCookie.setHttpOnly(true);
 
-        response.addCookie(accessTokenCookie);
+//        response.addCookie(accessTokenCookie);
+        response.addHeader("Set-Cookie", "DONGGURI_TOKEN=" + accessToken + "; Max-Age=86400; Path=/; HttpOnly; Secure; SameSite=None");
     }
     public void setHeaderAccessTokenEmpty(HttpServletResponse response) {
         Cookie accessTokenCookie = new Cookie("DONGGURI_TOKEN", "");
@@ -173,7 +174,8 @@ public class JwtTokenProvider {
         accessTokenCookie.setPath("/");
         accessTokenCookie.setHttpOnly(true);
 
-        response.addCookie(accessTokenCookie);
+//        response.addCookie(accessTokenCookie);
+        response.addHeader("Set-Cookie", "DONGGURI_TOKEN=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=None");
     }
 
     // RefreshToken 헤더 설정
@@ -183,7 +185,8 @@ public class JwtTokenProvider {
         refreshTokenCookie.setPath("/");
         refreshTokenCookie.setHttpOnly(true);
 
-        response.addCookie(refreshTokenCookie);
+//        response.addCookie(refreshTokenCookie);
+        response.addHeader("Set-Cookie", "DONGGURI_TOKEN_REFRESH=" + refreshToken + "; Max-Age=604800; Path=/; HttpOnly; Secure; SameSite=None");
     }
     public void setHeaderRefreshTokenEmpty(HttpServletResponse response) {
         Cookie refreshTokenCookie = new Cookie("DONGGURI_TOKEN_REFRESH", "");
@@ -191,7 +194,8 @@ public class JwtTokenProvider {
         refreshTokenCookie.setPath("/");
         refreshTokenCookie.setHttpOnly(true);
 
-        response.addCookie(refreshTokenCookie);
+//        response.addCookie(refreshTokenCookie);
+        response.addHeader("Set-Cookie", "DONGGURI_TOKEN_REFRESH=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=None");
     }
 
     public Long getRefreshTokenTTlSecond() {
