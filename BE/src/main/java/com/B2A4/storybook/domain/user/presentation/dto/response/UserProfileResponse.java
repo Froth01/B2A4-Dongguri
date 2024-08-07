@@ -4,7 +4,7 @@ import com.B2A4.storybook.domain.oauth.domain.OauthServerType;
 import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
 
 public record UserProfileResponse(
-        Long id,
+        Long userId,
         String name,
         String email,
         String nickname,
@@ -12,6 +12,6 @@ public record UserProfileResponse(
         OauthServerType oauthServerType
 ) {
     public UserProfileResponse(UserInfoVO userInfo) {
-        this(userInfo.id(), userInfo.name(), userInfo.email(), userInfo.nickname(), userInfo.profileImageUrl(), userInfo.oauthServerType());
+        this(userInfo.userId(), userInfo.name(), userInfo.email(), userInfo.nickname(), userInfo.profileImageUrl(), userInfo.oauthServerType());
     }
 }
