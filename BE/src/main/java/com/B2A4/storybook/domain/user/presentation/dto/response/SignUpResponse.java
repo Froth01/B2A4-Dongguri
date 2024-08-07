@@ -10,10 +10,9 @@ public record SignUpResponse(
         String email,
         String nickname,
         String profileImageUrl,
-        OauthServerType oauthServerType,
-        boolean isFirst
+        OauthServerType oauthServerType
 ) {
     public SignUpResponse(UserInfoVO userInfoVO, boolean status) {
-        this(userInfoVO.id(), userInfoVO.name(), userInfoVO.email(), userInfoVO.nickname(), userInfoVO.profileImageUrl(), userInfoVO.oauthServerType(), status);
+        this(userInfoVO.userId(), userInfoVO.name(), userInfoVO.email(), userInfoVO.nickname(), userInfoVO.profileImageUrl(), userInfoVO.oauthServerType());
     }
 }

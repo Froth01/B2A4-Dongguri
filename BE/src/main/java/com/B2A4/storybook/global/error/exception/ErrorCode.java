@@ -39,6 +39,11 @@ public enum ErrorCode {
     STORYBOOK_NOT_FOUND(404, "해당하는 동화를 찾을 수 없습니다."),
     STORY_WORLD_NOT_FOUND(404, "해당하는 동화나라를 찾을 수 없습니다."),
 
+
+    /* 409 중복된 리소스 */
+    NICKNAME_DUPLICATION(409, "이미 사용중인 닉네임입니다."),
+    USER_DUPLICATION(409, "이미 가입된 사용자입니다."),
+
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러"),
     IMAGE_PROCESSING(500, "이미지 처리 중 오류가 발생했습니다."),
