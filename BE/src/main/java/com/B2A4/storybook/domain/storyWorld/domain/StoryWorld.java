@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -24,7 +25,8 @@ public class StoryWorld extends BaseEntity {
     @Column(name = "story_world_id")
     private Long id;
 
-    @OneToOne(mappedBy = "storyWorld")
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(STRING)

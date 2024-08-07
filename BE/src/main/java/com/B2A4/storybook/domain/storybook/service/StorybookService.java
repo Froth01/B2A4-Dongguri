@@ -1,9 +1,7 @@
 package com.B2A4.storybook.domain.storybook.service;
 
-import com.B2A4.storybook.domain.file.service.FileService;
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
-import com.B2A4.storybook.global.openapi.service.OpenAPIService;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.domain.repository.StorybookRepository;
 import com.B2A4.storybook.domain.storybook.exception.StorybookNotFoundException;
@@ -12,6 +10,7 @@ import com.B2A4.storybook.domain.storybook.presentation.dto.request.TransformSto
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.StorybookResponse;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.TransformStorybookResponse;
 import com.B2A4.storybook.domain.user.domain.User;
+import com.B2A4.storybook.global.openapi.service.OpenAPIServiceUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,15 +29,14 @@ public class StorybookService implements StorybookServiceUtils {
     private final StorybookRepository storybookRepository;
     private final KeywordRepository keywordRepository;
     private final UserUtils userUtils;
-    private final FileService fileService;
-    private final OpenAPIService openaiService;
+    private final OpenAPIServiceUtils openAPIServiceUtils;
 
 
     @Override
     public TransformStorybookResponse transform(TransformStorybookRequest transformStorybookRequest) {
-        String content = openaiService.generateChatgpt(transformStorybookRequest);
-        String prompt = openaiService.generateClaude(transformStorybookRequest);
-        String transformedImageUrl = openaiService.generateDalle(prompt);
+        String content = openAPIServiceUtils.generateChatgpt(transformStorybookRequest);
+        String prompt = openAPIServiceUtils.generateClaude(transformStorybookRequest);
+        String transformedImageUrl = openAPIServiceUtils.generateDalle(prompt);
         return new TransformStorybookResponse(transformStorybookRequest.genre(), transformStorybookRequest.keywords(), content, transformStorybookRequest.originalImageUrl(), transformedImageUrl);
     }
 
@@ -46,8 +44,7 @@ public class StorybookService implements StorybookServiceUtils {
     @Transactional
     public StorybookResponse createStorybook(CreateStorybookRequest createStorybookRequest) {
         User user = userUtils.getUserFromSecurityContext();
-        String transparentImageUrl = "투명이미지";
-        String voiceRecordingUrl = fileService.uploadAudio(createStorybookRequest.voiceRecordingFile()).url();
+        String transparentImageUrl = openAPIServiceUtils.removeBackground(createStorybookRequest.originalImageUrl());
 
         Storybook storybook = Storybook.createStorybook(
                 user,
@@ -56,11 +53,12 @@ public class StorybookService implements StorybookServiceUtils {
                 createStorybookRequest.originalImageUrl(),
                 createStorybookRequest.transformedImageUrl(),
                 transparentImageUrl,
-                voiceRecordingUrl,
+                createStorybookRequest.voiceRecordingUrl(),
                 createStorybookRequest.isTodayKeyword()
         );
 
         storybookRepository.save(storybook);
+
 
         List<String> keywords = createStorybookRequest.keywords();
 

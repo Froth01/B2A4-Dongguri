@@ -62,4 +62,10 @@ public class UserController {
     public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
         return userService.checkNickname(nicknameCheckRequest);
     }
+
+    @Operation(summary = "회원 탈퇴")
+    @DeleteMapping
+    public void userWithdraw(HttpServletResponse response) {
+        userService.userWithdraw(response);
+    }
 }

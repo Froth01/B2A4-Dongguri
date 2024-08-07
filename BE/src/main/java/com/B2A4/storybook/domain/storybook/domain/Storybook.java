@@ -40,7 +40,7 @@ public class Storybook extends BaseEntity {
     private String voiceRecordingUrl;
     private boolean isTodayKeyword;
 
-    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Keyword> keywords;
 
 
