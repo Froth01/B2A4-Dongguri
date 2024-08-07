@@ -36,8 +36,10 @@ public class OpenAPIService implements OpenAPIServiceUtils {
 
     @Override
     public String generateClaude(TransformStorybookRequest transformStorybookRequest) {
-
-        String message = "What is in this image? keyword: " + transformStorybookRequest.keywords() + "(message_content_max_length:700)";
+        String message = "What is in this image? keyword: " + transformStorybookRequest.keywords()
+                + ". 장르 : " + transformStorybookRequest.genre()
+                + ". 이미지 타입 : " + transformStorybookRequest.transformType()
+                + ". (message_content_max_length:600)";
         String base64Image = fileUtils.encodeImageToBase64(transformStorybookRequest.originalImageUrl());
         String response = anthropicApiClient.sendMessageWithImage(message, base64Image);
         String prompt = null;
@@ -57,10 +59,11 @@ public class OpenAPIService implements OpenAPIServiceUtils {
     @Override
     public String generateChatgpt(TransformStorybookRequest transformStorybookRequest) {
 
-        String message = "4~6세의 아동용 동화 내용을 만들어줘." +
-                "3줄 정도의 내용." +
-                " 키워드: " + transformStorybookRequest.keywords() +
-                " 장르: " + transformStorybookRequest.genre();
+        String message = "4~6세의 아동용 동화 내용을 만들어줘."
+                + "3줄 정도의 내용."
+                + " 키워드: " + transformStorybookRequest.keywords()
+                + " 장르: " + transformStorybookRequest.genre()
+                + " 출력은 동화 내용만 나오게 해줘";
 
         String jsonResponse = openaiApiClient.sendMessage(message);
         String content = null;
