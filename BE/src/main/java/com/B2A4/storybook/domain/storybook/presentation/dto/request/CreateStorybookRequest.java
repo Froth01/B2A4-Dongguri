@@ -11,7 +11,7 @@ public record CreateStorybookRequest(
         String content,
         String originalImageUrl,
         String transformedImageUrl,
-        MultipartFile voiceRecordingFile,
+        String voiceRecordingUrl,
         boolean isTodayKeyword
 ) {
 }
