@@ -1,6 +1,7 @@
 package com.B2A4.storybook.domain.user.service;
 
 import com.B2A4.storybook.domain.avatar.service.AvatarServiceUtils;
+import com.B2A4.storybook.domain.oauth.domain.OauthMember;
 import com.B2A4.storybook.domain.oauth.domain.repository.OauthMemberRepository;
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
 import com.B2A4.storybook.domain.storyWorld.service.StoryWorldServiceUtils;
@@ -14,6 +15,7 @@ import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest
 import com.B2A4.storybook.domain.user.presentation.dto.response.CheckNicknameResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.UserProfileResponse;
+import com.B2A4.storybook.global.exception.UserNotFoundException;
 import com.B2A4.storybook.global.security.JwtTokenProvider;
 import com.B2A4.storybook.global.utils.security.SecurityUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
@@ -93,5 +95,21 @@ public class UserService {
     // 닉네임 중복 체크
     public CheckNicknameResponse checkNickname(CheckNicknameRequest nicknameCheckRequest) {
         return new CheckNicknameResponse(userRepository.findByNickname(nicknameCheckRequest.nickname()).isEmpty());
+    }
+
+    @Transactional
+    public void userWithdraw(HttpServletResponse response) {
+        Long currentUserId = SecurityUtils.getCurrentUserId();
+        refreshTokenRepository.deleteByUserId(currentUserId);
+
+        User currentUser = userUtils.getUserById(currentUserId);
+        OauthMember oauthMember = oauthMemberRepository
+                .findByOauthServerTypeAndEmail(currentUser.getOauthServerType(), currentUser.getEmail())
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        userRepository.delete(currentUser);
+        oauthMemberRepository.delete(oauthMember);
+
+        jwtTokenProvider.setHeaderAccessTokenEmpty(response);
+        jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
     }
 }

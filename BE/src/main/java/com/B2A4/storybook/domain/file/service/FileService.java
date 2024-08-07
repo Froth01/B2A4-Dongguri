@@ -36,6 +36,7 @@ public class FileService implements FileUtils {
 
     private final AmazonS3 amazonS3;
 
+    @Override
     public UploadFileResponse uploadImage(MultipartFile file) {
         validateFile(file, IMAGE_SIZE, new String[]{"jpg", "HEIC", "jpeg", "png", "heic"});
         return new UploadFileResponse(uploadToS3(file));
@@ -62,7 +63,8 @@ public class FileService implements FileUtils {
         }
     }
 
-    private String uploadToS3(MultipartFile file) {
+    @Override
+    public String uploadToS3(MultipartFile file) {
         String fileName = generateFileName(file);
         try {
             ObjectMetadata objMeta = new ObjectMetadata();
