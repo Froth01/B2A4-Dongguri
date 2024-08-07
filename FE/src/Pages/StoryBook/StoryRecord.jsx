@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Guide from "../../Components/StoryBook/Common/Guide";
 import Card from "../../Components/Home/Common/Card";
 import "./css/StoryRecord.css";

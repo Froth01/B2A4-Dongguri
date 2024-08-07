@@ -9,6 +9,7 @@ export const fetchLogin = (oauthServerType, code) => {
     .catch(error => { throw error; });
 };
 
+
 // 회원가입
 export const fetchSignup = (name, email, nickname, profileImageUrl, oauthServerType) => {
   return axiosInstance.post('/users/signup', { name, email, nickname, profileImageUrl, oauthServerType })
@@ -31,12 +32,8 @@ export const fetchImgUrl = (file) => {
 }
 
 // 동화 그림, 스토리 생성
-export const transformStorybook = (formData) => {
-  return axiosInstance.post('/api/storybooks/transform', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  })
+export const transformStorybook = (genre,transformType,keywords,originalImageUrl) => {
+  return axiosInstance.post('/storybooks/transform', {genre,transformType,keywords,originalImageUrl})
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -56,9 +53,15 @@ export const fetchGetAvatarList = () => {
 
 // 대표동그리 조회
 export const fetchRepresentative = () => {
-  console.log()
   return axiosInstance.get('/avatars/representative')
   .then(response => response.data)
+  .catch(error => { throw error })
+}
+
+// 동화 등록
+export const fetchStoryBooks = (data) => {
+  return axiosInstance.post('/storybooks', data)
+  .then(response => response.data )
   .catch(error => { throw error })
 }
 

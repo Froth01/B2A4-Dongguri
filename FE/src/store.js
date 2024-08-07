@@ -16,7 +16,7 @@ import imgReducer from './slices/imgSlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
 import representativeReducer from './slices/representativeSlice';
-
+import storyBookReducer from './slices/storyBookSlice';
 // persist 설정
 // const persistConfig = {
 //   key: 'root', // 기본 키 이름
@@ -44,6 +44,11 @@ const representativePersistConfig = {
   storage,
 };
 
+const storyBookPersistConfig = {
+  key: 'storybook',
+  storage,
+};
+
 // const persistedReducer = persistReducer(persistConfig, authReducer);
 // const makeStoryPersistedReducer = persistReducer(persistConfig, makeStoryReducer);
 
@@ -51,7 +56,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedMakeStoryReducer = persistReducer(makeStoryPersistConfig, makeStoryReducer);
 const persistedPathHistroyReducer = persistReducer(pathHistoryPersistConfig, pathHistoryReducer);
 const persistedRepresentativeReducer = persistReducer(representativePersistConfig, representativeReducer)
-
+const persistedStoryBookReducer = persistReducer(storyBookPersistConfig, storyBookReducer)
 // persist reducer 설정
 
 const store = configureStore({
@@ -71,7 +76,7 @@ const store = configureStore({
     following: followingReducer,
     followers: followersReducer,
     representative : persistedRepresentativeReducer,
-
+    storyBook : persistedStoryBookReducer,
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사
