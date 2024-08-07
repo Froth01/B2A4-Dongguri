@@ -6,7 +6,7 @@ export const imgUpload = createAsyncThunk('img/upload', async (file, { rejectWit
   try {
     const data = await fetchImgUrl(file);
     console.log(data.data)
-    return data.data.imageUrl;
+    return data.data.url;
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
