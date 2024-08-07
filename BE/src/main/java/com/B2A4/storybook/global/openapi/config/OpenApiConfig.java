@@ -18,8 +18,6 @@ public class OpenApiConfig {
 
     @Bean
     public WebClient anthropicWebClient() {
-        log.info("openai-key: " + openaiApiKey);
-        log.info("anthropic-key: " + anthropicApiKey);
         return WebClient.builder()
                 .baseUrl("https://api.anthropic.com")
                 .defaultHeader("x-api-key", anthropicApiKey)
@@ -30,8 +28,6 @@ public class OpenApiConfig {
 
     @Bean
     public WebClient openaiWebClient() {
-        log.info("openai-key: " + openaiApiKey);
-        log.info("anthropic-key: " + anthropicApiKey);
         return WebClient.builder()
                 .baseUrl("https://api.openai.com")
                 .defaultHeader("Authorization", "Bearer " + openaiApiKey)
