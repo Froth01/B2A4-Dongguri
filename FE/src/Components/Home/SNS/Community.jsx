@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './css/Community.css';
 import cool from '/img/sns/cool.png';
 import fun from '/img/sns/fun.png';
 import good from '/img/sns/good.png';
 import like from '/img/sns/like.png';
 import CommentItem from './CommentItem';
+import './css/Community.css';
 
 const dummyComments = [
     { userId: 1, commentId: 1, storybookId: 1, content: "정말 감동적이고 멋있는 이야기지요?", isMine: true, createdDate: "2024-07-01", modifiedDate: null },
@@ -25,13 +27,28 @@ const dummyComments = [
     { userId: 4, commentId: 3, storybookId: 4, content: "이런 종류의 이야기를 더 많이 듣고 싶어요.", isMine: false, createdDate: "2024-07-17", modifiedDate: null }
 ];
 
-const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
+const Community = ({ card }) => {
+    
+    const [emojiCounts, setEmojiCounts] = useState([0, 0, 0, 0]);
+    const [selectedEmoji, setSelectedEmoji] = useState(new Set());
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
 
-    // Find card data using cardId
-    const cardData = dummyList.find(card => card.storybookId === cardId);
+    const handleEmojiClick = (index) => {
+    let newCounts = emojiCounts.slice();
+    const updatedSelectedEmojis = new Set(selectedEmoji);
 
+    if (updatedSelectedEmojis.has(index)) {
+        updatedSelectedEmojis.delete(index);
+        newCounts[index] -= 1;
+    } else {
+        updatedSelectedEmojis.add(index);
+        newCounts[index] += 1;
+    }
+
+    setSelectedEmoji(updatedSelectedEmojis);
+    setEmojiCounts(newCounts);
+    };
 
     const emojis = [
         { img: cool, alt: 'Cool', count: emojiCounts[0] },
@@ -43,11 +60,10 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
     // On component mount, filter comments for this storybook
     useEffect(() => {
         const filteredComments = dummyComments
-            .filter(comment => comment.storybookId === cardId)
+            .filter(comment => comment.storybookId === card.storybookId)
             .sort((a, b) => a.commentId - b.commentId);
         setComments(filteredComments);
-        console.log(filteredComments)
-    }, [cardId]);
+    }, [card.storybookId]);
 
     const onUpdateComment = (commentId, newText) => {
         const updatedComments = comments.map((comment) => {
@@ -72,7 +88,7 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
         if (commentText.trim()) {
             const newComment = {
                 commentId: comments.length + 1, // `id` 대신 `commentId`를 사용
-                storybookId: cardId, // 현재 스토리북 ID
+                storybookId: card.storybookId, // 현재 스토리북 ID
                 content: commentText, // 댓글 내용
                 isMine: true, // 사용자 인증 로직에 따라 변경될 수 있음
                 createdDate: new Date().toISOString(), // 댓글 생성 날짜
@@ -87,13 +103,13 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
         <div className="community-container">
             <div className="profile-section">
                 <div className='profile-image-container'>
-                    <img src={cardData.profileImgUrl} alt="Profile" className="profile-image" />
+                    <img src={card.profileImgUrl} alt="Profile" className="profile-image" />
                 </div>
-                <div className="author">{cardData.author}</div>
-                <div className="date">{new Date(cardData.createdDate).toLocaleDateString()}</div>
+                <div className="author">{card.author}</div>
+                <div className="date">{new Date(card.createdDate).toLocaleDateString()}</div>
                 <div className="action-button">
                     <button className="share-button">공유하기</button>
-                    {!cardData.isMine && (
+                    {!card.isMine && (
                         <button className="report-button">신고하기</button>
                     )}
                 </div>
@@ -133,5 +149,16 @@ const Community = ({ dummyList, cardId, emojiCounts, handleEmojiClick }) => {
         </div>
     );
 };
+
+Community.propTypes = {
+    card: PropTypes.shape({
+      storybookId: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+      profileImgUrl: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      isMine: PropTypes.bool.isRequired,
+      createdDate: PropTypes.string.isRequired,
+    }).isRequired,
+  };
 
 export default Community;

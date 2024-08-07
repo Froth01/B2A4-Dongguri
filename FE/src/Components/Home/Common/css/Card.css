@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: ;
   height: 100%;
 }
 
@@ -42,17 +41,14 @@
 
 .tags-container {
   width: 90%;
-  overflow-x: auto; /* 태그가 넘치면 스크롤바 생성 */
+  overflow-x: auto;
   display: flex;
   align-items: center;
   position: relative;
   height: fit-content;
   padding-bottom: 1%;
   margin-right: 3%;
-  min-width: 0; /* flex 아이템이 축소될 수 있도록 설정 */
-  flex-shrink: 0; /* 태그 컨테이너가 축소되지 않도록 설정 */
 }
-
 
 .tags {
   display: flex;
@@ -73,9 +69,9 @@
   cursor: pointer;
 }
 
-.community-container {
+/* .community-container {
   padding: 10px;
   display: flex;
   flex-direction: column;
   height: 100%;
-}
+} */

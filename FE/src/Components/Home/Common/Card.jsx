@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import AudioPlayModal from '../../../Components/StoryBook/Common/AudioPlayModal'; // AudioPlayModal 임포트
+import AudioPlayModal from '../../../Components/StoryBook/Common/AudioPlayModal';
 import './css/Card.css';
 
 const Card = ({ card, showMic = true }) => {
   const [showOriginal, setShowOriginal] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!card || !card.keywords || !Array.isArray(card.keywords) || card.keywords.length === 0) {
     return <div>No tags available</div>;
@@ -16,17 +16,17 @@ const Card = ({ card, showMic = true }) => {
   };
 
   const handleListenRecording = () => {
-    setIsModalOpen(true); // 모달 열기
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // 모달 닫기
+    setIsModalOpen(false);
   };
 
   return (
     <div className="card-container">
       <img
-        src={showOriginal ? card.originalImgUrl : card.transformImgUrl}
+        src={showOriginal ? card.originalImageUrl : card.transformedImageUrl}
         alt={showOriginal ? 'Original image' : 'Transformed image'}
         className="card-image"
         onClick={toggleImage}
@@ -36,9 +36,9 @@ const Card = ({ card, showMic = true }) => {
         <div className="card-tag-mic-container">
           <div className="tags-container">
             <div className="tags">
-              {card.keywords.map((keyword, index) => (
-                <h3 key={index} className='hash'>#{keyword}</h3>
-              ))}
+            {card.keywords.filter(keyword => keyword.trim() !== '').map((keyword, index) => (
+              <h3 key={index} className='hash'>#{keyword}</h3>
+            ))}
             </div>
           </div>
           {showMic && (
@@ -54,9 +54,9 @@ const Card = ({ card, showMic = true }) => {
         </div>
       </div>
       <AudioPlayModal 
-        audioSrc={card.voiceRecord} // 음원 URL 전달
-        isOpen={isModalOpen} // 모달 열림 상태
-        onClose={closeModal} // 모달 닫기 함수 전달
+        audioSrc={card.voiceRecord}
+        isOpen={isModalOpen}
+        onClose={closeModal}
       />
     </div>
   );
@@ -65,8 +65,8 @@ const Card = ({ card, showMic = true }) => {
 Card.propTypes = {
   card: PropTypes.shape({
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
-    transformImgUrl: PropTypes.string.isRequired,
-    originalImgUrl: PropTypes.string.isRequired,
+    transformedImageUrl: PropTypes.string.isRequired,
+    originalImageUrl: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     voiceRecord: PropTypes.string,
   }),

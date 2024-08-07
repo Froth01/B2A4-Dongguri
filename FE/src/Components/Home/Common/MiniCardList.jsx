@@ -72,7 +72,7 @@ function MiniCardList({cardList}) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleCardClick = (card) => {
-    console.log("Opening modal for card:", card);  // 로그로 카드 정보 확인
+    console.log("Opening modal for card:", card);
     setSelectedCard(card);
     setModalOpen(true);
 };
@@ -94,7 +94,6 @@ function MiniCardList({cardList}) {
         <SnsDetail 
           card={selectedCard}
           toggleModal={toggleModal}
-          dummyList={dummyList} // 여기에서 dummyList를 전달합니다.
         />
       )}
     </div>

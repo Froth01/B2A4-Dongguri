@@ -6,7 +6,7 @@ const makeStorySlice = createSlice({
     genre: '',
     transformType: '',
     originalImageUrl: '',
-    keyword: ['', '', '', '']
+    keywords: ['', '', '', '']
   },
   reducers: {
     setGenre(state, action) {
@@ -19,13 +19,13 @@ const makeStorySlice = createSlice({
       state.originalImageUrl = action.payload;
     },
     setKeyword(state, action) { 
-      state.keyword = action.payload;
+      state.keywords = action.payload;
     },
     resetStory(state) { 
       state.genre = '';
       state.transformType = '';
       state.originalImageUrl = '';
-      state.keyword = ['', '', '', ''];
+      state.keywords = ['', '', '', ''];
       localStorage.removeItem('uploadedImage')
     }
   }
@@ -38,7 +38,7 @@ export const { setGenre, setTransformType, setOriginalImageUrl, setKeyword, rese
 export const selectGenre = (state) => state.makeStory.genre;
 export const selectTransformType = (state) => state.makeStory.transformType;
 export const selectOriginalImageUrl = (state) => state.makeStory.originalImageUrl;
-export const selectKeyword = (state) => state.makeStory.keyword;
+export const selectKeyword = (state) => state.makeStory.keywords;
 export const selectMakeStory = (state) => state.makeStory;
 
 export default makeStorySlice.reducer;
