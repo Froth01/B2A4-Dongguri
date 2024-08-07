@@ -11,8 +11,7 @@ import guideReducer from './slices/guideSlice';
 import makeStoryReducer from './slices/makeStorySlice';
 import imgReducer from './slices/imgSlice'
 import pathHistoryReducer from './slices/pathHistorySlice';
-
-// import imgReducer from './slices/imgSlice';
+import worldInfoReducer from './slices/worldInfoSlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
 import representativeReducer from './slices/representativeSlice';
@@ -50,6 +49,10 @@ const representativePersistConfig = {
   storage,
 };
 
+const userInfoPersistConfig = {
+  key: 'userInfo',
+  storage,
+};
 const storyBookPersistConfig = {
   key: 'storybook',
   storage,
@@ -62,6 +65,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedMakeStoryReducer = persistReducer(makeStoryPersistConfig, makeStoryReducer);
 const persistedPathHistroyReducer = persistReducer(pathHistoryPersistConfig, pathHistoryReducer);
 const persistedRepresentativeReducer = persistReducer(representativePersistConfig, representativeReducer)
+const persistedUserInfoReducer = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedStoryBookReducer = persistReducer(storyBookPersistConfig, storyBookReducer)
 // persist reducer 설정
 
@@ -71,7 +75,7 @@ const store = configureStore({
     mainBtn: mainBtnReducer,
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
-    userInfo: userInfoReducer,
+    userInfo: persistedUserInfoReducer,
     auth: persistedAuthReducer, 
     // auth: persistedReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
@@ -82,6 +86,8 @@ const store = configureStore({
     following: followingReducer,
     followers: followersReducer,
     representative : persistedRepresentativeReducer,
+    cardList: cardListReducer,
+    worldInfo: worldInfoReducer,
 
     cardList: cardListReducer,
 

@@ -11,10 +11,10 @@ function Navbar() {
   const userInfo = useSelector(state => state.userInfo.object)
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userInfo.id) {
-      dispatch(setUserId(userInfo.id));
+    if (userInfo.userId) {
+      dispatch(setUserId(userInfo.userId));
     }
-  },[userInfo.id,dispatch]);
+  },[userInfo.userId,dispatch]);
 
   return (
     <div className='navbar'>
@@ -36,22 +36,35 @@ function Navbar() {
         <div tabIndex="0" className="burger">
           <UserImg userInfo={userInfo}/>
         </div>
-        <nav className="popup-window">
+        {userInfo.userId != 0 && <nav className="popup-window">
           <ul>
             <li>
-              <Link to={`/users/${userInfo.id}`}>
+              <Link to={`/users/${userInfo.userId}`}>
                 <button>
                   프로필 변경
                 </button>
               </Link>
             </li>
             <li>
-              <button>
-                로그아웃
-              </button>
+              <Link to={'/users/logout'}>
+                <button>
+                  로그아웃
+                </button>
+              </Link>
             </li>
           </ul>
-        </nav>
+        </nav>}
+        {userInfo.userId===0 && <nav className='popup-window'>
+          <ul>
+            <li>
+              <Link to={'/login'}>
+              <button>
+                로그인
+              </button>
+              </Link>
+            </li>
+          </ul>
+        </nav>}
       </label>
       </div>
     </div>

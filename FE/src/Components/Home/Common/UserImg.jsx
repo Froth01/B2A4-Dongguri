@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 function UserImg({userInfo}) {
   return (
     <div className='userimg'>    
-      <img src={userInfo.id != null ? userInfo.profileImageUrl : '/img/home/userdefault.png'} alt="profile" />
+      <img src={userInfo.userId != 0 ? userInfo.profileImageUrl : '/img/home/userdefault.png'} alt="profile" />
     </div>
   )
 }
