@@ -3,6 +3,7 @@ package com.B2A4.storybook.domain.user.domain;
 import com.B2A4.storybook.domain.avatar.domain.Avatar;
 import com.B2A4.storybook.domain.oauth.domain.OauthServerType;
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
+import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
 import com.B2A4.storybook.global.database.BaseEntity;
 import jakarta.persistence.*;
@@ -26,11 +27,13 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Avatar> avatarList = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "story_world_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Storybook> storybookList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private StoryWorld storyWorld;
 
     private String name;
