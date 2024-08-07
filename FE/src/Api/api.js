@@ -9,6 +9,7 @@ export const fetchLogin = (oauthServerType, code) => {
     .catch(error => { throw error; });
 };
 
+
 // 회원가입
 export const fetchSignup = (name, email, nickname, profileImageUrl, oauthServerType) => {
   return axiosInstance.post('/users/signup', { name, email, nickname, profileImageUrl, oauthServerType })
@@ -32,11 +33,7 @@ export const fetchImgUrl = (file) => {
 
 // 동화 그림, 스토리 생성
 export const transformStorybook = (formData) => {
-  return axiosInstance.post('/api/storybooks/transform', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  })
+  return axiosInstance.post('/storybooks/transform', formData)
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -56,11 +53,11 @@ export const fetchGetAvatarList = () => {
 
 // 대표동그리 조회
 export const fetchRepresentative = () => {
-  console.log()
   return axiosInstance.get('/avatars/representative')
   .then(response => response.data)
   .catch(error => { throw error })
 }
+
 
 // 내 카드리스트 조회
 export const fetchCardList = (getCardForm) => {
@@ -74,3 +71,25 @@ export const fetchCardList = (getCardForm) => {
     .catch(error => { throw error; })
   }
 }
+
+// 동화 등록
+export const fetchStoryBooks = (data) => {
+  return axiosInstance.post('/storybooks', data)
+  .then(response => response.data )
+  .catch(error => { throw error })
+}
+
+// 오디오 등록
+export const fetchAudioUrl = (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  console.log(formData)
+  return axiosInstance.post('/file/audio',formData,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  .then(response => response.data )
+  .catch(error => { throw error })
+}
+

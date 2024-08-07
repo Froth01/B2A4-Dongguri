@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AudioPlayModal from './AudioPlayModal';
 import './css/RecordBtn.css';  // CSS 스타일
+import { fetchAudioUrl } from '../../../Api/api';
 
 function RecordBtn({ onRecord, isRecording, onShowResults }) {
   const [audioSrc, setAudioSrc] = useState('');
@@ -17,9 +18,20 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
     async function prepareRecorder() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const newRecorder = new MediaRecorder(stream);
-      newRecorder.ondataavailable = e => {
+      newRecorder.ondataavailable = async e => {
         const blob = new Blob([e.data], { type: 'audio/mp3' });
         setAudioSrc(URL.createObjectURL(blob));
+
+        //blob 객체 file 객체로 변환
+        const audioFile = new File([blob],'recording.mp3', { type: 'audio/mp3' })
+      
+        try {
+          const response = await fetchAudioUrl(audioFile)
+          const uploadedAudioUrl = response.url
+          console.log('url로 잘 변환했냐?',uploadedAudioUrl)
+        } catch (error) {
+          console.log('실패했따흑..',error)
+        }
       };
       setRecorder(newRecorder);
     }

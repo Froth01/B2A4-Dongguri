@@ -13,6 +13,7 @@ import StoryKeyword from './StoryKeyword'
 import StoryEnd from './StoryEnd'
 import StoryRecord from './StoryRecord'
 import { resetStory } from '../../slices/makeStorySlice'
+import { clearStorybook } from '../../slices/storyBookSlice'
 import { addPath, resetPaths } from '../../slices/pathHistorySlice'
 
 function StoryBook() {
@@ -20,7 +21,9 @@ function StoryBook() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // makeStory 리듀서 초기화 할 위치
     const resetPathsArray = ['/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', '/storybook/storytoday']
+    // 페이지 경로 저장
     const fullResetPathsArray = ['http://localhost:5173/', '/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', ]
     
     console.log('Current Path:', location.pathname)
@@ -29,6 +32,7 @@ function StoryBook() {
     if (resetPathsArray.includes(location.pathname)) {
       console.log('Resetting Redux state and path history')
       dispatch(resetStory())
+      dispatch(clearStorybook())
     }
 
     if (fullResetPathsArray.includes(location.pathname)) {
