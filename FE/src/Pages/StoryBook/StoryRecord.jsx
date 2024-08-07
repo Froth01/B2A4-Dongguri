@@ -39,28 +39,28 @@ function StoryRecord() {
     audio.play();
   };
 
-  const handleShowResults = async (e) => {
+  const handleShowResults = (e) => {
     // console.log("d",e)
-    const audioFile = e.target.files[0]
-    console.log('파일',audioFile)
-    // 결과보기 버튼 클릭 시 수행할 작업, 예를 들어 결과 페이지로 이동
-    console.log('Showing results...');
-    if (audioFile) {
-      try {
-        const resultAction = await dispatch(imgUpload(audioFile))
-        const file = resultAction.payload
+    // const audioFile = e.target.files[0]
+    // console.log('파일',audioFile)
+    // // 결과보기 버튼 클릭 시 수행할 작업, 예를 들어 결과 페이지로 이동
+    // console.log('Showing results...');
+    // if (audioFile) {
+    //   try {
+    //     const resultAction = await dispatch(imgUpload(audioFile))
+    //     const file = resultAction.payload
         
-        // audio 백에 등록
-        await fetchAudio(file)
-        console.log('오디오 등록 api:', file);
+    //     audio 백에 등록
+    //     await fetchAudio(file)
+    //     console.log('오디오 등록 api:', file);
 
 
-      } catch (error) {
-        console.log('api 요청 실패 ',error)
-      } 
-    } else {
-        console.log('실실패패');
-    }
+    //   } catch (error) {
+    //     console.log('api 요청 실패 ',error)
+    //   } 
+    // } else {
+    //     console.log('실실패패');
+    // }
   };
 
   return (

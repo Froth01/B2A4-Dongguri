@@ -9,11 +9,10 @@ import Login from './Login'
 import Signup from './Signup'
 import KakaoCallback from '../../Components/Home/Users/KakaoCallback'
 import UserUpdate from '../../Components/Home/Account/UserUpdate'
-import { useSelector } from 'react-redux'
+
 
 
 function Home() {
-  const userInfo = useSelector(state => state.userInfo.object)
   return (
     <div className='home'>
       <Navbar/>
@@ -25,7 +24,7 @@ function Home() {
         <Route path='/login' element={<Login />}/>
         <Route path="/kakao-callback" element={<KakaoCallback />} />
         <Route path='/signup' element={<Signup />}/>
-        <Route path={`/users/${userInfo.userId}`} element={<UserUpdate />} />
+        <Route path={`/users/*`} element={<UserUpdate />} />
       </Routes>
     </div>
   )
