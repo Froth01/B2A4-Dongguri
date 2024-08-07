@@ -51,6 +51,7 @@ aws:
 api:
   anthropic-key: ${ANTHROPIC_KEY}
   openai-key: ${OPENAI_KEY}
+  remove-key: ${REMOVE_KEY}
 
 management:
   server:
