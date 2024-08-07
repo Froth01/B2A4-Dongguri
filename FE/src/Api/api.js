@@ -16,6 +16,14 @@ export const fetchSignup = (name, email, nickname, profileImageUrl, oauthServerT
     .catch(error => { throw error; });
 };
 
+// 로그아웃
+export const fetchLogout = () => {
+  return axiosInstance.get('/users/logout')
+  .then(response => response.data)
+  .catch(error => { throw error; })
+}
+
+
 // 이미지 Url 변환
 export const fetchImgUrl = (file) => {
   const formData = new FormData();
@@ -73,4 +81,11 @@ export const fetchCardList = (getCardForm) => {
     .then(response => response.data)
     .catch(error => { throw error; })
   }
+}
+
+// 내 월드 조회
+export const fetchWorld = (userId) => {
+  return axiosInstance.get(`/storyworlds/${userId}`)
+  .then(response => response.data)
+  .catch(error => { throw error; })
 }
