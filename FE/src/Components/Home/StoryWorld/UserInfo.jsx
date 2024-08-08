@@ -2,13 +2,13 @@ import './css//UserInfo.css'
 import '../Common/css/UserImg.css'
 import UserImg from '../Common/UserImg'
 import FollowBtn from './FollowBtn'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import Follows from './Follows'
+import { useSelector } from 'react-redux'
 
-function UserInfo({userInfo}) {
-
+function UserInfo() {
+  const userInfo = useSelector(state => state.userInfo.object)
   //test
-  const currentUserId = 1;
   console.log(userInfo)
 
   return (
@@ -21,14 +21,14 @@ function UserInfo({userInfo}) {
       </div>
       {userInfo.name === 
       // 현재유저정보의 id값 
-      1 ? <FollowBtn /> : <Follows userInfo={userInfo} currentUserId={currentUserId}/>}
+      1 ? <FollowBtn /> : <Follows userInfo={userInfo} currentUserId={userInfo.userId}/>}
       
     </div>
   )
 }
 
-UserInfo.propTypes = {
-  userInfo:PropTypes.object.isRequired
-}
+// UserInfo.propTypes = {
+//   userInfo:PropTypes.object.isRequired
+// }
 
 export default UserInfo

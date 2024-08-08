@@ -33,15 +33,15 @@ function Follows({userInfo, currentUserId}) {
   }
 
   const dummyUsers = [
-    { id: 2, name: "User 2", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { id: 3, name: "User 3", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { id: 4, name: "User 4", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { id: 5, name: "User 5", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { id: 6, name: "User 6", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { id: 7, name: "User 7", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { id: 8, name: "User 8", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { id: 9, name: "User 9", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { id: 10, name: "User 10", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+    { userId: 2, name: "User 2", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+    { userId: 3, name: "User 3", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+    { userId: 4, name: "User 4", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+    { userId: 5, name: "User 5", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+    { userId: 6, name: "User 6", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+    { userId: 7, name: "User 7", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+    { userId: 8, name: "User 8", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+    { userId: 9, name: "User 9", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+    { userId: 10, name: "User 10", profileImg: "https://via.placeholder.com/50", isFollowing: false },
     // ... 더 많은 사용자
   ];
 

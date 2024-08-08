@@ -10,7 +10,7 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
   const toggleFollow = (userId) => {
     setUsers(prevUsers =>
       prevUsers.map(user =>
-        user.id === userId
+        user.userId === userId
           ? { ...user, isFollowing: !user.isFollowing }
           : user
       )
@@ -23,10 +23,10 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
         <h2>{type === 'followers' ? '팔로워' : '팔로우'}</h2>
         <ul className="user-list">
           {users.map(user => (
-            <li key={user.id} className="user-item">
+            <li key={user.userId} className="user-item">
               <img src={user.profileImg} alt={user.name} className="user-avatar" />
               <span className="user-name">{user.name}</span>
-              {type === 'followers' && user.id !== currentUserId && (
+              {type === 'followers' && user.userId !== currentUserId && (
                 <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.id)}>
                   <span className="follow-text">{user.isFollowing ? '팔로우 중' : '팔로우'}</span>
                   <span className="unfollow-text">언팔로우</span>

@@ -65,6 +65,8 @@ const SignupForm = () => {
       // 회원가입 처리
       const user = await dispatch(signup(formData)).unwrap();
       // 유저 정보 저장
+      console.log(user)
+      console.log(user.data)
       await dispatch(setUserObject(user.data)); // 유저 정보를 저장
       navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
     } catch (error) {
