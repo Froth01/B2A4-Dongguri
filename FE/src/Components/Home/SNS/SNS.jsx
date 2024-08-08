@@ -17,7 +17,7 @@ function SNS() {
       <SearchBar />
       <MiniCardList cardList={searchResults.data} />
     </div>
-  )
+  );
 }
 
-export default SNS
+export default SNS;

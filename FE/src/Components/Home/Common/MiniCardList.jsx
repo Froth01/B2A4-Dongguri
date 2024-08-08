@@ -75,7 +75,7 @@ function MiniCardList({cardList}) {
     console.log("Opening modal for card:", card);
     setSelectedCard(card);
     setModalOpen(true);
-};
+  };
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);

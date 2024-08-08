@@ -45,4 +45,8 @@ function SearchBar() {
   )
 }
 
+SearchBar.propTypes = {
+  setKeyword: PropTypes.func,
+};
+
 export default SearchBar
