@@ -2,8 +2,10 @@ import { useState } from 'react';
 import MiniCard from './MiniCard';
 import SnsDetail from '../SNS/SnsDetail';
 import './css/MiniCardList.css';
+import PropTypes from 'prop-types';
 
-function MiniCardList() {
+function MiniCardList({cardList = []}) {
+
   const dummyList = [
     {
       storybookId: 1,
@@ -73,7 +75,7 @@ function MiniCardList() {
     console.log("Opening modal for card:", card);
     setSelectedCard(card);
     setModalOpen(true);
-};
+  };
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);
@@ -97,5 +99,9 @@ function MiniCardList() {
     </div>
   );
 }
+
+MiniCardList.propTypes = {
+  cardList: PropTypes.array.isRequired
+};
 
 export default MiniCardList;

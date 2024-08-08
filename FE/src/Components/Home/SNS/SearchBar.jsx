@@ -1,9 +1,18 @@
+import PropTypes from 'prop-types';
 import './css/SearchBar.css'
-function SearchBar() {
+
+function SearchBar({ setKeyword }) {
+
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      setKeyword(event.target.value);
+    }
+  };
+
   return (
     <div className='searchbar'>
       <div className="search">
-        <input type="text" className="search__input" placeholder="유저 닉네임 / 해시태그를 입력해주세요!" />
+        <input type="text" className="search__input" placeholder="유저 닉네임 / 해시태그를 입력해주세요!" onKeyDown={handleSearch}/>
         <button className="search__button">
         <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
             <g>
@@ -15,5 +24,9 @@ function SearchBar() {
     </div>
   )
 }
+
+SearchBar.propTypes = {
+  setKeyword: PropTypes.func,
+};
 
 export default SearchBar
