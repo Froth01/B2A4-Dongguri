@@ -22,7 +22,7 @@ public class StoryWorldController {
         return storyWorldService.getStoryWorld(userId);
     }
 
-    @Operation(summary = "동화나라 조회")
+    @Operation(summary = "동화나라 수정")
     @PatchMapping("/{storyworldId}")
     public StoryWorldResponse updateStoryWorld(@PathVariable Long storyworldId, @RequestBody UpdateStoryWorldRequest updateStoryWorldRequest) {
         return storyWorldService.updateStoryWorld(storyworldId, updateStoryWorldRequest);

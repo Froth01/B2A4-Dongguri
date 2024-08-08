@@ -32,7 +32,7 @@ public class StorybookController {
     }
 
     @Operation(summary = "동화 조회")
-    @PatchMapping("/{storybookId}")
+    @GetMapping("/{storybookId}")
     public StorybookResponse getStorybook(@PathVariable long storybookId) {
         return storybookService.getStorybook(storybookId);
     }
