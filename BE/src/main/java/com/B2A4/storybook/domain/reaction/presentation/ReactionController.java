@@ -1,6 +1,7 @@
 package com.B2A4.storybook.domain.reaction.presentation;
 
 import com.B2A4.storybook.domain.reaction.presentation.dto.request.CreateReactionRequest;
+import com.B2A4.storybook.domain.reaction.presentation.dto.request.DeleteReactionRequest;
 import com.B2A4.storybook.domain.reaction.presentation.dto.response.ReactionResponse;
 import com.B2A4.storybook.domain.reaction.service.ReactionService;
 import com.B2A4.storybook.domain.reactionCount.presentation.dto.response.ReactionCountResponse;
@@ -24,9 +25,9 @@ public class ReactionController {
     }
 
     @Operation(summary = "공감 취소")
-    @DeleteMapping("/{reactionId}")
-    public void deleteReaction(@PathVariable Long reactionId) {
-        reactionService.deleteReaction(reactionId);
+    @DeleteMapping
+    public void deleteReaction(@RequestBody DeleteReactionRequest deleteReactionRequest) {
+        reactionService.deleteReaction(deleteReactionRequest);
     }
 
     @Operation(summary = "공감 수 조회")
