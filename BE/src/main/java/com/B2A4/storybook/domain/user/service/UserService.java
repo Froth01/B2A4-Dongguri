@@ -10,12 +10,14 @@ import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.domain.user.domain.repository.RefreshTokenRepository;
 import com.B2A4.storybook.domain.user.domain.repository.UserRepository;
 import com.B2A4.storybook.domain.user.exception.NicknameDuplicationException;
+import com.B2A4.storybook.domain.user.exception.NicknameMissingException;
 import com.B2A4.storybook.domain.user.exception.UserDuplicationException;
 import com.B2A4.storybook.domain.user.presentation.dto.request.CheckNicknameRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.SignUpUserRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.response.CheckNicknameResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
+import com.B2A4.storybook.domain.user.presentation.dto.response.UserBasicProfileResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.UserProfileResponse;
 import com.B2A4.storybook.global.exception.UserNotFoundException;
 import com.B2A4.storybook.global.security.JwtTokenProvider;
@@ -26,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -87,10 +91,10 @@ public class UserService {
     }
 
     // 회원 정보 조회
-    public UserProfileResponse getUserProfile(long userId) {
+    public UserBasicProfileResponse getUserBasicProfile(long userId) {
         User user = userUtils.getUserById(userId);
 
-        return new UserProfileResponse(user.getUserInfo());
+        return new UserBasicProfileResponse(user.getUserInfo());
     }
 
     // 회원 정보 수정
@@ -122,5 +126,13 @@ public class UserService {
 
         jwtTokenProvider.setHeaderAccessTokenEmpty(response);
         jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
+    }
+
+    public List<UserBasicProfileResponse> getUserBasicProfileListByNickname(String nickname) {
+        if(nickname.isEmpty()) {
+            throw NicknameMissingException.EXCEPTION;
+        }
+        List<User> userList = userRepository.findAllByNicknameContaining(nickname);
+        return userList.stream().map(user -> new UserBasicProfileResponse(user.getUserInfo())).toList();
     }
 }
