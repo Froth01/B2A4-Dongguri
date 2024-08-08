@@ -1,6 +1,6 @@
 package com.B2A4.storybook.global.openapi.service;
 
-import com.B2A4.storybook.domain.file.service.FileUtils;
+import com.B2A4.storybook.domain.file.service.FileServiceUtils;
 import com.B2A4.storybook.global.openapi.client.AnthropicApiClient;
 import com.B2A4.storybook.global.openapi.client.OpenaiApiClient;
 import com.B2A4.storybook.global.openapi.exception.ApiImageUploadFileException;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @Service
 public class OpenAPIService implements OpenAPIServiceUtils {
 
-    private final FileUtils fileUtils;
+    private final FileServiceUtils fileUtils;
     private final AnthropicApiClient anthropicApiClient;
     private final OpenaiApiClient openaiApiClient;
 

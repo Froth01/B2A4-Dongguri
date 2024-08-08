@@ -23,7 +23,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class FileService implements FileUtils {
+public class FileService implements FileServiceUtils {
 
     @Value("${aws.s3.bucket}")
     private String bucket;
