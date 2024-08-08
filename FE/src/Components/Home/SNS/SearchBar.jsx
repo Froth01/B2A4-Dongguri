@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setKeyword, setSearchType, fetchSearchResultsThunk, fetchUserResultsThunk, selectSearchType } from '../../slices/searchSlice';
+import { setKeyword, setSearchType, fetchSearchResultsThunk, fetchUserResultsThunk, selectSearchType } from '../../../slices/searchSlice';
 import './css/SearchBar.css';
 
 function SearchBar() {

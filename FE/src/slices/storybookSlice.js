@@ -1,35 +1,47 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { deleteStorybook } from '../Api/api';
+import { createSlice } from "@reduxjs/toolkit";
 
-export const removeStorybook = createAsyncThunk(
-  'storybooks/removeStorybook',
-  async (storybookId, { rejectWithValue }) => {
-    try {
-      await deleteStorybook(storybookId);
-      return storybookId;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+const initialState = {
+  genre: '',
+  keywords: ['', '', '', ''],
+  content: '',
+  originalImageUrl: '',
+  transformedImageUrl: '',
+  voiceRecordingFile: '',
+};
 
-const storybookSlice = createSlice({
-  name: 'storybooks',
-  initialState: {
-    storybooks: [],
-    status: 'idle',
-    error: null
-  },
+const storyBookSlice = createSlice({
+  name: 'storyBook',
+  initialState,
   reducers: {
-    // Your existing reducers...
-  },
-  extraReducers: (builder) => {
-    builder
-      // Your existing extra reducers...
-      .addCase(removeStorybook.fulfilled, (state, action) => {
-        state.storybooks = state.storybooks.filter(storybook => storybook.id !== action.payload);
-      });
+    setGenre(state, action) {
+      state.genre = action.payload;
+    },
+    setKeywords(state, action) {
+      state.keywords = action.payload;
+    },
+    setContent(state, action) {
+      state.content = action.payload;
+    },
+    setOriginalImageUrl(state, action) {
+      state.originalImageUrl = action.payload;
+    },
+    setTransformedImageUrl(state, action) {
+      state.transformedImageUrl = action.payload;
+    },
+    setVoiceRecordingFile(state,action) {
+      state.voiceRecordingFile =action.payload
+    },
+    clearStorybook() {
+      return initialState;  // 초기 상태로 되돌립니다.
+    },
   }
 });
 
-export default storybookSlice.reducer;
+// actions
+export const { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedImageUrl, setVoiceRecordingFile, clearStorybook } = storyBookSlice.actions;
+
+// selectors
+export const selectStorybook = (state) => state.storyBook;
+export const selectVoiceRecordingFile = (state) => state.storyBook.voiceRecordingFile;
+
+export default storyBookSlice.reducer;

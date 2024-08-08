@@ -83,6 +83,7 @@ export const fetchCardListByUserId = (userId) => {
   return axiosInstance.get(`/storybooks/users/${userId}`)
     .then(response => response.data)
     .catch(error => { throw error; })
+}
 export const fetchCardList = (getCardForm) => {
   if (getCardForm.type === 'mine') {
     return axiosInstance.get(`/storybooks/users/${getCardForm.userId}`)
@@ -205,7 +206,7 @@ export const getStorybook = (storybookId) => {
   return axiosInstance.get(`/storybooks/${storybookId}`)
     .then(response => response.data)
     .catch(error => { throw error; });
-
+}
 // 키워드 동화 목록 조회
 export const fetchSearchResults = (keyword) => {
   return axiosInstance.get('/storybooks', {
