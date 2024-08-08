@@ -2,6 +2,7 @@ package com.B2A4.storybook.domain.user.domain;
 
 import com.B2A4.storybook.domain.avatar.domain.Avatar;
 import com.B2A4.storybook.domain.oauth.domain.OauthServerType;
+import com.B2A4.storybook.domain.reaction.domain.Reaction;
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
@@ -32,6 +33,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Storybook> storybookList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reaction> reactionList = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private StoryWorld storyWorld;
