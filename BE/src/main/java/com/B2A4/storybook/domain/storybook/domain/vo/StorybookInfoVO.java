@@ -5,7 +5,7 @@ import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
 
 public record StorybookInfoVO(
-        Long id,
+        Long storybookId,
         UserInfoVO user,
         Genre genre,
         String content,
