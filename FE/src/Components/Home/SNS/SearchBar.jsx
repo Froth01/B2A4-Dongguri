@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setKeyword, fetchSearchResultsThunk } from '../../../slices/searchSlice';
+import { setUserId, fetchUserResultsThunk } from '../../../slices/searchUserSlice';
 import './css/SearchBar.css'
 
 function SearchBar() {
+  const [searchType, setSearchType] = useState('storybook')
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
 
@@ -12,14 +14,23 @@ function SearchBar() {
   }
 
   const handleSearch = () => {
-    dispatch(setKeyword(inputValue));
-    dispatch(fetchSearchResultsThunk(inputValue));
+    if (searchType === '동화') {
+      dispatch(setKeyword(inputValue));
+      dispatch(fetchSearchResultsThunk(inputValue));
+    } else {
+      dispatch(setUserId(inputValue));
+      dispatch(fetchUserResultsThunk(inputValue))
+    }
   };
 
   return (
     <div className='searchbar'>
       <div className="search">
-        <input type="text" className="search__input" placeholder="유저 닉네임 / 해시태그를 입력해주세요!" 
+        <select  className="search__select" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+          <option value="storybook">동화</option>
+          <option value="user">유저</option>
+        </select>
+        <input type="text" className="search__input" placeholder={`${searchType}를 입력해주세요!`}
         value={inputValue}
         onChange={handleInputChange}/>
         <button className="search__button" onClick={handleSearch}>

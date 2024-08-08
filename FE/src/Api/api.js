@@ -117,3 +117,12 @@ export const fetchSearchResults = (keyword) => {
   .then(response => response.data)
   .catch(error => { throw error });
 };
+
+// 유저 검색
+export const fetchUserResults = (userId) => {
+  return axiosInstance.get(`users/${userId}`,{
+    params: {userId}
+  })
+  .then(response => response.data)
+  .catch(error => { throw error })
+}
