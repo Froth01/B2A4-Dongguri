@@ -43,11 +43,12 @@
 .comments-section {
   display: flex;
   flex-direction: column;
-  flex: 7;
+  flex-grow: 7;
+  overflow-y: auto; /* comments-section에 overflow-y 추가 */
 }
 
 .comment-input-container {
-  flex: 1;
+  flex-shrink: 0;
 }
 
 .comment-input-container form{
@@ -62,23 +63,21 @@
 }
 
 .comments-list {
-  flex: 9;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; 
-  height: 100%;
 }
 
 .submit-comment-button {
   border: none;
   cursor: pointer;
 }
-  
+
 .emojis-section {
   display: flex;
-  flex: 2;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0; /* 이모지 섹션의 높이를 고정 */
+  height: 100px; /* height를 명시적으로 설정 */
 }
 
 .emoji {
@@ -103,8 +102,6 @@
   opacity: 0.8; 
 }
 
-
-
 .comment-item {
   min-height: 10%;
   max-height: 10%;
@@ -113,7 +110,7 @@
 }
 
 .comment-content {
-    flex: 1;
+    /* flex: 1; */
 }
 
 .comment-actions {

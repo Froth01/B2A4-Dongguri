@@ -21,7 +21,7 @@ function SNS() {
       {searchType === 'user' && searchUserResults && <MiniCardList cardList={[searchUserResults]} />}
       {/* <MiniCardList cardList={searchResults.data} /> */}
     </div>
-  )
+  );
 }
 
-export default SNS
+export default SNS;
