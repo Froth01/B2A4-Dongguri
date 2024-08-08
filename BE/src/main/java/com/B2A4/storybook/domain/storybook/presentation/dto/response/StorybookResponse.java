@@ -18,7 +18,7 @@ public record StorybookResponse(
         boolean isMine
 ) {
     public StorybookResponse(StorybookInfoVO storybookInfoVO, List<String> keywords, boolean isMine) {
-        this(storybookInfoVO.id(), storybookInfoVO.genre(), storybookInfoVO.content(), storybookInfoVO.originalImageUrl()
+        this(storybookInfoVO.storybookId(), storybookInfoVO.genre(), storybookInfoVO.content(), storybookInfoVO.originalImageUrl()
                 , storybookInfoVO.transformedImageUrl(), storybookInfoVO.transparentImageUrl(), storybookInfoVO.voiceRecordingUrl()
                 , storybookInfoVO.isTodayKeyword(), keywords, isMine);
     }
