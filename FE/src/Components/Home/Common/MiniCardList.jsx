@@ -81,9 +81,15 @@ function MiniCardList({cardList}) {
     setModalOpen(!modalOpen);
   };
 
+  // cardList가 배열인지 확인하고, 그렇지 않다면 빈 배열로 설정
+  const safeCardList = Array.isArray(cardList) ? cardList : [];
+
   return (
     <div className='minicardlist'>
-      {dummyList.map((card) => (
+      {/* {dummyList.map((card) => ( */}
+      {safeCardList.length === 0 && <p>검색 결과가 없습니다.</p>}
+      {/* {cardList.map((card) => ( */}
+      {safeCardList.map((card) => (
         <MiniCard 
           key={card.storybookId} 
           card={card} 

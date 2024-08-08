@@ -5,7 +5,7 @@ import Card from "../../Components/Home/Common/Card";
 import "./css/StoryEnd.css";
 import ReplayBtn from '../../Components/StoryBook/Common/ReplayBtn';
 import { selectStorybook } from '../../slices/storyBookSlice';
-
+// import LoadingModal from '../../Components/StoryBook/Common/LoadingModal'; // 추가한 모달 컴포넌트
 function StoryEnd() {
   // const [isUpload, setIsUpload] = useState(false);
 
@@ -16,13 +16,14 @@ function StoryEnd() {
   //   transformImgUrl: "/path/to/transformed/image.jpg",
   //   originalImgUrl: "/path/to/original/image.jpg"
   // };
-
+  // const { loading } = location.state || { loading: false };
+  // const { loading } = location.state;
 
   const storybookData = useSelector(selectStorybook);
-  console.log(storybookData)
+  console.log('end-data',storybookData)
   return (
     <div className='page-container end-wrapper'>
-
+      {/* <LoadingModal isOpen={loading} /> */}
       <div className='end-left'>
         {storybookData && <Card card={storybookData} showMic={false} />}
       </div>

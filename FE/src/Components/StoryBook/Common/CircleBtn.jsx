@@ -4,6 +4,7 @@ import { setTransformType, selectTransformType, selectMakeStory } from "../../..
 import { selectCircleBtnList } from "../../../slices/circleBtnSlice";
 import { selectPathHistory } from '../../../slices/pathHistorySlice';
 import { transformStorybook } from "../../../Api/api";
+import { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedImageUrl } from "../../../slices/storyBookSlice"
 import './css/CircleBtn.css'
 
 function CircleBtn() {
@@ -21,26 +22,38 @@ function CircleBtn() {
 
     if (pathHistory.includes('/storybook/storytoday')) {
       try {
-        // Base64 데이터를 Blob으로 변환
-        const base64Response = await fetch(makeStory.originalImageUrl);
-        const blob = await base64Response.blob();
-        console.log('Blob 변환 성공:', blob)
-
-        // FormData 객체 생성   (오늘의 주제는 장르 없는데 어떡..?)
         const formData = new FormData();
-        formData.append('genre', makeStory.genre);
-        formData.append('transformType', makeStory.transformType);
-        formData.append('originalImage', blob); // Blob 데이터를 추가
-        makeStory.keyword.forEach((keyword, index) => {
-          formData.append(`keyword[${index}]`, keyword);
-        });
+      formData.append('genre', makeStory.genre);
+      formData.append('transformType', makeStory.transformType);
+      formData.append('originalImageUrl', makeStory.originalImageUrl);
+      makeStory.keywords.forEach((keywords, index) => {
+        formData.append(`keywords[${index}]`, keywords);
+      });
+
+      console.log('오늘의 주제',
+        makeStory.genre,
+        makeStory.transformType,
+        makeStory.originalImageUrl,
+        makeStory.keywords)
         
-        // formData.forEach((value, key) => {
-        //   console.log(key, value);
-        // });
+        const response = await transformStorybook(formData)
+      console.log('기다리는중1')
+      console.log(response)
+      // const data = await response.json()
+      const data = response.data
+      console.log('기다리는중2')
+      console.log('data',data)
+      console.log('장르테스트',data.genre)
+      
+        // 리덕스에 저장
+      dispatch(setGenre(data.genre));
+      dispatch(setKeywords(data.keywords));
+      dispatch(setContent(data.content));
+      dispatch(setOriginalImageUrl(data.originalImageUrl));
+      dispatch(setTransformedImageUrl(data.transformedImageUrl));
 
         // API 요청 보내기
-        await transformStorybook(formData);
+        // await transformStorybook(formData);
 
         // 페이지 이동
         navigate('/storybook/storyend');

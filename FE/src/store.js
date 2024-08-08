@@ -15,12 +15,10 @@ import worldInfoReducer from './slices/worldInfoSlice';
 import followingReducer from './slices/followingSlice';
 import followersReducer from './slices/followersSlice';
 import representativeReducer from './slices/representativeSlice';
-
 import cardListReducer from './slices/cardListSlice'
-
-
 import storyBookReducer from './slices/storyBookSlice';
 import audioReducer from './slices/audioSlice';
+import searchReducer from './slices/searchSlice';
 
 // persist 설정
 // const persistConfig = {
@@ -58,6 +56,11 @@ const storyBookPersistConfig = {
   storage,
 };
 
+const searchPersistConfig = {
+  key: 'search',
+  storage
+}
+
 // const persistedReducer = persistReducer(persistConfig, authReducer);
 // const makeStoryPersistedReducer = persistReducer(persistConfig, makeStoryReducer);
 
@@ -67,6 +70,7 @@ const persistedPathHistroyReducer = persistReducer(pathHistoryPersistConfig, pat
 const persistedRepresentativeReducer = persistReducer(representativePersistConfig, representativeReducer)
 const persistedUserInfoReducer = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedStoryBookReducer = persistReducer(storyBookPersistConfig, storyBookReducer)
+const persistSearchReducer = persistReducer(searchPersistConfig, searchReducer )
 // persist reducer 설정
 
 const store = configureStore({
@@ -88,11 +92,9 @@ const store = configureStore({
     representative : persistedRepresentativeReducer,
     cardList: cardListReducer,
     worldInfo: worldInfoReducer,
-
-    cardList: cardListReducer,
-
     storyBook : persistedStoryBookReducer,
     audio: audioReducer,
+    search: persistSearchReducer,
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사
