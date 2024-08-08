@@ -2,10 +2,12 @@ package com.B2A4.storybook.domain.storybook.service;
 
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
+import com.B2A4.storybook.domain.reactionCount.service.ReactionCountServiceUtils;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.domain.repository.StorybookRepository;
 import com.B2A4.storybook.domain.storybook.exception.KeywordMissingException;
 import com.B2A4.storybook.domain.storybook.exception.StorybookNotFoundException;
+import com.B2A4.storybook.domain.storybook.exception.UserNotStorybookHostException;
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.CreateStorybookRequest;
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.TransformStorybookRequest;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.StorybookResponse;
@@ -31,6 +33,7 @@ public class StorybookService implements StorybookServiceUtils {
     private final KeywordRepository keywordRepository;
     private final UserUtils userUtils;
     private final OpenAPIServiceUtils openAPIServiceUtils;
+    private final ReactionCountServiceUtils reactionCountServiceUtils;
 
 
     @Override
@@ -60,6 +63,7 @@ public class StorybookService implements StorybookServiceUtils {
 
         storybookRepository.save(storybook);
 
+        reactionCountServiceUtils.createReactionCount(storybook.getId());
 
         List<String> keywords = createStorybookRequest.keywords();
 
@@ -130,7 +134,16 @@ public class StorybookService implements StorybookServiceUtils {
 
     @Override
     public List<Storybook> getStorybookListByStorybookIds(List<Long> storybookIds) {
-        return storybookRepository.findAllById(storybookIds);
+        User user = userUtils.getUserFromSecurityContext();
+        List<Storybook> storybookList = storybookRepository.findAllById(storybookIds);
+
+        for (Storybook storybook : storybookList) {
+            if (!storybook.getUser().getId().equals(user.getId())) {
+                throw UserNotStorybookHostException.EXCEPTION;
+            }
+        }
+
+        return storybookList;
     }
 
     @Override
