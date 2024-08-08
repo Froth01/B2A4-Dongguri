@@ -10,9 +10,14 @@ import com.amazonaws.util.IOUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -38,7 +43,22 @@ public class FileService implements FileServiceUtils {
 
     @Override
     public UploadFileResponse uploadImage(MultipartFile file) {
-        validateFile(file, IMAGE_SIZE, new String[]{"jpg", "HEIC", "jpeg", "png", "heic"});
+        validateFile(file, IMAGE_SIZE, new String[]{"jpg", "jpeg", "png"});
+
+        try {
+            BufferedImage image = ImageIO.read(file.getInputStream());
+            BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = newImage.createGraphics();
+            g.drawImage(image, 0, 0, Color.WHITE, null);
+            g.dispose();
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(newImage, "jpg", os);
+            byte[] jpgBytes = os.toByteArray();
+            file = new MockMultipartFile(file.getName(), UUID.randomUUID().toString() + ".jpg", "image/jpeg", jpgBytes);
+        } catch (IOException e) {
+            throw ImageProcessingException.EXCEPTION;
+        }
+
         return new UploadFileResponse(uploadToS3(file));
     }
 
