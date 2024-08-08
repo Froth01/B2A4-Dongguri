@@ -19,7 +19,6 @@ import cardListReducer from './slices/cardListSlice'
 import storyBookReducer from './slices/storyBookSlice';
 import audioReducer from './slices/audioSlice';
 import searchReducer from './slices/searchSlice';
-import searchUserReducer from './slices/searchUserSlice';
 
 // persist 설정
 // const persistConfig = {
@@ -62,10 +61,7 @@ const searchPersistConfig = {
   storage
 }
 
-const searchUserPersistConfig = {
-  key: 'searchUser',
-  storage
-}
+
 
 // const persistedReducer = persistReducer(persistConfig, authReducer);
 // const makeStoryPersistedReducer = persistReducer(persistConfig, makeStoryReducer);
@@ -77,7 +73,6 @@ const persistedRepresentativeReducer = persistReducer(representativePersistConfi
 const persistedUserInfoReducer = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedStoryBookReducer = persistReducer(storyBookPersistConfig, storyBookReducer)
 const persistSearchReducer = persistReducer(searchPersistConfig, searchReducer )
-const persistSearchUserReducer = persistReducer(searchUserPersistConfig, searchUserReducer )
 // persist reducer 설정
 
 const store = configureStore({
@@ -102,7 +97,6 @@ const store = configureStore({
     storyBook : persistedStoryBookReducer,
     audio: audioReducer,
     search: persistSearchReducer,
-    searchUser: persistSearchUserReducer,
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

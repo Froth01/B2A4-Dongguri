@@ -24,7 +24,11 @@ const searchSlice = createSlice({
     keyword: '',
     userId: '',
     results: [],
-    userResults: null,
+    userResults: {
+      userId: '',
+      nickname: '',
+      profileImageUrl: ''
+    },
     searchType: 'storybook',  
     loading: false,
     error: null,

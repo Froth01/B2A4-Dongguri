@@ -1,32 +1,38 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setKeyword, fetchSearchResultsThunk } from '../../../slices/searchSlice';
-import { setUserId, fetchUserResultsThunk } from '../../../slices/searchUserSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { setKeyword,setUserId, setSearchType, fetchSearchResultsThunk, fetchUserResultsThunk, selectSearchType } from '../../../slices/searchSlice';
+// import { setKeyword, setUserId, setSearchType, fetchSearchResultsThunk, fetchUserResultsThunk } from '../../../slices/searchSlice';
+// import { setUserId, fetchUserResultsThunk } from '../../../slices/searchUserSlice';
 import './css/SearchBar.css'
+// import { setUserId } from '../../../slices/searchUserSlice';
 
 function SearchBar() {
-  const [searchType, setSearchType] = useState('storybook')
   const [inputValue, setInputValue] = useState('')
+  const searchType = useSelector(selectSearchType); 
   const dispatch = useDispatch()
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
   }
 
+  const handleTypeChange = (e) => {
+    dispatch(setSearchType(e.target.value));
+  };
+
   const handleSearch = () => {
-    if (searchType === '동화') {
-      dispatch(setKeyword(inputValue));
+    if (searchType === 'storybook') {
+      dispatch(setKeyword(inputValue))
       dispatch(fetchSearchResultsThunk(inputValue));
     } else {
-      dispatch(setUserId(inputValue));
-      dispatch(fetchUserResultsThunk(inputValue))
+      dispatch(setUserId(inputValue))
+      dispatch(fetchUserResultsThunk(inputValue));
     }
   };
 
   return (
     <div className='searchbar'>
       <div className="search">
-        <select  className="search__select" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+        <select  className="search__select" onChange={handleTypeChange} value={searchType}>
           <option value="storybook">동화</option>
           <option value="user">유저</option>
         </select>
