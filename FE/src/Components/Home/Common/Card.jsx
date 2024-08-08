@@ -26,7 +26,7 @@ const Card = ({ card, showMic = true }) => {
   return (
     <div className="card-container">
       <img
-        src={showOriginal ? card.originalImgUrl : card.transformImgUrl}
+        src={showOriginal ? card.originalImageUrl : card.transformedImageUrl}
         alt={showOriginal ? 'Original image' : 'Transformed image'}
         className="card-image"
         onClick={toggleImage}
@@ -36,9 +36,9 @@ const Card = ({ card, showMic = true }) => {
         <div className="card-tag-mic-container">
           <div className="tags-container">
             <div className="tags">
-              {card.keywords.map((keyword, index) => (
-                <h3 key={index} className='hash'>#{keyword}</h3>
-              ))}
+            {card.keywords.filter(keyword => keyword.trim() !== '').map((keyword, index) => (
+              <h3 key={index} className='hash'>#{keyword}</h3>
+            ))}
             </div>
           </div>
           {showMic && (
@@ -65,8 +65,8 @@ const Card = ({ card, showMic = true }) => {
 Card.propTypes = {
   card: PropTypes.shape({
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
-    transformImgUrl: PropTypes.string.isRequired,
-    originalImgUrl: PropTypes.string.isRequired,
+    transformedImageUrl: PropTypes.string.isRequired,
+    originalImageUrl: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     voiceRecord: PropTypes.string,
   }),

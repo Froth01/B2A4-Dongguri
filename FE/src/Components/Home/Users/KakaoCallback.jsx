@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../../slices/authSlice';
+import { setAuthObject } from '../../../slices/authSlice';
 
 const KakaoCallback = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,11 @@ const KakaoCallback = () => {
         if (code) {
           try {
             const user = await dispatch(login({ oauthServerType: 'KAKAO', code })).unwrap();
-            console.log(user.data.isFirst)
-            if (user.data.isFirst) {
-              console.log(user)
+            console.log(user.data.user)
+            if (user.data.user === null) {
               navigate('/signup', { state: { user , code: code }});
             } else {
+              dispatch(setAuthObject(user.data.user))
               navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
             }
           } catch (error) {

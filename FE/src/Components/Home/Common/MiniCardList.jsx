@@ -2,10 +2,10 @@ import { useState } from 'react';
 import MiniCard from './MiniCard';
 import SnsDetail from '../SNS/SnsDetail';
 import './css/MiniCardList.css';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-function MiniCardList({cardList = []}) {
-
+// S11P12B309\FE\public\img\card\dummy1.png
+function MiniCardList({cardList}) {
   const dummyList = [
     {
       storybookId: 1,
@@ -102,6 +102,6 @@ function MiniCardList({cardList = []}) {
 
 MiniCardList.propTypes = {
   cardList: PropTypes.array.isRequired
-};
+}
 
 export default MiniCardList;

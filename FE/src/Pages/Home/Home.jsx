@@ -11,6 +11,7 @@ import KakaoCallback from '../../Components/Home/Users/KakaoCallback'
 import UserUpdate from '../../Components/Home/Account/UserUpdate'
 
 
+
 function Home() {
   return (
     <div className='home'>
@@ -23,7 +24,7 @@ function Home() {
         <Route path='/login' element={<Login />}/>
         <Route path="/kakao-callback" element={<KakaoCallback />} />
         <Route path='/signup' element={<Signup />}/>
-        <Route path='/users/*' element={<UserUpdate />} />
+        <Route path={`/users/*`} element={<UserUpdate />} />
       </Routes>
     </div>
   )

@@ -3,18 +3,22 @@ import './css/StoryKeyword.css';
 import Guide from "../../Components/StoryBook/Common/Guide";
 import NextBtn from "../../Components/StoryBook/Common/NextBtn";
 import StoryKeywordInput from "../../Components/StoryBook/StoryKeywordInput/KeywordInput";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectKeyword, selectOriginalImageUrl, selectMakeStory } from "../../slices/makeStorySlice";
+import { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedImageUrl } from "../../slices/storyBookSlice";
 import { transformStorybook } from '../../Api/api';
 import { useNavigate } from 'react-router-dom';
+
 
 const StoryKeyword = () => {
   const keywords = useSelector(selectKeyword);
   const originalImageUrl = useSelector(selectOriginalImageUrl);
   const makeStory = useSelector(selectMakeStory);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const disabled = !keywords.some(keyword => keyword.trim() !== '');
+
+  const disabled = !keywords.some(keywords => keywords.trim() !== '');
 
   const handleNextClick = async (event) => {
     if (disabled) {
@@ -23,21 +27,37 @@ const StoryKeyword = () => {
     }
 
     try {
-      // Base64 데이터를 Blob으로 변환
-      const base64Response = await fetch(originalImageUrl);
-      const blob = await base64Response.blob();
-      console.log('Blob 변환 성공:', blob); // Blob 변환 성공 확인
-
-      // FormData 객체 생성
+      
       const formData = new FormData();
       formData.append('genre', makeStory.genre);
       formData.append('transformType', makeStory.transformType);
-      formData.append('originalImage', blob); // Blob 데이터를 추가
-      makeStory.keyword.forEach((keyword, index) => {
-        formData.append(`keyword[${index}]`, keyword);
+      formData.append('originalImageUrl', makeStory.originalImageUrl);
+      makeStory.keywords.forEach((keywords, index) => {
+        formData.append(`keywords[${index}]`, keywords);
       });
 
-      await transformStorybook(formData);
+      console.log(makeStory.genre,
+        makeStory.transformType,
+        makeStory.originalImageUrl,
+        makeStory.keywords)
+
+      const response = await transformStorybook(formData)
+      console.log('기다리는중1')
+      console.log(response)
+      // const data = await response.json()
+      const data = response.data
+      console.log('기다리는중2')
+      console.log('data',data)
+      console.log('장르테스트',data.genre)
+      
+      // 리덕스에 저장
+      dispatch(setGenre(data.genre));
+      dispatch(setKeywords(data.keywords));
+      dispatch(setContent(data.content));
+      dispatch(setOriginalImageUrl(data.originalImageUrl));
+      dispatch(setTransformedImageUrl(data.transformedImageUrl));
+
+
       navigate('/storybook/storyend');
     } catch (error) {
       console.error('API 요청 실패:', error);
