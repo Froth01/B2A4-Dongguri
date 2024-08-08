@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum BackgroundType {
-    CUSTOM(null);
-
-    private final String imageUrl;
+    WOODS,
+    WINTER,
+    CASTLE,
+    CUSTOM;
 }

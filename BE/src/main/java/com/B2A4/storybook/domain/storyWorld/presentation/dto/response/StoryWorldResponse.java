@@ -2,7 +2,6 @@ package com.B2A4.storybook.domain.storyWorld.presentation.dto.response;
 
 import com.B2A4.storybook.domain.storyWorld.domain.BackgroundType;
 import com.B2A4.storybook.domain.storyWorld.domain.vo.StoryWorldInfoVO;
-import com.B2A4.storybook.domain.storybook.domain.vo.StorybookInfoVO;
 
 import java.util.List;
 
@@ -10,9 +9,9 @@ public record StoryWorldResponse(
         Long storyWorldId,
         BackgroundType backgroundType,
         String backgroundUrl,
-        List<StorybookInfoVO> storybooks
+        List<StoryWorldStorybookResponse> storybooks
 ) {
-    public StoryWorldResponse(StoryWorldInfoVO storyWorldInfoVO, List<StorybookInfoVO> storybookInfoVOList) {
-        this(storyWorldInfoVO.storyWorldId(), storyWorldInfoVO.backgroundType(), storyWorldInfoVO.customBackgroundUrl(), storybookInfoVOList);
+    public StoryWorldResponse(StoryWorldInfoVO storyWorldInfoVO, List<StoryWorldStorybookResponse> storyWorldStorybookResponseList) {
+        this(storyWorldInfoVO.storyWorldId(), storyWorldInfoVO.backgroundType(), storyWorldInfoVO.customBackgroundUrl(), storyWorldStorybookResponseList);
     }
 }
