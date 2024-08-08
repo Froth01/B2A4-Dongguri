@@ -8,13 +8,13 @@ import { setUserId } from '../../../slices/navBarBtnSlice'
 
 function Navbar() {
   const navBarBtnList = useSelector(state => state.navBarBtn.list)
-  const userInfo = useSelector(state => state.userInfo.object)
+  const currentUser = useSelector(state => state.auth.object)
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userInfo.userId) {
-      dispatch(setUserId(userInfo.userId));
+    if (currentUser.userId) {
+      dispatch(setUserId(currentUser.userId));
     }
-  },[userInfo.userId,dispatch]);
+  },[currentUser.userId,dispatch]);
 
   return (
     <div className='navbar'>
@@ -34,12 +34,12 @@ function Navbar() {
       <label className="popup">
         <input type="checkbox" />
         <div tabIndex="0" className="burger">
-          <UserImg userInfo={userInfo}/>
+          <UserImg userInfo={currentUser}/>
         </div>
-        {userInfo.userId != 0 && <nav className="popup-window">
+        {currentUser.userId != 0 && <nav className="popup-window">
           <ul>
             <li>
-              <Link to={`/users/${userInfo.userId}`}>
+              <Link to={`/users/${currentUser.userId}`}>
                 <button>
                   프로필 변경
                 </button>
@@ -54,7 +54,7 @@ function Navbar() {
             </li>
           </ul>
         </nav>}
-        {userInfo.userId===0 && <nav className='popup-window'>
+        {currentUser.userId===0 && <nav className='popup-window'>
           <ul>
             <li>
               <Link to={'/login'}>

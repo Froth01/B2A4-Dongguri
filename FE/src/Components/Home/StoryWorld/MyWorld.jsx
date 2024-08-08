@@ -4,7 +4,7 @@ import './css/MyWorld.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWorldObject } from '../../../slices/worldInfoSlice';
 
-  function MyWorld({userInfo}) {
+  function MyWorld({userInfo, myCardList}) {
     const dispatch = useDispatch();
     const myWorldRef = useRef(null);
     const worldInfo = useSelector(state => state.worldInfo.object)
@@ -45,7 +45,7 @@ import { setWorldObject } from '../../../slices/worldInfoSlice';
   return (
     <div className="myworld" ref={myWorldRef}>
       
-      {worldInfo.storybooks.map(card => (
+      {myCardList.map(card => (
         <img key={card.storybookId} src={card.originalImageUrl} className="floating-image" alt={card.storybookId} />
       ))}
     </div>
@@ -54,5 +54,6 @@ import { setWorldObject } from '../../../slices/worldInfoSlice';
 
 MyWorld.propTypes = {
   userInfo: PropTypes.object.isRequired,
+  myCardList: PropTypes.array.isRequired
 }
 export default MyWorld;
