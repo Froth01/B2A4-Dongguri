@@ -23,8 +23,8 @@ public class StoryWorldController {
     }
 
     @Operation(summary = "동화나라 수정")
-    @PatchMapping("/{storyworldId}")
-    public StoryWorldResponse updateStoryWorld(@PathVariable Long storyworldId, @RequestBody UpdateStoryWorldRequest updateStoryWorldRequest) {
-        return storyWorldService.updateStoryWorld(storyworldId, updateStoryWorldRequest);
+    @PatchMapping("/{storyWorldId}")
+    public StoryWorldResponse updateStoryWorld(@PathVariable Long storyWorldId, @RequestBody UpdateStoryWorldRequest updateStoryWorldRequest) {
+        return storyWorldService.updateStoryWorld(storyWorldId, updateStoryWorldRequest);
     }
 }
