@@ -44,6 +44,7 @@ public enum ErrorCode {
     REPORT_NOT_FOUND(404, "해당하는 신고를 찾을 수 없습니다."),
     REACTION_NOT_FOUND(404, "해당하는 공감을 찾을 수 없습니다."),
     REACTION_COUNT_NOT_FOUND(404, "해당하는 공감 수를 찾을 수 없습니다."),
+    DAILY_KEYWORD_NOT_FOUND(404, "해당하는 오늘의 키워드를 찾을 수 없습니다."),
 
     /* 409 중복된 리소스 */
     NICKNAME_DUPLICATION(409, "이미 사용중인 닉네임입니다."),
