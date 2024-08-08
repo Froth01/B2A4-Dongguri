@@ -4,7 +4,7 @@ import Menu from './Menu'
 import UserImg from '../Common/UserImg'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUserId } from '../../../slices/navBarBtnSlice'
+import { setTargetUser } from '../../../slices/navBarBtnSlice'
 
 function Navbar() {
   const navBarBtnList = useSelector(state => state.navBarBtn.list)
@@ -12,7 +12,7 @@ function Navbar() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (currentUser.userId) {
-      dispatch(setUserId(currentUser.userId));
+      dispatch(setTargetUser(currentUser));
     }
   },[currentUser.userId,dispatch]);
 

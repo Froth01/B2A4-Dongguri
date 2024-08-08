@@ -9,10 +9,9 @@ export const fetchLogin = (oauthServerType, code) => {
     .catch(error => { throw error; });
 };
 
-
 // 회원가입
-export const fetchSignup = (name, email, nickname, profileImageUrl, oauthServerType) => {
-  return axiosInstance.post('/users/signup', { name, email, nickname, profileImageUrl, oauthServerType })
+export const fetchSignup = (signupForm) => {
+  return axiosInstance.post('/users/signup', signupForm)
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -24,12 +23,24 @@ export const fetchLogout = () => {
   .catch(error => { throw error; })
 }
 
+// 유저정보 가져오기
+export const fetchUser = (userId) => {
+  return axiosInstance.get(`/users/${userId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 유저정보 수정하기
+export const fetchUserUpdate = (updateForm) => {
+  return axiosInstance.patch(`/users`, updateForm)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
 
 // 이미지 Url 변환
 export const fetchImgUrl = (file) => {
   const formData = new FormData();
   formData.append('file', file);
-  console.log(formData)
   return axiosInstance.post('/file/image', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -68,23 +79,33 @@ export const fetchRepresentative = () => {
 
 
 // 내 카드리스트 조회
-export const fetchCardList = (getCardForm) => {
-  if (getCardForm.type === 'mine') {
-  return axiosInstance.get(`/storybooks/users/${getCardForm.userId}`)
+export const fetchCardListByUserId = (userId) => {
+  return axiosInstance.get(`/storybooks/users/${userId}`)
     .then(response => response.data)
     .catch(error => { throw error; })
-  } else if (getCardForm.type === 'keyword') {
-    return axiosInstance.get(`/storybooks/users/`)
-    .then(response => response.data)
-    .catch(error => { throw error; })
-  }
 }
+
+
+//   } else if (getCardForm.type === 'keyword') {
+//     return axiosInstance.get(`/storybooks/users/`)
+//     .then(response => response.data)
+//     .catch(error => { throw error; })
+//   }
+// }
 
 // 내 월드 조회
 export const fetchWorld = (userId) => {
   return axiosInstance.get(`/storyworlds/${userId}`)
   .then(response => response.data)
   .catch(error => { throw error; })
+}
+
+// 월드 수정 적용하기
+export const fetchWorldUpdate = (patchInfo) => {
+  console.log('들어온 patchInfo :', patchInfo)
+  return axiosInstance.patch(`/storyworlds/${patchInfo.storyWorldId}`, patchInfo.patchForm)
+    .then(response => response.data)
+    .catch(error => { throw error; })
 }
 
 // 동화 등록

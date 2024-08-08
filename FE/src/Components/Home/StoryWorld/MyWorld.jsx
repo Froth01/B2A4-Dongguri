@@ -1,13 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types'
 import './css/MyWorld.css';
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
-import { setWorldObject } from '../../../slices/worldInfoSlice';
+import { getWorldInfo, setWorldObject } from '../../../slices/worldInfoSlice';
+import MyWorldBackgroundUpdate from './MyWorldBackgroundUpdate';
+import MyWorldImgUpdate from './MyWorldImgUpdate';
 
-  function MyWorld({userInfo, myCardList}) {
+  function MyWorld({myCardList}) {
+    const userInfo = useSelector(state => state.userInfo.object)
     const dispatch = useDispatch();
-    const myWorldRef = useRef(null);
     const worldInfo = useSelector(state => state.worldInfo.object)
+    const [storybooks, setStorybooks] = useState([])
+    const [backgroundUrl, setBackgroundUrl] = useState('')
+    const myWorldRef = useRef(null);
+
+    // 이미지 움직이는거
     useEffect(() => {
       const randomPosition = (element) => {
       if (!myWorldRef.current) return;
@@ -34,26 +41,44 @@ import { setWorldObject } from '../../../slices/worldInfoSlice';
   
   //내 월드 axios요청하여 불러오기
   useEffect (() => {
-    async function getWorldInfo (userId) {
-      const resultAction = await getWorldInfo(userId).unrwap();
-      // const gaveWorlds = resultAction.payload
-      dispatch(setWorldObject(resultAction))
+    async function fetchWorldInfo (userId) {
+      try {
+      const resultAction = await dispatch(getWorldInfo(userId))
+      const gaveWorld = resultAction.payload
+      console.log('gave world : ', gaveWorld)
+      dispatch(setWorldObject(gaveWorld))
+    } catch {
+      error => {throw error;};
+    }}
+    if (userInfo.userId) {
+    fetchWorldInfo(userInfo.userId)
     }
-    getWorldInfo(userInfo.userId)
-    console.log(worldInfo)
-  }, [])
+  }, [dispatch, userInfo.userId])
+
+  useEffect (() => {
+    if (worldInfo && worldInfo.backgroundType !='CUSTOM') {
+      setStorybooks(worldInfo.storybooks)
+      setBackgroundUrl(`/img/storyworld/${worldInfo.backgroundType}.jpg`)
+      console.log('MyWorld > worldInfo FIXED : ', worldInfo)
+    } else if (worldInfo && worldInfo.backgroundType === 'CUSTOM') {
+      setStorybooks(worldInfo.storybooks)
+      setBackgroundUrl(worldInfo.customBackgroundUrl)
+      console.log('MyWorld > worldInfo CUSTOM : ', worldInfo)
+    } 
+    }, [worldInfo])
+
   return (
-    <div className="myworld" ref={myWorldRef}>
-      
-      {myCardList.map(card => (
-        <img key={card.storybookId} src={card.originalImageUrl} className="floating-image" alt={card.storybookId} />
+    <div className="myworld" style={{backgroundImage : `url(${backgroundUrl})`}} ref={myWorldRef}>
+      <MyWorldBackgroundUpdate />
+      <MyWorldImgUpdate />
+      {storybooks.map(card => (
+        <img key={card.storybookId} src={card.transparentImageUrl} className="floating-image" alt={card.storybookId} />
       ))}
     </div>
   );
-};
+}
 
 MyWorld.propTypes = {
-  userInfo: PropTypes.object.isRequired,
   myCardList: PropTypes.array.isRequired
 }
 export default MyWorld;

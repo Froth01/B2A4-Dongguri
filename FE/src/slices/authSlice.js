@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchLogin, fetchSignup } from '../Api/api'
+import { fetchLogin, fetchSignup, fetchUser, fetchUserUpdate } from '../Api/api'
 
 // 비동기 로그인 액션
 export const login = createAsyncThunk((args) => `auth/login/${args.oauthServerType}`, async (args, { rejectWithValue }) => {
@@ -12,15 +12,36 @@ export const login = createAsyncThunk((args) => `auth/login/${args.oauthServerTy
 });
 
 // 비동기 회원가입 액션
-export const signup = createAsyncThunk('auth/signup', async ({ name, email, nickname, profileImageUrl, oauthServerType }, { rejectWithValue }) => {
+export const signup = createAsyncThunk('auth/signup', async (signupForm, { rejectWithValue }) => {
   try {
-    const data = await fetchSignup(name, email, nickname, profileImageUrl, oauthServerType);
+    const data = await fetchSignup(signupForm);
     return data;
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
 });
 
+// 비동기 userId - 유저정보 추출
+export const getUserInfo = createAsyncThunk('user/userId', async (userId, { rejectWithValue }) => {
+  try {
+    const data = await fetchUser(userId);
+    return data.data;
+  } catch (error) {
+    console.log(error)
+    return rejectWithValue(error.response.data);
+  }
+});
+
+// 비동기 유저정보 수정
+export const UpdateUserInfo = createAsyncThunk('user/userId/update', async (updateForm, { rejectWithValue }) => {
+  try {
+    const data = await fetchUserUpdate(updateForm);
+    return data.data;
+  } catch (error) {
+    console.log(error)
+    return rejectWithValue(error.response.data);
+  }
+});
 
 const authSlice = createSlice({
   name: 'auth',

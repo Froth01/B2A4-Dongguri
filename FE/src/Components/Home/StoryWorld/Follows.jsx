@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import './css/Follows.css';
-import PropTypes from 'prop-types';
 import FollowModal from './FollowModal';
 import { fetchGetUserList } from '../../../Api/api';
+import { useSelector } from 'react-redux';
 
-function Follows({userInfo, currentUserId}) {
+function Follows() {
+  const currentUser = useSelector(state => state.auth.object)
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('followers');
   const [userList, setUserList ] = useState([])
   const openModal = async(type) => {
     setModalType(type);
-    const users = await getUsers(currentUserId, modalType);
+    const users = await getUsers(currentUser.userId, modalType);
     setUserList(users)
     setModalOpen(true);
   };
@@ -71,10 +72,4 @@ function Follows({userInfo, currentUserId}) {
     </div>
   );
 }
-
-Follows.propTypes = {
-  userInfo: PropTypes.object.isRequired,
-  currentUserId: PropTypes.number
-};
-
 export default Follows;

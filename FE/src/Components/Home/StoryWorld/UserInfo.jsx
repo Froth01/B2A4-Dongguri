@@ -7,10 +7,9 @@ import Follows from './Follows'
 import { useSelector } from 'react-redux'
 
 function UserInfo() {
+  const currentUser = useSelector(state => state.auth.object)
   const userInfo = useSelector(state => state.userInfo.object)
-  //test
-  console.log(userInfo)
-
+  console.log('UserInfo > targetUser : ',userInfo)
   return (
     <div className='userinfo'>
       <div className='userinfoimg'>
@@ -19,9 +18,7 @@ function UserInfo() {
       <div className='userinfomiddle'>
         {userInfo.nickname}
       </div>
-      {userInfo.name === 
-      // 현재유저정보의 id값 
-      1 ? <FollowBtn /> : <Follows userInfo={userInfo} currentUserId={userInfo.userId}/>}
+      {userInfo.userId != currentUser.userId ? <FollowBtn /> : <Follows />}
       
     </div>
   )

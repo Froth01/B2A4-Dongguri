@@ -19,12 +19,12 @@ function Home() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/avatars" element={<Avatars />} />
-        <Route path="/storyworld/*" element={<StoryWorld />} />
+        <Route path='/storyworld/:userId' element={<StoryWorld />} />
         <Route path='/sns' element={<SNS />} />
         <Route path='/login' element={<Login />}/>
         <Route path="/kakao-callback" element={<KakaoCallback />} />
         <Route path='/signup' element={<Signup />}/>
-        <Route path={`/users/*`} element={<UserUpdate />} />
+        <Route path='/users/:userId' element={<UserUpdate />} />
       </Routes>
     </div>
   )
