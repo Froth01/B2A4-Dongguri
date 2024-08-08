@@ -5,7 +5,8 @@ const initialState = {
   keywords: ['', '', '', ''],
   content: '',
   originalImageUrl: '',
-  transformedImageUrl: ''
+  transformedImageUrl: '',
+  voiceRecordingFile: '',
 };
 
 const storyBookSlice = createSlice({
@@ -27,6 +28,9 @@ const storyBookSlice = createSlice({
     setTransformedImageUrl(state, action) {
       state.transformedImageUrl = action.payload;
     },
+    setVoiceRecordingFile(state,action) {
+      state.voiceRecordingFile =action.payload
+    },
     clearStorybook() {
       return initialState;  // 초기 상태로 되돌립니다.
     },
@@ -34,9 +38,10 @@ const storyBookSlice = createSlice({
 });
 
 // actions
-export const { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedImageUrl, clearStorybook } = storyBookSlice.actions;
+export const { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedImageUrl, setVoiceRecordingFile, clearStorybook } = storyBookSlice.actions;
 
 // selectors
 export const selectStorybook = (state) => state.storyBook;
+export const selectVoiceRecordingFile = (state) => state.storyBook.voiceRecordingFile;
 
 export default storyBookSlice.reducer;
