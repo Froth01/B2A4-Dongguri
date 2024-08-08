@@ -2,6 +2,7 @@ package com.B2A4.storybook.domain.avatar.presentation;
 
 import com.B2A4.storybook.domain.avatar.presentation.dto.request.ChangeAvatarNameRequest;
 import com.B2A4.storybook.domain.avatar.presentation.dto.request.ChangeDisplayAvatarRequest;
+import com.B2A4.storybook.domain.avatar.presentation.dto.request.ChangeRepresentativeAvatarRequest;
 import com.B2A4.storybook.domain.avatar.presentation.dto.response.AvatarResponse;
 import com.B2A4.storybook.domain.avatar.service.AvatarService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +44,13 @@ public class AvatarController {
         avatarService.updateDisplayAvatar(changeDisplayAvatarRequest);
     }
 
-    @Operation(summary = "동그리 표기 레벨 변경")
+    @Operation(summary = "대표 동그리 변경")
+    @PatchMapping
+    public void updateRepresentativeAvatar(@RequestBody ChangeRepresentativeAvatarRequest changeRepresentativeAvatarRequest) {
+        avatarService.updateRepresentativeAvatar(changeRepresentativeAvatarRequest);
+    }
+
+    @Operation(summary = "동그리 레벨 업 테스트")
     @PostMapping("/test/{avatarId}")
     public void levelUp(@PathVariable Long avatarId) {
         avatarService.levelUp(avatarId);
