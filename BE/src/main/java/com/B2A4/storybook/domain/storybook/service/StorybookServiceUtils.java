@@ -19,6 +19,8 @@ public interface StorybookServiceUtils {
 
     List<StorybookResponse> getStorybookListByKeyword(String keyword);
 
+    List<Storybook> getStorybookListByStorybookIds(List<Long> storybookIds);
+
     void deleteStorybook(Long storybookId);
 
     Storybook queryStorybook(Long storybookId);

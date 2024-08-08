@@ -3,6 +3,7 @@ package com.B2A4.storybook.domain.user.presentation;
 import com.B2A4.storybook.domain.user.presentation.dto.request.CheckNicknameRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.request.UpdateUserRequest;
 import com.B2A4.storybook.domain.user.presentation.dto.response.CheckNicknameResponse;
+import com.B2A4.storybook.domain.user.presentation.dto.response.UserBasicProfileResponse;
 import com.B2A4.storybook.domain.user.presentation.dto.response.UserProfileResponse;
 import com.B2A4.storybook.domain.user.service.UserService;
 import com.B2A4.storybook.domain.user.presentation.dto.response.SignUpResponse;
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
 
@@ -42,11 +45,11 @@ public class UserController {
 
     @Operation(summary = "회원정보 조회")
     @GetMapping("/{userId}")
-    public UserProfileResponse getUserProfile(
+    public UserBasicProfileResponse getUserProfile(
             @Parameter(description = "유저 Id", in = PATH)
             @PathVariable Long userId
     ) {
-        return userService.getUserProfile(userId);
+        return userService.getUserBasicProfile(userId);
     }
 
     @Operation(summary = "회원정보 수정")
@@ -67,5 +70,11 @@ public class UserController {
     @DeleteMapping
     public void userWithdraw(HttpServletResponse response) {
         userService.userWithdraw(response);
+    }
+
+    @Operation(summary = "회원 목록 닉네임으로 조회")
+    @GetMapping
+    public List<UserBasicProfileResponse> getUserBasicProfileListByNickname(@RequestParam String nickname) {
+        return userService.getUserBasicProfileListByNickname(nickname);
     }
 }
