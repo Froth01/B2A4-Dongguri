@@ -70,13 +70,14 @@ export const fetchRepresentative = () => {
 // 내 카드리스트 조회
 export const fetchCardList = (getCardForm) => {
   if (getCardForm.type === 'mine') {
-  return axiosInstance.get(`/storybooks/users/${getCardForm.userId}`)
-    .then(response => response.data)
-    .catch(error => { throw error; })
+    return axiosInstance.get(`/storybooks/users/${getCardForm.userId}`)
+      .then(response => response.data)
+      .catch(error => { throw error; });
   } else if (getCardForm.type === 'keyword') {
-    return axiosInstance.get(`/storybooks/users/`)
-    .then(response => response.data)
-    .catch(error => { throw error; })
+    const url = getCardForm.keyword ? `/storybooks?keyword=${getCardForm.keyword}` : '/storybooks';
+    return axiosInstance.get(url)
+      .then(response => response.data)
+      .catch(error => { throw error; });
   }
 }
 
@@ -109,6 +110,71 @@ export const fetchAudioUrl = (file) => {
   .catch(error => { throw error })
 }
 
+
+
+// 공감하기
+export const likeStorybook = (storybookId) => {
+  return axiosInstance.post('/reactions', { storybookId })
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 공감 삭제
+export const unlikeStorybook = (reactionId) => {
+  return axiosInstance.delete(`/reactions/${reactionId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 공감 보기
+export const getStorybookReactions = (storybookId) => {
+  return axiosInstance.get(`/reactions/${storybookId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 댓글 관련 API
+// 댓글 달기
+export const postComment = (storybookId, content) => {
+  return axiosInstance.post('/comments', { storybookId, content })
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 댓글 수정
+export const patchComment = (commentId, content) => {
+  return axiosInstance.patch(`/comments/${commentId}`, { content })
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 댓글 삭제
+export const deleteComment = (commentId) => {
+  return axiosInstance.delete(`/comments/${commentId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 댓글 리스트 조회
+export const fetchComments = (storybookId) => {
+  return axiosInstance.get(`/comments/${storybookId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 동화 삭제
+export const deleteStorybook = (storybookId) => {
+  return axiosInstance.delete(`/storybooks/${storybookId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 동화 조회
+export const getStorybook = (storybookId) => {
+  return axiosInstance.get(`/storybooks/${storybookId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+
 // 키워드 동화 목록 조회
 export const fetchSearchResults = (keyword) => {
   return axiosInstance.get('/storybooks', {
@@ -116,4 +182,5 @@ export const fetchSearchResults = (keyword) => {
   })
   .then(response => response.data)
   .catch(error => { throw error });
+  }
 };

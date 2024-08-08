@@ -35,6 +35,10 @@ const CommentItem = ({ comment, onUpdate, onDelete }) => {
 
     return (
         <div className="comment-item">
+            <div className="comment-header">
+                <img src={comment.profileImgUrl} alt="Profile" className="comment-profile-image" />
+                <div className="comment-user-id">{comment.userId}</div>
+            </div>
             {isEditing ? (
                 <div>
                     <input
@@ -47,7 +51,10 @@ const CommentItem = ({ comment, onUpdate, onDelete }) => {
                     <button onClick={handleCancel}>취소</button>
                 </div>
             ) : (
-                <div className="comment-content">{comment.content}</div>
+                <div className="comment-content">
+                    {comment.content}
+                    <div className="comment-date">{new Date(comment.createdDate).toLocaleDateString()}</div>
+                </div>
             )}
             {!isEditing && (
                 <div className="comment-actions">
@@ -71,8 +78,15 @@ const CommentItem = ({ comment, onUpdate, onDelete }) => {
 };
 
 CommentItem.propTypes = {
-  comment: PropTypes.object.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-}
+    comment: PropTypes.shape({
+        userId: PropTypes.number.isRequired,
+        profileImgUrl: PropTypes.string.isRequired,
+        createdDate: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        commentId: PropTypes.number.isRequired,
+        isMine: PropTypes.bool.isRequired,
+    }).isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+};
 export default CommentItem;
