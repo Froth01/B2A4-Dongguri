@@ -5,7 +5,7 @@ import com.B2A4.storybook.domain.storyWorld.domain.repository.StoryWorldReposito
 import com.B2A4.storybook.domain.storyWorld.exception.StoryWorldNotFound;
 import com.B2A4.storybook.domain.storyWorld.presentation.dto.request.UpdateStoryWorldRequest;
 import com.B2A4.storybook.domain.storyWorld.presentation.dto.response.StoryWorldResponse;
-import com.B2A4.storybook.domain.storybook.domain.vo.StorybookInfoVO;
+import com.B2A4.storybook.domain.storyWorld.presentation.dto.response.StoryWorldStorybookResponse;
 import com.B2A4.storybook.domain.storybookWorldLink.service.StorybookWorldLinkService;
 import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.global.utils.user.UserUtils;
@@ -41,8 +41,8 @@ public class StoryWorldService implements StoryWorldServiceUtils{
     public StoryWorldResponse getStoryWorld(Long userId) {
         User user = userUtils.getUserById(userId);
         StoryWorld storyWorld = findByUser(user);
-        List<StorybookInfoVO> storybookInfoVOList = storybookWorldLinkService.getStorybookList(storyWorld);
-        return new StoryWorldResponse(storyWorld.getStoryWorldInfoVO(), storybookInfoVOList);
+        List<StoryWorldStorybookResponse> storyWorldStorybookResponseList = storybookWorldLinkService.getStorybookList(storyWorld);
+        return new StoryWorldResponse(storyWorld.getStoryWorldInfoVO(), storyWorldStorybookResponseList);
     }
 
     @Transactional
@@ -57,8 +57,8 @@ public class StoryWorldService implements StoryWorldServiceUtils{
         }
 
         storyWorld.changeBackgroundType(updateStoryWorldRequest.backgroundType());
-        List<StorybookInfoVO> storybookInfoVOList = storybookWorldLinkService.createStorybookWorldLink(storyWorld, updateStoryWorldRequest.storybookIds());
-        return new StoryWorldResponse(storyWorld.getStoryWorldInfoVO(), storybookInfoVOList);
+        List<StoryWorldStorybookResponse> storyWorldStorybookResponseList = storybookWorldLinkService.createStorybookWorldLink(storyWorld, updateStoryWorldRequest.storybookIds());
+        return new StoryWorldResponse(storyWorld.getStoryWorldInfoVO(), storyWorldStorybookResponseList);
     }
 
     @Override
