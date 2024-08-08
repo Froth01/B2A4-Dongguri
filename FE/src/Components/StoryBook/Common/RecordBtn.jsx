@@ -2,14 +2,26 @@ import { useState, useEffect } from 'react';
 import AudioPlayModal from './AudioPlayModal';
 import './css/RecordBtn.css';  // CSS 스타일
 import { fetchAudioUrl } from '../../../Api/api';
+import { audioUpload } from '../../../slices/audioSlice';
+import { setVoiceRecordingFile } from '../../../slices/storyBookSlice';
+import { useDispatch, useSelector } from 'react-redux';
+// import { selectStorybook } from '../../../slices/storyBookSlice';
+import { selectVoiceRecordingFile } from '../../../slices/storyBookSlice';
 
 function RecordBtn({ onRecord, isRecording, onShowResults }) {
   const [audioSrc, setAudioSrc] = useState('');
   const [showPlayer, setShowPlayer] = useState(false);
   const [recorder, setRecorder] = useState(null);
   const [hasRecorded, setHasRecorded] = useState(false);  // 녹음 여부 상태
+  const dispatch = useDispatch()
+  const voiceRecordingFile = useSelector(selectVoiceRecordingFile);
+
 
   useEffect(() => {
+    if (voiceRecordingFile) { // 리덕스 상태에 저장된 voiceRecordingFile이 있으면 설정
+      setAudioSrc(voiceRecordingFile.url);
+    }
+
     if (!navigator.mediaDevices) {
       console.error("Browser does not support media devices.");
       return;
@@ -27,19 +39,23 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
       
         try {
           const response = await fetchAudioUrl(audioFile)
-          const uploadedAudioUrl = response.url
+          const uploadedAudioUrl = response.data
+          // console.log('d',response)
           console.log('url로 잘 변환했냐?',uploadedAudioUrl)
+
+          dispatch(setVoiceRecordingFile(uploadedAudioUrl))
         } catch (error) {
           console.log('실패했따흑..',error)
         }
       };
       setRecorder(newRecorder);
+
     }
 
     prepareRecorder();
 
     return () => recorder && recorder.stream.getTracks().forEach(track => track.stop());
-  }, []);
+  }, [voiceRecordingFile]);
 
   const startRecording = () => {
     if (recorder && recorder.state === "inactive") {
@@ -66,10 +82,11 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
       <button onClick={isRecording ? stopRecording : startRecording} className="record-button">
         <img src={isRecording ? "/img/sns/like.png" : "/img/sns/fun.png"} alt={isRecording ? "녹음 중지" : "녹음 시작"} />
       </button>
-      <button onClick={handlePlayClick} className={`play-button ${!hasRecorded || isRecording ? 'disabled' : ''}`} disabled={!hasRecorded || isRecording}>
+      {/* <button onClick={handlePlayClick} className={`play-button ${!hasRecorded || isRecording ? 'disabled' : ''}`} disabled={!hasRecorded || isRecording}> */}
+      <button onClick={handlePlayClick} className={`play-button ${!audioSrc|| isRecording ? 'disabled' : ''}`} disabled={!audioSrc || isRecording}>
         <img src="/img/sns/cool.png" alt="녹음 듣기" />
       </button>
-      <button onClick={onShowResults} className={`results-button ${!hasRecorded || isRecording ? 'disabled' : ''}`} disabled={!hasRecorded || isRecording}>
+      <button onClick={onShowResults} className={`results-button ${!audioSrc || isRecording ? 'disabled' : ''}`} disabled={!audioSrc || isRecording}>
         <img src="/img/sns/good.png" alt="결과보기" />
       </button>
       <AudioPlayModal audioSrc={audioSrc} isOpen={showPlayer} onClose={() => setShowPlayer(false)} />
@@ -78,3 +95,5 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
 }
 
 export default RecordBtn;
+
+

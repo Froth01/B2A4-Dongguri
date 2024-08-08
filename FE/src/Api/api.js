@@ -88,11 +88,12 @@ export const fetchWorld = (userId) => {
 }
 
 // 동화 등록
-export const fetchStoryBooks = (data) => {
-  return axiosInstance.post('/storybooks', data)
+export const fetchStoryBooks = (formData) => {
+  return axiosInstance.post('/storybooks', formData)
   .then(response => response.data )
   .catch(error => { throw error })
 }
+
 
 // 오디오 등록
 export const fetchAudioUrl = (file) => {
@@ -108,4 +109,11 @@ export const fetchAudioUrl = (file) => {
   .catch(error => { throw error })
 }
 
-
+// 키워드 동화 목록 조회
+export const fetchSearchResults = (keyword) => {
+  return axiosInstance.get('/storybooks', {
+    params: { keyword }
+  })
+  .then(response => response.data)
+  .catch(error => { throw error });
+};

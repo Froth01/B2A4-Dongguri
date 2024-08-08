@@ -6,6 +6,7 @@ import store, { persistor } from './store';
 import App from './App.jsx'
 import './index.css'
 
+persistor.purge();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
