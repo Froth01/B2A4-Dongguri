@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { login, signup } from '../../../slices/authSlice';
+import { login, setAuthObject, signup } from '../../../slices/authSlice';
 import UserForm from '../Account/UserForm';
 import '../Account/css/UserForm.css'
 import './css/SignupForm.css'
@@ -65,9 +65,7 @@ const SignupForm = () => {
       // 회원가입 처리
       const user = await dispatch(signup(formData)).unwrap();
       // 유저 정보 저장
-      console.log(user)
-      console.log(user.data)
-      await dispatch(setUserObject(user.data)); // 유저 정보를 저장
+      await dispatch(setAuthObject(user.data)); // 유저 정보를 저장
       navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
     } catch (error) {
       console.error('Login failed:', error);

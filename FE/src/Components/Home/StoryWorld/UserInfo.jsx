@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 function UserInfo() {
   const currentUser = useSelector(state => state.auth.object)
   const userInfo = useSelector(state => state.userInfo.object)
+  console.log('UserInfo > targetUser : ',userInfo)
   return (
     <div className='userinfo'>
       <div className='userinfoimg'>

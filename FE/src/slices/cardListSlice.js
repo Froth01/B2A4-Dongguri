@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchCardList } from "../Api/api";
+import { fetchCardListByUserId } from "../Api/api";
 
-export const getCardList = createAsyncThunk('getCardList', async (getCardForm, { rejectWithValue }) => {
+export const getCardListByUserId = createAsyncThunk('getMyCardList', async (userId, { rejectWithValue }) => {
   try {
-    const data = await fetchCardList(getCardForm);
+    const data = await fetchCardListByUserId(userId);
     return data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
