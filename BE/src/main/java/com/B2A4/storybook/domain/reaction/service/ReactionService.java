@@ -5,6 +5,7 @@ import com.B2A4.storybook.domain.reaction.domain.repository.ReactionRepository;
 import com.B2A4.storybook.domain.reaction.exception.AlreadyReactionException;
 import com.B2A4.storybook.domain.reaction.exception.ReactionNotFoundException;
 import com.B2A4.storybook.domain.reaction.presentation.dto.request.CreateReactionRequest;
+import com.B2A4.storybook.domain.reaction.presentation.dto.request.DeleteReactionRequest;
 import com.B2A4.storybook.domain.reaction.presentation.dto.response.ReactionResponse;
 import com.B2A4.storybook.domain.reactionCount.domain.ReactionCount;
 import com.B2A4.storybook.domain.reactionCount.presentation.dto.response.ReactionCountResponse;
@@ -56,15 +57,16 @@ public class ReactionService implements ReactionServiceUtils{
 
     @Override
     @Transactional
-    public void deleteReaction(Long reactionId) {
+    public void deleteReaction(DeleteReactionRequest deleteReactionRequest) {
         User user = userUtils.getUserFromSecurityContext();
-        Reaction reaction = reactionRepository.findById(reactionId).orElseThrow(() -> ReactionNotFoundException.EXCEPTION);
+        Storybook storybook = storybookServiceUtils.queryStorybook(deleteReactionRequest.storybookId());
+        Reaction reaction = reactionRepository.findByUserAndStorybookAndReactionType(user, storybook, deleteReactionRequest.reactionType()).orElseThrow(() -> ReactionNotFoundException.EXCEPTION);
 
         reaction.validUserIsHost(user);
 
         reactionCountServiceUtils.subReactionCount(reaction.getStorybook().getId(), reaction.getReactionType());
 
-        reactionRepository.deleteById(reactionId);
+        reactionRepository.delete(reaction);
     }
 
     public ReactionCountResponse getReactionCount(Long storybookId) {

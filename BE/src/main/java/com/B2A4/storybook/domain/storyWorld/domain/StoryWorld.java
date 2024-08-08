@@ -51,7 +51,7 @@ public class StoryWorld extends BaseEntity {
     public static StoryWorld createStoryWorld(User user) {
         return builder()
                 .user(user)
-                .backgroundType(BackgroundType.CUSTOM)
+                .backgroundType(BackgroundType.WOODS)
                 .customBackgroundUrl(null)
                 .build();
     }
