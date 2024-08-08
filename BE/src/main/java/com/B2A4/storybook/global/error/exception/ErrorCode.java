@@ -13,6 +13,8 @@ public enum ErrorCode {
     BAD_FILE_EXTENSION(400, "유효한 확장명의 파일이 아닙니다."),
     FILE_UPLOAD_FAIL(400, "파일 업로드에 실패하였습니다."),
     DUPLICATE_AVATAR(400, "대표 동그리와 같습니다."),
+    NICKNAME_MISSING(400, "닉네임이 입력되지 않았습니다."),
+    KEYWORD_MISSING(400, "키워드가 입력되지 않았습니다."),
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
     INVALID_REFRESH_TOKEN(401, "리프레시 토큰이 유효하지 않습니다"),
