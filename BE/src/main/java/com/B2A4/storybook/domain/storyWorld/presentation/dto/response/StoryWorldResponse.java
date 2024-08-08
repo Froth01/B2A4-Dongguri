@@ -8,7 +8,7 @@ import java.util.List;
 public record StoryWorldResponse(
         Long storyWorldId,
         BackgroundType backgroundType,
-        String backgroundUrl,
+        String customBackgroundUrl,
         List<StoryWorldStorybookResponse> storybooks
 ) {
     public StoryWorldResponse(StoryWorldInfoVO storyWorldInfoVO, List<StoryWorldStorybookResponse> storyWorldStorybookResponseList) {

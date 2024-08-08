@@ -30,6 +30,7 @@ public enum ErrorCode {
     USER_NOT_AVATAR_HOST(403, "해당하는 동그리의 소유자가 아닙니다."),
     USER_NOT_STORYBOOK_HOST(403, "해당 동화의 소유자가 아닙니다."),
     USER_NOT_STORY_WORLD_HOST(403, "해당하는 동화나라의 소유자가 아닙니다."),
+    USER_NOT_REACTION_HOST(403, "해당하는 공감의 소유자가 아닙니다."),
 
     /* 404 NOT_FOUND : Resource를 찾을 수 없음 */
     USER_NOT_FOUND(404, "해당하는 정보의 사용자를 찾을 수 없습니다."),
@@ -41,11 +42,13 @@ public enum ErrorCode {
     STORYBOOK_NOT_FOUND(404, "해당하는 동화를 찾을 수 없습니다."),
     STORY_WORLD_NOT_FOUND(404, "해당하는 동화나라를 찾을 수 없습니다."),
     REPORT_NOT_FOUND(404, "해당하는 신고를 찾을 수 없습니다."),
-
+    REACTION_NOT_FOUND(404, "해당하는 공감을 찾을 수 없습니다."),
+    REACTION_COUNT_NOT_FOUND(404, "해당하는 공감 수를 찾을 수 없습니다."),
 
     /* 409 중복된 리소스 */
     NICKNAME_DUPLICATION(409, "이미 사용중인 닉네임입니다."),
     USER_DUPLICATION(409, "이미 가입된 사용자입니다."),
+    REACTION_DUPLICATION(409, "이미 공감된 정보입니다"),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러"),

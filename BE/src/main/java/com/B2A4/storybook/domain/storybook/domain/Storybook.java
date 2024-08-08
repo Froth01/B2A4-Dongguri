@@ -1,6 +1,8 @@
 package com.B2A4.storybook.domain.storybook.domain;
 
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
+import com.B2A4.storybook.domain.reaction.domain.Reaction;
+import com.B2A4.storybook.domain.reactionCount.domain.ReactionCount;
 import com.B2A4.storybook.domain.storybook.domain.vo.StorybookInfoVO;
 import com.B2A4.storybook.domain.storybook.exception.UserNotStorybookHostException;
 import com.B2A4.storybook.domain.storybookWorldLink.domain.StorybookWorldLink;
@@ -46,6 +48,12 @@ public class Storybook extends BaseEntity {
 
     @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorybookWorldLink> storyWorldLinks;
+
+    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reaction> reactionList;
+
+    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReactionCount> reactionCountList;
 
     @Builder
     public Storybook(User user, Genre genre, String content, String originalImageUrl, String transformedImageUrl, String transparentImageUrl, String voiceRecordingUrl, boolean isTodayKeyword) {
