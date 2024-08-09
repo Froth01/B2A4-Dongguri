@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { setTransformType, selectTransformType, selectMakeStory } from "../../../slices/makeStorySlice"
@@ -6,6 +7,7 @@ import { selectPathHistory } from '../../../slices/pathHistorySlice';
 import { transformStorybook } from "../../../Api/api";
 import { setGenre, setKeywords, setContent, setOriginalImageUrl, setTransformedImageUrl } from "../../../slices/storyBookSlice"
 import './css/CircleBtn.css'
+import LoadingModal from '../../StoryBook/Common/LoadingModal'
 
 function CircleBtn() {
   const circleBtnList = useSelector(selectCircleBtnList);
@@ -14,6 +16,7 @@ function CircleBtn() {
   const makeStory = useSelector(selectMakeStory);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // 컴포넌트 내 로딩 상태 관리
 
   const handleTransformTypeClick = async (transfromType, to) => {
     dispatch(setTransformType(transfromType));
@@ -21,6 +24,8 @@ function CircleBtn() {
     console.log('Current genre in state:', selectedTransformType);
 
     if (pathHistory.includes('/storybook/storytoday')) {
+      setLoading(true); // 로딩 상태를 true로 변경
+      console.log('Setting loading to true:', loading);
       try {
         const formData = new FormData();
       formData.append('genre', makeStory.genre);
@@ -55,10 +60,12 @@ function CircleBtn() {
         // API 요청 보내기
         // await transformStorybook(formData);
 
+        setLoading(false);
         // 페이지 이동
         navigate('/storybook/storyend');
       } catch (error) {
         console.error('API 요청 실패:', error);
+        setLoading(false);
       }
     } else {
       navigate(to);
@@ -67,6 +74,7 @@ function CircleBtn() {
 
   return (
     <div className="circlebtn">
+      <LoadingModal isOpen={loading} /> {/* 로딩 모달 추가 */}
       {circleBtnList.map(([src, alt, to, transfromType], index) => (
         <div key={index} onClick={() => handleTransformTypeClick(transfromType, to)} className="circle-link">
           <img src={src} alt={alt} />

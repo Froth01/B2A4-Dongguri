@@ -207,6 +207,7 @@ export const getStorybook = (storybookId) => {
     .then(response => response.data)
     .catch(error => { throw error; });
 }
+
 // 키워드 동화 목록 조회
 export const fetchSearchResults = (keyword) => {
   return axiosInstance.get('/storybooks', {
@@ -223,4 +224,12 @@ export const fetchUserResults = (userId) => {
   })
   .then(response => response.data)
   .catch(error => { throw error })
+}
+
+
+// 오늘의 키워드
+export const getTodayKeyword= () => {
+  return axiosInstance.get('today-keyword')
+    .then(response => response.data)
+    .catch(error => { throw error; });
 }

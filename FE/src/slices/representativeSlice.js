@@ -9,9 +9,9 @@ const representativeSlice = createSlice({
       name: '동글동글동그리',
       exp: '3',
       isRepresentative: 'true',
-      avatarType: 'bini',
-      avatarLevel: 'TWO',
-      displayLevel: 'TWO'
+      avatarType: 'minni',
+      avatarLevel: 'ONE',
+      displayLevel: 'THREE'
     }
 },
   reducers: {
@@ -36,8 +36,8 @@ export const representativeApi = () => async (dispatch) => {
       name: '동글동글동그리',
       exp: 7,
       isRepresentative: 'true',
-      avatarType: 'bini',
-      avatarLevel: 'TWO',
+      avatarType: 'minni',
+      avatarLevel: 'ONE',
       displayLevel: 'TWO'
     };
     // const data = await fetchRepresentative();

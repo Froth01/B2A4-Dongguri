@@ -3,6 +3,7 @@ import SearchBar from './SearchBar'
 import './css/SNS.css'
 import { selectResults, selectUserResults, selectSearchType } from '../../../slices/searchSlice'
 import { useSelector } from 'react-redux'
+import SearchUserList from './SearchUserList'
 
 function SNS() {
   const searchResults = useSelector(selectResults)
@@ -18,7 +19,8 @@ function SNS() {
     <div className='sns'>
       <SearchBar />
       {searchType === 'storybook' && searchResults.data && <MiniCardList cardList={searchResults.data} />}
-      {searchType === 'user' && searchUserResults && <MiniCardList cardList={[searchUserResults]} />}
+      {searchType === 'user' && searchUserResults && searchUserResults.data && <SearchUserList user={searchUserResults.data} />}
+
     </div>
   )
 }
