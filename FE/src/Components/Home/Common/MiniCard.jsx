@@ -9,7 +9,7 @@ function MiniCard({ card, handleCardClick }) {
   return (
     <div className='minicard' onClick={handleClick}>
       <div className='minicardimg'>
-        <img src={card.transformImgUrl} alt={'minicard image'} />
+        <img src={card.transformedImageUrl} alt={'minicard image'} />
       </div>
       <div className='hash-container'>
         {card.keywords.map((keyword, index) => (
@@ -21,10 +21,7 @@ function MiniCard({ card, handleCardClick }) {
 }
 
 MiniCard.propTypes = {
-  card: PropTypes.shape({
-    keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
-    transformImgUrl: PropTypes.string.isRequired,
-  }),
+  card: PropTypes.object.isRequired,
   handleCardClick: PropTypes.func.isRequired,
 };
 
