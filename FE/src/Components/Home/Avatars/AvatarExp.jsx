@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { representativeApi, selectRepresentative } from '../../../slices/representativeSlice'; 
+import { fetchRepresentativeThunk, selectRepresentative } from '../../../slices/representativeSlice'; 
 import './css/AvatarExp.css'
 
 function AvatarExp() {
   const dispatch = useDispatch();
-  const representative = useSelector(selectRepresentative);
+  // const representative = useSelector(selectRepresentative);
+  const representativeData = useSelector(selectRepresentative);
+  const representative = representativeData.data
 
   useEffect(() => {
-    dispatch(representativeApi());
+    dispatch(fetchRepresentativeThunk());
   }, [dispatch]);
   
   const levelMap = {
@@ -26,7 +28,7 @@ function AvatarExp() {
       {representative.name} : {levelMap[representative.avatarLevel]}
       </div>
       <div className="expdetail">
-        {/* {[...Array(parseInt(done)).keys()].map((num) => (
+        {[...Array(parseInt(done)).keys()].map((num) => (
           <div key={`${num}-open`} className="book">
             <img src="/img/avatars/bookopen.png" alt="exp1" />
           </div>
@@ -35,7 +37,7 @@ function AvatarExp() {
           <div key={`${num}-close`} className="book">
             <img src="/img/avatars/bookclose.png" alt="exp0" />
           </div>
-        ))} */}
+        ))}
       </div>
       <h3>동화를 {10-done}권 더 만들면 동그리가 자라나요!</h3>
     </div>

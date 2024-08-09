@@ -12,7 +12,7 @@ function UserForm() {
   const currentUser = useSelector(state => state.auth.object)
   const [nowNick, setNowNick] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const [nicknameCheck,setNicknameCheck] = useState(true)
+  const [nicknameCheck,setNicknameCheck] = useState()
   const [nicknameCheckMessage,setNicknameCheckMessage] = useState()
   const dispatch = useDispatch();
   const navigate = useNavigate();
