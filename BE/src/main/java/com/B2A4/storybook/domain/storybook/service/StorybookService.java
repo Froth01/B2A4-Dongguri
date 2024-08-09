@@ -5,7 +5,6 @@ import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
 import com.B2A4.storybook.domain.reactionCount.service.ReactionCountServiceUtils;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.domain.repository.StorybookRepository;
-import com.B2A4.storybook.domain.storybook.exception.KeywordMissingException;
 import com.B2A4.storybook.domain.storybook.exception.StorybookNotFoundException;
 import com.B2A4.storybook.domain.storybook.exception.UserNotStorybookHostException;
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.CreateStorybookRequest;
@@ -17,6 +16,10 @@ import com.B2A4.storybook.global.openapi.service.OpenAPIServiceUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,10 +93,11 @@ public class StorybookService implements StorybookServiceUtils {
     }
 
     @Override
-    public List<StorybookResponse> getStorybookListByUser(long userId) {
+    public Slice<StorybookResponse> getStorybookListByUser(int page, long userId) {
         User user = userUtils.getUserById(userId);
 
-        List<Storybook> storybooks = storybookRepository.findByUser(user);
+        PageRequest pageRequest = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+        Slice<Storybook> storybooks = storybookRepository.findByUser(user, pageRequest);
 
         List<StorybookResponse> storybookResponseList = new ArrayList<>();
         boolean isMine = user.equals(userUtils.getUserFromSecurityContext());
@@ -102,35 +106,42 @@ public class StorybookService implements StorybookServiceUtils {
             storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
         }
 
-        return storybookResponseList;
+        boolean hasNext = storybooks.hasNext();
+        return new SliceImpl<>(storybookResponseList, pageRequest, hasNext);
     }
 
-    @Override
-    public List<StorybookResponse> getStorybookListByKeyword(String keyword) {
 
-        List<StorybookResponse> storybookResponseList = new ArrayList<>();
+    @Override
+    public Slice<StorybookResponse> getStorybookListByKeyword(int page, String keyword) {
 
         User user = userUtils.getUserFromSecurityContext();
+        PageRequest pageRequest = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+
+        List<StorybookResponse> responseList = new ArrayList<>();
+        boolean hasNext = false;
 
         if (keyword.isEmpty()) {
-            List<Storybook> storybookList = storybookRepository.findAll();
+            Slice<Storybook> storybookList = storybookRepository.findAll(pageRequest);
             for (Storybook storybook : storybookList) {
                 List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
                 boolean isMine = user.equals(storybook.getUser());
-                storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
+                responseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
             }
+            hasNext = storybookList.hasNext();
         } else {
-            List<Keyword> keywords = keywordRepository.findByKeyword(keyword);
+            Slice<Keyword> keywords = keywordRepository.findByKeyword(keyword, pageRequest);
             for (Keyword keywordEntity : keywords) {
                 Storybook storybook = keywordEntity.getStorybook();
                 List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
                 boolean isMine = user.equals(storybook.getUser());
-                storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
+                responseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
             }
+            hasNext = keywords.hasNext();
         }
 
-        return storybookResponseList;
+        return new SliceImpl<>(responseList, pageRequest, hasNext);
     }
+
 
     @Override
     public List<Storybook> getStorybookListByStorybookIds(List<Long> storybookIds) {
