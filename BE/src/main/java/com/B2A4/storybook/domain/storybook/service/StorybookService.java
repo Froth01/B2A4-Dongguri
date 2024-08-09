@@ -1,5 +1,6 @@
 package com.B2A4.storybook.domain.storybook.service;
 
+import com.B2A4.storybook.domain.avatar.service.AvatarServiceUtils;
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
 import com.B2A4.storybook.domain.reactionCount.service.ReactionCountServiceUtils;
@@ -34,6 +35,7 @@ public class StorybookService implements StorybookServiceUtils {
     private final UserUtils userUtils;
     private final OpenAPIServiceUtils openAPIServiceUtils;
     private final ReactionCountServiceUtils reactionCountServiceUtils;
+    private final AvatarServiceUtils avatarServiceUtils;
 
 
     @Override
@@ -62,6 +64,8 @@ public class StorybookService implements StorybookServiceUtils {
         );
 
         storybookRepository.save(storybook);
+
+        avatarServiceUtils.levelUp();
 
         reactionCountServiceUtils.createReactionCount(storybook.getId());
 
