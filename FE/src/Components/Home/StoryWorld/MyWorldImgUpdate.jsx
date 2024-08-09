@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react'
 import './css/MyWorldImgUpdate.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { imgUpload } from '../../../slices/imgSlice'
 import { UpdateWorldInfo, setWorldObject } from '../../../slices/worldInfoSlice';
+import PropTypes from 'prop-types'
 
-function MyWorldImgUpdate() {
+function MyWorldImgUpdate({myCardList}) {
   const dispatch = useDispatch();
   const worldInfo = useSelector(state => state.worldInfo.object)
   const [storybookIdList, setStorybookIdList] = useState([])
   const [isEditOpen, setIsEditOpen] = useState(false)
 
   useEffect (() => {
-    const gaveList = worldInfo.storybooks
     const resultList = []
-    gaveList.forEach(storybook => resultList.push(storybook.storybookId));
+    myCardList.forEach(storybook => resultList.push(storybook.storybookId));
     setStorybookIdList(resultList)
     console.log('유저월드 동화 리스트' ,storybookIdList)
+    console.log('가져온 월드정보 : ', worldInfo)
+    console.log('받은 카드리스트 : ', myCardList)
   },[worldInfo])
 
   const EditClick = (e) => {
@@ -61,12 +62,12 @@ function MyWorldImgUpdate() {
       동화 수정
       {isEditOpen && (
         <div className={`worldimgedit ${isEditOpen ? 'show' : ''}`}>
-          {worldInfo.storybooks.map(storybook => (
+          {myCardList.map(storybook => (
             <div
             key={storybook.storybookId}
             className='editimgmenu'
-            onClick={() => 
-            handleMenuSelect(storybook)}
+            onClick={(e) => 
+            handleMenuSelect(e,storybook)}
             >
             <img src={storybook.transparentImageUrl} alt={storybook.storybookId} />
           </div>
@@ -82,4 +83,7 @@ function MyWorldImgUpdate() {
   )
 }
 
+MyWorldImgUpdate.propTypes = {
+  myCardList: PropTypes.array.isRequired
+}
 export default MyWorldImgUpdate

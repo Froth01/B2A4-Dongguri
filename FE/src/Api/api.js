@@ -79,8 +79,8 @@ export const fetchRepresentative = () => {
 
 
 // 내 카드리스트 조회
-export const fetchCardListByUserId = (userId) => {
-  return axiosInstance.get(`/storybooks/users/${userId}`)
+export const fetchCardListByUserId = (cardListForm) => {
+  return axiosInstance.get(`/storybooks/users/${cardListForm.userId}`, cardListForm)
     .then(response => response.data)
     .catch(error => { throw error; })
 }
