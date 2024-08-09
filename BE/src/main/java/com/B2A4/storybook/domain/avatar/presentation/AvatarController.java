@@ -50,9 +50,9 @@ public class AvatarController {
         avatarService.updateRepresentativeAvatar(changeRepresentativeAvatarRequest);
     }
 
-    @Operation(summary = "동그리 레벨 업 테스트")
-    @PostMapping("/test/{avatarId}")
-    public void levelUp(@PathVariable Long avatarId) {
-        avatarService.levelUp(avatarId);
-    }
+//    @Operation(summary = "동그리 레벨 업 테스트")
+//    @PostMapping("/test/{avatarId}")
+//    public void levelUp(@PathVariable Long avatarId) {
+//        avatarService.levelUp(avatarId);
+//    }
 }
