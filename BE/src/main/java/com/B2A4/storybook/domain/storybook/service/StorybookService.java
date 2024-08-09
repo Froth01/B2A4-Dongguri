@@ -24,7 +24,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -115,29 +117,25 @@ public class StorybookService implements StorybookServiceUtils {
     public Slice<StorybookResponse> getStorybookListByKeyword(int page, String keyword) {
 
         User user = userUtils.getUserFromSecurityContext();
-        PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
-        List<StorybookResponse> responseList = new ArrayList<>();
-        boolean hasNext;
+        Set<StorybookResponse> responseSet = new LinkedHashSet<>();
+        Slice<Storybook> storybookList;
 
         if (keyword.isEmpty()) {
-            Slice<Storybook> storybookList = storybookRepository.findAll(pageRequest);
-            for (Storybook storybook : storybookList) {
-                List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
-                boolean isMine = user.equals(storybook.getUser());
-                responseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
-            }
-            hasNext = storybookList.hasNext();
+            storybookList = storybookRepository.findAll(pageRequest);
         } else {
-            Slice<Keyword> keywords = keywordRepository.findByKeyword(keyword, pageRequest);
-            for (Keyword keywordEntity : keywords) {
-                Storybook storybook = keywordEntity.getStorybook();
-                List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
-                boolean isMine = user.equals(storybook.getUser());
-                responseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
-            }
-            hasNext = keywords.hasNext();
+            storybookList = storybookRepository.findByKeywordsKeyword(keyword, pageRequest);
         }
+
+        for (Storybook storybook : storybookList) {
+            List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
+            boolean isMine = user.equals(storybook.getUser());
+            responseSet.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
+        }
+
+        List<StorybookResponse> responseList = new ArrayList<>(responseSet);
+        boolean hasNext = storybookList.hasNext();
 
         return new SliceImpl<>(responseList, pageRequest, hasNext);
     }
