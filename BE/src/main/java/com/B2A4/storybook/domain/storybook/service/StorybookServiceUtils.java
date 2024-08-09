@@ -5,6 +5,7 @@ import com.B2A4.storybook.domain.storybook.presentation.dto.request.CreateStoryb
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.TransformStorybookRequest;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.StorybookResponse;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.TransformStorybookResponse;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface StorybookServiceUtils {
 
     StorybookResponse getStorybook(Long storybookId);
 
-    List<StorybookResponse> getStorybookListByUser(long userId);
+    Slice<StorybookResponse> getStorybookListByUser(int page, long userId);
 
-    List<StorybookResponse> getStorybookListByKeyword(String keyword);
+    Slice<StorybookResponse> getStorybookListByKeyword(int page, String keyword);
 
     List<Storybook> getStorybookListByStorybookIds(List<Long> storybookIds);
 

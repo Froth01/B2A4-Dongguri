@@ -26,10 +26,11 @@ import com.B2A4.storybook.global.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -99,7 +100,7 @@ public class UserService {
 
     // 회원 정보 수정
     @Transactional
-    public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest, HttpServletResponse response) {
+    public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest) {
         User user = userUtils.getUserFromSecurityContext();
 
         user.updateUser(updateUserRequest.nickname(), updateUserRequest.profileImageUrl());
@@ -128,11 +129,15 @@ public class UserService {
         jwtTokenProvider.setHeaderRefreshTokenEmpty(response);
     }
 
-    public List<UserBasicProfileResponse> getUserBasicProfileListByNickname(String nickname) {
+    public Slice<UserBasicProfileResponse> getUserBasicProfileListByNickname(int page, String nickname) {
         if(nickname.isEmpty()) {
             throw NicknameMissingException.EXCEPTION;
         }
-        List<User> userList = userRepository.findAllByNicknameContaining(nickname);
-        return userList.stream().map(user -> new UserBasicProfileResponse(user.getUserInfo())).toList();
+
+        PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+
+        Slice<User> userList = userRepository.findAllByNicknameContaining(nickname, pageRequest);
+        return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo()));
+
     }
 }
