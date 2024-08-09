@@ -50,6 +50,7 @@ public enum ErrorCode {
     NICKNAME_DUPLICATION(409, "이미 사용중인 닉네임입니다."),
     USER_DUPLICATION(409, "이미 가입된 사용자입니다."),
     REACTION_DUPLICATION(409, "이미 공감된 정보입니다"),
+    MAX_STORY_LIMIT_EXCEEDED(409, "등록 가능한 이미지의 수를 초과했습니다."),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러"),

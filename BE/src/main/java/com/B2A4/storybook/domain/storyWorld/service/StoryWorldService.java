@@ -2,6 +2,7 @@ package com.B2A4.storybook.domain.storyWorld.service;
 
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
 import com.B2A4.storybook.domain.storyWorld.domain.repository.StoryWorldRepository;
+import com.B2A4.storybook.domain.storyWorld.exception.MaxStoryLimitExceededException;
 import com.B2A4.storybook.domain.storyWorld.exception.StoryWorldNotFound;
 import com.B2A4.storybook.domain.storyWorld.presentation.dto.request.UpdateStoryWorldRequest;
 import com.B2A4.storybook.domain.storyWorld.presentation.dto.response.StoryWorldResponse;
@@ -47,6 +48,9 @@ public class StoryWorldService implements StoryWorldServiceUtils{
 
     @Transactional
     public StoryWorldResponse updateStoryWorld(Long storyworldId, UpdateStoryWorldRequest updateStoryWorldRequest) {
+        if (5 < updateStoryWorldRequest.storybookIds().size()) {
+            throw MaxStoryLimitExceededException.EXCEPTION;
+        }
         User user = userUtils.getUserFromSecurityContext();
         StoryWorld storyWorld = queryStoryWorld(storyworldId);
 
