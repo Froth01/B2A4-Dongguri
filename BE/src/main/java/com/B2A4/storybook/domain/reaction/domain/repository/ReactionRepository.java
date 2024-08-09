@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface ReactionRepository extends JpaRepository<Reaction, Long> {
     boolean existsByStorybookAndReactionType(Storybook storybook, ReactionType reactionType);
     Optional<Reaction> findByUserAndStorybookAndReactionType(User user, Storybook storybook, ReactionType reactionType);
+    boolean existsByStorybookAndReactionTypeAndUser(Storybook storybook, ReactionType reactionType, User user);
 }
