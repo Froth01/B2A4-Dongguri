@@ -21,6 +21,7 @@ function Follows() {
     try {
       // const gaveUsers = await fetchGetUserList(userId, type).unwrap();
       const gaveUsers = await fetchGetUserList(userId, type).unwrap();
+      console.log(gaveUsers)
       if (type === 'following') {
         return gaveUsers.followings;
       } else if (type === 'followers') {
@@ -33,18 +34,18 @@ function Follows() {
     }
   }
 
-  const dummyUsers = [
-    { userId: 2, name: "User 2", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { userId: 3, name: "User 3", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { userId: 4, name: "User 4", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { userId: 5, name: "User 5", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { userId: 6, name: "User 6", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { userId: 7, name: "User 7", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { userId: 8, name: "User 8", profileImg: "https://via.placeholder.com/50", isFollowing: false },
-    { userId: 9, name: "User 9", profileImg: "https://via.placeholder.com/50", isFollowing: true },
-    { userId: 10, name: "User 10", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+  // const dummyUsers = [
+  //   { userId: 2, name: "User 2", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+  //   { userId: 3, name: "User 3", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+  //   { userId: 4, name: "User 4", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+  //   { userId: 5, name: "User 5", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+  //   { userId: 6, name: "User 6", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+  //   { userId: 7, name: "User 7", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+  //   { userId: 8, name: "User 8", profileImg: "https://via.placeholder.com/50", isFollowing: false },
+  //   { userId: 9, name: "User 9", profileImg: "https://via.placeholder.com/50", isFollowing: true },
+  //   { userId: 10, name: "User 10", profileImg: "https://via.placeholder.com/50", isFollowing: false },
     // ... 더 많은 사용자
-  ];
+  // ];
 
   return (
     <div className='follows'>
@@ -65,8 +66,7 @@ function Follows() {
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           type={modalType}
-          users={userList}
-          currentUserId={currentUserId}
+          userList={userList}
         />
       )}
     </div>

@@ -10,29 +10,34 @@ function MyWorldImgUpdate({myCardList}) {
   const [storybookIdList, setStorybookIdList] = useState([])
   const [isEditOpen, setIsEditOpen] = useState(false)
 
-  useEffect (() => {
-    const resultList = []
-    myCardList.forEach(storybook => resultList.push(storybook.storybookId));
-    setStorybookIdList(resultList)
-    console.log('유저월드 동화 리스트' ,storybookIdList)
-    console.log('가져온 월드정보 : ', worldInfo)
-    console.log('받은 카드리스트 : ', myCardList)
-  },[worldInfo])
+  useEffect(() => {
+    // myCardList가 비어 있지 않고 storybookIdList가 비어 있을 때만 실행
+    if (myCardList.length > 0 && storybookIdList.length === 0) {
+      const resultList = worldInfo.storybooks.map(storybook => storybook.storybookId);
+      setStorybookIdList(resultList);
+      console.log('유저월드 동화 리스트:', resultList);
+      console.log('월드인포에있는 리스트:', worldInfo.storybooks)
+      console.log('id 뽑아낸 리스트소스:', myCardList)
+    }
+  }, [myCardList]);
 
   const EditClick = (e) => {
     if (e.target.closest('.worldimgedit')) return;
     setIsEditOpen(!isEditOpen);
   }
 
-  const handleMenuSelect = (e, storybook) => {
-    console.log(e.currentTarget)
-    if (e.currentTarget.classList.contains('checked')) {
-      e.currentTarget.classList.remove('checked');
-      setStorybookIdList(storybookIdList.filter(id => id !== storybook.storybookId));
+  const handleMenuSelect = (storybookId) => {
+    if (storybookIdList.includes(storybookId)) {
+      setStorybookIdList(storybookIdList.filter(id => id !== storybookId));
+      console.log('표기그림 변경중 : ', storybookIdList)
       } else {
-        e.currentTarget.classList.add('checked');
-        setStorybookIdList([...storybookIdList, storybook.storybookId])
+        if (storybookIdList.length < 5) {
+        setStorybookIdList([...storybookIdList, storybookId])
+        console.log('표기그림 변경중 : ', storybookIdList)
+      } else {
+        alert('그림은 최대 5개까지 선택 가능합니다!')
       }
+    }
   }
 
   
@@ -65,9 +70,9 @@ function MyWorldImgUpdate({myCardList}) {
           {myCardList.map(storybook => (
             <div
             key={storybook.storybookId}
-            className='editimgmenu'
-            onClick={(e) => 
-            handleMenuSelect(e,storybook)}
+            className={`editimgmenu ${ storybookIdList.includes(storybook.storybookId) ? 'checked': ''}`}
+            onClick={() => 
+            handleMenuSelect(storybook.storybookId)}
             >
             <img src={storybook.transparentImageUrl} alt={storybook.storybookId} />
           </div>

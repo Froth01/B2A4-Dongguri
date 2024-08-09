@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import './css/FollowModal.css';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId }) {
-  const [users, setUsers ] = useState(initialUsers)
-  console.log(initialUsers)
+function FollowModal({ isOpen, onClose, type, userList }) {
+  const [users, setUsers] = useState(userList)
+  const currentUser = useSelector(state => state.auth.object)
   if (!isOpen) return null;
 
   const toggleFollow = (userId) => {
@@ -26,8 +27,8 @@ function FollowModal({ isOpen, onClose, type, users: initialUsers, currentUserId
             <li key={user.userId} className="user-item">
               <img src={user.profileImg} alt={user.name} className="user-avatar" />
               <span className="user-name">{user.name}</span>
-              {type === 'followers' && user.userId !== currentUserId && (
-                <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.id)}>
+              {type === 'followers' && user.userId !== currentUser.userId && (
+                <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.userId)}>
                   <span className="follow-text">{user.isFollowing ? '팔로우 중' : '팔로우'}</span>
                   <span className="unfollow-text">언팔로우</span>
                 </button>
@@ -45,8 +46,7 @@ FollowModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   type: PropTypes.oneOf(['followers', 'following']).isRequired,
-  users: PropTypes.array.isRequired,
-  currentUserId: PropTypes.number.isRequired
+  userList: PropTypes.array.isRequired,
 };
 
 export default FollowModal;

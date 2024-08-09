@@ -21,7 +21,7 @@
   transition: 0.6s;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   opacity: 0;
   transform: scale(0);
