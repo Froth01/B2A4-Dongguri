@@ -90,7 +90,9 @@ public class Storybook extends BaseEntity {
                 transformedImageUrl,
                 transparentImageUrl,
                 voiceRecordingUrl,
-                isTodayKeyword
+                isTodayKeyword,
+                getCreatedDate(),
+                getLastModifyDate()
         );
     }
 

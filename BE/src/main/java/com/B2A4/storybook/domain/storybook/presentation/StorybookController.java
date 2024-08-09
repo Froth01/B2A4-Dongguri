@@ -8,6 +8,7 @@ import com.B2A4.storybook.domain.storybook.service.StorybookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,14 +40,14 @@ public class StorybookController {
 
     @Operation(summary = "해당 유저의 동화 목록 조회")
     @GetMapping("/users/{userId}")
-    public List<StorybookResponse> getStorybookListByUser(@PathVariable long userId) {
-        return storybookService.getStorybookListByUser(userId);
+    public Slice<StorybookResponse> getStorybookListByUser(@PathVariable long userId,   @RequestParam(defaultValue = "1") int page) {
+        return storybookService.getStorybookListByUser(page, userId);
     }
 
     @Operation(summary = "해당 키워드로 동화 목록 조회")
     @GetMapping
-    public List<StorybookResponse> getStorybookListByKeyword(@RequestParam String keyword) {
-        return storybookService.getStorybookListByKeyword(keyword);
+    public Slice<StorybookResponse> getStorybookListByKeyword(@RequestParam String keyword, @RequestParam(defaultValue = "1") int page) {
+        return storybookService.getStorybookListByKeyword(page, keyword);
     }
 
     @Operation(summary = "동화 삭제")
