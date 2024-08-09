@@ -2,9 +2,9 @@ package com.B2A4.storybook.domain.reaction.presentation;
 
 import com.B2A4.storybook.domain.reaction.presentation.dto.request.CreateReactionRequest;
 import com.B2A4.storybook.domain.reaction.presentation.dto.request.DeleteReactionRequest;
+import com.B2A4.storybook.domain.reaction.presentation.dto.response.ReactionCountIsReactionResponse;
 import com.B2A4.storybook.domain.reaction.presentation.dto.response.ReactionResponse;
 import com.B2A4.storybook.domain.reaction.service.ReactionService;
-import com.B2A4.storybook.domain.reactionCount.presentation.dto.response.ReactionCountResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class ReactionController {
 
     @Operation(summary = "공감 수 조회")
     @GetMapping("/{storybookId}")
-    public ReactionCountResponse getReactionCount(@PathVariable Long storybookId) {
+    public ReactionCountIsReactionResponse getReactionCount(@PathVariable Long storybookId) {
         return reactionService.getReactionCount(storybookId);
     }
 }
