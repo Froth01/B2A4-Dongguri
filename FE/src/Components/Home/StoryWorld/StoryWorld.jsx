@@ -35,8 +35,13 @@ function StoryWorld() {
 
       // 카드 리스트
       try {
-        const cardListAction = await dispatch(getCardListByUserId(userId));
+        const cardListForm = {
+          userId: parseInt(userId,10),
+          page: 0
+        }
+        const cardListAction = await dispatch(getCardListByUserId(cardListForm));
         const gaveList = unwrapResult(cardListAction);
+        console.log('카드리스트받은거일단 : ',gaveList)
         setMyCardList(gaveList);
         console.log('StoryWorld > MyCardList = ', gaveList)
       } catch (error) {

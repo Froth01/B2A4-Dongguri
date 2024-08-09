@@ -75,6 +75,9 @@ function UserForm() {
       <button className='updatebtn' onClick={handleFormSubmit}>
         수정하기
       </button>
+      <button className='updatebtn' >
+        탈퇴하기
+      </button>
     </div>
   );
 }

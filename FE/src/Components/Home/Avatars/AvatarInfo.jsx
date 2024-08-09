@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { representativeApi, selectRepresentative } from '../../../slices/representativeSlice'; 
+import { representativeApi, selectRepresentative, setRepresentative } from '../../../slices/representativeSlice'; 
 import AvatarExp from './AvatarExp'
 import Guide from '../../StoryBook/Common/Guide'
 import './css/AvatarInfo.css'
@@ -10,8 +10,11 @@ function AvatarInfo() {
   const representative = useSelector(selectRepresentative);
 
   useEffect(() => {
-    dispatch(representativeApi());
-  }, [dispatch]);
+        const gaveRepresentative =  representativeApi();
+        setRepresentative(gaveRepresentative.data)
+        console.log('결과대표동그리: ',representative)
+    }
+ ,[dispatch]);
 
   const representImg = `/img/avatars/${representative.avatarType}_${representative.displayLevel}.png`
 
