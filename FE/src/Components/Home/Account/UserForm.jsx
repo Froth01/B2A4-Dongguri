@@ -4,11 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UpdateUserInfo, setAuthObject } from '../../../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { imgUpload } from '../../../slices/imgSlice';
+import { deleteUser } from '../../../Api/api';
+import { resetAuthState } from '../../../slices/authSlice';
+import { fetchCheckNickname } from '../../../Api/api';
 
 function UserForm() {
   const currentUser = useSelector(state => state.auth.object)
   const [nowNick, setNowNick] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [nicknameCheck,setNicknameCheck] = useState(true)
+  const [nicknameCheckMessage,setNicknameCheckMessage] = useState()
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,6 +55,27 @@ function UserForm() {
     navigate('/')
   };
 
+
+  const handleDeleteUser = async () => {
+        const result = await deleteUser();
+        console.log(result)
+        dispatch(resetAuthState());
+      navigate('/')
+      localStorage.removeItem('persist:userInfo')
+  }
+
+  const handleCheckNickName = async() => {
+    const response = await fetchCheckNickname(nowNick)
+    setNicknameCheck( response.data.available)
+    // const result = response.data.available
+    if (nicknameCheck) {
+      setNicknameCheckMessage('이용 가능한 닉네임입니다');
+    } else {
+      setNicknameCheckMessage('이미 사용 중인 닉네임입니다');
+    }
+    console.log(nicknameCheck)
+  }
+
   return (
     <div className='userform'>
       <div className='userprofileimg' onClick={() => document.getElementById('imageUpload').click()}>
@@ -75,7 +101,12 @@ function UserForm() {
       <button className='updatebtn' onClick={handleFormSubmit}>
         수정하기
       </button>
-      <button className='updatebtn' >
+      <button className='updatebtn' onClick={handleCheckNickName} >
+        닉네임 중복 확인
+      </button>
+      {nicknameCheckMessage}
+      {/* {nicknameCheckMessage && <p className="nickname-check-message">{nicknameCheckMessage}</p>} */}
+      <button className='updatebtn' onClick={handleDeleteUser}>
         탈퇴하기
       </button>
     </div>

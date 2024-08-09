@@ -9,7 +9,7 @@ import Login from './Login'
 import Signup from './Signup'
 import KakaoCallback from '../../Components/Home/Users/KakaoCallback'
 import UserUpdate from '../../Components/Home/Account/UserUpdate'
-
+import Logout from './Logout'
 
 
 function Home() {
@@ -25,6 +25,7 @@ function Home() {
         <Route path="/kakao-callback" element={<KakaoCallback />} />
         <Route path='/signup' element={<Signup />}/>
         <Route path='/users/:userId' element={<UserUpdate />} />
+        <Route path="/users/logout" element={<Logout />} />
       </Routes>
     </div>
   )
