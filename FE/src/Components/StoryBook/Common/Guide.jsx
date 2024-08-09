@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux"
 import { selectDialogs } from "../../../slices/guideSlice"
-import { representativeApi, selectRepresentative } from '../../../slices/representativeSlice'; 
+import { fetchRepresentativeThunk, selectRepresentative } from '../../../slices/representativeSlice'; 
 import PropTypes from 'prop-types';
 import './css/Guide.css'
 
@@ -13,7 +13,7 @@ const Guide = ({ page }) => {
   const dialogs = useSelector(selectDialogs)
 
   useEffect(() => {
-    dispatch(representativeApi());
+    dispatch(fetchRepresentativeThunk());
   }, [dispatch]);
 
   const representImg = `/img/avatars/${representative.avatarType}_${representative.displayLevel}.png`
