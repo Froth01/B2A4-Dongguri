@@ -67,7 +67,9 @@ export const fetchGetUserList = (userId,type) => {
 
 //아바타 목록 조회
 export const fetchGetAvatarList = () => {
-  return axiosInstance.get
+  return axiosInstance.get('/avatars')
+    .then(response => response.data)
+    .catch(error => { throw error ; })
 }
 
 // 대표동그리 조회
@@ -78,9 +80,10 @@ export const fetchRepresentative = () => {
 }
 
 
-// 내 카드리스트 조회
+// 유저아이디 -  카드리스트 조회
 export const fetchCardListByUserId = (cardListForm) => {
-  return axiosInstance.get(`/storybooks/users/${cardListForm.userId}`, cardListForm)
+  console.log('보내는 카드리스트 정보 : ',cardListForm)
+  return axiosInstance.get(`/storybooks/users/${cardListForm.userId}?page=${cardListForm.page}`, cardListForm)
     .then(response => response.data)
     .catch(error => { throw error; })
 }

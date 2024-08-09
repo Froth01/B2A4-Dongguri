@@ -36,8 +36,8 @@ function StoryWorld() {
       // 카드 리스트
       try {
         const cardListForm = {
-          userId: userId,
-          page: 1
+          userId: parseInt(userId,10),
+          page: 0
         }
         const cardListAction = await dispatch(getCardListByUserId(cardListForm));
         const gaveList = unwrapResult(cardListAction);
