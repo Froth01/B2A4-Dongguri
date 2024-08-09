@@ -96,7 +96,7 @@ public class StorybookService implements StorybookServiceUtils {
     public Slice<StorybookResponse> getStorybookListByUser(int page, long userId) {
         User user = userUtils.getUserById(userId);
 
-        PageRequest pageRequest = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+        PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
         Slice<Storybook> storybooks = storybookRepository.findByUser(user, pageRequest);
 
         List<StorybookResponse> storybookResponseList = new ArrayList<>();
@@ -115,7 +115,7 @@ public class StorybookService implements StorybookServiceUtils {
     public Slice<StorybookResponse> getStorybookListByKeyword(int page, String keyword) {
 
         User user = userUtils.getUserFromSecurityContext();
-        PageRequest pageRequest = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+        PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
         List<StorybookResponse> responseList = new ArrayList<>();
         boolean hasNext = false;

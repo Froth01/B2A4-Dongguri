@@ -134,7 +134,7 @@ public class UserService {
             throw NicknameMissingException.EXCEPTION;
         }
 
-        PageRequest pageRequest = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+        PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
         Slice<User> userList = userRepository.findAllByNicknameContaining(nickname, pageRequest);
         return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo()));
