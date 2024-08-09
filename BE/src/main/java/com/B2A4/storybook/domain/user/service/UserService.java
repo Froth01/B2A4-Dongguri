@@ -100,7 +100,7 @@ public class UserService {
 
     // 회원 정보 수정
     @Transactional
-    public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest, HttpServletResponse response) {
+    public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest) {
         User user = userUtils.getUserFromSecurityContext();
 
         user.updateUser(updateUserRequest.nickname(), updateUserRequest.profileImageUrl());

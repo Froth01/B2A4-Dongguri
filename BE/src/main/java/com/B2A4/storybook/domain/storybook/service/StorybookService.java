@@ -118,7 +118,7 @@ public class StorybookService implements StorybookServiceUtils {
         PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
         List<StorybookResponse> responseList = new ArrayList<>();
-        boolean hasNext = false;
+        boolean hasNext;
 
         if (keyword.isEmpty()) {
             Slice<Storybook> storybookList = storybookRepository.findAll(pageRequest);

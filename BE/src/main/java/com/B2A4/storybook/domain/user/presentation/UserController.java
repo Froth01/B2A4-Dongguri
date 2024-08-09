@@ -53,10 +53,8 @@ public class UserController {
 
     @Operation(summary = "회원정보 수정")
     @PatchMapping()
-    public UserProfileResponse updateUserProfile(
-            @RequestBody @Valid UpdateUserRequest updateUserRequest,
-            HttpServletResponse response) {
-        return userService.updateUserProfile(updateUserRequest, response);
+    public UserProfileResponse updateUserProfile(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
+        return userService.updateUserProfile(updateUserRequest);
     }
 
     @Operation(summary = "닉네임 중복 체크")
