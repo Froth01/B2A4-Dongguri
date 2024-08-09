@@ -9,6 +9,7 @@ import { selectStorybook } from '../../slices/storyBookSlice';
 // import { imgUpload } from '../../slices/imgSlice';
 import { fetchStoryBooks } from '../../Api/api';
 import { selectPathHistory } from '../../slices/pathHistorySlice'
+import { useNavigate } from 'react-router-dom';
 
 function StoryRecord() {
   const [isRecording, setIsRecording] = useState(false);
@@ -18,6 +19,7 @@ function StoryRecord() {
   const storybookData = useSelector(selectStorybook);
   const pathHistory = useSelector(selectPathHistory);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleRecord = async () => {
     if (!isRecording) {
@@ -63,30 +65,13 @@ function StoryRecord() {
       // 동화 데이터를 서버에 등록합니다.
       const response = await fetchStoryBooks(formData);
       console.log('동화 등록 완료:', response);
+      const storybookId = response.data.storybookId;
+      console.log('동화 id:', storybookId);
+      navigate(`/storybooks/${storybookId}`); // 응답을 받은 후에 페이지 이동
     } catch (error) {
       console.error('API 요청 실패:', error);
     }
-    // console.log("d",e)
-    // const audioFile = e.target.files[0]
-    // console.log('파일',audioFile)
-    // 결과보기 버튼 클릭 시 수행할 작업, 예를 들어 결과 페이지로 이동
     console.log('Showing results...');
-    // if (audioFile) {
-    //   try {
-    //     const resultAction = await dispatch(imgUpload(audioFile))
-    //     const file = resultAction.payload
-        
-    //     // audio 백에 등록
-    //     await fetchAudio(file)
-    //     console.log('오디오 등록 api:', file);
-
-
-    //   } catch (error) {
-    //     console.log('api 요청 실패 ',error)
-    //   } 
-    // } else {
-    //     console.log('실실패패');
-    // }
   };
 
   return (

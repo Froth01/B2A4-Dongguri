@@ -2,33 +2,39 @@ import './css/StoryTodayWord.css'
 import { useEffect, useState  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setKeyword, setGenre, selectMakeStory } from '../../../slices/makeStorySlice';
+import { getTodayKeyword } from '../../../Api/api';
 
-
-const keywords = ["단어1", "단어2", "단어3", "단어4", "단어5"];
-const genres = ["HAPPY", "JOY", "PLEASURE", "SAD"];
-
-function getRandomItems(array, count) {
-  const shuffled = [...array].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+const genredMap = {
+  '기쁨': 'JOY',
+  '행복': 'HAPPY',
+  '슬픔': 'SAD',
+  '즐거움': 'FUN'
+};
+ 
+function convertGenre(genre) {
+  return genredMap[genre] || genre; // 매핑된 키워드를 반환, 없으면 원래 키워드를 반환
 }
-
 
 function StoryTodayWord() {
   const dispatch = useDispatch();
   const makeStory = useSelector(selectMakeStory);
+  const [originalGenreKeyword, setOriginalGenreKeyword] = useState('')
 
   useEffect(() => {
-    // 랜덤 단어 선택
-    const selectedKeywords = getRandomItems(keywords, 2);
-    const randomGenre = getRandomItems(genres, 1)[0];
+    getTodayKeyword()
+      .then(response => {
+        const { placeKeyword, characterKeyword, genreKeyword } = response.data;
+        // 장르 한국어 저장
+        setOriginalGenreKeyword(genreKeyword)
+        // 장르 영어로 변경
+        const convertedGenre = convertGenre(genreKeyword);
+        console.log('데이터',placeKeyword, characterKeyword, genreKeyword)
+        
+        dispatch(setKeyword([placeKeyword, characterKeyword]));
+        dispatch(setGenre(convertedGenre));
+      })
+      .catch(error =>{console.error('오늘의 키워드',error)})
 
-    console.log('선택된 키워드:', selectedKeywords);
-    console.log('선택된 장르:', randomGenre);
-
-
-    dispatch(setKeyword([...selectedKeywords, '']));
-    dispatch(setGenre(randomGenre));
-  // }, [dispatch]);
   }, [dispatch]);
 
   useEffect(() => {
@@ -54,11 +60,12 @@ function StoryTodayWord() {
       <div className="img-container">
         <img src="/img/storybook/storytoday/todayword3.png" alt="주제 이미지 3" />
         {makeStory.genre && (
-          <div className='random-word genre'>{makeStory.genre}</div>
+          // <div className='random-word genre'>{makeStory.genre}</div>
+          <div className='random-word genre'>{originalGenreKeyword}</div>
         )}
       </div>
 
-      <div>{makeStory.keywords}, {makeStory.genre}</div>
+      {/* <div>{makeStory.keywords}, {makeStory.genre}</div> */}
     </div>
   )
 }
