@@ -70,7 +70,7 @@ import MyWorldImgUpdate from './MyWorldImgUpdate';
   return (
     <div className="myworld" style={{backgroundImage : `url(${backgroundUrl})`}} ref={myWorldRef}>
       <MyWorldBackgroundUpdate />
-      <MyWorldImgUpdate />
+      <MyWorldImgUpdate myCardList={myCardList}/>
       {storybooks.map(card => (
         <img key={card.storybookId} src={card.transparentImageUrl} className="floating-image" alt={card.storybookId} />
       ))}

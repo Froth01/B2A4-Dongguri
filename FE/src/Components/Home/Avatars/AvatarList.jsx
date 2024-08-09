@@ -1,11 +1,17 @@
+import { getAvatarList } from '../../../slices/avatarSlice';
 import AvatarModal from './AvatarModal';
 import './css/AvatarList.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 
 function AvatarList() {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.auth.object)
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(0);
   const [selectedAvatar, setSelectedAvatar] = useState({})
+  const [avatarList, setAvatarList] = useState([])
+
   const openModal = (id) => {
     setModalType(id)
     setSelectedAvatar(avatarList[id])
@@ -17,7 +23,19 @@ function AvatarList() {
     'THREE': 3,
 
   }
-  const avatarList = [
+
+  useEffect(() => {
+    async function getAvatars () {
+      const avatarAction = await dispatch(getAvatarList());
+      const gaveAvatars = avatarAction.payload
+      await setAvatarList(gaveAvatars)
+      console.log('AvatarList > avatarList : ', avatarList)
+    }
+    getAvatars();
+  },[dispatch, currentUser])
+
+
+  const dummyList = [
     {
 			"id": 1,
 			"name": "겨미",
