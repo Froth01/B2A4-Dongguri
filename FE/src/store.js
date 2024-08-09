@@ -79,8 +79,8 @@ const store = configureStore({
     mainBtn: mainBtnReducer,
     genreBtn: genreBtnReducer,
     circleBtn: circleBtnReducer,
-    userInfo: persistedUserInfoReducer,
     auth: persistedAuthReducer, 
+    userInfo: persistedUserInfoReducer,
     // auth: persistedReducer,    // persistor를 적용한 리듀서 사용
     guide: guideReducer,
     makeStory: persistedMakeStoryReducer,

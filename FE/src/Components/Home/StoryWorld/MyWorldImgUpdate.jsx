@@ -9,8 +9,6 @@ function MyWorldImgUpdate() {
   const worldInfo = useSelector(state => state.worldInfo.object)
   const [storybookIdList, setStorybookIdList] = useState([])
   const [isEditOpen, setIsEditOpen] = useState(false)
-  const [selectedBack, setSelectedBack] = useState('WOODS')
-  const [imgUrlBack, setImgUrlBack] = useState(null)
 
   useEffect (() => {
     const gaveList = worldInfo.storybooks
@@ -20,37 +18,31 @@ function MyWorldImgUpdate() {
     console.log('유저월드 동화 리스트' ,storybookIdList)
   },[worldInfo])
 
-  useEffect(() =>{
-    console.log(selectedBack)
-  },[])
-
   const EditClick = (e) => {
     if (e.target.closest('.worldimgedit')) return;
     setIsEditOpen(!isEditOpen);
   }
 
-  const handleMenuChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      try {
-        setSelectedBack('CUSTOM')
-        const resultAction = await dispatch(imgUpload(file))
-        setImgUrlBack(resultAction.payload)
-        console.log('받아온이미지 : ', imgUrlBack)
-      } catch (error) {
-        console.log(error)
+  const handleMenuSelect = (e, storybook) => {
+    console.log(e.currentTarget)
+    if (e.currentTarget.classList.contains('checked')) {
+      e.currentTarget.classList.remove('checked');
+      setStorybookIdList(storybookIdList.filter(id => id !== storybook.storybookId));
+      } else {
+        e.currentTarget.classList.add('checked');
+        setStorybookIdList([...storybookIdList, storybook.storybookId])
       }
-    }
-  };
+  }
 
+  
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
       const patchInfo = {
         storyWorldId: worldInfo.storyWorldId,
         patchForm: {
-          backgroundType: selectedBack,
-          customBackgroundUrl: imgUrlBack,
+          backgroundType: worldInfo.backgroundType,
+          customBackgroundUrl: worldInfo.customBackgroundUrl,
           storybookIds: storybookIdList
         }
       }
@@ -66,6 +58,7 @@ function MyWorldImgUpdate() {
 
   return (
     <div className='myworldimgupdate' onClick={EditClick}>
+      동화 수정
       {isEditOpen && (
         <div className={`worldimgedit ${isEditOpen ? 'show' : ''}`}>
           {worldInfo.storybooks.map(storybook => (
@@ -73,7 +66,7 @@ function MyWorldImgUpdate() {
             key={storybook.storybookId}
             className='editimgmenu'
             onClick={() => 
-            setStorybookIdList([...storybookIdList, storybook.storybookId])}
+            handleMenuSelect(storybook)}
             >
             <img src={storybook.transparentImageUrl} alt={storybook.storybookId} />
           </div>
@@ -81,10 +74,8 @@ function MyWorldImgUpdate() {
         </div>
       )}
       {isEditOpen && (
-        <div className="imgsubmitBtn">
-          <button onClick={handleSubmit}>
-            서브밋이유
-          </button>
+        <div className="imgsubmitBtn" onClick={handleSubmit}>
+            적용하기
         </div>
       )}
     </div>
