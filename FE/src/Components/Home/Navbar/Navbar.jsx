@@ -14,6 +14,7 @@ function Navbar() {
     if (currentUser.userId) {
       dispatch(setTargetUser(currentUser));
     }
+    console.log(currentUser.userId)
   },[currentUser.userId,dispatch]);
 
   return (
@@ -56,7 +57,7 @@ function Navbar() {
         </nav>}
         {currentUser.userId===0 && <nav className='popup-window'>
           <ul>
-            <li>
+            <li>  
               <Link to={'/login'}>
               <button>
                 로그인

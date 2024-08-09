@@ -29,6 +29,15 @@ function MyWorldBackgroundUpdate() {
     setIsEditOpen(!isEditOpen);
   }
 
+  const handleMenuSelect = (e, type) => {
+    console.log(e.currentTarget)
+    document.querySelectorAll('.editbgmenu').forEach(item => {
+      item.classList.remove('checked');
+    });
+    e.currentTarget.classList.add('checked');
+    setSelectedBack(type)
+  }
+
   const handleMenuChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -66,26 +75,28 @@ function MyWorldBackgroundUpdate() {
 
   return (
     <div className='myworldbgupdate' onClick={EditClick}>
+      배경 수정
       {isEditOpen && (
         <div className={`worldbgedit ${isEditOpen ? 'show' : ''}`}>
-          <div className='editbgmenu' onClick={() => setSelectedBack('WOODS')}>
+          <div className='editbgmenu' onClick={(e) => handleMenuSelect(e, 'WOODS')}>
             <img src="/img/storyworld/WOODS.jpg" alt="WOODS" />
           </div>
-          <div className='editbgmenu' onClick={() => setSelectedBack('WINTER')}>
+          <div className='editbgmenu' onClick={(e) => handleMenuSelect(e, 'WINTER')}>
             <img src="/img/storyworld/WINTER.jpg" alt="WINTER" />
           </div>
-          <div className='editbgmenu' onClick={() => setSelectedBack('CASTLE')}>
+          <div className='editbgmenu' onClick={(e) => handleMenuSelect(e, 'CASTLE')}>
             <img src="/img/storyworld/CASTLE.jpg" alt="CASTLE" />
           </div>
-          <div className='editbgmenu editbginput'>
-            <input type="file" name="profileImage"  onChange={handleMenuChange} />
+          <div className='editbgmenu'>
+            <label htmlFor="image">
+              <div className='editbginput'>나만의 배경</div>
+            </label>
+            <input type="file" name="image" id="image"  onChange={handleMenuChange} />
           </div>
         </div>)}
       {isEditOpen && (
-        <div className="bgsubmitBtn">
-          <button onClick={handleSubmit}>
-            서브밋이유
-          </button>
+        <div className="bgsubmitBtn" onClick={handleSubmit}>
+            적용하기
         </div>
       )}
     </div>

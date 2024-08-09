@@ -18,10 +18,18 @@ export const fetchSignup = (signupForm) => {
 
 // 로그아웃
 export const fetchLogout = () => {
-  return axiosInstance.get('/users/logout')
+  return axiosInstance.post('/users/logout')
   .then(response => response.data)
   .catch(error => { throw error; })
 }
+
+// 탈퇴
+export const deleteUser = () => {
+  return axiosInstance.delete('/users')
+  .then(response => response.data)
+  .catch(error => { throw error; })
+}
+
 
 // 유저정보 가져오기
 export const fetchUser = (userId) => {
@@ -36,6 +44,17 @@ export const fetchUserUpdate = (updateForm) => {
     .then(response => response.data)
     .catch(error => { throw error; });
 };
+
+// 닉네임 중복 확인
+export const fetchCheckNickname = (nickname) => {
+  console.log(nickname)
+  return axiosInstance.post('users/check-nickname',{
+     nickname
+  })
+  .then(response => response.data)
+  .catch(error => { throw error; });
+};
+
 
 // 이미지 Url 변환
 export const fetchImgUrl = (file) => {

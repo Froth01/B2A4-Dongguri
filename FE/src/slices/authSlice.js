@@ -43,27 +43,33 @@ export const UpdateUserInfo = createAsyncThunk('user/userId/update', async (upda
   }
 });
 
+const initialState = {
+  object: {
+    userId: 0,
+    email: "test1@testing.com",
+    name: "testname",
+    nickname: "testandtest",
+    profileImageUrl: "/img/home/test.png",
+    oauthServerType: "KAKAO",
+    isFirst: true,
+    createdDate: "2024-02-18 07:53:23.795698",
+    lastModifyDate: "2024-02-18 07:53:23.795698"
+  },
+};
+
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    object: {
-      userId: 0,
-      email: "test1@testing.com",
-      name: "testname",
-      nickname: "testandtest",
-      profileImageUrl: "/img/home/test.png",
-      oauthServerType: "KAKAO",
-      isFirst: true,
-      createdDate: "2024-02-18 07:53:23.795698",
-      lastModifyDate: "2024-02-18 07:53:23.795698"
+  initialState,
+  reducers: {
+    setAuthObject(state, action) {
+      state.object = action.payload;
     },
-  },
-    reducers: {
-      setAuthObject(state,action) {
-        state.object = action.payload;
-      }
+    resetAuthState(state) {
+      // 초기 상태로 리셋
+      return initialState;
     }
+  }
 });
 
-export const { setAuthObject } = authSlice.actions;
+export const { setAuthObject, resetAuthState } = authSlice.actions;
 export default authSlice.reducer;
