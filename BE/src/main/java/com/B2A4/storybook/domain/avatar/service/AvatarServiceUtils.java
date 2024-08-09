@@ -9,5 +9,5 @@ public interface AvatarServiceUtils {
     void createAllAvatars(User user);
     Avatar queryAvatar(Long avatarId);
     void updateRepresentativeAvatar(ChangeRepresentativeAvatarRequest changeRepresentativeAvatarRequest);
-    void levelUp(Long avatarId);
+    void levelUp();
 }

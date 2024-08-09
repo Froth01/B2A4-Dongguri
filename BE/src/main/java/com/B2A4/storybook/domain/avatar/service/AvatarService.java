@@ -7,6 +7,7 @@ import com.B2A4.storybook.domain.avatar.domain.repository.AvatarRepository;
 import com.B2A4.storybook.domain.avatar.exception.AvatarNotFoundException;
 import com.B2A4.storybook.domain.avatar.exception.DuplicateAvatarException;
 import com.B2A4.storybook.domain.avatar.exception.RepresentativeAvatarNotFoundException;
+import com.B2A4.storybook.domain.avatar.exception.UserIsNotHostAvatarException;
 import com.B2A4.storybook.domain.avatar.presentation.dto.request.ChangeAvatarNameRequest;
 import com.B2A4.storybook.domain.avatar.presentation.dto.request.ChangeDisplayAvatarRequest;
 import com.B2A4.storybook.domain.avatar.presentation.dto.request.ChangeRepresentativeAvatarRequest;
@@ -88,6 +89,7 @@ public class AvatarService implements AvatarServiceUtils{
         Avatar representativeAvatar = avatarRepository.findByUserAndIsRepresentative(user, true).orElseThrow(() -> RepresentativeAvatarNotFoundException.EXCEPTION);
 
         if (avatar.getId() == representativeAvatar.getId()) throw DuplicateAvatarException.EXCEPTION;
+        else if (avatar.getUser().getId() != user.getId()) throw UserIsNotHostAvatarException.EXCEPTION;
         avatar.updateRepresentative();
         representativeAvatar.updateRepresentative();
     }
@@ -104,11 +106,11 @@ public class AvatarService implements AvatarServiceUtils{
 
     @Override
     @Transactional
-    public void levelUp(Long avatarId) {
+    public void levelUp() {
         User user = userUtils.getUserFromSecurityContext();
-        Avatar avatar = queryAvatar(avatarId);
 
-        avatar.validUserIsHost(user.getId());
+        Avatar avatar = avatarRepository.findByUserAndIsRepresentative(user, true).orElseThrow(() -> RepresentativeAvatarNotFoundException.EXCEPTION);
+
         avatar.addExp();
 
         AvatarLevel avatarLevel = AvatarLevel.levelUp(avatar);
