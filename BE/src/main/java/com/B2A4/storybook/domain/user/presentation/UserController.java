@@ -71,7 +71,7 @@ public class UserController {
 
     @Operation(summary = "회원 목록 닉네임으로 조회")
     @GetMapping
-    public Slice<UserBasicProfileResponse> getUserBasicProfileListByNickname(@RequestParam String nickname, @RequestParam(defaultValue = "1") int page) {
+    public Slice<UserBasicProfileResponse> getUserBasicProfileListByNickname(@RequestParam String nickname, @RequestParam int page) {
         return userService.getUserBasicProfileListByNickname(page, nickname);
     }
 }

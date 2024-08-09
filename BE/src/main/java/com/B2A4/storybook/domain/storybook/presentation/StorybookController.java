@@ -40,13 +40,13 @@ public class StorybookController {
 
     @Operation(summary = "해당 유저의 동화 목록 조회")
     @GetMapping("/users/{userId}")
-    public Slice<StorybookResponse> getStorybookListByUser(@PathVariable long userId,   @RequestParam(defaultValue = "1") int page) {
+    public Slice<StorybookResponse> getStorybookListByUser(@PathVariable long userId, @RequestParam int page) {
         return storybookService.getStorybookListByUser(page, userId);
     }
 
     @Operation(summary = "해당 키워드로 동화 목록 조회")
     @GetMapping
-    public Slice<StorybookResponse> getStorybookListByKeyword(@RequestParam String keyword, @RequestParam(defaultValue = "1") int page) {
+    public Slice<StorybookResponse> getStorybookListByKeyword(@RequestParam String keyword, @RequestParam int page) {
         return storybookService.getStorybookListByKeyword(page, keyword);
     }
 
