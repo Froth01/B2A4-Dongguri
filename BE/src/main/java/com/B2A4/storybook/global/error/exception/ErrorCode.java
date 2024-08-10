@@ -59,7 +59,8 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500,"서버 에러"),
     IMAGE_PROCESSING(500, "이미지 처리 중 오류가 발생했습니다."),
     API_JSON_PARSE_ERROR(500, "API JSON 응답에 파싱 에러가 발생했습니다."),
-    API_IMAGE_UPLOAD_FILE(500, "AI 이미지 업로드에 실패하였습니다.");
+    API_IMAGE_UPLOAD_FILE(500, "API 이미지 결과 업로드에 실패하였습니다.");
+
     private int status;
     private String reason;
 }
