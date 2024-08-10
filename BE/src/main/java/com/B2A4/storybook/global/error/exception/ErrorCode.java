@@ -28,9 +28,10 @@ public enum ErrorCode {
     REGISTER_EXPIRED_TOKEN(403,"만료된 리프레쉬 토큰입니다."),
     USER_INFO_NOT_FOUND(404, "회원가입을 진행해 주세요."),
     USER_NOT_AVATAR_HOST(403, "해당하는 동그리의 소유자가 아닙니다."),
-    USER_NOT_STORYBOOK_HOST(403, "해당 동화의 소유자가 아닙니다."),
+    USER_NOT_STORYBOOK_HOST(403, "해당하는 동화의 소유자가 아닙니다."),
     USER_NOT_STORY_WORLD_HOST(403, "해당하는 동화나라의 소유자가 아닙니다."),
     USER_NOT_REACTION_HOST(403, "해당하는 공감의 소유자가 아닙니다."),
+    USER_NOT_FOLLOW_HOST(403, "해당하는 팔로우의 소유자가 아닙니다."),
 
     /* 404 NOT_FOUND : Resource를 찾을 수 없음 */
     USER_NOT_FOUND(404, "해당하는 정보의 사용자를 찾을 수 없습니다."),
@@ -45,18 +46,21 @@ public enum ErrorCode {
     REACTION_NOT_FOUND(404, "해당하는 공감을 찾을 수 없습니다."),
     REACTION_COUNT_NOT_FOUND(404, "해당하는 공감 수를 찾을 수 없습니다."),
     DAILY_KEYWORD_NOT_FOUND(404, "해당하는 오늘의 키워드를 찾을 수 없습니다."),
+    FOLLOW_NOT_FOUND(404, "해당하는 팔로우를 찾을 수 없습니다."),
 
     /* 409 중복된 리소스 */
     NICKNAME_DUPLICATION(409, "이미 사용중인 닉네임입니다."),
     USER_DUPLICATION(409, "이미 가입된 사용자입니다."),
     REACTION_DUPLICATION(409, "이미 공감된 정보입니다"),
+    FOLLOW_DUPLICATION(409, "이미 팔로우된 사용자입니다."),
     MAX_STORY_LIMIT_EXCEEDED(409, "등록 가능한 이미지의 수를 초과했습니다."),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러"),
     IMAGE_PROCESSING(500, "이미지 처리 중 오류가 발생했습니다."),
     API_JSON_PARSE_ERROR(500, "API JSON 응답에 파싱 에러가 발생했습니다."),
-    API_IMAGE_UPLOAD_FILE(500, "AI 이미지 업로드에 실패하였습니다.");
+    API_IMAGE_UPLOAD_FILE(500, "API 이미지 결과 업로드에 실패하였습니다.");
+
     private int status;
     private String reason;
 }
