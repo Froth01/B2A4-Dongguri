@@ -36,7 +36,7 @@ public class FollowService implements FollowServiceUtil {
             throw FollowDuplicationException.EXCEPTION;
         }
 
-        Follow follow = new Follow(follower, following);
+        Follow follow = Follow.createFollow(follower, following);
         followRepository.save(follow);
 
         return new FollowResponse(follow.getId(), following.getUserInfo(), true);

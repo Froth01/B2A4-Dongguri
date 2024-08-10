@@ -1,7 +1,6 @@
 package com.B2A4.storybook.domain.follow.domain;
 
 import com.B2A4.storybook.domain.follow.exception.UserNotFollowHostException;
-import com.B2A4.storybook.domain.storybook.exception.UserNotStorybookHostException;
 import com.B2A4.storybook.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
