@@ -1,6 +1,7 @@
 package com.B2A4.storybook.domain.user.service;
 
 import com.B2A4.storybook.domain.avatar.service.AvatarServiceUtils;
+import com.B2A4.storybook.domain.follow.service.FollowService;
 import com.B2A4.storybook.domain.oauth.domain.OauthMember;
 import com.B2A4.storybook.domain.oauth.domain.repository.OauthMemberRepository;
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
@@ -44,6 +45,7 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AvatarServiceUtils avatarServiceUtils;
     private final StoryWorldServiceUtils storyWorldServiceUtils;
+    private final FollowService followService;
 
     // 회원 가입
     @Transactional
@@ -56,11 +58,11 @@ public class UserService {
                 signUpUserRequest.oauthServerType()
         );
 
-        if(userRepository.existsByEmailAndOauthServerType(signUpUserRequest.email(), signUpUserRequest.oauthServerType())) {
+        if (userRepository.existsByEmailAndOauthServerType(signUpUserRequest.email(), signUpUserRequest.oauthServerType())) {
             throw UserDuplicationException.EXCEPTION;
         }
 
-        if(userRepository.existsByNickname(signUpUserRequest.nickname())) {
+        if (userRepository.existsByNickname(signUpUserRequest.nickname())) {
             throw NicknameDuplicationException.EXCEPTION;
         }
 
@@ -94,8 +96,9 @@ public class UserService {
     // 회원 정보 조회
     public UserBasicProfileResponse getUserBasicProfile(long userId) {
         User user = userUtils.getUserById(userId);
-
-        return new UserBasicProfileResponse(user.getUserInfo());
+        User currentUser = userUtils.getUserFromSecurityContext();
+        boolean isFollow = followService.isUserFollowing(currentUser, user);
+        return new UserBasicProfileResponse(user.getUserInfo(), isFollow);
     }
 
     // 회원 정보 수정
@@ -130,14 +133,16 @@ public class UserService {
     }
 
     public Slice<UserBasicProfileResponse> getUserBasicProfileListByNickname(int page, String nickname) {
-        if(nickname.isEmpty()) {
+        if (nickname.isEmpty()) {
             throw NicknameMissingException.EXCEPTION;
         }
+        User currentUser = userUtils.getUserFromSecurityContext();
 
         PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
+
         Slice<User> userList = userRepository.findAllByNicknameContaining(nickname, pageRequest);
-        return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo()));
+        return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo(), followService.isUserFollowing(currentUser, user)));
 
     }
 }

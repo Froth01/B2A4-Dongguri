@@ -32,9 +32,9 @@ public class FollowService implements FollowServiceUtil {
         User follower = userUtils.getUserFromSecurityContext();
         User following = userUtils.getUserById(followRequest.followingId());
 
-        followRepository.findByFollowerAndFollowing(follower, following).ifPresent(follow -> {
+        if (isUserFollowing(follower, following)) {
             throw FollowDuplicationException.EXCEPTION;
-        });
+        }
 
         Follow follow = new Follow(follower, following);
         followRepository.save(follow);
@@ -51,7 +51,7 @@ public class FollowService implements FollowServiceUtil {
                 new FollowResponse(
                         follow.getId(),
                         follow.getFollower().getUserInfo(),
-                        followRepository.existsByFollowerAndFollowing(user, follow.getFollower())
+                        isUserFollowing(user, follow.getFollower())
                 )
         );
     }
@@ -79,6 +79,11 @@ public class FollowService implements FollowServiceUtil {
                 .orElseThrow(() -> FollowNotFoundException.EXCEPTION);
         follow.validFollowIsHost(user);
         followRepository.delete(follow);
+    }
+
+    @Override
+    public boolean isUserFollowing(User follower, User following) {
+        return followRepository.existsByFollowerAndFollowing(follower, following);
     }
 
 }

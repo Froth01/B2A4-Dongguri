@@ -5,9 +5,10 @@ import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
 public record UserBasicProfileResponse(
         Long userId,
         String nickname,
-        String profileImageUrl
+        String profileImageUrl,
+        boolean isFollow
 ) {
-    public UserBasicProfileResponse(UserInfoVO userInfo) {
-        this(userInfo.userId(), userInfo.nickname(), userInfo.profileImageUrl());
+    public UserBasicProfileResponse(UserInfoVO userInfo, boolean isFollow) {
+        this(userInfo.userId(), userInfo.nickname(), userInfo.profileImageUrl(), isFollow);
     }
 }
