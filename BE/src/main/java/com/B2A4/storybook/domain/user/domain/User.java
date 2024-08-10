@@ -1,6 +1,7 @@
 package com.B2A4.storybook.domain.user.domain;
 
 import com.B2A4.storybook.domain.avatar.domain.Avatar;
+import com.B2A4.storybook.domain.follow.domain.Follow;
 import com.B2A4.storybook.domain.oauth.domain.OauthServerType;
 import com.B2A4.storybook.domain.reaction.domain.Reaction;
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
@@ -44,6 +45,12 @@ public class User extends BaseEntity {
     private String email;
     private String nickname;
     private String profileImageUrl;
+
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follow> followingList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follow> followerList = new ArrayList<>();
 
     @Enumerated(STRING)
     private OauthServerType oauthServerType;
