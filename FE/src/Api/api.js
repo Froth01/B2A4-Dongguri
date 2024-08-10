@@ -79,6 +79,25 @@ export const fetchRepresentative = () => {
   .catch(error => { throw error })
 }
 
+// 동그리 표기레벨 변경하기 -> 동시에 대표동그리로 설정함
+export const fetchAvatarDisplayLevel = (avatarLevelForm) => {
+  return axiosInstance.patch(`/avatars/display`, avatarLevelForm)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+export const fetchAvatarRepresentative = (avatarId) => {
+  return axiosInstance.patch(`/avatars`, {avatarId: avatarId})
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 동그리 이름 변경하기
+export const fetchAvatarName = (avatarNameForm) => {
+  return axiosInstance.patch(`/avatars/${avatarNameForm.avatarId}`, avatarNameForm.patchForm)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
 
 // 유저아이디 -  카드리스트 조회
 export const fetchCardListByUserId = (cardListForm) => {
