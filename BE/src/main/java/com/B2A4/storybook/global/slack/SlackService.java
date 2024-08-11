@@ -16,7 +16,7 @@ import static com.slack.api.webhook.WebhookPayloads.payload;
 @Service
 public class SlackService {
 
-    @Value("${webhook.slack.url}")
+    @Value("${slack.token}")
     private String SLACK_WEBHOOK_URL;
 
     private final Slack slackClient = Slack.getInstance();
