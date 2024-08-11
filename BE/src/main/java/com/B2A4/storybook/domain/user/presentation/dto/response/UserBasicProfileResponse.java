@@ -6,9 +6,11 @@ public record UserBasicProfileResponse(
         Long userId,
         String nickname,
         String profileImageUrl,
+        int followingCount,
+        int followerCount,
         boolean isFollow
 ) {
-    public UserBasicProfileResponse(UserInfoVO userInfo, boolean isFollow) {
-        this(userInfo.userId(), userInfo.nickname(), userInfo.profileImageUrl(), isFollow);
+    public UserBasicProfileResponse(UserInfoVO userInfo, int followerCount, int followingCount, boolean isFollow) {
+        this(userInfo.userId(), userInfo.nickname(), userInfo.profileImageUrl(), followerCount, followingCount, isFollow);
     }
 }

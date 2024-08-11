@@ -98,7 +98,7 @@ public class UserService {
         User user = userUtils.getUserById(userId);
         User currentUser = userUtils.getUserFromSecurityContext();
         boolean isFollow = followService.isUserFollowing(currentUser, user);
-        return new UserBasicProfileResponse(user.getUserInfo(), isFollow);
+        return new UserBasicProfileResponse(user.getUserInfo(), user.getFollowingCount(), user.getFollowerCount(), isFollow);
     }
 
     // 회원 정보 수정
@@ -142,7 +142,7 @@ public class UserService {
 
 
         Slice<User> userList = userRepository.findAllByNicknameContaining(nickname, pageRequest);
-        return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo(), followService.isUserFollowing(currentUser, user)));
+        return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo(),  user.getFollowingCount(), user.getFollowerCount(), followService.isUserFollowing(currentUser, user)));
 
     }
 }
