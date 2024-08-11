@@ -1,8 +1,9 @@
 package com.B2A4.storybook.global.error.exception;
 
-
 import com.B2A4.storybook.global.error.ErrorResponse;
+import com.B2A4.storybook.global.slack.SlackService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,26 +12,34 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final SlackService slackService;
 
     @ExceptionHandler(MainException.class)
     public ResponseEntity<ErrorResponse> bookMarkExceptionHandler(
-            MainException e, HttpServletRequest request) {
+            MainException e, HttpServletRequest request) throws IOException {
 
         ErrorCode code = e.getErrorCode();
+        log.info("예외" + e.getMessage());
+
         ErrorResponse errorResponse =
                 new ErrorResponse(
                         code.getStatus(),
                         code.getReason());
+
+        sendSlackMessage(e, code);
+
         return ResponseEntity.status(HttpStatus.valueOf(code.getStatus())).body(errorResponse);
     }
 
-
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request)
+    @ExceptionHandler(Throwable.class)
+    protected ResponseEntity<ErrorResponse> storybookHandleException(Exception e, HttpServletRequest request)
             throws IOException {
 
         log.error("INTERNAL_SERVER_ERROR", e);
@@ -39,7 +48,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 new ErrorResponse(
                         internalServerError.getStatus(),
                         internalServerError.getReason());
+
+        sendSlackMessage(e, internalServerError);
+
         return ResponseEntity.status(HttpStatus.valueOf(internalServerError.getStatus()))
                 .body(errorResponse);
     }
+
+    private void sendSlackMessage(Exception e, ErrorCode errorCode) {
+        HashMap<String, String> message = new HashMap<>();
+        message.put("에러 로그", e.getMessage());
+        log.info("에러 로그" + e.getMessage());
+        slackService.sendMessage(errorCode.getReason(), message);
+    }
 }
+
