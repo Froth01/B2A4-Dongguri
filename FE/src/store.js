@@ -12,8 +12,7 @@ import makeStoryReducer from './slices/makeStorySlice';
 import imgReducer from './slices/imgSlice'
 import pathHistoryReducer from './slices/pathHistorySlice';
 import worldInfoReducer from './slices/worldInfoSlice';
-import followingReducer from './slices/followingSlice';
-import followersReducer from './slices/followersSlice';
+import followReducer from './slices/followSlice';
 import representativeReducer from './slices/representativeSlice';
 import cardListReducer from './slices/cardListSlice'
 import storyBookReducer from './slices/storyBookSlice';
@@ -90,8 +89,7 @@ const store = configureStore({
     pathHistory: persistedPathHistroyReducer,
     // makeStory: makeStoryReducer,
     image: imgReducer, 
-    following: followingReducer,
-    followers: followersReducer,
+    follow: followReducer,
     representative : persistedRepresentativeReducer,
     cardList: cardListReducer,
     worldInfo: worldInfoReducer,
