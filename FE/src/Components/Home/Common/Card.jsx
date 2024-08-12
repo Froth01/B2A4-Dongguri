@@ -7,6 +7,8 @@ const Card = ({ card, showMic = true }) => {
   const [showOriginal, setShowOriginal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  console.log(card)
+
   if (!card || !card.keywords || !Array.isArray(card.keywords) || card.keywords.length === 0) {
     return <div>No tags available</div>;
   }
@@ -33,28 +35,33 @@ const Card = ({ card, showMic = true }) => {
       />
       <div className="card-story">
         <p className="card-storyline">{card.content}</p>
-        <div className="card-tag-mic-container">
-          <div className="tags-container">
-            <div className="tags">
+      </div>
+      <div className="card-tag-mic-container">
+        <div className="tags-container">
+          <div className="tags">
             {card.keywords.filter(keyword => keyword.trim() !== '').map((keyword, index) => (
-              <h3 key={index} className='hash'>#{keyword}</h3>
+              <p key={index} className='hash'>#{keyword}</p>
             ))}
-            </div>
           </div>
+        </div>
+        <div className="mic-container">
           {showMic && (
-            <div className="mic-container">
               <img
-                src="/img/sns/mic.png"
+                src="/img/sns/speaker.png"
                 alt="녹음듣기"
                 className="card-record-listen"
                 onClick={handleListenRecording}
               />
-            </div>
           )}
         </div>
+        <AudioPlayModal 
+          audioSrc={card.voiceRecord}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
       </div>
       <AudioPlayModal 
-        audioSrc={card.voiceRecord}
+        audioSrc={card.voiceRecording}
         isOpen={isModalOpen}
         onClose={closeModal}
       />
@@ -68,7 +75,7 @@ Card.propTypes = {
     transformedImageUrl: PropTypes.string.isRequired,
     originalImageUrl: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    voiceRecord: PropTypes.string,
+    voiceRecording: PropTypes.string,
   }),
   showMic: PropTypes.bool
 };

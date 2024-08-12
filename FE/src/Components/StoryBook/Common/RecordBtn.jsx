@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import AudioPlayModal from './AudioPlayModal';
 import './css/RecordBtn.css';  // CSS 스타일
 import { fetchAudioUrl } from '../../../Api/api';
-import { audioUpload } from '../../../slices/audioSlice';
+// import { audioUpload } from '../../../slices/audioSlice';
 import { setVoiceRecordingFile } from '../../../slices/storyBookSlice';
 import { useDispatch, useSelector } from 'react-redux';
 // import { selectStorybook } from '../../../slices/storyBookSlice';
@@ -12,7 +12,7 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
   const [audioSrc, setAudioSrc] = useState('');
   const [showPlayer, setShowPlayer] = useState(false);
   const [recorder, setRecorder] = useState(null);
-  const [hasRecorded, setHasRecorded] = useState(false);  // 녹음 여부 상태
+  // const [hasRecorded, setHasRecorded] = useState(false);  // 녹음 여부 상태
   const dispatch = useDispatch()
   const voiceRecordingFile = useSelector(selectVoiceRecordingFile);
 
@@ -61,7 +61,7 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
     if (recorder && recorder.state === "inactive") {
       recorder.start();
       onRecord(true);
-      setHasRecorded(true);
+      // setHasRecorded(true);
     }
   };
 

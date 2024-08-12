@@ -61,7 +61,7 @@ function StoryTodayWord() {
         <img src="/img/storybook/storytoday/todayword3.png" alt="주제 이미지 3" />
         {makeStory.genre && (
           // <div className='random-word genre'>{makeStory.genre}</div>
-          <div className='random-word genre'>{originalGenreKeyword}</div>
+          <div className='random-word'>{originalGenreKeyword}</div>
         )}
       </div>
 
