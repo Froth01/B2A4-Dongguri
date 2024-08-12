@@ -44,14 +44,14 @@ const KakaoShareButton = ({ card }) => {
           description: '우리 아이가 만든 동화를 확인하세요!',
           imageUrl: imageUrl,
           link: {
-            webUrl: `https://i11b309.p.ssafy.io/api/sns/${card.storybookId}`,
+            webUrl: `https://i11b309.p.ssafy.io/sns/${card.storybookId}`,
           },
         },
         buttons: [
           {
             title: '웹으로 보기',
             link: {
-              webUrl: `https://i11b309.p.ssafy.io/api/sns/${card.storybookId}`,
+              webUrl: `https://i11b309.p.ssafy.io/sns/${card.storybookId}`,
             },
           },
         ],

@@ -4,7 +4,8 @@ import './css/SNS.css'
 import { useEffect } from 'react'
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { selectResults, selectUserResults, selectNicknameResults, selectSearchType, clearSearchResults } from '../../../slices/searchSlice'
+import {selectKeyword, selectResults, selectUserResults, selectNicknameResults, 
+  selectSearchType, clearSearchResults, fetchSearchResultsThunk } from '../../../slices/searchSlice'
 import SearchUserList from './SearchUserList'
 
 function SNS() {
@@ -23,6 +24,20 @@ function SNS() {
 
   const searchType = useSelector(selectSearchType)
   console.log('검색 타입', searchType)
+
+  const keyword = useSelector(selectKeyword);
+
+  const page = 0
+
+  useEffect(() => {
+
+  }, [searchResults])
+
+  useEffect(() => {
+    if (keyword) {
+      dispatch(fetchSearchResultsThunk({ keyword,page}));
+    }
+  }, [dispatch, keyword,page]);
 
   useEffect(() => {
     // 페이지가 변경될 때마다 상태를 초기화
@@ -47,11 +62,23 @@ function SNS() {
   return (
     <div className='sns'>
       <SearchBar />
-      {searchType === 'storybook' && searchResults.data && <MiniCardList cardList={searchResults.data.content}  onCardClick={handleCardClick}/>}
+
+      { searchType === 'storybook' && 
+      searchResults.data && 
+      <MiniCardList cardList={searchResults.data.content}  
+      onCardClick={handleCardClick}/>
+      }
+
       {/* {searchType === 'user' && searchUserResults && searchUserResults.data && <SearchUserList user={searchUserResults.data} />} */}
-      {searchType === 'user' && searchUserResults.data && <SearchUserList userList={[searchUserResults.data]} />}
+      { searchType === 'user' && 
+      searchUserResults.data && 
+      <SearchUserList userList={[searchUserResults.data]} />
+      }
       
-      {searchType === 'nickname' && searchNicknameResults.data && <SearchUserList userList={searchNicknameResults.data.content} />}
+      { searchType === 'nickname' && 
+      searchNicknameResults.data && 
+      <SearchUserList userList={searchNicknameResults.data.content} />
+      }
 
     </div>
   )
