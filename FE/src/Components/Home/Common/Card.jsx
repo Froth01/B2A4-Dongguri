@@ -35,25 +35,30 @@ const Card = ({ card, showMic = true }) => {
       />
       <div className="card-story">
         <p className="card-storyline">{card.content}</p>
-        <div className="card-tag-mic-container">
-          <div className="tags-container">
-            <div className="tags">
+      </div>
+      <div className="card-tag-mic-container">
+        <div className="tags-container">
+          <div className="tags">
             {card.keywords.filter(keyword => keyword.trim() !== '').map((keyword, index) => (
-              <h3 key={index} className='hash'>#{keyword}</h3>
+              <p key={index} className='hash'>#{keyword}</p>
             ))}
-            </div>
           </div>
+        </div>
+        <div className="mic-container">
           {showMic && (
-            <div className="mic-container">
               <img
-                src="/img/sns/mic.png"
+                src="/img/sns/speaker.png"
                 alt="녹음듣기"
                 className="card-record-listen"
                 onClick={handleListenRecording}
               />
-            </div>
           )}
         </div>
+        <AudioPlayModal 
+          audioSrc={card.voiceRecord}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
       </div>
       <AudioPlayModal 
         audioSrc={card.voiceRecording}

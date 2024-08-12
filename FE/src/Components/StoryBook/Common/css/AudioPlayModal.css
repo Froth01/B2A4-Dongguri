@@ -1,68 +1,87 @@
-.audio-play-modal-overlay {
+.audio-play-modal {
+}
+
+.audio-play-modal-backdrop {
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 
 .audio-play-modal-content {
     position: relative;
     background: white;
-    padding: 20px; /* 상단 공간 확보를 위해 조정할 수 있음 */
-    padding-top: 40px; /* 닫기 버튼과 겹치지 않도록 충분한 상단 패딩 제공 */
-    border-radius: 5px;
-    width: auto; /* 너비 자동 조정 */
-    min-width: 25%; /* 최소 너비 설정 */
-    max-width: 25%; /* 최대 너비 설정 */
-    min-height: 20%; /* 최소 높이 설정 */
-    max-height: 20%; /* 최대 높이 설정 */
+    padding: 2%;
+    border-radius: 20px;
+    width: auto;
+    min-width: 25%;
+    max-width: 25%;
+    min-height: 20%;
+    max-height: 20%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 세로 중앙 정렬 */
-    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center;
+    align-items: center;
 }
 
 .audio-play-close-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
+    top: 2%;
+    right: 3%;
+    font-size: 200%;
     cursor: pointer;
-    background: none;
     border: none;
+    background-color: white;
+    height: auto;
+    color: #888;
 }
 
 .audio-play-controls {
-    width: 100%; /* 전체 너비 사용 */
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* 중앙 정렬 */
+    justify-content: center;
 }
 
-.audio-play-btn, .audio-time-display, .audio-play-slider {
-    width: 100%; /* 전체 너비 사용 */
+.audio-play-btn {
+    color: rgb(255, 230, 171);
+    font-size: 150%;
+    height: 45%;
+    width: auto;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.audio-current-time {
+    height: 35%;
+    display: flex;
+    font-size: 150%;
+    justify-self: center;
+    color: #aaa;
 }
 
 .audio-play-slider {
+    width: 100%;
     -webkit-appearance: none;
     height: 10px;
     outline: none;
     border-radius: 5px;
-    background-image: linear-gradient(to right, yellow 0%, yellow 50%, #ffff99 50%); /* 연노랑색 적용 */
+    height: 10%;
 }
 
 .audio-play-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 23px;
+    height: 23px;
     border-radius: 50%;
-    background: yellow;
+    background: #F9C4D2;
     cursor: pointer;
 }
