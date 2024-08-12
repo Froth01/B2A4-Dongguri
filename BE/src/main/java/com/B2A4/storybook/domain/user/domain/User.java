@@ -94,11 +94,11 @@ public class User extends BaseEntity {
         this.storyWorld = storyWorld;
     }
 
-    public int getFollowerCount() {
+    public int getFollowingCount() {
         return this.followerList.size();
     }
 
-    public int getFollowingCount() {
+    public int getFollowerCount() {
         return this.followingList.size();
     }
 }
