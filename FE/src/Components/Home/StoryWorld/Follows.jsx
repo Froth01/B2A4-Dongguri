@@ -54,13 +54,13 @@ function Follows() {
     <div className='follows'>
       <div className='followinfo' onClick={() => openModal('following')}>
         <div className="follownum">
-        {followCounts.follower}
+        {followCounts.following}
         </div>
         <h2>팔로우</h2>
       </div>
       <div className='followinfo' onClick={() => openModal('follower')}>
         <div className="follownum">
-          {followCounts.following}
+          {followCounts.follower}
         </div>
         <h2>팔로워</h2>
       </div>
