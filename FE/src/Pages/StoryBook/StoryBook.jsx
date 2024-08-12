@@ -24,7 +24,7 @@ function StoryBook() {
     // makeStory 리듀서 초기화 할 위치
     const resetPathsArray = ['/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', '/storybook/storytoday']
     // 페이지 경로 저장
-    const fullResetPathsArray = ['http://localhost:5173/', '/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', ]
+    const fullResetPathsArray = [window.location.origin, '/storybook', '/storybook/', '/storybook/storymode', '/storybook/storyfree', ]
     
     console.log('Current Path:', location.pathname)
     dispatch(addPath(location.pathname)) // 현재 경로를 경로 배열에 추가

@@ -22,7 +22,7 @@ const KakaoLoginButton = () => {
   const loginWithKakao = () => {
     if (window.Kakao) {
       window.Kakao.Auth.authorize({
-        redirectUri: 'http://localhost:5173/kakao-callback',  // 리디렉션 URI 설정
+        redirectUri: `${window.location.origin}/kakao-callback`,  // 리디렉션 URI 설정
       });
     }
   };
