@@ -124,7 +124,7 @@ const Community = ({ card }) => {
     };
 
     const handleShareClick = (storybookId) => { // 공유하기 -> url이 콘솔에 나옴
-        console.log(`http://localhost:5173/storybooks/${storybookId}`);
+        console.log(`${window.location.origin}/storybooks/${storybookId}`);
     };
 
     const handleDeleteClick = async () => {
