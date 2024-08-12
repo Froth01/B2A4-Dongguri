@@ -9,7 +9,9 @@ import Login from './Login'
 import Signup from './Signup'
 import KakaoCallback from '../../Components/Home/Users/KakaoCallback'
 import UserUpdate from '../../Components/Home/Account/UserUpdate'
-
+import Logout from './Logout'
+import PrivateRoute from '../../PrivateRoute';
+import SnsDetail from '../../Components/Home/SNS/SnsDetail'
 
 function Home() {
   return (
@@ -17,13 +19,16 @@ function Home() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/avatars" element={<Avatars />} />
-        <Route path="/storyworld/*" element={<StoryWorld />} />
-        <Route path='/sns' element={<SNS />} />
+        <Route path="/avatars" element={<PrivateRoute> <Avatars /></PrivateRoute>} />
+        <Route path='/storyworld/:userId' element={<PrivateRoute> <StoryWorld /></PrivateRoute>} />
+        {/* <Route path='/sns' element={<PrivateRoute> <SNS /> </PrivateRoute>} /> */}
+        <Route path='/sns' element={<SNS /> } />
         <Route path='/login' element={<Login />}/>
         <Route path="/kakao-callback" element={<KakaoCallback />} />
         <Route path='/signup' element={<Signup />}/>
-        <Route path='/users/*' element={<UserUpdate />} />
+        <Route path='/users/:userId' element={<PrivateRoute> <UserUpdate /> </PrivateRoute>} />
+        <Route path="/users/logout" element={<PrivateRoute> <Logout /> </PrivateRoute>} />
+        <Route path="/sns/:storybookId" element={<SnsDetail />} />
       </Routes>
     </div>
   )

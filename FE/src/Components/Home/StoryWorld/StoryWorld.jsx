@@ -2,20 +2,60 @@ import MiniCardList from '../Common/MiniCardList'
 import MyWorld from './MyWorld'
 import UserInfo from './UserInfo'
 import './css/StoryWorld.css'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { getCardListByUserId } from '../../../slices/cardListSlice';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useParams } from 'react-router-dom'
+import { getUserInfo } from '../../../slices/authSlice'
+import { setUserObject } from '../../../slices/userInfoSlice'
 
 function StoryWorld() {
+  const currentUser = useSelector(state => state.auth.object)
   const userInfo = useSelector(state => state.userInfo.object)
+  const { userId } = useParams()
 
+  const [myCardList, setMyCardList] = useState([]) 
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    async function fetchData() {
+      // 유저 정보
+      try {
+        const resultAction = await dispatch(getUserInfo(userId));
+        const gaveUser = unwrapResult(resultAction);
+        dispatch(setUserObject(gaveUser));
+        console.log('StoryWorld > targetUser : ', gaveUser)
+      } catch (error) {
+        error => {throw error;};
+        console.log(error)
+      }
+
+      // 카드 리스트
+      try {
+        const cardListForm = {
+          userId: parseInt(userId,10),
+          page: 0
+        }
+        const cardListAction = await dispatch(getCardListByUserId(cardListForm));
+        const gaveList = unwrapResult(cardListAction);
+        setMyCardList(gaveList);
+      } catch (error) {
+        error => {throw error;};
+      }
+    }
+      fetchData();
+    }, []);
   return (
     <div className='storyworld'>
-      <UserInfo userInfo={userInfo}/>
+      <UserInfo />
       <div className='myworlddiv'>
-        <MyWorld userInfo={userInfo}/>
+        <MyWorld myCardList={myCardList}/>
       </div>
       <div className="minicardlistdiv">
         <h3>내가 만든 카드</h3>
-        <MiniCardList userInfo={userInfo}/>
+        <MiniCardList cardList={myCardList} />
       </div>
     </div>
   )

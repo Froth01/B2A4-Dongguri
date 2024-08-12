@@ -4,17 +4,18 @@ import Menu from './Menu'
 import UserImg from '../Common/UserImg'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUserId } from '../../../slices/navBarBtnSlice'
+import { setTargetUser } from '../../../slices/navBarBtnSlice'
 
 function Navbar() {
   const navBarBtnList = useSelector(state => state.navBarBtn.list)
-  const userInfo = useSelector(state => state.userInfo.object)
+  const currentUser = useSelector(state => state.auth.object)
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userInfo.id) {
-      dispatch(setUserId(userInfo.id));
+    if (currentUser.userId) {
+      dispatch(setTargetUser(currentUser));
     }
-  },[userInfo.id,dispatch]);
+    console.log('현재 유저 아이디: ',currentUser.userId)
+  },[currentUser.userId,dispatch]);
 
   return (
     <div className='navbar'>
@@ -30,28 +31,41 @@ function Navbar() {
           </Link>
         ))}
       </div>
-      <div className='userimg'>
+      <div className='userimgdiv'>
       <label className="popup">
         <input type="checkbox" />
         <div tabIndex="0" className="burger">
-          <UserImg userInfo={userInfo}/>
+          <UserImg userInfo={currentUser}/>
         </div>
-        <nav className="popup-window">
+        {currentUser.userId != 0 && <nav className="popup-window">
           <ul>
             <li>
-              <Link to={`/users/${userInfo.id}`}>
+              <Link to={`/users/${currentUser.userId}`}>
                 <button>
                   프로필 변경
                 </button>
               </Link>
             </li>
             <li>
-              <button>
-                로그아웃
-              </button>
+              <Link to={'/users/logout'}>
+                <button>
+                  로그아웃
+                </button>
+              </Link>
             </li>
           </ul>
-        </nav>
+        </nav>}
+        {currentUser.userId===0 && <nav className='popup-window'>
+          <ul>
+            <li>  
+              <Link to={'/login'}>
+              <button>
+                로그인
+              </button>
+              </Link>
+            </li>
+          </ul>
+        </nav>}
       </label>
       </div>
     </div>

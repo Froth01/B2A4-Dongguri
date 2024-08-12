@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from 'axios';
+import { fetchGetAvatarList } from "../Api/api";
 
-export const action = {
-  getAvatars: createAsyncThunk("GET/AVATARS", async () => {
-    return axios({})
-  })
-  
-}
+// 아바타 리스트 요청
+export const getAvatarList = createAsyncThunk('avatars', async () => {
+  try {
+    const data = await fetchGetAvatarList();
+    return data.data;
+  } catch (error) {
+    error => {throw error;};
+  }
+});
 
 const avatarSlice = createSlice({
   name: 'avatar',

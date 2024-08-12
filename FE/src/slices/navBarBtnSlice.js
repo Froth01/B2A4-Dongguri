@@ -14,11 +14,11 @@ const navBarBtnSlice = createSlice({
       setList(state,action) {
         state.list = action.payload;
       },
-      setUserId(state,action) {
-        state.list[1][1] = `storyworld/${action.payload}`;
+      setTargetUser(state,action) {
+        state.list[1][1] = `storyworld/${action.payload.userId}`;
       }
     }
 });
 
-export const { setList, setUserId } = navBarBtnSlice.actions;
+export const { setList, setTargetUser } = navBarBtnSlice.actions;
 export default navBarBtnSlice.reducer;

@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { login, signup } from '../../../slices/authSlice';
+import { login, setAuthObject, signup } from '../../../slices/authSlice';
 import UserForm from '../Account/UserForm';
 import '../Account/css/UserForm.css'
+import './css/SignupForm.css'
 import { imgUpload } from '../../../slices/imgSlice';
 import { setUserObject } from '../../../slices/userInfoSlice';
 
@@ -51,7 +52,7 @@ const SignupForm = () => {
           ...formData,
           profileImageUrl: imgUrlBack,
         });
-        setPreview(URL.createObjectURL(file));
+        setPreview(imgUrlBack);
       } catch (error) {
         console.log(error)
       }
@@ -64,7 +65,7 @@ const SignupForm = () => {
       // 회원가입 처리
       const user = await dispatch(signup(formData)).unwrap();
       // 유저 정보 저장
-      await dispatch(setUserObject(user.data)); // 유저 정보를 저장
+      await dispatch(setAuthObject(user.data)); // 유저 정보를 저장
       navigate('/'); // 유저가 등록되어 있으면 홈페이지로 이동
     } catch (error) {
       console.error('Login failed:', error);
@@ -72,9 +73,8 @@ const SignupForm = () => {
   };
 
   return (
-    <div>
-      {error && <p>{error.message}</p>}
-      <UserForm />
+    <div className='signupform'>
+      {/* {error && <p>{error.message}</p>} */}
       <form onSubmit={handleSubmit}>
         <input type="text" name="nickname" value={formData.nickname} onChange={handleChange} placeholder="닉네임" />
         <input type="file" name="profileImage"  onChange={handleImageChange} />

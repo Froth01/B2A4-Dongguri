@@ -1,0 +1,147 @@
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgb(255, 251, 241);
+    border-radius: 20px;
+    margin-bottom: 2%;
+    padding: 2%;
+    margin-right: 3%;
+}
+
+.comment-profile-img-container {
+    height: 50px; /* % -> X */
+    min-height: 50px;
+    max-height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 3%;
+}
+
+.comment-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comment-topic {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1%;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+
+.comment-user-id {
+    font-size: 90%;
+    font-weight: 600;
+}
+
+.comment-date {
+    font-size: 70%;
+    font-weight: 300;
+    color: #666;
+}
+
+.comment-main {
+    display: flex;
+    padding-bottom: 3%;
+}
+
+.comment-content {
+    flex: 9;
+    font-size: 90%;
+    font-weight: 400;
+    overflow-wrap: break-word;
+}
+
+.comment-edit-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.comment-edit-input {
+    flex: 1;
+    margin-right: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 1px solid #666;
+    border-radius: 5px;
+}
+
+.comment-edit-btn {
+    display: flex;
+    flex-direction: column;
+    /* flex-shrink: 0; */
+    width: 20%;
+}
+
+.comment-edit-btn button {
+    background-color: #f8f8f8;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 2%;
+}
+
+.comment-actions {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    position: relative;
+}
+.comment-menu {
+    width: 50%;
+    height: auto;
+    margin-top: auto;
+    cursor: pointer;
+}
+
+.actions-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px;
+    width: 150px;
+    height: auto;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-90%);
+}
+
+.actions-menu button {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: center;
+    padding: 4% 8%;
+    cursor: pointer;
+    font-size: 80%;
+    font-weight: 300;
+}
+
+.actions-menu button:hover {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.actions-menu hr {
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.report-btn {
+    color: red;
+}

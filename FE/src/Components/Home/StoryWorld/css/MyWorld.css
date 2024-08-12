@@ -1,12 +1,18 @@
 .myworld {
-  width: 90%;
+  position: relative;
+  width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: grey;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
 }
 
-.testmyworld {
-  width: 100%;
-  height: 600px;
+
+.floating-image {
+
+  width: 10%; /* 이미지 크기 */
+  height: auto;
+  transition: transform 4s; /* 부드러운 이동 */
+  object-fit: contain;
 }
+
