@@ -6,7 +6,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const getWorldInfo = createAsyncThunk('storyworld/get', async (userId, { rejectWithValue }) => {
   try { 
     const data = await fetchWorld(userId);
-    console.log(data.data)
     return data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

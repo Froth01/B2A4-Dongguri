@@ -17,7 +17,6 @@ function MyWorldBackgroundUpdate() {
     const resultList = []
     gaveList.forEach(storybook => resultList.push(storybook.storybookId));
     setStorybookIdList(resultList)
-    console.log('유저월드 동화 리스트' ,storybookIdList)
   },[worldInfo])
 
   useEffect(() =>{
@@ -30,7 +29,6 @@ function MyWorldBackgroundUpdate() {
   }
 
   const handleMenuSelect = (e, type) => {
-    console.log(e.currentTarget)
     document.querySelectorAll('.editbgmenu').forEach(item => {
       item.classList.remove('checked');
     });
@@ -45,7 +43,6 @@ function MyWorldBackgroundUpdate() {
         setSelectedBack('CUSTOM')
         const resultAction = await dispatch(imgUpload(file))
         setImgUrlBack(resultAction.payload)
-        console.log('받아온이미지 : ', imgUrlBack)
       } catch (error) {
         console.log(error)
       }

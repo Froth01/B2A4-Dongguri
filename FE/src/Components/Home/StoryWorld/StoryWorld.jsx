@@ -18,7 +18,6 @@ function StoryWorld() {
 
   const [myCardList, setMyCardList] = useState([]) 
   const dispatch = useDispatch();
-  const exceptList = useSelector(state => state.cardList.list)
   
   useEffect(() => {
     async function fetchData() {
@@ -41,13 +40,9 @@ function StoryWorld() {
         }
         const cardListAction = await dispatch(getCardListByUserId(cardListForm));
         const gaveList = unwrapResult(cardListAction);
-        console.log('카드리스트받은거일단 : ',gaveList)
         setMyCardList(gaveList);
-        console.log('StoryWorld > MyCardList = ', gaveList)
       } catch (error) {
         error => {throw error;};
-        setMyCardList(exceptList);
-        console.log('StoryWorld error > MyCardList = ', exceptList)
       }
     }
       fetchData();

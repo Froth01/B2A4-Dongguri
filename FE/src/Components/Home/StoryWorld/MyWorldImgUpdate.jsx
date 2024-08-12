@@ -15,9 +15,6 @@ function MyWorldImgUpdate({myCardList}) {
     if (myCardList.length > 0 && storybookIdList.length === 0) {
       const resultList = worldInfo.storybooks.map(storybook => storybook.storybookId);
       setStorybookIdList(resultList);
-      console.log('유저월드 동화 리스트:', resultList);
-      console.log('월드인포에있는 리스트:', worldInfo.storybooks)
-      console.log('id 뽑아낸 리스트소스:', myCardList)
     }
   }, [myCardList]);
 
@@ -29,11 +26,9 @@ function MyWorldImgUpdate({myCardList}) {
   const handleMenuSelect = (storybookId) => {
     if (storybookIdList.includes(storybookId)) {
       setStorybookIdList(storybookIdList.filter(id => id !== storybookId));
-      console.log('표기그림 변경중 : ', storybookIdList)
       } else {
         if (storybookIdList.length < 5) {
         setStorybookIdList([...storybookIdList, storybookId])
-        console.log('표기그림 변경중 : ', storybookIdList)
       } else {
         alert('그림은 최대 5개까지 선택 가능합니다!')
       }

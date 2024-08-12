@@ -45,7 +45,6 @@ import MyWorldImgUpdate from './MyWorldImgUpdate';
       try {
       const resultAction = await dispatch(getWorldInfo(userId))
       const gaveWorld = resultAction.payload
-      console.log('gave world : ', gaveWorld)
       dispatch(setWorldObject(gaveWorld))
     } catch {
       error => {throw error;};
