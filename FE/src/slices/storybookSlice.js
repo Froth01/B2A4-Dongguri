@@ -1,4 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { deleteStorybook } from '../Api/api';
+
+// Thunk 생성
+export const removeStorybook = createAsyncThunk(
+  'storyBook/removeStorybook',
+  async (storybookId, thunkAPI) => {
+    try {
+      await deleteStorybook(storybookId);
+      return storybookId; // 삭제된 storybookId 반환
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 
 const initialState = {
   genre: '',
@@ -33,6 +48,21 @@ const storyBookSlice = createSlice({
     },
     clearStorybook() {
       return initialState;  // 초기 상태로 되돌립니다.
+    },
+    // 삭제
+    removeStorybookFromList(state, action) {
+      state.storybooks = state.storybooks.filter(book => book.id !== action.payload);
+    },
+    // 삭제
+    extraReducers: (builder) => {
+      builder
+        .addCase(removeStorybook.fulfilled, (state, action) => {
+          state.storybooks = state.storybooks.filter(book => book.id !== action.payload);
+          console.log(`Storybook with ID ${action.payload} has been deleted`);
+        })
+        .addCase(removeStorybook.rejected, (state, action) => {
+          console.error('Failed to delete storybook:', action.payload);
+        });
     },
   }
 });

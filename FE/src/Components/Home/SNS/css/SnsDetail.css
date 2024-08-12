@@ -1,7 +1,7 @@
 .SnsDetail {
     text-align: center;
     padding: 20px;
-    z-index: 2000;
+    z-index: 1000;
 }
 
 .modal-backdrop {
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 1000;
   }
   
   .modal-content {
@@ -26,6 +26,7 @@
     display: flex;
     width: 80vw;
     height: 90vh;
+    z-index: 1000; /* 모달 컨텐츠의 z-index */
   }
   
   .close-button {
@@ -54,3 +55,4 @@
   .community-container {
       flex: 4;  /* 커뮤니티 컨테이너의 유연성을 4로 설정 */
   }
+

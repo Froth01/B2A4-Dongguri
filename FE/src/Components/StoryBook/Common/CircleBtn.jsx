@@ -81,12 +81,12 @@ function CircleBtn() {
         </div>
       ))}
 
-         <ul>
+         {/* <ul>
           {pathHistory.map((path, index) => (
             <li key={index}>{path}</li>
           ))}
         </ul>
-
+ */}
 
     </div>
   );
