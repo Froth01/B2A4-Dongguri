@@ -63,6 +63,8 @@ management:
   endpoint:
     health:
       show-details: always
+    logfile:
+      external-file: ./logs/app/server.log
   endpoints:
     web:
       exposure:
