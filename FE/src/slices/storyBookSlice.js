@@ -14,6 +14,7 @@ export const removeStorybook = createAsyncThunk(
   }
 );
 
+//  망령이여 성불하세요 //
 
 const initialState = {
   genre: '',
