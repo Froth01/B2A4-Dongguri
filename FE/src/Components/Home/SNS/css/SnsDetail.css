@@ -1,56 +1,56 @@
-.SnsDetail {
-    text-align: center;
-    padding: 20px;
-    z-index: 2000;
+.sns-detail {
+  /* text-align: center;
+  padding: 20px;
+  z-index: 2000; */
 }
 
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-  }
-  
-  .modal-content {
-    position: relative;
-    background-color: white;
-    /* padding: 20px; */
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    width: 80vw;
-    height: 90vh;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 0px;
-    right: -40px;
-    border: none;
-    background: none;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .modal-body {
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 20px;
-  }
-  
-  .card-container {
-      flex: 6;  /* 카드 컨테이너의 유연성을 6으로 설정 */
-  }
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
-  .community-container {
-      flex: 4;  /* 커뮤니티 컨테이너의 유연성을 4로 설정 */
-  }
+.modal-content {
+  position: relative;
+  /* display: flex; */
+  /* padding: 20px; */
+  border-radius: 20px;
+  width: 80%;
+  height: 90%;
+  background-color: white;
+}
+
+.close-button {
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: none;
+  top: 0%;
+  right: -1%;
+  background: none;
+  font-size: 200%;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+  
+.card-container,
+.community-container {
+    flex: 1 1 50%;
+    min-width: 50%;
+    max-width: 50%;
+}

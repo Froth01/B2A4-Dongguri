@@ -124,7 +124,7 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState('00:00');
+  const [currentTime, setCurrentTime] = useState('0:00');
   // const [duration, setDuration] = useState('00:00');
 
   useEffect(() => {
@@ -171,7 +171,7 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
         audio.removeEventListener('timeupdate', updateProgress);
         audio.removeEventListener('ended', () => {
           setIsPlaying(false);
-          setCurrentTime('00:00');
+          setCurrentTime('0:00');
           audio.currentTime = 0;
         });
       }
@@ -198,24 +198,28 @@ function AudioPlayModal({ audioSrc, isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="audio-play-modal-overlay">
-      <div className="audio-play-modal-content">
-        <button className="audio-play-close-btn" onClick={onClose}>&times;</button>
-        <audio ref={audioRef} src={audioSrc} />
-        <div className="audio-play-controls">
-          <button onClick={togglePlay} className="audio-play-btn">
-            {isPlaying ? '||' : '▶'}
-          </button>
-          <span>{currentTime}</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={progress}
-            onChange={handleSliderChange}
-            className="audio-play-slider"
-            style={{ backgroundImage: `linear-gradient(to right, yellow 0%, yellow ${progress}%, gray ${progress}%, gray 100%)` }}
-          />
+    <div className="audio-play-modal">
+      <div className='audio-play-modal-container'>
+        <div className='audio-play-modal-backdrop'>
+          <div className="audio-play-modal-content">
+            <button className="audio-play-close-btn" onClick={onClose}>&times;</button>
+            <audio ref={audioRef} src={audioSrc} />
+            <div className="audio-play-controls">
+              <button onClick={togglePlay} className="audio-play-btn">
+                {isPlaying ? '||' : '▶'}
+              </button>
+              <span className='audio-current-time'>{currentTime}</span>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={progress}
+                onChange={handleSliderChange}
+                className="audio-play-slider"
+                style={{ backgroundImage: `linear-gradient(to right, #F9C4D2 0%, #F9C4D2 ${progress}%, #FFF0F0 ${progress}%, #FFF0F0 100%)` }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
