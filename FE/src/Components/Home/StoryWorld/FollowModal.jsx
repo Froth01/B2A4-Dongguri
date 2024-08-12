@@ -23,8 +23,9 @@ function FollowModal({ isOpen, onClose, type, userList }) {
           type: type,
           page: page + 1
         }
-        const nextPageUsers = await dispatch(GetFollowList(followForm)).unwrap();
+        const nextPageUsers = await dispatch(getFollowList(followForm)).unwrap();
         setUsers(prevUsers => [...prevUsers, ...nextPageUsers[type]]);
+        console.log('유저스 최신화버젼: ', users)
         setPage(prevPage => prevPage + 1);
         setLoading(false);
       }
@@ -32,6 +33,7 @@ function FollowModal({ isOpen, onClose, type, userList }) {
 
     const modalContent = document.querySelector('.f-modal-content');
     modalContent.addEventListener('scroll', handleScroll);
+    console.log('유저스 최신화버젼: ', users)
     return () => modalContent.removeEventListener('scroll', handleScroll);
   }, [currentUser.userId, type, page, loading]);
 
@@ -52,10 +54,10 @@ function FollowModal({ isOpen, onClose, type, userList }) {
       <div className="f-modal-content" onClick={e => e.stopPropagation()}>
         <h2>{type === 'follower' ? '팔로워' : '팔로우'}</h2>
         <ul className="user-list">
-          {/* {users.map(user => (
+          {users.map(user => (
             <li key={user.userId} className="user-item">
-              <img src={user.profileImg} alt={user.name} className="user-avatar" />
-              <span className="user-name">{user.name}</span>
+              <img src={user.profileImageUrl !== null ? user.profileImageUrl : '/img/home/userdefault.png'} alt={user.nickname} className="user-avatar" />
+              <span className="user-name">{user.nickname}</span>
               {type === 'follower' && user.userId !== currentUser.userId && (
                 <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.userId)}>
                   <span className="follow-text">{user.isFollowing ? '팔로우 중' : '팔로우'}</span>
@@ -63,7 +65,7 @@ function FollowModal({ isOpen, onClose, type, userList }) {
                 </button>
               )}
             </li>
-          ))} */}
+          ))}
         </ul>
       </div>
       <button onClick={onClose} className="f-close-button">X</button>
