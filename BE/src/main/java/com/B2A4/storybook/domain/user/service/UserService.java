@@ -106,6 +106,10 @@ public class UserService {
     public UserProfileResponse updateUserProfile(UpdateUserRequest updateUserRequest) {
         User user = userUtils.getUserFromSecurityContext();
 
+        if (userRepository.existsByNickname(updateUserRequest.nickname())) {
+            throw NicknameDuplicationException.EXCEPTION;
+        }
+
         user.updateUser(updateUserRequest.nickname(), updateUserRequest.profileImageUrl());
 
         return new UserProfileResponse(user.getUserInfo());
