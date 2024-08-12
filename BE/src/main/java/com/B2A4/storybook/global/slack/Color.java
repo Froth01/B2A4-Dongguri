@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Color {
-    RED("#ff0000")
+    RED("#ff0000"),
+    GREEN("#00ff00")
     ;
 
     private final String code;
