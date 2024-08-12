@@ -22,34 +22,35 @@ function Follows() {
 
   const openModal = async(type) => {
     setModalType(type);
-    try {
-    const users = await getUsers(type);
-    console.log('api 받아온 팔로우 유저리스트', users)
-    setUserList(users)
+    // try {
+    // const users = await getUsers(type);
+    // console.log('api 받아온 팔로우 유저리스트', users)
+    // setUserList(users)
     setModalOpen(true);
-    } catch {
-      error => console.log(error)
-    }
+    // } catch {
+    //   error => console.log(error)
+    // }
   };
 
   
   //비동기 팔로잉 목록 조회
-  const getUsers = async(type) => {
-    try {
-      const followForm = {
-        type: type,
-        page: 0
-      }
-      console.log('실행은하냐?',followForm)
-      const resultFollowAction = await dispatch(getFollowList(followForm));
-      console.log('하긴했냐고', resultFollowAction)
-      const gaveList = unwrapResult(resultFollowAction);
-      console.log('getusers의 결과 : ', gaveList)
-      return gaveList
-    } catch { 
-      error => console.log('getuser에러 :', error)
-    }
-  }
+  // const getUsers = async(type) => {
+  //   try {
+  //     const followForm = {
+  //       type: type,
+  //       page: 0
+  //     }
+  //     console.log('실행은하냐?',followForm)
+  //     const resultFollowAction = await dispatch(getFollowList(followForm));
+  //     console.log('하긴했냐고', resultFollowAction)
+  //     const gaveList = unwrapResult(resultFollowAction);
+  //     console.log('getusers의 결과 : ', gaveList)
+  //     return gaveList
+  //   } catch { 
+  //     error => console.log('getuser에러 :', error)
+  //   }
+  // }
+  
   return (
     <div className='follows'>
       <div className='followinfo' onClick={() => openModal('following')}>

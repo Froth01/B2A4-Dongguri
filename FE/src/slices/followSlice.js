@@ -8,7 +8,7 @@ export const getFollowList = createAsyncThunk('getFollowList', async (followForm
   try {
     const data = await fetchGetFollowList(followForm);
     console.log('follow슬라이스에서뱉은거:',data)
-    return data.data.content;
+    return data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
