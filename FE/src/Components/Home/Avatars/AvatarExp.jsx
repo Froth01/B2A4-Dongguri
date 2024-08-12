@@ -82,7 +82,10 @@ function AvatarExp({ avatar, onNameChange }) {
           </div>
         ))}
       </div>
-      <h3>동화를 {10-done}권 더 만들면 동그리가 자라나요!</h3>
+      {done !== 10 ? 
+      <h3>동화를 {10-done}권 더 만들면 동그리가 자라나요!</h3> :
+      <h3>동그리가 다 컸어요!</h3>
+      }
     </div>
   );
 }

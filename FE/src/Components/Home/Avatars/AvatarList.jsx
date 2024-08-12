@@ -32,13 +32,21 @@ function AvatarList({ onNameChange, onRepChange }) {
     const avatarAction = await dispatch(getAvatarList());
     const gaveAvatars = avatarAction.payload;
     setAvatarList(gaveAvatars);
-  };
-  const refreshRep = async (isAvatarChanged, avatarId) => {
-    if (isAvatarChanged) {
-      await fetchAvatarRepresentative(avatarId)
-      }
-    setModalOpen(false);
     onRepChange();
+  };
+
+  const refreshRep = async () => {
+    // if ( isChanged ) {
+    //   if (isAvatarChanged) {
+    //   await fetchAvatarRepresentative(avatarId)
+    //   }
+    //   setModalOpen(false);
+    //   onRepChange();
+    // } else {
+    //   setModalOpen(false);
+    //   onRepChange();
+    // }
+      setModalOpen(false);
   }
   useEffect(() => {
     refreshAvatarList();
@@ -70,7 +78,8 @@ function AvatarList({ onNameChange, onRepChange }) {
           isOpen={modalOpen}
           onClose={refreshRep}
           avatar={selectedAvatar}
-          onNameChange={refreshAvatarList} // 이름 변경 시 아바타 목록 새로고침
+          onNameChange={refreshAvatarList}
+          onRepChange={onRepChange} // 이름 변경 시 아바타 목록 새로고침
         />
       )}
     </div>

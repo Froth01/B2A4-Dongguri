@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import './css/FollowModal.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFollowList } from '../../../slices/followSlice';
+import { DeleteFollow, getFollowList } from '../../../slices/followSlice';
 
 function FollowModal({ isOpen, onClose, type, userList }) {
   const dispatch = useDispatch();
@@ -35,16 +35,11 @@ function FollowModal({ isOpen, onClose, type, userList }) {
     modalContent.addEventListener('scroll', handleScroll);
     console.log('유저스 최신화버젼: ', users)
     return () => modalContent.removeEventListener('scroll', handleScroll);
-  }, [currentUser.userId, type, page, loading]);
+  }, [currentUser.userId, type, users, page, loading]);
 
-  const toggleFollow = (userId) => {
-    setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user.userId === userId
-          ? { ...user, isFollowing: !user.isFollowing }
-          : user
-      )
-    );
+  const toggleFollow = async (target) => {
+    const updatedUsers = await dispatch(DeleteFollow(target.followId)).unwrap();
+    setUsers(updatedUsers);
   };
   
   if (!isOpen) return null;
@@ -59,8 +54,8 @@ function FollowModal({ isOpen, onClose, type, userList }) {
               <img src={user.profileImageUrl !== null ? user.profileImageUrl : '/img/home/userdefault.png'} alt={user.nickname} className="user-avatar" />
               <span className="user-name">{user.nickname}</span>
               {type === 'follower' && user.userId !== currentUser.userId && (
-                <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.userId)}>
-                  <span className="follow-text">{user.isFollowing ? '팔로우 중' : '팔로우'}</span>
+                <button className={`follow-button ${user.isFollow ? 'following' : ''}`} onClick={() => toggleFollow(user)}>
+                  <span className="follow-text">{user.isFollow ? '팔로우 중' : '팔로우'}</span>
                   <span className="unfollow-text">언팔로우</span>
                 </button>
               )}
