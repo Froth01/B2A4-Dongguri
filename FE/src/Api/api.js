@@ -205,8 +205,13 @@ export const likeStorybook = (storybookId,reactionType) => {
 };
 
 // 공감 삭제
-export const unlikeStorybook = (storybookId,reactionType) => {
-  return axiosInstance.delete('/reactions',{storybookId,reactionType})
+// export const unlikeStorybook = (storybookId,reactionType) => {
+//   return axiosInstance.delete('/reactions',{storybookId,reactionType})
+//     .then(response => response.data)
+//     .catch(error => { throw error; });
+// };
+export const unlikeStorybook = (data) => {
+  return axiosInstance.delete('/reactions',{ data: data})
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -251,7 +256,9 @@ export const fetchComments = (storybookId) => {
 
 // 동화 삭제
 export const deleteStorybook = (storybookId) => {
-  return axiosInstance.delete(`/storybooks/${storybookId}`)
+  return axiosInstance.delete(`/storybooks/${storybookId}`,{
+    params: {storybookId}
+  })
     .then(response => response.data)
     .catch(error => { throw error; });
 };

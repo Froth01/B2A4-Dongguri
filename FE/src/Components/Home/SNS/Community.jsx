@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { removeStorybook } from '../../../slices/storyBookSlice';
 import PropTypes from 'prop-types';
 import './css/Community.css';
@@ -13,6 +14,7 @@ import ShareButton from '../Common/ShareButton';
 import {selectFUN,selectHAPPY, selectSAD, selectJOY,
      setFUN, setHAPPY, setSAD, setJOY,
      likeStorybookThunk, unlikeStorybookThunk, getStorybookReactionsThunk } from '../../../slices/reactionsSlice'
+import { fetchSearchResultsThunk, selectKeyword} from '../../../slices/searchSlice'
 
 const dummyComments = [
     { userId: 1, commentId: 1, storybookId: 1, content: "정말 감동적이고 멋있는 이야기지요?", isMine: true, createdDate: "2024-07-01", modifiedDate: null },
@@ -35,10 +37,25 @@ const dummyComments = [
 
 const Community = ({ card }) => {
     const dispatch = useDispatch();
-    
+    const navigate = useNavigate();
+
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
     const [isReportOpen, setIsReportOpen] = useState(false); 
+
+    const keyword = useSelector(selectKeyword);
+    const page = 0
+
+    useEffect(() => {
+        if (!card) {
+            navigate('/sns');
+        }
+        // return null
+    }, [card, navigate]);
+
+    // if (!card) {
+    //     return null; // card가 없는 경우 아무것도 렌더링하지 않음
+    // }
 
     // 공감하기
     const funReaction = useSelector(selectFUN);
@@ -50,6 +67,7 @@ const Community = ({ card }) => {
     useEffect(() => {
         dispatch(getStorybookReactionsThunk({ storybookId: card.storybookId }));
     }, [dispatch, card.storybookId]);
+
 
     // 공감 상태
     const emojis = [
@@ -69,8 +87,10 @@ const Community = ({ card }) => {
         console.log('emojis[index]',emojis[index])
         console.log('현재정보',currentReaction)
         if (currentReaction.nowState) {
-            console.log('취소',storybookId, reactionType)
-            await dispatch(unlikeStorybookThunk({ storybookId, reactionType }));
+            const data = {storybookId, reactionType}
+            console.log('취소',data)
+            await dispatch(unlikeStorybookThunk(data));
+            // await dispatch(unlikeStorybookThunk({ storybookId, reactionType }));
 
         } else {
             await dispatch(likeStorybookThunk({ storybookId, reactionType }));
@@ -123,16 +143,20 @@ const Community = ({ card }) => {
         }
     };
 
-    const handleShareClick = (storybookId) => { // 공유하기 -> url이 콘솔에 나옴
-        console.log(`${window.location.origin}/storybooks/${storybookId}`);
-    };
+    // const handleShareClick = (storybookId) => { // 공유하기 -> url이 콘솔에 나옴
+    //     console.log(`http://localhost:5173/storybooks/${storybookId}`);
+    // };
 
     const handleDeleteClick = async () => {
-        // 사용자에게 삭제 확인 요청
+        // 사용자에게 삭제 확인 요
         if (window.confirm("정말로 삭제하시겠습니까?")) {
             try {
-                await dispatch(removeStorybook(card.storybookId));
-                window.location.reload(); // 삭제 후 페이지 새로고침
+                console.log('동화id',card.storybookId)
+                await dispatch(removeStorybook({ storybookId: card.storybookId }));
+                // window.location.reload(); // 삭제 후 페이지 새로고침
+
+                navigate('/sns')
+                dispatch(fetchSearchResultsThunk({ keyword, page}))
             } catch (error) {
                 console.error("Failed to delete storybook:", error);
             }
