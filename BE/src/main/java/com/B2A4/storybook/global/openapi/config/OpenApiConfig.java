@@ -16,6 +16,9 @@ public class OpenApiConfig {
     @Value("${api.openai-key}")
     private String openaiApiKey;
 
+    @Value("${api.remove-key}")
+    private String removeKey;
+
     @Bean
     public WebClient anthropicWebClient() {
         return WebClient.builder()
@@ -34,4 +37,16 @@ public class OpenApiConfig {
                 .defaultHeader("content-type", "application/json")
                 .build();
     }
+
+    @Bean
+    public WebClient photoroomWebClient() {
+        return WebClient.builder()
+                .baseUrl("https://sdk.photoroom.com")
+                .defaultHeader("x-api-key", removeKey)
+                .codecs(configurer -> configurer
+                        .defaultCodecs()
+                        .maxInMemorySize(50 * 1024 * 1024)) // 10MB로 증가
+                .build();
+    }
+
 }
