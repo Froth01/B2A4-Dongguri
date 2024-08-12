@@ -19,6 +19,7 @@ import cardListReducer from './slices/cardListSlice'
 import storyBookReducer from './slices/storyBookSlice';
 import audioReducer from './slices/audioSlice';
 import searchReducer from './slices/searchSlice';
+import reactionsReducer from './slices/reactionsSlice';
 // import searchUserReducer from './slices/searchUserSlice';
 
 // persist 설정
@@ -98,6 +99,7 @@ const store = configureStore({
     storyBook : persistedStoryBookReducer,
     audio: audioReducer,
     search: persistSearchReducer,
+    reactions: reactionsReducer,
     // searchUser: persistSearchUserReducer,
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({

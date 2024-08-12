@@ -167,22 +167,24 @@ export const fetchAudioUrl = (file) => {
 
 
 // 공감하기
-export const likeStorybook = (storybookId) => {
-  return axiosInstance.post('/reactions', { storybookId })
+export const likeStorybook = (storybookId,reactionType) => {
+  return axiosInstance.post('/reactions', { storybookId, reactionType })
     .then(response => response.data)
     .catch(error => { throw error; });
 };
 
 // 공감 삭제
-export const unlikeStorybook = (reactionId) => {
-  return axiosInstance.delete(`/reactions/${reactionId}`)
+export const unlikeStorybook = (storybookId,reactionType) => {
+  return axiosInstance.delete('/reactions',{storybookId,reactionType})
     .then(response => response.data)
     .catch(error => { throw error; });
 };
 
 // 공감 보기
 export const getStorybookReactions = (storybookId) => {
-  return axiosInstance.get(`/reactions/${storybookId}`)
+  return axiosInstance.get(`/reactions/${storybookId}`,{
+    params: {storybookId}
+  })
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -231,15 +233,16 @@ export const getStorybook = (storybookId) => {
 }
 
 // 키워드 동화 목록 조회
-export const fetchSearchResults = (keyword) => {
+export const fetchSearchResults = (keyword, page) => {
+  console.log('api',{keyword, page})
   return axiosInstance.get('/storybooks', {
-    params: { keyword }
+    params: { keyword, page }
   })
   .then(response => response.data)
   .catch(error => { throw error });
 };
 
-// 유저 검색
+// 유저 아이디 검색
 export const fetchUserResults = (userId) => {
   return axiosInstance.get(`users/${userId}`,{
     params: {userId}
@@ -248,6 +251,15 @@ export const fetchUserResults = (userId) => {
   .catch(error => { throw error })
 }
 
+// 유저 닉네임 검색
+export const fetchNicknameResults = (nickname, page) => {
+  console.log('api',{nickname, page})
+  return axiosInstance.get('/users', {
+    params: { nickname, page }
+  })
+  .then(response => response.data)
+  .catch(error => { throw error });
+};
 
 // 오늘의 키워드
 export const getTodayKeyword= () => {
@@ -255,3 +267,12 @@ export const getTodayKeyword= () => {
     .then(response => response.data)
     .catch(error => { throw error; });
 }
+
+
+// 신고하기
+export const fetchReports= (formData) => {
+  return axiosInstance.post('/reports',formData)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+}
+

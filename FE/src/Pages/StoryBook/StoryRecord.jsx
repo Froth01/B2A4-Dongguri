@@ -67,7 +67,7 @@ function StoryRecord() {
       console.log('동화 등록 완료:', response);
       const storybookId = response.data.storybookId;
       console.log('동화 id:', storybookId);
-      navigate(`/storybooks/${storybookId}`); // 응답을 받은 후에 페이지 이동
+      navigate(`/sns/${storybookId}`); // 응답을 받은 후에 페이지 이동
     } catch (error) {
       console.error('API 요청 실패:', error);
     }

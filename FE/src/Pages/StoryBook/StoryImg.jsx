@@ -21,10 +21,10 @@ function StoryImg() {
       </div>
       </div>
 
-      <div className="redux-state">
+      {/* <div className="redux-state">
         <h3>Redux State:</h3>
         <pre>{JSON.stringify(makeStory, null, 2)}</pre>
-      </div>
+      </div> */}
     </div>
   )
 }
