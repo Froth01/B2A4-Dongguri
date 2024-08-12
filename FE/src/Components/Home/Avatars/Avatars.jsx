@@ -26,7 +26,7 @@ function Avatars() {
 
   return (
     <div className='avatars'>
-      <AvatarInfo avatar={representative} onRepChange={GetAndSetRepresentative}/>
+      <AvatarInfo avatar={representative} onNameChange={GetAndSetRepresentative} onRepChange={GetAndSetRepresentative}/>
       <AvatarList onRepChange={GetAndSetRepresentative}/>
       {/* <AvatarRepresent /> */}
     </div>
