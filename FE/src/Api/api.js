@@ -77,11 +77,24 @@ export const transformStorybook = (formData) => {
 };
 
 //팔로잉,팔로워 목록 조회
-export const fetchGetUserList = (userId,type) => {
-  console.log(userId, type)
-  return axiosInstance.get(`/users/${userId}/${type}`)
+export const fetchGetFollowList = (followForm) => {
+  return axiosInstance.get(`/follows/${followForm.type}?page=${followForm.page}`)
     .then(response => response.data)
     .catch(error => { throw error; });
+}
+
+//유저 팔로우하기
+export const fetchFollow = (targetUserId) => {
+  return axiosInstance.post(`/follows`, {followingId: targetUserId})
+    .then(response => response.data)
+    .catch(error => { throw error; })
+}
+
+//팔로우 삭제하기
+export const fetchFollowDelete = (followId) => {
+  return axiosInstance.delete(`/follows/${followId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; })
 }
 
 //아바타 목록 조회
@@ -98,11 +111,29 @@ export const fetchRepresentative = () => {
   .catch(error => { throw error })
 }
 
+// 동그리 표기레벨 변경하기 -> 동시에 대표동그리로 설정함
+export const fetchAvatarDisplayLevel = (avatarLevelForm) => {
+  return axiosInstance.patch(`/avatars/display`, avatarLevelForm)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+export const fetchAvatarRepresentative = (avatarId) => {
+  return axiosInstance.patch(`/avatars`, {avatarId: avatarId})
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
+// 동그리 이름 변경하기
+export const fetchAvatarName = (avatarNameForm) => {
+  return axiosInstance.patch(`/avatars/${avatarNameForm.avatarId}`, avatarNameForm.patchForm)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
 
 // 유저아이디 -  카드리스트 조회
 export const fetchCardListByUserId = (cardListForm) => {
-  console.log('보내는 카드리스트 정보 : ',cardListForm)
-  return axiosInstance.get(`/storybooks/users/${cardListForm.userId}?page=${cardListForm.page}`, cardListForm)
+  return axiosInstance.get(`/storybooks/users/${cardListForm.userId}?page=${cardListForm.page}`)
     .then(response => response.data)
     .catch(error => { throw error; })
 }
