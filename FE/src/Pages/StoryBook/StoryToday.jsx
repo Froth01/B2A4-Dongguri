@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { selectPathHistory } from "../../slices/pathHistorySlice"
 
 function StoryToday() {
-  const pathHistory = useSelector(selectPathHistory);
+  // const pathHistory = useSelector(selectPathHistory);
 
   return (
     <div className="page-container">
@@ -16,12 +16,12 @@ function StoryToday() {
         <NextBtn to='/storybook/storyimg' />
       </div>
 
-      <ul>
+      {/* <ul>
           <h2>pathHistory</h2>
           {pathHistory.map((path, index) => (
             <li key={index}>{path}</li>
           ))}
-        </ul>
+        </ul> */}
     </div>
   )
 }

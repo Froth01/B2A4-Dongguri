@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { removeStorybook } from '../../../slices/storyBookSlice';
 import PropTypes from 'prop-types';
 import './css/Community.css';
 import cool from '/img/sns/cool.png';
@@ -6,7 +8,11 @@ import fun from '/img/sns/fun.png';
 import good from '/img/sns/good.png';
 import like from '/img/sns/like.png';
 import CommentItem from './CommentItem';
-import './css/Community.css';
+import Reports from '../Common/Reports';
+import ShareButton from '../Common/ShareButton';
+import {selectFUN,selectHAPPY, selectSAD, selectJOY,
+     setFUN, setHAPPY, setSAD, setJOY,
+     likeStorybookThunk, unlikeStorybookThunk, getStorybookReactionsThunk } from '../../../slices/reactionsSlice'
 
 const dummyComments = [
     { userId: 1, commentId: 1, storybookId: 1, content: "정말 감동적이고 멋있는 이야기지요?", isMine: true, createdDate: "2024-07-01", modifiedDate: null },
@@ -28,34 +34,52 @@ const dummyComments = [
 ];
 
 const Community = ({ card }) => {
+    const dispatch = useDispatch();
     
-    const [emojiCounts, setEmojiCounts] = useState([0, 0, 0, 0]);
-    const [selectedEmoji, setSelectedEmoji] = useState(new Set());
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
+    const [isReportOpen, setIsReportOpen] = useState(false); 
 
-    const handleEmojiClick = (index) => {
-    let newCounts = emojiCounts.slice();
-    const updatedSelectedEmojis = new Set(selectedEmoji);
+    // 공감하기
+    const funReaction = useSelector(selectFUN);
+    const happyReaction = useSelector(selectHAPPY);
+    const sadReaction = useSelector(selectSAD);
+    const joyReaction = useSelector(selectJOY);
 
-    if (updatedSelectedEmojis.has(index)) {
-        updatedSelectedEmojis.delete(index);
-        newCounts[index] -= 1;
-    } else {
-        updatedSelectedEmojis.add(index);
-        newCounts[index] += 1;
-    }
+    // 공감 조회수
+    useEffect(() => {
+        dispatch(getStorybookReactionsThunk({ storybookId: card.storybookId }));
+    }, [dispatch, card.storybookId]);
 
-    setSelectedEmoji(updatedSelectedEmojis);
-    setEmojiCounts(newCounts);
-    };
-
+    // 공감 상태
     const emojis = [
-        { img: cool, alt: 'Cool', count: emojiCounts[0] },
-        { img: fun, alt: 'Fun', count: emojiCounts[1] },
-        { img: good, alt: 'Good', count: emojiCounts[2] },
-        { img: like, alt: 'Like', count: emojiCounts[3] }
+        { img: cool, alt: 'FUN', reaction: funReaction, setReaction: setFUN },
+        { img: fun, alt: 'HAPPY', reaction: happyReaction, setReaction: setHAPPY },
+        { img: good, alt: 'SAD', reaction: sadReaction, setReaction: setSAD },
+        { img: like, alt: 'JOY', reaction: joyReaction, setReaction: setJOY }
     ];
+
+    const handleEmojiClick = async (index) => {
+        const selectedEmoji = emojis[index];
+        const currentReaction = selectedEmoji.reaction;
+        const storybookId = card.storybookId;
+        const reactionType = selectedEmoji.alt.toUpperCase(); // 이모지의 alt 값을 reactionType으로 사용
+
+        // 공감 API 호출
+        console.log('emojis[index]',emojis[index])
+        console.log('현재정보',currentReaction)
+        if (currentReaction.nowState) {
+            console.log('취소',storybookId, reactionType)
+            await dispatch(unlikeStorybookThunk({ storybookId, reactionType }));
+
+        } else {
+            await dispatch(likeStorybookThunk({ storybookId, reactionType }));
+        }
+
+        // 상태 업데이트
+        const updatedState = await dispatch(getStorybookReactionsThunk({ storybookId })).unwrap();
+        console.log('업데이트된 상태:', updatedState[reactionType]);
+    };
 
     // On component mount, filter comments for this storybook
     useEffect(() => {
@@ -99,6 +123,24 @@ const Community = ({ card }) => {
         }
     };
 
+    const handleShareClick = (storybookId) => { // 공유하기 -> url이 콘솔에 나옴
+        console.log(`http://localhost:5173/storybooks/${storybookId}`);
+    };
+
+    const handleDeleteClick = async () => {
+        // 사용자에게 삭제 확인 요청
+        if (window.confirm("정말로 삭제하시겠습니까?")) {
+            try {
+                await dispatch(removeStorybook(card.storybookId));
+                window.location.reload(); // 삭제 후 페이지 새로고침
+            } catch (error) {
+                console.error("Failed to delete storybook:", error);
+            }
+        } else {
+            console.log("삭제가 취소되었습니다.");
+        }
+    };
+
     return (
         <div className="community-container">
             <div className="profile-section">
@@ -108,9 +150,13 @@ const Community = ({ card }) => {
                 <div className="author">{card.author}</div>
                 <div className="date">{new Date(card.createdDate).toLocaleDateString()}</div>
                 <div className="action-button">
-                    <button className="share-button">공유하기</button>
+                    <ShareButton card={card} />
+                {/* <button className="share-button" onClick={() => handleShareClick(card.storybookId)}>공유하기</button> */}
                     {!card.isMine && (
-                        <button className="report-button">신고하기</button>
+                        <button className="report-button" onClick={() => setIsReportOpen(true)}>신고하기</button>
+                    )}
+                    {card.isMine && (
+                        <button className="delete-button" onClick={() => handleDeleteClick(card.storybookId)}>삭제하기</button>
                     )}
                 </div>
             </div>
@@ -138,14 +184,28 @@ const Community = ({ card }) => {
                     ))}
                 </div>
             </div>
+
+            {/* 공감하기 */}
+            {/* <Reaction storybookId={card.storybookId}/> */}
             <div className="emojis-section">
                 {emojis.map((emoji, index) => (
                     <div key={index} className="emoji" onClick={() => handleEmojiClick(index)}>
                         <img src={emoji.img} alt={emoji.alt} />
-                        <p>{emoji.count}</p>
+                        <p>{emoji.reaction.count}</p>
                     </div>
                 ))}
             </div>
+            
+
+            {/* 신고하기 버튼 클릭시 신고 모달뜸 */}
+            {isReportOpen && (
+                <Reports
+                contentId={card.storybookId}
+                contentType="STORYBOOK"
+                onRequestClose={() => setIsReportOpen(false)}
+                />
+             )}
+      
         </div>
     );
 };

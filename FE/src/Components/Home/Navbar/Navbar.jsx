@@ -14,7 +14,7 @@ function Navbar() {
     if (currentUser.userId) {
       dispatch(setTargetUser(currentUser));
     }
-    console.log(currentUser.userId)
+    console.log('현재 유저 아이디: ',currentUser.userId)
   },[currentUser.userId,dispatch]);
 
   return (

@@ -7,6 +7,8 @@ const Card = ({ card, showMic = true }) => {
   const [showOriginal, setShowOriginal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  console.log(card)
+
   if (!card || !card.keywords || !Array.isArray(card.keywords) || card.keywords.length === 0) {
     return <div>No tags available</div>;
   }
@@ -58,6 +60,11 @@ const Card = ({ card, showMic = true }) => {
           onClose={closeModal}
         />
       </div>
+      <AudioPlayModal 
+        audioSrc={card.voiceRecording}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 };
@@ -68,7 +75,7 @@ Card.propTypes = {
     transformedImageUrl: PropTypes.string.isRequired,
     originalImageUrl: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    voiceRecord: PropTypes.string,
+    voiceRecording: PropTypes.string,
   }),
   showMic: PropTypes.bool
 };
