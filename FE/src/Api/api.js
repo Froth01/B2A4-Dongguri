@@ -190,6 +190,14 @@ export const getStorybookReactions = (storybookId) => {
 };
 
 // 댓글 관련 API
+
+// 댓글 리스트 조회
+export const fetchComments = (storybookId) => {
+  return axiosInstance.get(`/comments/${storybookId}`)
+    .then(response => response.data)
+    .catch(error => { throw error; });
+};
+
 // 댓글 달기
 export const postComment = (storybookId, content) => {
   return axiosInstance.post('/comments', { storybookId, content })
@@ -207,13 +215,6 @@ export const patchComment = (commentId, content) => {
 // 댓글 삭제
 export const deleteComment = (commentId) => {
   return axiosInstance.delete(`/comments/${commentId}`)
-    .then(response => response.data)
-    .catch(error => { throw error; });
-};
-
-// 댓글 리스트 조회
-export const fetchComments = (storybookId) => {
-  return axiosInstance.get(`/comments/${storybookId}`)
     .then(response => response.data)
     .catch(error => { throw error; });
 };

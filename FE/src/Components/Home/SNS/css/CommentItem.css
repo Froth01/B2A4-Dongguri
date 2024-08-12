@@ -6,6 +6,14 @@
     margin-bottom: 2%;
     padding: 2%;
     margin-right: 3%;
+    
+    /* height: 20%;
+    max-height: 100%; */
+    /* flex-grow: 0; */
+    /* overflow: hidden; */
+    height: auto; 
+    /* width: 100%; */
+    width: 95%;
 }
 
 .comment-profile-img-container {
@@ -15,6 +23,8 @@
     border-radius: 50%;
     overflow: hidden;
     margin-right: 3%;
+    
+    /* width: 20%; */
 }
 
 .comment-profile-img {
@@ -24,16 +34,20 @@
 }
 
 .comment-topic {
-    flex: 1;
+    flex: 1; 
     display: flex;
     flex-direction: column;
     padding-top: 1%;
+    
+    /* width: 80%; */
 }
 
 .comment-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2%;
+
+    /* height: 1.3vh; */
 }
 
 .comment-user-id {
@@ -50,6 +64,8 @@
 .comment-main {
     display: flex;
     padding-bottom: 3%;
+
+    /* height: auto; */
 }
 
 .comment-content {
@@ -57,21 +73,29 @@
     font-size: 90%;
     font-weight: 400;
     overflow-wrap: break-word;
+    
+    /* width: 90%;
+    height: 100%; */
+
 }
 
 .comment-edit-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    
+    align-items: flex-end;
 }
 
-.comment-edit-input {
+.comment-edit-textarea {
     flex: 1;
-    margin-right: 2%;
-    padding-left: 2%;
-    padding-right: 2%;
-    border: 1px solid #666;
+    padding: 2%;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: none;
+    overflow: hidden;
 }
 
 .comment-edit-btn {
@@ -79,14 +103,21 @@
     flex-direction: column;
     /* flex-shrink: 0; */
     width: 20%;
+    height: 7vh;
 }
 
 .comment-edit-btn button {
+    bottom: 0;
     background-color: #f8f8f8;
-    border: 1px solid #bbb;
-    border-radius: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
     cursor: pointer;
-    margin-bottom: 2%;
+    /* margin-bottom: 4%; */
+}
+
+.comment-edit-btn button:hover {
+    background-color: #ddd;
+
 }
 
 .comment-actions {
@@ -116,9 +147,10 @@
     padding: 10px;
     width: 150px;
     height: auto;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-90%);
+    bottom: -12px;
+    /* left: 50%; */
+    /* transform: translateX(-90%); */
+    transform: translateY(90%);
 }
 
 .actions-menu button {

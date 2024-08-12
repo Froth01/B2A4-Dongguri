@@ -20,6 +20,7 @@ import storyBookReducer from './slices/storyBookSlice';
 import audioReducer from './slices/audioSlice';
 import searchReducer from './slices/searchSlice';
 import reactionsReducer from './slices/reactionsSlice';
+import commentReducer from './slices/commentSlice';
 // import searchUserReducer from './slices/searchUserSlice';
 
 // persist 설정
@@ -101,6 +102,7 @@ const store = configureStore({
     search: persistSearchReducer,
     reactions: reactionsReducer,
     // searchUser: persistSearchUserReducer,
+    comments: commentReducer,
   },  
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {   // 직렬화 가능성 검사

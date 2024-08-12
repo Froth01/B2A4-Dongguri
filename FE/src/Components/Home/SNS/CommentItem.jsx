@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import './css/CommentItem.css'
 
@@ -33,6 +33,14 @@ const CommentItem = ({ comment, onUpdate, onDelete }) => {
         setShowActions(!showActions); // 액션 메뉴 표시/숨김 토글
     };
 
+    const textareaRef = useRef(null);
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+    }, [editText]);
+
     return (
         <div className="comment-item">
             <div className='comment-profile-img-container'>
@@ -46,11 +54,12 @@ const CommentItem = ({ comment, onUpdate, onDelete }) => {
                 <div className='comment-main'>
                     {isEditing ? (
                         <div className='comment-edit-container'>
-                            <input
-                                type="text"
+                            <textarea
+                                ref={textareaRef}
                                 value={editText}
                                 onChange={(e) => setEditText(e.target.value)}
-                                className="comment-edit-input"
+                                className="comment-edit-textarea"
+                                rows={0}
                             />
                             <div className='comment-edit-btn'>
                                 <button onClick={handleSave}>저장</button>

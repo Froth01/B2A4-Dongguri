@@ -120,6 +120,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   align-items: flex-start;
+  width: 100%;
 }
 
 .submit-comment-button {
