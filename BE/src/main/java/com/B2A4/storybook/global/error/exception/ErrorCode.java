@@ -32,6 +32,7 @@ public enum ErrorCode {
     USER_NOT_STORY_WORLD_HOST(403, "해당하는 동화나라의 소유자가 아닙니다."),
     USER_NOT_REACTION_HOST(403, "해당하는 공감의 소유자가 아닙니다."),
     USER_NOT_FOLLOW_HOST(403, "해당하는 팔로우의 소유자가 아닙니다."),
+    USER_NOT_COMMENT_HOST(403, "해당하는 댓글의 소유자가 아닙니다."),
 
     /* 404 NOT_FOUND : Resource를 찾을 수 없음 */
     USER_NOT_FOUND(404, "해당하는 정보의 사용자를 찾을 수 없습니다."),
@@ -47,6 +48,7 @@ public enum ErrorCode {
     REACTION_COUNT_NOT_FOUND(404, "해당하는 공감 수를 찾을 수 없습니다."),
     DAILY_KEYWORD_NOT_FOUND(404, "해당하는 오늘의 키워드를 찾을 수 없습니다."),
     FOLLOW_NOT_FOUND(404, "해당하는 팔로우를 찾을 수 없습니다."),
+    COMMENT_NOT_FOUND(404, "해당하는 댓글을 찾을 수 없습니다."),
 
     /* 409 중복된 리소스 */
     NICKNAME_DUPLICATION(409, "이미 사용중인 닉네임입니다."),
