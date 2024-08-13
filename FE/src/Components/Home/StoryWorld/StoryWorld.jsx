@@ -14,9 +14,11 @@ import { setUserObject } from '../../../slices/userInfoSlice'
 function StoryWorld() {
   const currentUser = useSelector(state => state.auth.object)
   const userInfo = useSelector(state => state.userInfo.object)
+  ////
   const [loading, setLoading] = useState(false)
   const [isLast, setIsLast] = useState(false)
   const [page,setPage] = useState(0)
+  ////
   const { userId } = useParams()
   const navigate = useNavigate()
 
@@ -51,7 +53,12 @@ function StoryWorld() {
     }
       fetchData();
     }, []);
+
     console.log('받은 카드리스트 스토리월드에서 :', myCardList)
+
+
+
+    // 
     useEffect(() => {
       const handleScroll = async () => {
         const scrollContainer = document.querySelector('.storyworld');
@@ -82,7 +89,10 @@ function StoryWorld() {
       modalContent.addEventListener('scroll', handleScroll);
       return () => modalContent.removeEventListener('scroll', handleScroll);
     }, [loading, page, userId]);
-  
+    // 
+
+
+
     const handleCardClick = (card) => {
       // URL을 카드의 고유 ID로 업데이트합니다.
       // navigate(`/sns/${card.storybookId}`, { state: { card } });
