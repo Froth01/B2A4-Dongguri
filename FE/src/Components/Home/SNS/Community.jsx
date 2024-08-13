@@ -65,7 +65,7 @@ const Community = ({ card }) => {
     const sadReaction = useSelector(selectSAD);
     const joyReaction = useSelector(selectJOY);
 
-    // 공감 조회수
+    // 공감 조회수, 댓글
     useEffect(() => {
         dispatch(getStorybookReactionsThunk({ storybookId: card.storybookId }));
         dispatch(getCommentsThunk({ storybookId: card.storybookId, page: 0 }))
@@ -157,12 +157,14 @@ const Community = ({ card }) => {
         // 사용자에게 삭제 확인 요
         if (window.confirm("정말로 삭제하시겠습니까?")) {
             try {
-                await dispatch(removeStorybook(card.storybookId));
-                alert("동화가 삭제되었습니다. 페이지를 새로고침합니다.");
-                window.location.reload();
+                console.log('동화id',card.storybookId)
+                await dispatch(removeStorybook({ storybookId: card.storybookId }));
+                // window.location.reload(); // 삭제 후 페이지 새로고침
+
+                navigate('/sns')
+                dispatch(fetchSearchResultsThunk({ keyword, page}))
             } catch (error) {
                 console.error("Failed to delete storybook:", error);
-                alert("동화 삭제에 실패했습니다. 다시 시도해주세요.");
             }
         } else {
             console.log("삭제가 취소되었습니다.");
@@ -183,6 +185,7 @@ const Community = ({ card }) => {
                 <div className="author">{card.nickname}</div>
                 <div className="date">{new Date(card.createdDate).toLocaleDateString()}</div>
                 <div className="action-button">
+                    {/* 공유하기 버튼 */}
                     <ShareButton card={card} />
                     {!card.isMine && (
                         <button className="report-button" onClick={() => setIsReportOpen(true)}>신고하기</button>

@@ -1,5 +1,4 @@
-.guide-box{
-  /* background-color: greenyellow; */
+.guide-box {
   height: 30%;
   display: flex;
   justify-content: center;
@@ -10,24 +9,21 @@
   height: 80%;
   margin: 0%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 1%; /* gap 속성을 사용하여 아바타와 말풍선 사이의 간격을 조정 */
   position: relative;
   z-index: 1;
 }
 
 .speechbubble-img {
-  position: absolute;
   height: 100%;
-} 
-
-.speechbubble-avatar {
-  position: absolute;
-  margin-right: 45%;
-  height: 50%;
-  z-index: 2; /* speechbubble-avatar의 z-index를 높게 설정 */
+  z-index: 1;
 }
 
+.speechbubble-avatar {
+  height: 130%;
+  z-index: 2; /* 아바타가 말풍선 위에 오도록 설정 */
+}
 
 .guide-text {
   position: absolute;
@@ -35,9 +31,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* word-wrap: break-word; */
-  position: relative;
   z-index: 1;
   font-family: 'MangoDdobak-B';
   font-size: 3vh;
-} 
+  white-space: pre-line;
+  line-height: 1.5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
