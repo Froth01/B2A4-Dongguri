@@ -9,22 +9,23 @@ import './css/Guide.css'
 const Guide = ({ page }) => {
   const dispatch = useDispatch();
   const representative = useSelector(selectRepresentative);
-
   const dialogs = useSelector(selectDialogs)
-
+  console.log(representative)
   useEffect(() => {
     dispatch(representativeApi());
   }, [dispatch]);
 
-  const representImg = `/img/avatars/${representative.avatarType}_${representative.displayLevel}.png`
+  // data 추가함;
+  const representImg = `/img/avatars/${representative.data.avatarType}_${representative.data.displayLevel}.png`
+
 
   const getDialogs = () => {
     if (
       dialogs[page] &&
-      dialogs[page][representative.avatarType] &&
-      dialogs[page][representative.avatarType][representative.displayLevel]
+      dialogs[page][representative.data.avatarType] &&
+      dialogs[page][representative.data.avatarType][representative.data.displayLevel]
     ) {
-      return dialogs[page][representative.avatarType][representative.displayLevel];
+      return dialogs[page][representative.data.avatarType][representative.data.displayLevel];
     }
     return [];
   };

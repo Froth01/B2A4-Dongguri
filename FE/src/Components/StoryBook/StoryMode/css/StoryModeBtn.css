@@ -4,12 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5%;
+  gap: 2%;
 }
 
 .storymodebtn a{
-  width: 30%;
-  height: 80%;
+  width: 100%;
+  height: 90%;
 }
 
 .storymodebtn a img {
