@@ -53,9 +53,9 @@ const Community = ({ card }) => {
         // return null
     }, [card, navigate]);
 
-    // if (!card) {
-    //     return null; // card가 없는 경우 아무것도 렌더링하지 않음
-    // }
+    if (!card) {
+        return null; // card가 없는 경우 아무것도 렌더링하지 않음
+    }
 
     // 공감하기
     const funReaction = useSelector(selectFUN);

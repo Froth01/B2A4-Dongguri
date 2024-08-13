@@ -158,17 +158,17 @@ const storyBookSlice = createSlice({
     builder
       .addCase(fetchStoryBooksThunk.fulfilled, (state, action) => {
         state.storybooks.push(action.payload);  // 생성된 동화 데이터를 스토어에 추가
-        console.log(`Storybook with ID ${action.payload.storybookId} has been created`);
+        console.log(`동화 등록 ${action.payload.storybookId} `);
       })
       .addCase(fetchStoryBooksThunk.rejected, (state, action) => {
-        console.error('Failed to create storybook:', action.payload);
+        console.error('스토리북 등록 실패:', action.payload);
       })
       .addCase(removeStorybook.fulfilled, (state, action) => {
         state.storybooks = state.storybooks.filter(book => book.id !== action.payload);
-        console.log(`Storybook with ID ${action.payload} has been deleted`);
+        console.log(`동화 삭제:  ${action.payload} `);
       })
       .addCase(removeStorybook.rejected, (state, action) => {
-        console.error('Failed to delete storybook:', action.payload);
+        console.error('동화 삭제 실패:', action.payload);
       });
   }
 });

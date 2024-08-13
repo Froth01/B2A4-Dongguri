@@ -5,7 +5,8 @@ import { useEffect } from 'react'
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import {selectKeyword, selectResults, selectUserResults, selectNicknameResults, 
-  selectSearchType, clearSearchResults, fetchSearchResultsThunk } from '../../../slices/searchSlice'
+  selectSearchType, clearSearchResults, fetchSearchResultsThunk, 
+  setKeyword} from '../../../slices/searchSlice'
 import SearchUserList from './SearchUserList'
 
 function SNS() {
@@ -29,13 +30,21 @@ function SNS() {
 
   const page = 0
 
+  // const initialSearch = '  '
   useEffect(() => {
 
   }, [searchResults])
 
+
   useEffect(() => {
+    // dispatch(setKeyword(null));
+    console.log('검색키워드',keyword)
     if (keyword) {
+      console.log('검색키워드',keyword)
       dispatch(fetchSearchResultsThunk({ keyword,page}));
+    } else {
+      dispatch(setKeyword(''))
+      dispatch(fetchSearchResultsThunk({ keyword, page}))
     }
   }, [dispatch, keyword,page]);
 
@@ -48,6 +57,7 @@ function SNS() {
 
   const handleCardClick = (card) => {
     // URL을 카드의 고유 ID로 업데이트합니다.
+    // navigate(`/sns/${card.storybookId}`, { state: { card } });
     navigate(`/sns/${card.storybookId}`, { state: { card } });
   };
 
