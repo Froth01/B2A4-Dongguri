@@ -12,11 +12,12 @@ public record CommentResponse(
         LocalDateTime created,
         Long userId,
         String nickname,
-        String profileImageUrl
+        String profileImageUrl,
+        boolean isMine
 
 ) {
-    public CommentResponse(CommentInfoVO commentInfoVO, UserInfoVO userInfoVO) {
+    public CommentResponse(CommentInfoVO commentInfoVO, UserInfoVO userInfoVO, boolean isMine) {
         this(commentInfoVO.commentId(), commentInfoVO.storybookId(), commentInfoVO.comment()
-        , commentInfoVO.created(), userInfoVO.userId(), userInfoVO.nickname(), userInfoVO.profileImageUrl());
+        , commentInfoVO.created(), userInfoVO.userId(), userInfoVO.nickname(), userInfoVO.profileImageUrl(), isMine);
     }
 }
