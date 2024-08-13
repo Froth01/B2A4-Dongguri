@@ -17,37 +17,31 @@ import {selectFUN,selectHAPPY, selectSAD, selectJOY,
 import { getCommentsThunk, addCommentThunk, updateCommentThunk, deleteCommentThunk, selectComments } from '../../../slices/commentSlice';
 import { fetchSearchResultsThunk, selectKeyword} from '../../../slices/searchSlice'
 
-const dummyComments = [
-    { userId: 1, commentId: 1, storybookId: 1, content: "정말 감동적이고 멋있는 이야기지요?", isMine: true, createdDate: "2024-07-01", modifiedDate: null },
-    { userId: 1, commentId: 2, storybookId: 2, content: "너무 슬퍼요ㅠㅠ", isMine: true, createdDate: "2024-07-02", modifiedDate: null },
-    { userId: 1, commentId: 3, storybookId: 3, content: "매우 기특한 이야기네요~~", isMine: true, createdDate: "2024-07-04", modifiedDate: null },
-    { userId: 1, commentId: 4, storybookId: 4, content: "이게 바로 진정한 용기의 모습이죠!", isMine: true, createdDate: "2024-07-05", modifiedDate: null },
-    { userId: 2, commentId: 2, storybookId: 1, content: "재미있어요! 또 듣고 싶어요!", isMine: false, createdDate: "2024-07-06", modifiedDate: null },
-    { userId: 2, commentId: 3, storybookId: 2, content: "완전 힐링되는 이야기였습니다!", isMine: false, createdDate: "2024-07-07", modifiedDate: null },
-    { userId: 2, commentId: 4, storybookId: 3, content: "아이들에게 들려주고 싶네요.", isMine: false, createdDate: "2024-07-08", modifiedDate: null },
-    { userId: 2, commentId: 1, storybookId: 4, content: "이런 경험 한번쯤은 해보고 싶어요.", isMine: false, createdDate: "2024-07-09", modifiedDate: null },
-    { userId: 3, commentId: 3, storybookId: 1, content: "눈물이 앞을 가리네요...", isMine: false, createdDate: "2024-07-10", modifiedDate: null },
-    { userId: 3, commentId: 4, storybookId: 2, content: "재미있고 유익한 시간이었어요!", isMine: false, createdDate: "2024-07-11", modifiedDate: null },
-    { userId: 3, commentId: 1, storybookId: 3, content: "다음 이야기가 기대돼요!", isMine: false, createdDate: "2024-07-12", modifiedDate: null },
-    { userId: 3, commentId: 2, storybookId: 4, content: "모든 감정이 느껴지는 이야기였습니다.", isMine: false, createdDate: "2024-07-13", modifiedDate: null },
-    { userId: 4, commentId: 4, storybookId: 1, content: "영감을 받았어요, 감사합니다!", isMine: false, createdDate: "2024-07-14", modifiedDate: null },
-    { userId: 4, commentId: 1, storybookId: 2, content: "더 많은 이야기를 기대하고 있겠습니다.", isMine: false, createdDate: "2024-07-15", modifiedDate: null },
-    { userId: 4, commentId: 2, storybookId: 3, content: "가슴이 따뜻해지는 이야기였어요.", isMine: false, createdDate: "2024-07-16", modifiedDate: null },
-    { userId: 4, commentId: 3, storybookId: 4, content: "이런 종류의 이야기를 더 많이 듣고 싶어요.", isMine: false, createdDate: "2024-07-17", modifiedDate: null }
-];
->>>>>>> FE/src/Components/Home/SNS/Community.jsx
+// const dummyComments = [
+//     { userId: 1, commentId: 1, storybookId: 1, content: "정말 감동적이고 멋있는 이야기지요?", isMine: true, createdDate: "2024-07-01", modifiedDate: null },
+//     { userId: 1, commentId: 2, storybookId: 2, content: "너무 슬퍼요ㅠㅠ", isMine: true, createdDate: "2024-07-02", modifiedDate: null },
+//     { userId: 1, commentId: 3, storybookId: 3, content: "매우 기특한 이야기네요~~", isMine: true, createdDate: "2024-07-04", modifiedDate: null },
+//     { userId: 1, commentId: 4, storybookId: 4, content: "이게 바로 진정한 용기의 모습이죠!", isMine: true, createdDate: "2024-07-05", modifiedDate: null },
+//     { userId: 2, commentId: 2, storybookId: 1, content: "재미있어요! 또 듣고 싶어요!", isMine: false, createdDate: "2024-07-06", modifiedDate: null },
+//     { userId: 2, commentId: 3, storybookId: 2, content: "완전 힐링되는 이야기였습니다!", isMine: false, createdDate: "2024-07-07", modifiedDate: null },
+//     { userId: 2, commentId: 4, storybookId: 3, content: "아이들에게 들려주고 싶네요.", isMine: false, createdDate: "2024-07-08", modifiedDate: null },
+//     { userId: 2, commentId: 1, storybookId: 4, content: "이런 경험 한번쯤은 해보고 싶어요.", isMine: false, createdDate: "2024-07-09", modifiedDate: null },
+//     { userId: 3, commentId: 3, storybookId: 1, content: "눈물이 앞을 가리네요...", isMine: false, createdDate: "2024-07-10", modifiedDate: null },
+//     { userId: 3, commentId: 4, storybookId: 2, content: "재미있고 유익한 시간이었어요!", isMine: false, createdDate: "2024-07-11", modifiedDate: null },
+//     { userId: 3, commentId: 1, storybookId: 3, content: "다음 이야기가 기대돼요!", isMine: false, createdDate: "2024-07-12", modifiedDate: null },
+//     { userId: 3, commentId: 2, storybookId: 4, content: "모든 감정이 느껴지는 이야기였습니다.", isMine: false, createdDate: "2024-07-13", modifiedDate: null },
+//     { userId: 4, commentId: 4, storybookId: 1, content: "영감을 받았어요, 감사합니다!", isMine: false, createdDate: "2024-07-14", modifiedDate: null },
+//     { userId: 4, commentId: 1, storybookId: 2, content: "더 많은 이야기를 기대하고 있겠습니다.", isMine: false, createdDate: "2024-07-15", modifiedDate: null },
+//     { userId: 4, commentId: 2, storybookId: 3, content: "가슴이 따뜻해지는 이야기였어요.", isMine: false, createdDate: "2024-07-16", modifiedDate: null },
+//     { userId: 4, commentId: 3, storybookId: 4, content: "이런 종류의 이야기를 더 많이 듣고 싶어요.", isMine: false, createdDate: "2024-07-17", modifiedDate: null }
+// ];
 
 const Community = ({ card }) => {
     console.log('커뮤니티 card',card)
     const dispatch = useDispatch();
-<<<<<<< FE/src/Components/Home/SNS/Community.jsx
+    const navigate = useNavigate();
     const comments = useSelector(selectComments);
     
-=======
-    const navigate = useNavigate();
-
-    const [comments, setComments] = useState([]);
->>>>>>> FE/src/Components/Home/SNS/Community.jsx
     const [commentText, setCommentText] = useState('');
     const [isReportOpen, setIsReportOpen] = useState(false); 
 
@@ -77,13 +71,9 @@ const Community = ({ card }) => {
         dispatch(getCommentsThunk({ storybookId: card.storybookId, page: 0 }))
     }, [dispatch, card.storybookId]);
 
-<<<<<<< FE/src/Components/Home/SNS/Community.jsx
     // storybookId에 맞게 댓글 필터
     const filteredComments = comments.filter(comment => comment.storybookId === card.storybookId);
  
-=======
-
->>>>>>> FE/src/Components/Home/SNS/Community.jsx
     // 공감 상태
     const emojis = [
         { img: cool, alt: 'FUN', reaction: funReaction, setReaction: setFUN },
@@ -161,30 +151,15 @@ const Community = ({ card }) => {
         }
     };
 
-<<<<<<< FE/src/Components/Home/SNS/Community.jsx
-=======
-    // const handleShareClick = (storybookId) => { // 공유하기 -> url이 콘솔에 나옴
-    //     console.log(`http://localhost:5173/storybooks/${storybookId}`);
-    // };
->>>>>>> FE/src/Components/Home/SNS/Community.jsx
 
     // 동화 삭제
     const handleDeleteClick = async () => {
         // 사용자에게 삭제 확인 요
         if (window.confirm("정말로 삭제하시겠습니까?")) {
             try {
-<<<<<<< FE/src/Components/Home/SNS/Community.jsx
                 await dispatch(removeStorybook(card.storybookId));
                 alert("동화가 삭제되었습니다. 페이지를 새로고침합니다.");
                 window.location.reload();
-=======
-                console.log('동화id',card.storybookId)
-                await dispatch(removeStorybook({ storybookId: card.storybookId }));
-                // window.location.reload(); // 삭제 후 페이지 새로고침
-
-                navigate('/sns')
-                dispatch(fetchSearchResultsThunk({ keyword, page}))
->>>>>>> FE/src/Components/Home/SNS/Community.jsx
             } catch (error) {
                 console.error("Failed to delete storybook:", error);
                 alert("동화 삭제에 실패했습니다. 다시 시도해주세요.");
