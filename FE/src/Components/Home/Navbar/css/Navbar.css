@@ -109,7 +109,7 @@
   --nav-button-padding-x: 1rem;
   --nav-button-padding-y: 0.375em;
   --nav-button-border-radius: 0.375em;
-  --nav-button-font-size: 22px;
+  --nav-button-font-size: 1.5rem;
   --nav-button-hover-bg: #FCE73C;
   --nav-button-hover-text-color: black;
   --nav-button-distance: 0.875em;
@@ -149,7 +149,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: var(--burger-transition);
-  outline: var(--burger-enable-outline-width) solid transparent;
+  outline: var(--burger-enable-outline-width) solid gray;
   outline-offset: 0;
 }
 
@@ -279,7 +279,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 7%;
+  min-width: 6%;
   height: 85%;
 }
 
