@@ -13,7 +13,8 @@ import Reports from '../Common/Reports';
 import ShareButton from '../Common/ShareButton';
 import {selectFUN,selectHAPPY, selectSAD, selectJOY,
      setFUN, setHAPPY, setSAD, setJOY,
-     likeStorybookThunk, unlikeStorybookThunk, getStorybookReactionsThunk } from '../../../slices/reactionsSlice'
+     likeStorybookThunk, unlikeStorybookThunk, getStorybookReactionsThunk } from '../../../slices/reactionsSlice';
+import { getCommentsThunk, addCommentThunk, updateCommentThunk, deleteCommentThunk, selectComments } from '../../../slices/commentSlice';
 import { fetchSearchResultsThunk, selectKeyword} from '../../../slices/searchSlice'
 
 const dummyComments = [
@@ -34,13 +35,19 @@ const dummyComments = [
     { userId: 4, commentId: 2, storybookId: 3, content: "가슴이 따뜻해지는 이야기였어요.", isMine: false, createdDate: "2024-07-16", modifiedDate: null },
     { userId: 4, commentId: 3, storybookId: 4, content: "이런 종류의 이야기를 더 많이 듣고 싶어요.", isMine: false, createdDate: "2024-07-17", modifiedDate: null }
 ];
+>>>>>>> FE/src/Components/Home/SNS/Community.jsx
 
 const Community = ({ card }) => {
     console.log('커뮤니티 card',card)
     const dispatch = useDispatch();
+<<<<<<< FE/src/Components/Home/SNS/Community.jsx
+    const comments = useSelector(selectComments);
+    
+=======
     const navigate = useNavigate();
 
     const [comments, setComments] = useState([]);
+>>>>>>> FE/src/Components/Home/SNS/Community.jsx
     const [commentText, setCommentText] = useState('');
     const [isReportOpen, setIsReportOpen] = useState(false); 
 
@@ -67,9 +74,16 @@ const Community = ({ card }) => {
     // 공감 조회수
     useEffect(() => {
         dispatch(getStorybookReactionsThunk({ storybookId: card.storybookId }));
+        dispatch(getCommentsThunk({ storybookId: card.storybookId, page: 0 }))
     }, [dispatch, card.storybookId]);
 
+<<<<<<< FE/src/Components/Home/SNS/Community.jsx
+    // storybookId에 맞게 댓글 필터
+    const filteredComments = comments.filter(comment => comment.storybookId === card.storybookId);
+ 
+=======
 
+>>>>>>> FE/src/Components/Home/SNS/Community.jsx
     // 공감 상태
     const emojis = [
         { img: cool, alt: 'FUN', reaction: funReaction, setReaction: setFUN },
@@ -78,11 +92,12 @@ const Community = ({ card }) => {
         { img: like, alt: 'JOY', reaction: joyReaction, setReaction: setJOY }
     ];
 
+    // 공감 클릭
     const handleEmojiClick = async (index) => {
         const selectedEmoji = emojis[index];
         const currentReaction = selectedEmoji.reaction;
         const storybookId = card.storybookId;
-        const reactionType = selectedEmoji.alt.toUpperCase(); // 이모지의 alt 값을 reactionType으로 사용
+        const reactionType = selectedEmoji.alt.toUpperCase();
 
         // 공감 API 호출
         console.log('emojis[index]',emojis[index])
@@ -102,70 +117,88 @@ const Community = ({ card }) => {
         console.log('업데이트된 상태:', updatedState[reactionType]);
     };
 
-    // On component mount, filter comments for this storybook
-    useEffect(() => {
-        const filteredComments = dummyComments
-            .filter(comment => comment.storybookId === card.storybookId)
-            .sort((a, b) => a.commentId - b.commentId);
-        setComments(filteredComments);
-    }, [card.storybookId]);
 
+    // 댓글 수정
     const onUpdateComment = (commentId, newText) => {
-        const updatedComments = comments.map((comment) => {
-            if (comment.commentId === commentId) {
-              comment = { ...comment, content: newText, modifiedDate: new Date().toISOString() }
-            }
-            });
-        setComments(updatedComments);
+        if (window.confirm("댓글이 수정되었습니다. 페이지를 새로고침합니다.")) {
+            dispatch(updateCommentThunk({ commentId, content: newText }));
+            window.location.reload();
+        }
     };
     
+    // 댓글 삭제
     const onDeleteComment = (commentId) => {
-        const updatedComments = comments.filter(comment => comment.commentId !== commentId);
-        setComments(updatedComments);
+        if (window.confirm("댓글을 삭제하시겠습니까?")) {
+            dispatch(deleteCommentThunk(commentId))
+                .then(() => {
+                    alert("댓글이 삭제되었습니다. 페이지를 새로고침합니다.");
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error("댓글 삭제에 실패했습니다:", error);
+                });
+        } else {
+            alert("삭제가 취소되었습니다.");
+        }
     };
 
+    // 현재 댓글 값
     const onCommentChange = (event) => {
         setCommentText(event.target.value);
     };
 
-    const onCommentSubmit = (event) => {
+    // 댓글 작성
+    const onCommentSubmit = async (event) => {
         event.preventDefault();
         if (commentText.trim()) {
-            const newComment = {
-                commentId: comments.length + 1, // `id` 대신 `commentId`를 사용
-                storybookId: card.storybookId, // 현재 스토리북 ID
-                content: commentText, // 댓글 내용
-                isMine: true, // 사용자 인증 로직에 따라 변경될 수 있음
-                createdDate: new Date().toISOString(), // 댓글 생성 날짜
-                modifiedDate: null // 수정 날짜는 초기에 null
-            };
-            setComments([...comments, newComment]); // 댓글 리스트에 새 댓글 추가
-            setCommentText(''); // 입력 필드 초기화
+            try {
+                await dispatch(addCommentThunk({ storybookId: card.storybookId, content: commentText })).unwrap();
+                setCommentText('');
+                dispatch(getCommentsThunk({ storybookId: card.storybookId, page: 0 }));
+            } catch (error) {
+                console.error("Failed to add comment:", error);
+            }
         }
     };
 
+<<<<<<< FE/src/Components/Home/SNS/Community.jsx
+=======
     // const handleShareClick = (storybookId) => { // 공유하기 -> url이 콘솔에 나옴
     //     console.log(`http://localhost:5173/storybooks/${storybookId}`);
     // };
+>>>>>>> FE/src/Components/Home/SNS/Community.jsx
 
+    // 동화 삭제
     const handleDeleteClick = async () => {
         // 사용자에게 삭제 확인 요
         if (window.confirm("정말로 삭제하시겠습니까?")) {
             try {
+<<<<<<< FE/src/Components/Home/SNS/Community.jsx
+                await dispatch(removeStorybook(card.storybookId));
+                alert("동화가 삭제되었습니다. 페이지를 새로고침합니다.");
+                window.location.reload();
+=======
                 console.log('동화id',card.storybookId)
                 await dispatch(removeStorybook({ storybookId: card.storybookId }));
                 // window.location.reload(); // 삭제 후 페이지 새로고침
 
                 navigate('/sns')
                 dispatch(fetchSearchResultsThunk({ keyword, page}))
+>>>>>>> FE/src/Components/Home/SNS/Community.jsx
             } catch (error) {
                 console.error("Failed to delete storybook:", error);
+                alert("동화 삭제에 실패했습니다. 다시 시도해주세요.");
             }
         } else {
             console.log("삭제가 취소되었습니다.");
         }
     };
 
+    // console로 댓글 리스트 확인
+    useEffect(() => {
+        console.log("Rendered comments:", filteredComments);
+    }, [comments]);
+    
     return (
         <div className="community-container">
             <div className="profile-section">
@@ -176,7 +209,6 @@ const Community = ({ card }) => {
                 <div className="date">{new Date(card.createdDate).toLocaleDateString()}</div>
                 <div className="action-button">
                     <ShareButton card={card} />
-                {/* <button className="share-button" onClick={() => handleShareClick(card.storybookId)}>공유하기</button> */}
                     {!card.isMine && (
                         <button className="report-button" onClick={() => setIsReportOpen(true)}>신고하기</button>
                     )}
@@ -199,19 +231,22 @@ const Community = ({ card }) => {
                     </form>
                 </div>
                 <div className="comments-list">
-                    {comments.map((comment) => (
-                        <CommentItem
-                            key={comment.commentId}
-                            comment={comment}
-                            onUpdate={onUpdateComment}
-                            onDelete={onDeleteComment}
-                        />
-                    ))}
+                    {filteredComments.length > 0 ? (
+                        filteredComments.map((comment) => (
+                            <CommentItem
+                                key={comment.commentId}
+                                comment={comment}
+                                onUpdate={onUpdateComment}
+                                onDelete={onDeleteComment}
+                            />
+                        ))
+                    ) : (
+                        <p className='no-community-comment'>댓글이 없습니다.</p>
+                    )}
                 </div>
             </div>
 
             {/* 공감하기 */}
-            {/* <Reaction storybookId={card.storybookId}/> */}
             <div className="emojis-section">
                 {emojis.map((emoji, index) => (
                     <div key={index} className="emoji" onClick={() => handleEmojiClick(index)}>
@@ -220,8 +255,7 @@ const Community = ({ card }) => {
                     </div>
                 ))}
             </div>
-            
-
+        
             {/* 신고하기 버튼 클릭시 신고 모달뜸 */}
             {isReportOpen && (
                 <Reports
