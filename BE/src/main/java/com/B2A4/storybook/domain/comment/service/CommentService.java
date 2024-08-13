@@ -42,16 +42,18 @@ public class CommentService {
 
         commentRepository.save(comment);
 
-        return new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo());
+        return new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo(), true);
     }
 
     public Slice<CommentResponse> getComments(Long storybookId, int page) {
+        User user = userUtils.getUserFromSecurityContext();
         Storybook storybook = storybookServiceUtils.queryStorybook(storybookId);
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.ASC, "id"));
 
         Slice<Comment> commentList = commentRepository.findAllByStorybook(storybook, pageRequest);
 
-        return commentList.map(comment -> new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo()));
+        return commentList.map(comment -> new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo(),
+                comment.getUser().getId().equals(user.getId())));
     }
 
     @Transactional
