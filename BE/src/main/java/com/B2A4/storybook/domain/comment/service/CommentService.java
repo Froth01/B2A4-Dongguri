@@ -42,7 +42,7 @@ public class CommentService {
 
         commentRepository.save(comment);
 
-        return new CommentResponse(comment.getCommentInfoVO());
+        return new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo());
     }
 
     public Slice<CommentResponse> getComments(Long storybookId, int page) {
@@ -51,7 +51,7 @@ public class CommentService {
 
         Slice<Comment> commentList = commentRepository.findAllByStorybook(storybook, pageRequest);
 
-        return commentList.map(comment -> new CommentResponse(comment.getCommentInfoVO()));
+        return commentList.map(comment -> new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo()));
     }
 
     @Transactional
