@@ -1,5 +1,6 @@
 package com.B2A4.storybook.domain.storybook.domain;
 
+import com.B2A4.storybook.domain.comment.domain.Comment;
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.reaction.domain.Reaction;
 import com.B2A4.storybook.domain.reactionCount.domain.ReactionCount;
@@ -54,6 +55,9 @@ public class Storybook extends BaseEntity {
 
     @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReactionCount> reactionCountList;
+
+    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList;
 
     @Builder
     public Storybook(User user, Genre genre, String content, String originalImageUrl, String transformedImageUrl, String transparentImageUrl, String voiceRecordingUrl, boolean isTodayKeyword) {
