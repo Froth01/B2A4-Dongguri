@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MiniCard from './MiniCard';
 import SnsDetail from '../SNS/SnsDetail';
 import './css/MiniCardList.css';
 import PropTypes from 'prop-types'
-import { getCardListByUserId } from '../../../slices/cardListSlice';
 
 // S11P12B309\FE\public\img\card\dummy1.png
 function MiniCardList({cardList, onCardClick}) {

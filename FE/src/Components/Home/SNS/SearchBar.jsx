@@ -2,14 +2,17 @@
 import { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setKeyword, setSearchType, 
-  fetchSearchResultsThunk, fetchUserResultsThunk, fetchNicknameResultsThunk,
+  fetchSearchResultsThunk, fetchNicknameResultsThunk,
   selectSearchType } from '../../../slices/searchSlice';
 import './css/SearchBar.css';
+import PropTypes from 'prop-types'
 
-function SearchBar() {
+function SearchBar({searchEvent}) {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
   const searchType = useSelector(selectSearchType);
+
+  const [page, setPage] = useState(0)
 
   useEffect(() => {
     // searchType이 변경될 때 입력값 초기화
@@ -21,19 +24,20 @@ function SearchBar() {
     setInputValue(e.target.value);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    setPage(0)
     console.log('searchBar inputValue:', inputValue);
     console.log('searchBar searchType:', searchType);
-    dispatch(setKeyword(inputValue));
+    await dispatch(setKeyword(inputValue));
     if (searchType === 'storybook') {
-      dispatch(fetchSearchResultsThunk({
-        keyword: inputValue, page : 0 }))
+      await dispatch(fetchSearchResultsThunk({
+        keyword: inputValue, page : page }))
+        searchEvent('storybook');
         console.log('searchBar',inputValue)
-    } else if (searchType === 'user') {
-      dispatch(fetchUserResultsThunk(inputValue));
-    } else {
-      dispatch(fetchNicknameResultsThunk({
-        nickname: inputValue, page : 0 }))
+    } else if (searchType === 'nickname') {
+      await dispatch(fetchNicknameResultsThunk({
+        nickname: inputValue, page : page }))
+        searchEvent('nickname');
     }
   };
 
@@ -50,8 +54,7 @@ function SearchBar() {
 
   // const placeholderText = searchType === 'storybook' ? '동화를 입력해주세요!' : '아이디를 입력해주세요!';
   const placeholderText = {
-    storybook: '동화',
-    user: '아이디',
+    storybook: '키워드',
     nickname: '닉네임',
   };
 
@@ -60,7 +63,6 @@ function SearchBar() {
       <div className="search">
         <select className="search__type" onChange={handleTypeChange} value={searchType}>
           <option value="storybook">동화</option>
-          <option value="user">아이디</option>
           <option value="nickname">닉네임</option>
         </select>
         <input 
@@ -80,4 +82,7 @@ function SearchBar() {
   );
 }
 
+SearchBar.propTypes = {
+  searchEvent: PropTypes.func.isRequired,
+}
 export default SearchBar;
