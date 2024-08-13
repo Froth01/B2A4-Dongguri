@@ -170,9 +170,9 @@ const Community = ({ card }) => {
         <div className="community-container">
             <div className="profile-section">
                 <div className='profile-image-container'>
-                    <img src={card.profileImgUrl} alt="Profile" className="profile-image" />
+                    <img src={card.profileImageUrl} alt="Profile" className="profile-image" />
                 </div>
-                <div className="author">{card.author}</div>
+                <div className="author">{card.nickname}</div>
                 <div className="date">{new Date(card.createdDate).toLocaleDateString()}</div>
                 <div className="action-button">
                     <ShareButton card={card} />
@@ -236,14 +236,7 @@ const Community = ({ card }) => {
 };
 
 Community.propTypes = {
-    card: PropTypes.shape({
-      storybookId: PropTypes.number.isRequired,
-      content: PropTypes.string.isRequired,
-      profileImgUrl: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-      isMine: PropTypes.bool.isRequired,
-      createdDate: PropTypes.string.isRequired,
-    }).isRequired,
+    card: PropTypes.object
   };
 
 export default Community;

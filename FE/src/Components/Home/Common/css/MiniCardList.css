@@ -10,4 +10,5 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start; /* 카드들이 왼쪽 정렬로 추가됨 */
+  /* overflow: scroll; */
 }

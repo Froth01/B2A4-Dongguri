@@ -30,7 +30,8 @@ const Guide = ({ page }) => {
   };
 
   const dialogList = getDialogs();
-
+  console.log(dialogList)
+  
   return (
     <div className="guide-box">
       {page !== 'avatar' && (
