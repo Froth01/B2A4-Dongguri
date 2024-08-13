@@ -80,7 +80,7 @@ public class StorybookService implements StorybookServiceUtils {
             keywordRepository.save(keywordEntity);
         }
 
-        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, null, true);
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, user.getUserInfo(), true);
     }
 
     @Override
