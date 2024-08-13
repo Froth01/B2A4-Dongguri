@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchAvatarRepresentative } from '../../../Api/api';
 
-function AvatarList({ onNameChange, onRepChange }) {
+function AvatarList({ onNameChange, onRepChange, refresh }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.object);
   const [modalOpen, setModalOpen] = useState(false);
@@ -50,7 +50,7 @@ function AvatarList({ onNameChange, onRepChange }) {
   }
   useEffect(() => {
     refreshAvatarList();
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser, refresh]);
 
   useEffect(() => {
     // onNameChange가 호출되면 아바타 목록을 새로고침합니다.
@@ -87,6 +87,7 @@ function AvatarList({ onNameChange, onRepChange }) {
 }
 AvatarList.propTypes = {
   onNameChange:PropTypes.func,
-  onRepChange: PropTypes.func
+  onRepChange: PropTypes.func,
+  refresh: PropTypes.bool
 }
 export default AvatarList;

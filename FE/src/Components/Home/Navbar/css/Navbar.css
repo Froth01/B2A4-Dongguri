@@ -109,7 +109,7 @@
   --nav-button-padding-x: 1rem;
   --nav-button-padding-y: 0.375em;
   --nav-button-border-radius: 0.375em;
-  --nav-button-font-size: 22px;
+  --nav-button-font-size: 1.2rem;
   --nav-button-hover-bg: #FCE73C;
   --nav-button-hover-text-color: black;
   --nav-button-distance: 0.875em;
@@ -149,7 +149,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: var(--burger-transition);
-  outline: var(--burger-enable-outline-width) solid transparent;
+  outline: var(--burger-enable-outline-width) solid gray;
   outline-offset: 0;
 }
 
@@ -173,6 +173,14 @@
   right: 2%;
   transition: all 0.1s ease-in-out;
   margin-top: 10px;
+}
+
+.small {
+  height: 50%;
+}
+
+.smallLi {
+  height: 100% !important;
 }
 
 .popup-window li {
@@ -202,6 +210,7 @@
   cursor: pointer;
   column-gap: var(--nav-button-distance);
 }
+
 
 .popup-window ul li:nth-child(1) svg,
 .popup-window ul li:nth-child(2) svg {
@@ -279,7 +288,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 7%;
+  min-width: 6%;
   height: 85%;
 }
 

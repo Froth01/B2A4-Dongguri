@@ -10,6 +10,9 @@ function Navbar() {
   const navBarBtnList = useSelector(state => state.navBarBtn.list)
   const currentUser = useSelector(state => state.auth.object)
   const dispatch = useDispatch();
+  const popupClass =  currentUser.userId !== 0 ? "popup-window" : "popup-window small";
+  const popupLiClass =  currentUser.userId !== 0 ? "" : "smallLi";
+
   useEffect(() => {
     if (currentUser.userId) {
       dispatch(setTargetUser(currentUser));
@@ -37,7 +40,7 @@ function Navbar() {
         <div tabIndex="0" className="burger">
           <UserImg userInfo={currentUser}/>
         </div>
-        {currentUser.userId != 0 && <nav className="popup-window">
+        {currentUser.userId != 0 && <nav className={popupClass}>
           <ul>
             <li>
               <Link to={`/users/${currentUser.userId}`}>
@@ -55,9 +58,9 @@ function Navbar() {
             </li>
           </ul>
         </nav>}
-        {currentUser.userId===0 && <nav className='popup-window'>
+        {currentUser.userId===0 && <nav className={popupClass}>
           <ul>
-            <li>  
+            <li className={popupLiClass}>  
               <Link to={'/login'}>
               <button>
                 로그인
