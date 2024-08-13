@@ -214,26 +214,30 @@ function UserForm() {
       />
       <div className='nickname'>
         <label htmlFor="text">닉네임</label>
-        <input
+        <div className='nicknamedetail'>
+          <input
           type="text"
           value={nowNick}
           name="text"
-          className="input"
+          className="nickinput"
           onChange={handleNicknameChange}
         />
+        <button className='updatebtn nickbtn' onClick={handleCheckNickName}>
+          중복체크
+        </button>
+        </div>
+        
       </div>
+      
+      {nicknameCheckMessage && <div className="nickname-check-message">{nicknameCheckMessage}</div>}
       <button 
-        className='updatebtn' 
+        className='updatebtn userformbtn' 
         onClick={handleFormSubmit} 
         disabled={nicknameCheck !== true}  // 중복 확인이 통과되지 않으면 비활성화
       >
         수정하기
       </button>
-      <button className='updatebtn' onClick={handleCheckNickName}>
-        닉네임 중복 확인
-      </button>
-      {nicknameCheckMessage && <p className="nickname-check-message">{nicknameCheckMessage}</p>}
-      <button className='updatebtn' onClick={handleDeleteUser}>
+      <button className='updatebtn userformbtn userout' onClick={handleDeleteUser}>
         탈퇴하기
       </button>
     </div>
