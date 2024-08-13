@@ -75,8 +75,9 @@ function SNS() {
 
       { searchType === 'storybook' && 
       searchResults.data && 
-      <MiniCardList cardList={searchResults.data.content}  
-      onCardClick={handleCardClick}/>
+      <MiniCardList cardList={searchResults.data.content}
+      onCardClick={handleCardClick}
+      type={'SNS'}/>
       }
 
       {/* {searchType === 'user' && searchUserResults && searchUserResults.data && <SearchUserList user={searchUserResults.data} />} */}

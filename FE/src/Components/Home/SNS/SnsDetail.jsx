@@ -36,7 +36,7 @@ function SnsDetail({ toggleModal }) {
 
   const handleCloseClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
-      navigate('/sns')
+      navigate(-1)
       toggleModal();
     }
   };
@@ -47,7 +47,7 @@ function SnsDetail({ toggleModal }) {
         <div className="modal-backdrop" onClick={handleCloseClick}>
           <div className="modal-content" ref={modalRef}>
             {/* <button className="close-button" onClick={toggleModal}>✕</button> */}
-            <button className="close-button" onClick={() => navigate('/sns')}>✕</button>
+            <button className="close-button" onClick={() => navigate(-1)}>✕</button>
             <div className="modal-body">
               <Card 
                 card={card}

@@ -7,14 +7,18 @@ import { useSelector } from 'react-redux'
 import { getCardListByUserId } from '../../../slices/cardListSlice';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getUserInfo } from '../../../slices/authSlice'
 import { setUserObject } from '../../../slices/userInfoSlice'
 
 function StoryWorld() {
   const currentUser = useSelector(state => state.auth.object)
   const userInfo = useSelector(state => state.userInfo.object)
+  const [loading, setLoading] = useState(false)
+  const [isLast, setIsLast] = useState(false)
+  const [page,setPage] = useState(0)
   const { userId } = useParams()
+  const navigate = useNavigate()
 
   const [myCardList, setMyCardList] = useState([]) 
   const dispatch = useDispatch();
@@ -47,6 +51,44 @@ function StoryWorld() {
     }
       fetchData();
     }, []);
+    console.log('받은 카드리스트 스토리월드에서 :', myCardList)
+    useEffect(() => {
+      const handleScroll = async () => {
+        const scrollContainer = document.querySelector('.storyworld');
+        if (
+          scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight &&
+          !loading
+        ) {
+          setLoading(true);
+          const submitForm = {
+            userId: parseInt(userId, 10),
+            page: page + 1
+          }
+          if (!isLast) {
+            const resultNext = await dispatch(getCardListByUserId(submitForm)).unwrap();
+            console.log('또 받아온거 맞음??',resultNext)
+            const nextPageCards = resultNext
+            setMyCardList(prevList => [...prevList, ...nextPageCards]);
+            setIsLast(resultNext.last)
+            setPage(prevPage => prevPage + 1);
+            setLoading(false);
+            } else {
+              setLoading(false);
+              alert('더이상 정보가 없습니다!')
+            }
+          }
+        };
+      const modalContent = document.querySelector('.storyworld');
+      modalContent.addEventListener('scroll', handleScroll);
+      return () => modalContent.removeEventListener('scroll', handleScroll);
+    }, [loading, page, userId]);
+  
+    const handleCardClick = (card) => {
+      // URL을 카드의 고유 ID로 업데이트합니다.
+      // navigate(`/sns/${card.storybookId}`, { state: { card } });
+      navigate(`/sns/${card.storybookId}`, { state: { card } });
+    };
+
   return (
     <div className='storyworld'>
       <UserInfo />
@@ -55,7 +97,7 @@ function StoryWorld() {
       </div>
       <div className="minicardlistdiv">
         <h3>내가 만든 카드</h3>
-        <MiniCardList cardList={myCardList} />
+        <MiniCardList cardList={myCardList} onCardClick={handleCardClick} type={'storyWorld'}/>
       </div>
     </div>
   )

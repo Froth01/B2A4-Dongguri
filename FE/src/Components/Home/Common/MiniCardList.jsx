@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import MiniCard from './MiniCard';
 import SnsDetail from '../SNS/SnsDetail';
 import './css/MiniCardList.css';
 import PropTypes from 'prop-types'
+import { getCardListByUserId } from '../../../slices/cardListSlice';
 
 // S11P12B309\FE\public\img\card\dummy1.png
 function MiniCardList({cardList, onCardClick}) {
-  // onCardClik 추가
+  const targetUser = useSelector(state => state.userInfo.object)
+  const [cards, setCards] = useState(cardList)
   const [selectedCard, setSelectedCard] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect (() => {
+    setCards(cardList)
+  },[cardList])
 
   const handleCardClick = (card) => {
     console.log("Opening modal for card:", card);
@@ -24,12 +31,12 @@ function MiniCardList({cardList, onCardClick}) {
   };
 
   // cardList가 배열인지 확인하고, 그렇지 않다면 빈 배열로 설정
-  const safeCardList = Array.isArray(cardList) ? cardList : [];
+  const safeCardList = Array.isArray(cards) ? cards : [];
 
   return (
     <div className='minicardlist'>
       {/* {dummyList.map((card) => ( */}
-      {safeCardList.length === 0 && <p>검색 결과가 없습니다.</p>}
+      {safeCardList.length === 0 && <p>카드가 없습니다.</p>}
       {/* {cardList.map((card) => ( */}
       {safeCardList.map((card) => (
         <MiniCard 
@@ -49,7 +56,9 @@ function MiniCardList({cardList, onCardClick}) {
 }
 
 MiniCardList.propTypes = {
-  cardList: PropTypes.array.isRequired
+  cardList: PropTypes.array.isRequired,
+  onCardClick: PropTypes.func,
+  type: PropTypes.string.isRequired
 }
 
 export default MiniCardList;

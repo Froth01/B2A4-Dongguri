@@ -9,7 +9,7 @@ function SearchUserList({ userList = [] }) { // user를 userList로 변경하고
 
   const handleClick = (userId) => {
     if (userId) {
-      navigate(`/storyworlds/${userId}`);
+      navigate(`/storyworld/${userId}`);
     }
   };
 
