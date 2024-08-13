@@ -43,10 +43,18 @@ public class StorybookService implements StorybookServiceUtils {
 
 
     @Override
+    @Transactional
     public TransformStorybookResponse transform(TransformStorybookRequest transformStorybookRequest) {
+        User user = userUtils.getUserFromSecurityContext();
+
+        user.checkDailyLimit();
+
         String content = openAPIServiceUtils.generateChatgpt(transformStorybookRequest);
         String prompt = openAPIServiceUtils.generateClaude(transformStorybookRequest);
         String transformedImageUrl = openAPIServiceUtils.generateDalle(prompt);
+
+        user.addDailyLimitCount();
+
         return new TransformStorybookResponse(transformStorybookRequest.genre(), transformStorybookRequest.keywords(), content, transformStorybookRequest.originalImageUrl(), transformedImageUrl);
     }
 

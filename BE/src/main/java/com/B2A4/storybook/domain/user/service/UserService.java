@@ -30,8 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -148,5 +151,15 @@ public class UserService {
         Slice<User> userList = userRepository.findAllByNicknameContaining(nickname, pageRequest);
         return userList.map(user -> new UserBasicProfileResponse(user.getUserInfo(),  user.getFollowingCount(), user.getFollowerCount(), followService.isUserFollowing(currentUser, user)));
 
+    }
+
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
+    @Transactional
+    public void resetDailyLimitCount() {
+        List<User> userList = userRepository.findAll();
+
+        for (User user : userList) {
+            user.resetDailyLimitCount();
+        }
     }
 }
