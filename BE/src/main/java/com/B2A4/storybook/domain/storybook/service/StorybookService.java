@@ -7,13 +7,11 @@ import com.B2A4.storybook.domain.reactionCount.service.ReactionCountServiceUtils
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.domain.repository.StorybookRepository;
 import com.B2A4.storybook.domain.storybook.exception.StorybookNotFoundException;
-import com.B2A4.storybook.domain.storybook.exception.UserNotStorybookHostException;
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.CreateStorybookRequest;
 import com.B2A4.storybook.domain.storybook.presentation.dto.request.TransformStorybookRequest;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.StorybookResponse;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.TransformStorybookResponse;
 import com.B2A4.storybook.domain.user.domain.User;
-import com.B2A4.storybook.domain.user.presentation.dto.response.UserBasicProfileResponse;
 import com.B2A4.storybook.global.openapi.service.OpenAPIServiceUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
@@ -148,15 +146,7 @@ public class StorybookService implements StorybookServiceUtils {
 
     @Override
     public List<Storybook> getStorybookListByStorybookIds(List<Long> storybookIds) {
-        User user = userUtils.getUserFromSecurityContext();
         List<Storybook> storybookList = storybookRepository.findAllById(storybookIds);
-
-        for (Storybook storybook : storybookList) {
-            if (!storybook.getUser().getId().equals(user.getId())) {
-                throw UserNotStorybookHostException.EXCEPTION;
-            }
-        }
-
         return storybookList;
     }
 
