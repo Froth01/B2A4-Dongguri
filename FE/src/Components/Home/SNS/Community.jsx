@@ -19,7 +19,6 @@ const Community = ({ card }) => {
     const dispatch = useDispatch();
     const comments = useSelector(selectComments);
     
-    // const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
     const [isReportOpen, setIsReportOpen] = useState(false); 
 
@@ -32,9 +31,12 @@ const Community = ({ card }) => {
     // 공감 조회수
     useEffect(() => {
         dispatch(getStorybookReactionsThunk({ storybookId: card.storybookId }));
-        dispatch(getCommentsThunk(card.storybookId));
+        dispatch(getCommentsThunk({ storybookId: card.storybookId, page: 0 }))
     }, [dispatch, card.storybookId]);
 
+    // storybookId에 맞게 댓글 필터
+    const filteredComments = comments.filter(comment => comment.storybookId === card.storybookId);
+ 
     // 공감 상태
     const emojis = [
         { img: cool, alt: 'FUN', reaction: funReaction, setReaction: setFUN },
@@ -43,11 +45,12 @@ const Community = ({ card }) => {
         { img: like, alt: 'JOY', reaction: joyReaction, setReaction: setJOY }
     ];
 
+    // 공감 클릭
     const handleEmojiClick = async (index) => {
         const selectedEmoji = emojis[index];
         const currentReaction = selectedEmoji.reaction;
         const storybookId = card.storybookId;
-        const reactionType = selectedEmoji.alt.toUpperCase(); // 이모지의 alt 값을 reactionType으로 사용
+        const reactionType = selectedEmoji.alt.toUpperCase();
 
         // 공감 API 호출
         console.log('emojis[index]',emojis[index])
@@ -65,40 +68,73 @@ const Community = ({ card }) => {
         console.log('업데이트된 상태:', updatedState[reactionType]);
     };
 
+
+    // 댓글 수정
     const onUpdateComment = (commentId, newText) => {
-        dispatch(updateCommentThunk({ commentId, content: newText }));
+        if (window.confirm("댓글이 수정되었습니다. 페이지를 새로고침합니다.")) {
+            dispatch(updateCommentThunk({ commentId, content: newText }));
+            window.location.reload();
+        }
     };
     
+    // 댓글 삭제
     const onDeleteComment = (commentId) => {
-        dispatch(deleteCommentThunk(commentId));
+        if (window.confirm("댓글을 삭제하시겠습니까?")) {
+            dispatch(deleteCommentThunk(commentId))
+                .then(() => {
+                    alert("댓글이 삭제되었습니다. 페이지를 새로고침합니다.");
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error("댓글 삭제에 실패했습니다:", error);
+                });
+        } else {
+            alert("삭제가 취소되었습니다.");
+        }
     };
 
+    // 현재 댓글 값
     const onCommentChange = (event) => {
         setCommentText(event.target.value);
     };
 
-    const onCommentSubmit = (event) => {
+    // 댓글 작성
+    const onCommentSubmit = async (event) => {
         event.preventDefault();
         if (commentText.trim()) {
-            dispatch(addCommentThunk({ storybookId: card.storybookId, content: commentText }));
-            setCommentText('');
+            try {
+                await dispatch(addCommentThunk({ storybookId: card.storybookId, content: commentText })).unwrap();
+                setCommentText('');
+                dispatch(getCommentsThunk({ storybookId: card.storybookId, page: 0 }));
+            } catch (error) {
+                console.error("Failed to add comment:", error);
+            }
         }
     };
 
+
+    // 동화 삭제
     const handleDeleteClick = async () => {
         // 사용자에게 삭제 확인 요청
         if (window.confirm("정말로 삭제하시겠습니까?")) {
             try {
                 await dispatch(removeStorybook(card.storybookId));
-                window.location.reload(); // 삭제 후 페이지 새로고침
+                alert("동화가 삭제되었습니다. 페이지를 새로고침합니다.");
+                window.location.reload();
             } catch (error) {
                 console.error("Failed to delete storybook:", error);
+                alert("동화 삭제에 실패했습니다. 다시 시도해주세요.");
             }
         } else {
             console.log("삭제가 취소되었습니다.");
         }
     };
 
+    // console로 댓글 리스트 확인
+    useEffect(() => {
+        console.log("Rendered comments:", filteredComments);
+    }, [comments]);
+    
     return (
         <div className="community-container">
             <div className="profile-section">
@@ -109,7 +145,6 @@ const Community = ({ card }) => {
                 <div className="date">{new Date(card.createdDate).toLocaleDateString()}</div>
                 <div className="action-button">
                     <ShareButton card={card} />
-                {/* <button className="share-button" onClick={() => handleShareClick(card.storybookId)}>공유하기</button> */}
                     {!card.isMine && (
                         <button className="report-button" onClick={() => setIsReportOpen(true)}>신고하기</button>
                     )}
@@ -132,19 +167,22 @@ const Community = ({ card }) => {
                     </form>
                 </div>
                 <div className="comments-list">
-                    {comments.map((comment) => (
-                        <CommentItem
-                            key={comment.commentId}
-                            comment={comment}
-                            onUpdate={onUpdateComment}
-                            onDelete={onDeleteComment}
-                        />
-                    ))}
+                    {filteredComments.length > 0 ? (
+                        filteredComments.map((comment) => (
+                            <CommentItem
+                                key={comment.commentId}
+                                comment={comment}
+                                onUpdate={onUpdateComment}
+                                onDelete={onDeleteComment}
+                            />
+                        ))
+                    ) : (
+                        <p className='no-community-comment'>댓글이 없습니다.</p>
+                    )}
                 </div>
             </div>
 
             {/* 공감하기 */}
-            {/* <Reaction storybookId={card.storybookId}/> */}
             <div className="emojis-section">
                 {emojis.map((emoji, index) => (
                     <div key={index} className="emoji" onClick={() => handleEmojiClick(index)}>
@@ -153,8 +191,7 @@ const Community = ({ card }) => {
                     </div>
                 ))}
             </div>
-            
-
+        
             {/* 신고하기 버튼 클릭시 신고 모달뜸 */}
             {isReportOpen && (
                 <Reports
