@@ -1,6 +1,7 @@
 package com.B2A4.storybook.domain.user.domain;
 
 import com.B2A4.storybook.domain.avatar.domain.Avatar;
+import com.B2A4.storybook.domain.comment.domain.Comment;
 import com.B2A4.storybook.domain.follow.domain.Follow;
 import com.B2A4.storybook.domain.oauth.domain.OauthServerType;
 import com.B2A4.storybook.domain.reaction.domain.Reaction;
@@ -37,6 +38,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reaction> reactionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private StoryWorld storyWorld;

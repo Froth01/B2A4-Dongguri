@@ -1,0 +1,102 @@
+.myworldbgupdate {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 5%;
+  height: 5%;
+  background-color: #FCE73C;
+  transition: 3s;
+  text-align: center; 
+  cursor: pointer;
+}
+
+.worldbgedit {
+  position: relative;
+  top: 60%;
+  right: 100%;
+  width: 200%;
+  height: 1500%;
+  background-color: #fcf7d6;
+  z-index: 1000;
+  transition: 0.6s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0);
+  border-radius: 10px;
+  
+  
+}
+
+.worldbgedit.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.editbgmenu {
+  width: 80%;
+  height: 20%;
+  margin: 5% 5%;
+  background-color: rgb(255, 255, 255);
+  transition: 0.5s;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+}
+
+.editbgmenu img{
+  width: 100%;
+}
+
+.editbginput {
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  width: 100%;
+}
+
+.editbginput:hover {
+  background-color: lightcoral;
+}
+
+.checked {
+  background-color: grey;
+  opacity: 0.6;
+}
+
+.bgsubmitBtn {
+  background: #FCE73C;
+  font-family: 'SUIT-Regular';
+  position: absolute;
+  width: 100%;
+  height: 130%;
+  top: 420px;
+  right: 10px;
+  height: 130%;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 1rem;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+}
+
+.bgsubmitBtn:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.bgsubmitBtn:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
+}
+
+
+#image { 
+  display: none;
+}

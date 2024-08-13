@@ -2,6 +2,7 @@
   margin-top: 2%;
   height: 80%;
   display: flex;
+  background-image: url('../../../../public/img/home/back.png');
   flex-wrap: wrap;
   justify-content: center;
 }

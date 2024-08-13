@@ -1,44 +1,27 @@
-import { useState, useRef } from 'react';
-import './css/SnsDetail.css';
+import { useRef, useEffect } from 'react';
+import { useParams,useLocation,useNavigate  } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Card from '../Common/Card';
 import Community from './Community';
+import './css/SnsDetail.css';
 
-// eslint-disable-next-line react/prop-types
-function SnsDetail({ num, toggleModal }) {
-  const [emojiCounts, setEmojiCounts] = useState([0, 0, 0, 0]);
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
-  const [comments, setComments] = useState([]);
+// function SnsDetail({ card, toggleModal }) {
+function SnsDetail({ toggleModal }) {
   const modalRef = useRef(null);
+  const { storybookId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const card = location.state?.card;
+  console.log('카드',card)
 
-  const handleEmojiClick = (index) => {
-    let newCounts = emojiCounts.map((count, i) => {
-      if (i === index) {
-        return selectedEmoji === i ? count - 1 : count + 1;
-      } else if (i === selectedEmoji) {
-        return count - 1;
-      }
-      return count;
-    });
-
-    setSelectedEmoji(selectedEmoji === index ? null : index);
-    setEmojiCounts(newCounts);
-
-    fetch("https://api/updateEmojiCounts", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emojiCounts: newCounts })
-    })
-    .then(response => response.json())
-    .then(data => console.log("DB Updated: ", data))
-    .catch(error => console.error('Error updating emoji counts:', error));
-  };
-
-  const handleAddComment = (newComment) => {
-    setComments(prevComments => [...prevComments, newComment]);
-  };
+  useEffect(() => {
+    // storybookId가 변경될 때마다 해당 카드를 찾아서 선택할 수 있습니다.
+    // 이 부분은 필요에 따라 구현하세요.
+  }, [storybookId]);
 
   const handleCloseClick = (e) => {
-    if (!modalRef.current.contains(e.target)) {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      navigate('/sns')
       toggleModal();
     }
   };
@@ -48,21 +31,15 @@ function SnsDetail({ num, toggleModal }) {
       <div className="modal-container">
         <div className="modal-backdrop" onClick={handleCloseClick}>
           <div className="modal-content" ref={modalRef}>
-            <button className="close-button" onClick={toggleModal}>✕</button>
+            {/* <button className="close-button" onClick={toggleModal}>✕</button> */}
+            <button className="close-button" onClick={() => navigate('/sns')}>✕</button>
             <div className="modal-body">
               <Card 
-                imageSrc="/path/to/image.png"
-                content={`미니카드 ${num}번의 상세 내용`}
-                tags={["미니카드", `${num}번`]}
+                card={card}
+                handleCardClick={() => {}}
               />
               <Community
-                profileImg="/path/to/profile.png"
-                nickname="핫겸"
-                date="2024-07-29"
-                comments={comments}
-                handleAddComment={handleAddComment}
-                emojiCounts={emojiCounts}
-                handleEmojiClick={handleEmojiClick}
+                card={card}
               />
             </div>
           </div>
@@ -71,5 +48,10 @@ function SnsDetail({ num, toggleModal }) {
     </div>
   );
 }
+
+SnsDetail.propTypes = {
+  card: PropTypes.object,
+  toggleModal: PropTypes.func.isRequired,
+};
 
 export default SnsDetail;

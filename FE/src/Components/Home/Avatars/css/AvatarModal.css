@@ -1,0 +1,64 @@
+.a-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  padding: 0% 0% 0% 0%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.a-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.a-modal-content .avatarinfo{
+  height: 40%;
+}
+
+.f-close-button {
+  position: absolute;
+  right: 32%;
+  bottom: 82%;
+  margin-top: 10px;
+  padding: 5px 10px;
+  width: 3%;
+  height: 5%;
+  font-size: 30px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.avatarlevel {
+  display: flex;
+  justify-content: space-around;
+}
+
+.level {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer; /* 레벨에 커서 추가 */
+  opacity: 0.5; /* 기본적으로 잠긴 상태 */
+}
+
+.level.unlocked {
+  opacity: 1; /* 열려 있는 레벨 */
+}
+
+.level.selected {
+  border: 2px solid blue; /* 선택된 레벨 강조 */
+}
