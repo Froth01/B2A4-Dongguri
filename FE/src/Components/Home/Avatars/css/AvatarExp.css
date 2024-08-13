@@ -10,7 +10,6 @@
   display: flex;
   flex-wrap: wrap;
   width: 45%;
-  
 }
 
 .book{
@@ -21,4 +20,22 @@
 .expdetail img {
   width: 100%;
   height: 100%;
+}
+
+/* 이름 클릭 유도 스타일 */
+.avatarlv.editable {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.avatarlv.editable:hover {
+  color: blue; /* 마우스를 올리면 색상이 변하며 클릭 유도 */
+}
+
+.avatarlv input {
+  font-size: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  background: none;
 }

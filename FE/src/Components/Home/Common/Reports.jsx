@@ -61,7 +61,7 @@ const Reports = ({ contentId, contentType, onRequestClose }) => {
           
             <legend>신고 유형</legend>
             {reportTypes.map((type) => (
-              <label key={type.value}>
+              <label className="r-label" key={type.value}>
                 <input
                   type="radio"
                   name="reportType"
@@ -74,7 +74,7 @@ const Reports = ({ contentId, contentType, onRequestClose }) => {
             ))}
           </fieldset>
 
-          <label>
+          <label className="r-label">
             신고 사유(필수):
             <input
               type="text"

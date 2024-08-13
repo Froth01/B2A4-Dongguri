@@ -55,7 +55,7 @@ const Card = ({ card, showMic = true }) => {
           )}
         </div>
         <AudioPlayModal 
-          audioSrc={card.voiceRecord}
+          audioSrc={card.voiceRecording}
           isOpen={isModalOpen}
           onClose={closeModal}
         />

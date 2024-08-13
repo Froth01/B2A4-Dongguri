@@ -1,6 +1,6 @@
 .avatarinfo {
-  width: 90vw;
-  height: 30vh;
+  width: 90%;
+  height: 30%;
   display: flex;
   flex-direction: column;
   margin: 3% 5% 1% 5%;

@@ -68,6 +68,9 @@ const searchSlice = createSlice({
     setPage(state, action) {  // 페이지 상태 업데이트
       state.page = action.payload;
     },
+    setResult(state, action) {  // 검색 결과 새로고침
+      state.search = action.payload;
+    },
     clearSearchResults(state) {  // 상태 초기화 액션 추가
       state.keyword='';
       state.userId='';
@@ -103,7 +106,6 @@ const searchSlice = createSlice({
       })
       .addCase(fetchUserResultsThunk.fulfilled, (state, action) => {
         state.loading = false;
-        // 새로 변경
         state.userResults = action.payload;
       })
       .addCase(fetchUserResultsThunk.rejected, (state, action) => {
@@ -126,12 +128,13 @@ const searchSlice = createSlice({
   },
 });
 
-export const { setKeyword, setUserId, setNickname, setSearchType, clearSearchResults } = searchSlice.actions;
+export const { setKeyword, setUserId, setNickname, setSearchType, setResult, clearSearchResults } = searchSlice.actions;
 
 // 동화
 export const selectKeyword = (state) => state.search.keyword;
 export const selectResults = (state) => state.search.results;
 export const selectPage = (state) => state.search.page;
+
 // 유저 id
 export const selectUserId = (state) => state.search.userId;
 export const selectUserResults = (state) => state.search.userResults;

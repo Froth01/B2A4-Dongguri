@@ -6,13 +6,13 @@ import { selectPathHistory } from "../../slices/pathHistorySlice"
 // import './css/StoryMode.css'
 
 function StoryMode() {
-  const makeStory = useSelector(selectMakeStory); 
-  const pathHistory = useSelector(selectPathHistory);
+  // const makeStory = useSelector(selectMakeStory); 
+  // const pathHistory = useSelector(selectPathHistory);
 
   return (
     <div className="page-container">
       <StoryModeBtn />
-      <div className="redux-state">
+      {/* <div className="redux-state">
         <h3>Redux State:</h3>
         <pre>{JSON.stringify(makeStory, null, 2)}</pre>
       </div>
@@ -22,7 +22,7 @@ function StoryMode() {
           {pathHistory.map((path, index) => (
             <li key={index}>{path}</li>
           ))}
-        </ul>
+        </ul> */}
 
     </div>
   )

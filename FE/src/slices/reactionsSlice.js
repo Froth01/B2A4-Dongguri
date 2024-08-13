@@ -10,11 +10,19 @@ export const likeStorybookThunk = createAsyncThunk(
   }
 );
 
+// export const unlikeStorybookThunk = createAsyncThunk(
+//   'reactions/unlikeStorybook',
+//   async ({storybookId, reactionType}) => {
+//     console.log('slice',storybookId, reactionType)
+//     const response = await unlikeStorybook(storybookId, reactionType);
+//     return response;
+//   }
+// );
 export const unlikeStorybookThunk = createAsyncThunk(
   'reactions/unlikeStorybook',
-  async ({storybookId, reactionType}) => {
-    console.log('slice',storybookId, reactionType)
-    const response = await unlikeStorybook({storybookId, reactionType});
+  async (data) => {
+    console.log('slice',data)
+    const response = await unlikeStorybook(data);
     return response;
   }
 );

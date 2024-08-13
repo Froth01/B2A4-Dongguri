@@ -1,14 +1,12 @@
+
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Guide from "../../Components/StoryBook/Common/Guide";
 import Card from "../../Components/Home/Common/Card";
 import "./css/StoryRecord.css";
 import RecordBtn from '../../Components/StoryBook/Common/RecordBtn';
-import { selectStorybook } from '../../slices/storyBookSlice';
-// import { fetchAudio } from '../../Api/api';
-// import { imgUpload } from '../../slices/imgSlice';
-import { fetchStoryBooks } from '../../Api/api';
-import { selectPathHistory } from '../../slices/pathHistorySlice'
+import { selectStorybook, fetchStoryBooksThunk } from '../../slices/storyBookSlice'; // Thunk 가져오기
+import { selectPathHistory } from '../../slices/pathHistorySlice';
 import { useNavigate } from 'react-router-dom';
 
 function StoryRecord() {
@@ -29,7 +27,6 @@ function StoryRecord() {
         const audioBlob = event.data;
         const url = URL.createObjectURL(audioBlob);
         setAudioUrl(url);
-        // console.log(audioBlob)
       };
       mediaRecorderRef.current.start();
       setIsRecording(true);
@@ -47,43 +44,39 @@ function StoryRecord() {
   const handleShowResults = async() => {
     console.log('결과 확인 중..')
     try {
-      // const pathHistory = useSelector(selectPathHistory);
       const isTodayKeyword = pathHistory.includes('/storybook/storytoday');
-      console.log('storybookData',storybookData)
-      // 동화 데이터를 준비합니다.
+      console.log('보낼 동화 데이터',storybookData);
+
+      // 동화 데이터를 스토어에서 가져와서 Thunk로 전달
       const formData = new FormData();
       formData.append('genre', storybookData.genre);
       formData.append('content', storybookData.content);
       formData.append('originalImageUrl', storybookData.originalImageUrl);
       formData.append('transformedImageUrl', storybookData.transformedImageUrl);
-      formData.append('voiceRecordingFile', storybookData.voiceRecordingFile.url);
+      formData.append('voiceRecordingUrl', storybookData.voiceRecordingFile.url);
       formData.append('isTodayKeyword', isTodayKeyword);
       storybookData.keywords.forEach((keywords, index) => {
         formData.append(`keywords[${index}]`, keywords);
       });
 
-      // 동화 데이터를 서버에 등록합니다.
-      const response = await fetchStoryBooks(formData);
-      console.log('동화 등록 완료:', response);
-      const storybookId = response.data.storybookId;
-      console.log('동화 id:', storybookId);
-      navigate(`/sns/${storybookId}`); // 응답을 받은 후에 페이지 이동
+      // Thunk 호출하여 동화 생성 및 페이지 이동
+      const resultAction = await dispatch(fetchStoryBooksThunk(formData));
+      if (fetchStoryBooksThunk.fulfilled.match(resultAction)) {
+        const storybook = resultAction.payload
+        const storybookId = resultAction.payload.storybookId;
+        console.log('동화 데이터',storybook)
+        console.log('동화 id:', storybookId);
+        navigate(`/sns/${storybookId}`, { state: { card: storybook }});
+      }
     } catch (error) {
-      console.error('API 요청 실패:', error);
+      console.error('동화 생성 실패:', error);
     }
-    console.log('Showing results...');
   };
 
   return (
     <div className='page-container record-wrapper'>
       <div className='record-left'>
         {storybookData && <Card card={storybookData} showMic={false} />}
-        {/* <Card card={{
-          content: "예시 컨텐츠",
-          keywords: ["tag1", "tag2", "tag3"],
-          transformImgUrl: "/path/to/transformed/image.jpg",
-          originalImgUrl: "/path/to/original/image.jpg"
-        }} showMic={false} /> */}
       </div>
       
       <div className='record-right'>
