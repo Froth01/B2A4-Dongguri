@@ -8,6 +8,7 @@ import com.B2A4.storybook.domain.reaction.domain.Reaction;
 import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
+import com.B2A4.storybook.domain.user.exception.DailyLimitException;
 import com.B2A4.storybook.global.database.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -49,6 +50,7 @@ public class User extends BaseEntity {
     private String email;
     private String nickname;
     private String profileImageUrl;
+    private int dailyLimitCount;
 
     @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Follow> followingList = new ArrayList<>();
@@ -60,12 +62,13 @@ public class User extends BaseEntity {
     private OauthServerType oauthServerType;
 
     @Builder
-    public User(String name, String email, String nickname, String profileImageUrl, OauthServerType oauthServerType) {
+    public User(String name, String email, String nickname, String profileImageUrl, OauthServerType oauthServerType, int dailyLimitCount) {
         this.name = name;
         this.email = email;
         this.nickname = nickname;
         this.profileImageUrl = profileImageUrl;
         this.oauthServerType = oauthServerType;
+        this.dailyLimitCount = dailyLimitCount;
     }
 
     public static User createUser(String name, String email, String nickname, String profileImageUrl, OauthServerType oauthServerType) {
@@ -75,6 +78,7 @@ public class User extends BaseEntity {
                 .nickname(nickname)
                 .profileImageUrl(profileImageUrl)
                 .oauthServerType(oauthServerType)
+                .dailyLimitCount(0)
                 .build();
     }
 
@@ -104,5 +108,19 @@ public class User extends BaseEntity {
 
     public int getFollowerCount() {
         return this.followingList.size();
+    }
+
+    public void resetDailyLimitCount() {
+        this.dailyLimitCount = 0;
+    }
+
+    public void checkDailyLimit() {
+        if (5 <= this.dailyLimitCount) {
+            throw DailyLimitException.EXCEPTION;
+        }
+    }
+
+    public void addDailyLimitCount() {
+        this.dailyLimitCount++;
     }
 }
