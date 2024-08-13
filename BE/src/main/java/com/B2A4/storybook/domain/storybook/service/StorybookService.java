@@ -13,6 +13,7 @@ import com.B2A4.storybook.domain.storybook.presentation.dto.request.TransformSto
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.StorybookResponse;
 import com.B2A4.storybook.domain.storybook.presentation.dto.response.TransformStorybookResponse;
 import com.B2A4.storybook.domain.user.domain.User;
+import com.B2A4.storybook.domain.user.presentation.dto.response.UserBasicProfileResponse;
 import com.B2A4.storybook.global.openapi.service.OpenAPIServiceUtils;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
@@ -81,7 +82,7 @@ public class StorybookService implements StorybookServiceUtils {
             keywordRepository.save(keywordEntity);
         }
 
-        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, true);
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, null, true);
     }
 
     @Override
@@ -95,7 +96,7 @@ public class StorybookService implements StorybookServiceUtils {
             keywords.add(keyword.getKeyword());
         }
 
-        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, isMine);
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, storybook.getUser().getUserInfo(), isMine);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class StorybookService implements StorybookServiceUtils {
         boolean isMine = user.equals(userUtils.getUserFromSecurityContext());
         for (Storybook storybook : storybooks) {
             List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
-            storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
+            storybookResponseList.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, storybook.getUser().getUserInfo(), isMine));
         }
 
         boolean hasNext = storybooks.hasNext();
@@ -135,7 +136,7 @@ public class StorybookService implements StorybookServiceUtils {
         for (Storybook storybook : storybookList) {
             List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
             boolean isMine = user.equals(storybook.getUser());
-            responseSet.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, isMine));
+            responseSet.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, storybook.getUser().getUserInfo(), isMine));
         }
 
         List<StorybookResponse> responseList = new ArrayList<>(responseSet);
