@@ -55,7 +55,10 @@ public enum ErrorCode {
     USER_DUPLICATION(409, "이미 가입된 사용자입니다."),
     REACTION_DUPLICATION(409, "이미 공감된 정보입니다"),
     FOLLOW_DUPLICATION(409, "이미 팔로우된 사용자입니다."),
-    MAX_STORY_LIMIT_EXCEEDED(409, "등록 가능한 이미지의 수를 초과했습니다."),
+
+    /* 429 요청 횟수 초과 */
+    DAILY_COUNT_LIMIT(429, "하루에 만들 수 있는 이미지의 수를 초과했습니다."),
+    MAX_STORY_LIMIT_EXCEEDED(429, "등록 가능한 이미지의 수를 초과했습니다."),
 
     /* 500 SERVER_ERROR */
     INTERNAL_SERVER_ERROR(500,"서버 에러"),
