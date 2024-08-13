@@ -36,6 +36,7 @@ const dummyComments = [
 ];
 
 const Community = ({ card }) => {
+    console.log('커뮤니티 card',card)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
