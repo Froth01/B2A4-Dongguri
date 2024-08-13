@@ -175,6 +175,14 @@
   margin-top: 10px;
 }
 
+.small {
+  height: 50%;
+}
+
+.smallLi {
+  height: 100% !important;
+}
+
 .popup-window li {
   height: 50%;
 }
@@ -202,6 +210,7 @@
   cursor: pointer;
   column-gap: var(--nav-button-distance);
 }
+
 
 .popup-window ul li:nth-child(1) svg,
 .popup-window ul li:nth-child(2) svg {
