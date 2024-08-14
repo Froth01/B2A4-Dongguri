@@ -11,10 +11,12 @@ function MyWorldBackgroundUpdate() {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [selectedBack, setSelectedBack] = useState('WOODS')
   const [imgUrlBack, setImgUrlBack] = useState(null)
+  const [preview, setPreview] = useState(null);
 
   useEffect (() => {
     const gaveList = worldInfo.storybooks
     const resultList = []
+    
     gaveList.forEach(storybook => resultList.push(storybook.storybookId));
     setStorybookIdList(resultList)
   },[worldInfo])
@@ -43,6 +45,7 @@ function MyWorldBackgroundUpdate() {
         setSelectedBack('CUSTOM')
         const resultAction = await dispatch(imgUpload(file))
         setImgUrlBack(resultAction.payload)
+        setPreview(resultAction.payload);
       } catch (error) {
         console.log(error)
       }
@@ -88,11 +91,13 @@ function MyWorldBackgroundUpdate() {
           </div>
           <div className='editbgmenu'>
             <label htmlFor="image">
+              {preview ? <img src={preview} alt="프로필 미리보기" />: null}
               <div className='editbginput'>나만의 배경</div>
             </label>
             <input type="file" name="image" id="image"  onChange={handleMenuChange} />
           </div>
         </div>)}
+      
       {isEditOpen && (
         <div className="bgsubmitBtn" onClick={handleSubmit}>
             적용하기

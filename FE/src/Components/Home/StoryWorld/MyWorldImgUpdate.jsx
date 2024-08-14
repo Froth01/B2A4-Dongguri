@@ -59,7 +59,9 @@ function MyWorldImgUpdate({myCardList}) {
 
   return (
     <div className='myworldimgupdate' onClick={EditClick}>
+      <div className='myworldbgupdatebtn'>
       동화 수정
+      </div>
       {isEditOpen && (
         <div className={`worldimgedit ${isEditOpen ? 'show' : ''}`}>
           {myCardList.map(storybook => (

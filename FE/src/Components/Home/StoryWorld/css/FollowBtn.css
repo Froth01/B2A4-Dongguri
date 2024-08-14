@@ -1,4 +1,41 @@
-.followbtn { 
+.followbtndiv { 
+  width: 9%;
+  height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.followbtn {
+  background: #FCE73C;
+  font-family: 'SUIT-Regular';
+  height: 45%;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+}
+
+.followed {
+  background: #0A81FF;
+  color: white;
+}
+
+.followed:hover{
+  background-color: #ff4133;
+  content: '팔로우 취소';
+}
+
+
+.followbtn:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.followbtn:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
 }

@@ -50,9 +50,10 @@ function StoryWorld() {
       } catch (error) {
         error => {throw error;};
       }
+      
     }
       fetchData();
-    }, []);
+    }, [userId]);
 
     console.log('받은 카드리스트 스토리월드에서 :', myCardList)
 

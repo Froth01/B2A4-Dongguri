@@ -51,10 +51,13 @@
 } 
 
 .action-button {
+  background-color: transparent;
   flex: 3;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding-right: 2%;
+  gap: 6%;
 }
 
 .comments-section {
@@ -183,4 +186,11 @@
 .comments-list::-webkit-scrollbar-thumb:hover {
   /* background-color: rgb(255, 236, 190); */
   background-color: #bbb;
+}
+
+.report-button, 
+.delete-button{
+  background-color: transparent;
+  border: none;
+  height: 50%;
 }

@@ -14,8 +14,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
   cursor: pointer;
+  border-radius: 20px;
   transition: opacity 0.3s ease;
 }
 
@@ -23,11 +23,21 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 20px;
   display: block;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.1);
 }
 
 .minicard:hover .minicardimg {
   opacity: 0.7;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+.minicard:active .minicardimg {
+  opacity: 0.7;
+  transform: scale(0.9);
+  transition: 0.2s;
 }
 
 .hash-container {
@@ -35,7 +45,7 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 
 .hash {

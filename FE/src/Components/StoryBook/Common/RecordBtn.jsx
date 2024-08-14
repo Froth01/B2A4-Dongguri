@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import AudioPlayModal from './AudioPlayModal';
 import './css/RecordBtn.css';  // CSS 스타일
 import { fetchAudioUrl } from '../../../Api/api';
-// import { audioUpload } from '../../../slices/audioSlice';
 import { setVoiceRecordingFile } from '../../../slices/storyBookSlice';
 import { useDispatch, useSelector } from 'react-redux';
-// import { selectStorybook } from '../../../slices/storyBookSlice';
 import { selectVoiceRecordingFile } from '../../../slices/storyBookSlice';
+import Listen from '/img/storybook/storyrecord/Listen2.png'
+import Listening from '/img/storybook/storyrecord/Listening.png'
+import Record from '/img/storybook/storyrecord/Record.png'
+import Recording from '/img/storybook/storyrecord/Recording.png'
+import Result from '/img/storybook/storyrecord/Result.png'
+
 
 function RecordBtn({ onRecord, isRecording, onShowResults }) {
   const [audioSrc, setAudioSrc] = useState('');
@@ -80,14 +84,14 @@ function RecordBtn({ onRecord, isRecording, onShowResults }) {
   return (
     <div className="record-controls">
       <button onClick={isRecording ? stopRecording : startRecording} className="record-button">
-        <img src={isRecording ? "/img/sns/like.png" : "/img/sns/fun.png"} alt={isRecording ? "녹음 중지" : "녹음 시작"} />
+        <img src={isRecording ? Recording : Record} alt={isRecording ? "녹음 중지" : "녹음 시작"} />
       </button>
       {/* <button onClick={handlePlayClick} className={`play-button ${!hasRecorded || isRecording ? 'disabled' : ''}`} disabled={!hasRecorded || isRecording}> */}
       <button onClick={handlePlayClick} className={`play-button ${!audioSrc|| isRecording ? 'disabled' : ''}`} disabled={!audioSrc || isRecording}>
-        <img src="/img/sns/cool.png" alt="녹음 듣기" />
+        <img src={Listen} alt="녹음 듣기" />
       </button>
       <button onClick={onShowResults} className={`results-button ${!audioSrc || isRecording ? 'disabled' : ''}`} disabled={!audioSrc || isRecording}>
-        <img src="/img/sns/good.png" alt="결과보기" />
+        <img src={Result} alt="결과보기" />
       </button>
       <AudioPlayModal audioSrc={audioSrc} isOpen={showPlayer} onClose={() => setShowPlayer(false)} />
     </div>

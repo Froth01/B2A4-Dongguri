@@ -17,6 +17,7 @@ function CircleBtn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // 컴포넌트 내 로딩 상태 관리
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const handleTransformTypeClick = async (transfromType, to) => {
     dispatch(setTransformType(transfromType));
@@ -75,19 +76,17 @@ function CircleBtn() {
   return (
     <div className="circlebtn">
       <LoadingModal isOpen={loading} /> {/* 로딩 모달 추가 */}
-      {circleBtnList.map(([src, alt, to, transfromType], index) => (
-        <div key={index} onClick={() => handleTransformTypeClick(transfromType, to)} className="circle-link">
-          <img src={src} alt={alt} />
+      {circleBtnList.map(([images, alt, to, transfromType], index) => (
+        <div 
+          key={index} 
+          onClick={() => handleTransformTypeClick(transfromType, to)} 
+          className="circle-link"
+          onMouseEnter={() => setHoveredIndex(index)} // hover 상태 설정
+          onMouseLeave={() => setHoveredIndex(null)}  // hover 상태 해제
+        >
+          <img src={hoveredIndex === index ? images[1] : images[0]} alt={alt} />
         </div>
       ))}
-
-         {/* <ul>
-          {pathHistory.map((path, index) => (
-            <li key={index}>{path}</li>
-          ))}
-        </ul>
- */}
-
     </div>
   );
 }
