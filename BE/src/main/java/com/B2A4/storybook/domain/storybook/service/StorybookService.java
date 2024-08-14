@@ -4,6 +4,9 @@ import com.B2A4.storybook.domain.avatar.service.AvatarServiceUtils;
 import com.B2A4.storybook.domain.keyword.domain.Keyword;
 import com.B2A4.storybook.domain.keyword.domain.repository.KeywordRepository;
 import com.B2A4.storybook.domain.reactionCount.service.ReactionCountServiceUtils;
+import com.B2A4.storybook.domain.storyWorld.domain.StoryWorld;
+import com.B2A4.storybook.domain.storyWorld.presentation.dto.response.StoryWorldResponse;
+import com.B2A4.storybook.domain.storyWorld.presentation.dto.response.StoryWorldStorybookResponse;
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.domain.repository.StorybookRepository;
 import com.B2A4.storybook.domain.storybook.exception.StorybookNotFoundException;
@@ -23,10 +26,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -165,6 +165,27 @@ public class StorybookService implements StorybookServiceUtils {
         Storybook storybook = queryStorybook(storybookId);
         storybook.validUserIsHost(user);
         storybookRepository.delete(storybook);
+    }
+
+    public StorybookResponse getRandomStorybook() {
+        List<Storybook> storybookList = storybookRepository.findAll();
+
+        if (storybookList.isEmpty()) {
+            return null;
+        }
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(storybookList.size());
+        Storybook storybook = storybookList.get(randomIndex);
+        User user = userUtils.getUserFromSecurityContext();
+        boolean isMine = user.equals(storybook.getUser());
+        List<String> keywords = new ArrayList<>();
+
+        for (Keyword keyword : storybook.getKeywords()) {
+            keywords.add(keyword.getKeyword());
+        }
+
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, storybook.getUser().getUserInfo(), isMine);
     }
 
     @Override
