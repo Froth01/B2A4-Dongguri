@@ -20,6 +20,24 @@ function Navbar() {
     console.log('현재 유저 아이디: ',currentUser.userId)
   },[currentUser.userId,dispatch]);
 
+  const burgerBlur = () => {
+    setTimeout(() => {
+      const checkbox = document.querySelector('.popup input');
+      if (checkbox) {
+        checkbox.checked = false; // checked 속성을 false로 설정하여 닫기
+      }
+    }, 100); // 링크 이동 후 체크박스 해제
+  };
+
+  const handleLinkClick = () => {
+    setTimeout(() => {
+      const checkbox = document.querySelector('.popup input');
+      if (checkbox) {
+        checkbox.checked = false; // 링크 클릭 후 popup을 닫기
+      }
+    }, 100); // 링크 이동 후 체크박스 해제
+  };
+
   return (
     <div className='navbar'>
       <div className='logo pulse-shrink'>
@@ -37,13 +55,13 @@ function Navbar() {
       <div className='userimgdiv'>
       <label className="popup">
         <input type="checkbox" />
-        <div tabIndex="0" className="burger">
+        <div tabIndex="0" className="burger" onBlur={burgerBlur}>
           <UserImg userInfo={currentUser}/>
         </div>
         {currentUser.userId != 0 && <nav className={popupClass}>
           <ul>
             <li>
-              <Link to={`/users/${currentUser.userId}`}>
+              <Link to={`/users/${currentUser.userId}`} onClick={handleLinkClick}>
                 <button>
                   프로필 변경
                 </button>
@@ -60,7 +78,7 @@ function Navbar() {
         </nav>}
         {currentUser.userId===0 && <nav className={popupClass}>
           <ul>
-            <li className={popupLiClass}>  
+            <li className={popupLiClass} onClick={handleLinkClick}>  
               <Link to={'/login'}>
               <button>
                 로그인
