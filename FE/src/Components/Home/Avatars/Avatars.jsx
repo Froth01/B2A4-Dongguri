@@ -16,15 +16,10 @@ function Avatars() {
         setRefresh(!refresh)
     }
 
-  useEffect(() => {
-    GetAndSetRepresentative();
-  }
- ,[dispatch]);
-
-  useEffect(() => {
-    console.log('결과대표동그리: ', representative);
-    }, [representative]);
-
+//   useEffect(() => {
+//     GetAndSetRepresentative();
+//   }
+//  ,[dispatch]);
   
   return (
     <div className='avatars'>

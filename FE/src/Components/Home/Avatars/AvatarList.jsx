@@ -50,7 +50,7 @@ function AvatarList({ onNameChange, onRepChange, refresh }) {
   }
   useEffect(() => {
     refreshAvatarList();
-  }, [dispatch, currentUser, refresh]);
+  }, [refresh]);
 
   useEffect(() => {
     // onNameChange가 호출되면 아바타 목록을 새로고침합니다.

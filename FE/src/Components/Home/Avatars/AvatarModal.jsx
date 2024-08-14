@@ -53,7 +53,7 @@ function AvatarModal({ isOpen, onClose, avatar, onNameChange, onRepChange }) {
 
   if (!isOpen) return null;
 
-  console.log('모달로 받은 아바타정보 :',avatar)
+
 
   return (
     <div className="a-modal-overlay" onClick={() => onClose()}>
