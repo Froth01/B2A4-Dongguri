@@ -23,6 +23,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,9 +95,14 @@ public class StorybookService implements StorybookServiceUtils {
 
     @Override
     public StorybookResponse getStorybook(Long storybookId) {
-        User user = userUtils.getUserFromSecurityContext();
         Storybook storybook = queryStorybook(storybookId);
-        boolean isMine = user.equals(storybook.getUser());
+        boolean isMine = true;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ("anonymousUser".equals(authentication.getPrincipal()) || !userUtils.getUserFromSecurityContext().equals(storybook.getUser())) {
+            isMine = false;
+        }
 
         List<String> keywords = new ArrayList<>();
         for (Keyword keyword : storybook.getKeywords()) {
