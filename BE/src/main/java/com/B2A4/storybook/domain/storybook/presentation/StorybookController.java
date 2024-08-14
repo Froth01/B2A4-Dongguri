@@ -55,4 +55,10 @@ public class StorybookController {
     public void deleteStorybook(@PathVariable long storybookId) {
         storybookService.deleteStorybook(storybookId);
     }
+
+    @Operation(summary = "동화 삭제")
+    @GetMapping("/random")
+    public StorybookResponse getRandomStorybook() {
+        return storybookService.getRandomStorybook();
+    }
 }
