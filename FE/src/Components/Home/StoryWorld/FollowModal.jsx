@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DeleteFollow, getFollowList } from '../../../slices/followSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 
 function FollowModal({ isOpen, onClose, type}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [users, setUsers] = useState([])
   const [page, setPage] = useState(0)
   const [isLast, setIsLast] = useState(false)
@@ -61,7 +63,6 @@ function FollowModal({ isOpen, onClose, type}) {
         setLoading(false);
         } else {
           setLoading(false);
-          alert('더이상 정보가 없습니다!')
         }
       }
     };
@@ -71,6 +72,11 @@ function FollowModal({ isOpen, onClose, type}) {
     console.log('유저스 최신화버젼: ', users)
     return () => modalContent.removeEventListener('scroll', handleScroll);
   }, [currentUser.userId, type, users, page, loading]);
+
+  const linkToUser = (user) => {
+    console.log('이동합니데이', user.userId)
+    navigate(`/storyworld/${user.userId}`,  { state: { user } })
+  } 
 
   const toggleFollow = async (target) => {
     const updatedUsers = await dispatch(DeleteFollow(target.followId)).unwrap();
@@ -85,7 +91,7 @@ function FollowModal({ isOpen, onClose, type}) {
         <h2>{type === 'follower' ? '팔로워' : '팔로우'}</h2>
         <ul className="user-list">
           {users.map(user => (
-            <li key={user.userId} className="user-item">
+            <li key={user.userId} className="user-item" onClick={()=>linkToUser(user)}>
               <img src={user.profileImageUrl !== null ? user.profileImageUrl : '/img/home/userdefault.png'} alt={user.nickname} className="user-avatar" />
               <span className="user-name">{user.nickname}</span>
               {type === 'follower' && user.userId !== currentUser.userId && (

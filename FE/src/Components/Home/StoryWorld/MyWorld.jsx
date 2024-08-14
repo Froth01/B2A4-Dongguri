@@ -7,6 +7,7 @@ import MyWorldBackgroundUpdate from './MyWorldBackgroundUpdate';
 import MyWorldImgUpdate from './MyWorldImgUpdate';
 
   function MyWorld({myCardList}) {
+    const currentUser = useSelector(state => state.auth.object)
     const userInfo = useSelector(state => state.userInfo.object)
     const dispatch = useDispatch();
     const worldInfo = useSelector(state => state.worldInfo.object)
@@ -68,8 +69,10 @@ import MyWorldImgUpdate from './MyWorldImgUpdate';
 
   return (
     <div className="myworld" style={{backgroundImage : `url(${backgroundUrl})`}} ref={myWorldRef}>
-      <MyWorldBackgroundUpdate />
-      <MyWorldImgUpdate myCardList={myCardList}/>
+      {currentUser.userId === userInfo.userId ?
+      <MyWorldBackgroundUpdate /> : null}
+      {currentUser.userId === userInfo.userId ?
+      <MyWorldImgUpdate myCardList={myCardList}/> : null}
       {storybooks.map(card => (
         <img key={card.storybookId} src={card.transparentImageUrl} className="floating-image" alt={card.storybookId} />
       ))}
