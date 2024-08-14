@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import Share from '/img/sns/Share.png'
+import './css/ShareButton.css'
 const KakaoShareButton = ({ card }) => {
   console.log('공유', card);
 
@@ -67,7 +68,7 @@ const KakaoShareButton = ({ card }) => {
 
   return (
     <button id="kakaotalk-sharing-btn" className="share-button" onClick={handleShareClick}>
-      공유하기
+      <img src={Share} alt="" />
     </button>
   );
 };
