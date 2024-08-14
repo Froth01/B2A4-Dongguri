@@ -26,7 +26,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             MainException e, HttpServletRequest request) throws IOException {
 
         ErrorCode code = e.getErrorCode();
-        log.info("예외" + e.getMessage());
 
         ErrorResponse errorResponse =
                 new ErrorResponse(
@@ -57,8 +56,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private void sendSlackMessage(Exception e, ErrorCode errorCode) {
         HashMap<String, String> message = new HashMap<>();
-        message.put("에러 로그", e.getMessage());
-        log.info("에러 로그" + e.getMessage());
+        String errorMessage = e.getMessage() == null ? errorCode.getReason() : e.getMessage();
+        message.put("예외 로그", errorMessage);
+        log.info("예외 로그 : " + errorMessage);
         slackService.sendMessage(errorCode.getReason(), message);
     }
 }
