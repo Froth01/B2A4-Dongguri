@@ -75,7 +75,7 @@ function MyWorldBackgroundUpdate() {
       <div className='myworldbgupdatebtn'>
       배경 수정
       </div>
-      {isEditOpen && (
+      {isEditOpen &&  (
         <div className={`worldbgedit ${isEditOpen ? 'show' : ''}`}>
           <div className='editbgmenu' onClick={(e) => handleMenuSelect(e, 'WOODS')}>
             <img src="/img/storyworld/WOODS.jpg" alt="WOODS" />
