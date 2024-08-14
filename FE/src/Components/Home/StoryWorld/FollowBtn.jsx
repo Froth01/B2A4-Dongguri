@@ -23,6 +23,9 @@ function FollowBtn() {
   console.log(targetFollowId)
   
 
+  console.log('팔로우버튼 유저인포',userInfo)
+
+
   const handleFollowClick = async() => {
     if (userInfo.isFollow) {
       try {
