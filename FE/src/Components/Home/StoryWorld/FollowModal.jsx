@@ -75,9 +75,10 @@ function FollowModal({ isOpen, onClose, type}) {
   }, [currentUser.userId, type, users, page, loading]);
 
   const linkToUser = (userId) => {
+    console.log('이동합니데이', userId)
     navigate(`/storyworld/${userId}`)
   } 
-  
+
   const toggleFollow = async (target) => {
     const updatedUsers = await dispatch(DeleteFollow(target.followId)).unwrap();
     setUsers(updatedUsers);
@@ -91,7 +92,7 @@ function FollowModal({ isOpen, onClose, type}) {
         <h2>{type === 'follower' ? '팔로워' : '팔로우'}</h2>
         <ul className="user-list">
           {users.map(user => (
-            <li key={user.userId} className="user-item" onClick={linkToUser(user.userId)}>
+            <li key={user.userId} className="user-item" onClick={()=>linkToUser(user.userId)}>
               <img src={user.profileImageUrl !== null ? user.profileImageUrl : '/img/home/userdefault.png'} alt={user.nickname} className="user-avatar" />
               <span className="user-name">{user.nickname}</span>
               {type === 'follower' && user.userId !== currentUser.userId && (
