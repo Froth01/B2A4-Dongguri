@@ -24,18 +24,18 @@ function Navbar() {
     setTimeout(() => {
       const checkbox = document.querySelector('.popup input');
       if (checkbox) {
-        checkbox.checked = false; // checked 속성을 false로 설정하여 닫기
+        checkbox.checked = false; 
       }
-    }, 100); // 링크 이동 후 체크박스 해제
+    }, 100);
   };
 
   const handleLinkClick = () => {
     setTimeout(() => {
       const checkbox = document.querySelector('.popup input');
       if (checkbox) {
-        checkbox.checked = false; // 링크 클릭 후 popup을 닫기
+        checkbox.checked = false; 
       }
-    }, 100); // 링크 이동 후 체크박스 해제
+    }, 100);
   };
 
   return (
