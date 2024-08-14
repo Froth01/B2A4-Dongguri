@@ -1,0 +1,21 @@
+.kakaologin {
+ height: 50%;
+ background: none;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+.welcome {
+  height: 30%;
+  font-size: 2em;
+  margin-top: 6%;
+  font-family: 'MangoDdobak-B';
+}
+
+#kakao-login-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

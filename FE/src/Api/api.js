@@ -205,8 +205,13 @@ export const likeStorybook = (storybookId,reactionType) => {
 };
 
 // 공감 삭제
-export const unlikeStorybook = (storybookId,reactionType) => {
-  return axiosInstance.delete('/reactions',{storybookId,reactionType})
+// export const unlikeStorybook = (storybookId,reactionType) => {
+//   return axiosInstance.delete('/reactions',{storybookId,reactionType})
+//     .then(response => response.data)
+//     .catch(error => { throw error; });
+// };
+export const unlikeStorybook = (data) => {
+  return axiosInstance.delete('/reactions',{ data: data})
     .then(response => response.data)
     .catch(error => { throw error; });
 };
@@ -221,6 +226,29 @@ export const getStorybookReactions = (storybookId) => {
 };
 
 // 댓글 관련 API
+
+// 댓글 리스트 조회
+export const fetchComments = (storybookId, page) => {
+  return axiosInstance.get(`/comments/${storybookId}?page=${page}`)
+    .then(response => {
+      console.log("API Response:", response.data); // 응답 확인
+      // 응답 데이터에서 comment 필드를 content로 변경
+      const modifiedData = {
+        ...response.data,
+        data: {
+          ...response.data.data,
+          content: response.data.data.content.map(comment => ({
+            ...comment,
+            content: comment.comment // comment 필드를 content로 변경
+          }))
+        }
+      };
+
+      return modifiedData;
+    })
+    .catch(error => { throw error; });
+};
+
 // 댓글 달기
 export const postComment = (storybookId, content) => {
   return axiosInstance.post('/comments', { storybookId, content })
@@ -242,16 +270,11 @@ export const deleteComment = (commentId) => {
     .catch(error => { throw error; });
 };
 
-// 댓글 리스트 조회
-export const fetchComments = (storybookId) => {
-  return axiosInstance.get(`/comments/${storybookId}`)
-    .then(response => response.data)
-    .catch(error => { throw error; });
-};
-
 // 동화 삭제
 export const deleteStorybook = (storybookId) => {
-  return axiosInstance.delete(`/storybooks/${storybookId}`)
+  return axiosInstance.delete(`/storybooks/${storybookId}`,{
+    params: {storybookId}
+  })
     .then(response => response.data)
     .catch(error => { throw error; });
 };

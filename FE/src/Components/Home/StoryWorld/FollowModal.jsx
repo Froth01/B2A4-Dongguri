@@ -2,14 +2,42 @@ import PropTypes from 'prop-types';
 import './css/FollowModal.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFollowList } from '../../../slices/followSlice';
+import { DeleteFollow, getFollowList } from '../../../slices/followSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
-function FollowModal({ isOpen, onClose, type, userList }) {
+function FollowModal({ isOpen, onClose, type}) {
   const dispatch = useDispatch();
-  const [users, setUsers] = useState(userList)
+  const [users, setUsers] = useState([])
   const [page, setPage] = useState(0)
+  const [isLast, setIsLast] = useState(false)
   const [loading, setLoading] = useState(false)
   const currentUser = useSelector(state => state.auth.object)
+
+// 첫 비동기 팔로잉 목록 조회
+  const getFollowInfo = async(type) => {
+    try {
+      const followForm = {
+        type: type,
+        page: 0
+      }
+      const resultFollowAction = await dispatch(getFollowList(followForm));
+      const gaveList = unwrapResult(resultFollowAction);
+      return gaveList
+    } catch { 
+      error => console.log('getuser에러 :', error)
+    }
+  }
+
+  useEffect( () => {
+    async function fetchFitstGet () {
+    const gaveFollow = await getFollowInfo(type)
+    setUsers(gaveFollow.content)
+    setIsLast(gaveFollow.last)
+    }
+    fetchFitstGet();
+  },[])
+
+  
 
   useEffect(() => {
     const handleScroll = async () => {
@@ -23,11 +51,18 @@ function FollowModal({ isOpen, onClose, type, userList }) {
           type: type,
           page: page + 1
         }
-        const nextPageUsers = await dispatch(getFollowList(followForm)).unwrap();
-        setUsers(prevUsers => [...prevUsers, ...nextPageUsers[type]]);
+        if (!isLast) {
+        const resultNext = await dispatch(getFollowList(followForm)).unwrap();
+        const nextPageUsers = resultNext.content
+        setUsers(prevUsers => [...prevUsers, ...nextPageUsers]);
         console.log('유저스 최신화버젼: ', users)
+        setIsLast(resultNext.last)
         setPage(prevPage => prevPage + 1);
         setLoading(false);
+        } else {
+          setLoading(false);
+          alert('더이상 정보가 없습니다!')
+        }
       }
     };
 
@@ -35,16 +70,11 @@ function FollowModal({ isOpen, onClose, type, userList }) {
     modalContent.addEventListener('scroll', handleScroll);
     console.log('유저스 최신화버젼: ', users)
     return () => modalContent.removeEventListener('scroll', handleScroll);
-  }, [currentUser.userId, type, page, loading]);
+  }, [currentUser.userId, type, users, page, loading]);
 
-  const toggleFollow = (userId) => {
-    setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user.userId === userId
-          ? { ...user, isFollowing: !user.isFollowing }
-          : user
-      )
-    );
+  const toggleFollow = async (target) => {
+    const updatedUsers = await dispatch(DeleteFollow(target.followId)).unwrap();
+    setUsers(updatedUsers);
   };
   
   if (!isOpen) return null;
@@ -59,8 +89,8 @@ function FollowModal({ isOpen, onClose, type, userList }) {
               <img src={user.profileImageUrl !== null ? user.profileImageUrl : '/img/home/userdefault.png'} alt={user.nickname} className="user-avatar" />
               <span className="user-name">{user.nickname}</span>
               {type === 'follower' && user.userId !== currentUser.userId && (
-                <button className={`follow-button ${user.isFollowing ? 'following' : ''}`} onClick={() => toggleFollow(user.userId)}>
-                  <span className="follow-text">{user.isFollowing ? '팔로우 중' : '팔로우'}</span>
+                <button className={`follow-button ${user.isFollow ? 'following' : ''}`} onClick={() => toggleFollow(user)}>
+                  <span className="follow-text">{user.isFollow ? '팔로우 중' : '팔로우'}</span>
                   <span className="unfollow-text">언팔로우</span>
                 </button>
               )}

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   guides: {
     storyFree: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "안녕! 우리 재밌는 동화 만들어볼까? 뭐든 좋아!",
         ],
@@ -14,7 +14,7 @@ const initialState = {
           "안녕! 함께 동화 세계를 만들어볼래? 자유롭게 상상해보자!",
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "안녕하세요. 재미있는 동화를 만들어봐요?",
         ],
@@ -25,7 +25,7 @@ const initialState = {
           "안녕하세요. 우리만의 동화를 만들어봐요.",
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "안녕! 동화 만들고 싶니? 어떤 주제로 할까?"
         ],
@@ -36,7 +36,7 @@ const initialState = {
           "안녕! 우리 함께 멋진 동화를 만들어보자. 차근차근 생각해보자."
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "오늘 주제 정해서 동화 만들자! 뭐가 좋을까?"
         ],
@@ -47,7 +47,7 @@ const initialState = {
           "안녕~ 천천히 우리만의 동화를 만들어보자. 서두르지 말고!"
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "안녕! 우리 멋진 동화 만들어볼까? 신나게 시작하자!"
         ],
@@ -60,7 +60,7 @@ const initialState = {
       }
     },
     storyToday: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "오늘 주제로 동화 만들래?"
         ],
@@ -71,7 +71,7 @@ const initialState = {
           "안녕! 오늘의 주제로 멋진 동화를 만들어보자!"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "오늘의 주제로 동화를 만들어볼까요?"
         ],
@@ -82,7 +82,7 @@ const initialState = {
           "안녕하세요. 오늘의 주제로 멋진 동화를 만들어봐요."
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "안녕! 오늘 주제로 동화 만들어보자! 뭘로 할까?"
         ],
@@ -93,7 +93,7 @@ const initialState = {
           "안녕! 오늘의 주제로 멋진 동화를 만들어보자!"
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "안녕~ 오늘 주제로 동화 만들자! \n 뭐가 이야기가 좋을까?"
         ],
@@ -104,7 +104,7 @@ const initialState = {
           "안녕~ 오늘의 주제로 멋진 동화를 만들어보자!"
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "오늘의 주제로 신나게 동화를 만들어보자!"
         ],
@@ -117,7 +117,7 @@ const initialState = {
       }
     },
     storyImg: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "우와, 동화 만들려고? 그럼 이미지를 올려줘!"
         ],
@@ -128,7 +128,7 @@ const initialState = {
           "이미지를 올려서 멋진 동화를 만들어보자!"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "동화 만들기 전에 이미지를 올려주세요."
         ],
@@ -139,7 +139,7 @@ const initialState = {
           "동화를 위해 이미지를 업로드해줄래요?"
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "동화 만들기 전에 이미지를 올려줄래?"
         ],
@@ -150,7 +150,7 @@ const initialState = {
           "동화를 만들기 위해 이미지를 업로드해줘. 천천히 해도 괜찮아."
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "동화 만들기 전에 이미지를 올려줄래?"
         ],
@@ -161,7 +161,7 @@ const initialState = {
           "동화를 위해 이미지를 업로드해줘. 서두르지 말고 천천히!"
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "동화 만들기 전에 이미지를 올려줘!",
         ],
@@ -174,7 +174,7 @@ const initialState = {
       }
     },
     storyGenre: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "우리 동화는 어떤 이야기로 할까? 골라줘!"
         ],
@@ -185,7 +185,7 @@ const initialState = {
           "어떤 이야기의 동화를 원해? 선택해줘!"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "동화의 이야기를 선택해줄래요?"
         ],
@@ -196,7 +196,7 @@ const initialState = {
           "어떤 이야기의 동화를 만들고 싶나요?"
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "동화의 이야기를 정해줘. 어떤 게 좋을까?"
         ],
@@ -207,7 +207,7 @@ const initialState = {
           "어떤 이야기의 동화를 만들고 싶어? 골라줘!"
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "어떤 이야기로 동화를 만들고 싶어? 천천히 골라봐."
         ],
@@ -218,7 +218,7 @@ const initialState = {
           "어떤 이야기의 동화를 만들고 싶어? 천천히 골라봐!",
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "어떤 이야기의 동화를 만들고 싶어? 신나게 골라봐!"
         ],
@@ -231,7 +231,7 @@ const initialState = {
       }
     },
     storyKeyword: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "그림에 뭐가 있어? 설명해줘!"
         ],
@@ -242,7 +242,7 @@ const initialState = {
           "그림의 내용을 설명해줘!"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "그림에 뭐가 있는지 말해줄래?"
         ],
@@ -253,7 +253,7 @@ const initialState = {
           "그림에 대해 설명해주시겠어요?"
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "그림에 뭐가 있어? 잘 설명해줘!"
         ],
@@ -264,7 +264,7 @@ const initialState = {
           "그림에 대해 설명해줘! 자세히 들어볼게."
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "그림에 뭐가 있는지 말해줄래?"
         ],
@@ -275,7 +275,7 @@ const initialState = {
           "그림에 대해 설명해줄래? 천천히 생각해봐."
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "그림에 뭐가 있는지 말해줄래?"
         ],
@@ -288,7 +288,7 @@ const initialState = {
       }
     },
     storyImgSelect: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "그림을 귀엽게 할까, 아니면 사진처럼 할까?"
         ],
@@ -299,7 +299,7 @@ const initialState = {
           "귀엽게 할까, 사진처럼 할까?"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "귀엽게 할까요, 사진처럼 할까요?"
         ],
@@ -310,7 +310,7 @@ const initialState = {
           "그림을 귀엽게 할까요, 아니면 사진처럼 할까요?"
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "그림을 귀엽게 할까, 사진처럼 할까?",
         ],
@@ -321,7 +321,7 @@ const initialState = {
           "귀엽게 할까, 사진처럼 할까?"
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "그림을 귀엽게 할까, 아니면 사진처럼 할까?"
         ],
@@ -332,7 +332,7 @@ const initialState = {
           "귀엽게 할까, 사진처럼 할까?"
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "그림을 귀엽게 할까, 아니면 사진처럼 할까?"
         ],
@@ -345,7 +345,7 @@ const initialState = {
       }
     },
     storyEnd: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "이 동화 마음에 들어? 어때?"
         ],
@@ -356,7 +356,7 @@ const initialState = {
           "동화가 마음에 드시나요?"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "이 동화가 마음에 드나요? 어떻게 생각해요?",
           "이 카드가 마음에 드나요?"
@@ -368,7 +368,7 @@ const initialState = {
           "이 동화가 좋으신가요?"
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "동화 어때? 좋아?"
         ],
@@ -379,7 +379,7 @@ const initialState = {
           "동화 마음에 들어?"
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "동화 어때? 마음에 들어?",
         ],
@@ -390,7 +390,7 @@ const initialState = {
           "동화가가 마음에 들어? 한번 읽어봐!"
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "동화 어때? 마음에 들어?"
         ],
@@ -402,8 +402,8 @@ const initialState = {
         ]
       }
     },
-    storyRecode: {
-      geyomi: {
+    storyRecord: {
+      GYEOMI: {
         ONE: [
           "카드 보고 목소리로 동화를 녹음해봐!"
         ],
@@ -414,7 +414,7 @@ const initialState = {
           "카드 보고 동화를 녹음해봐!"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "카드 보고 동화 녹음해볼래요?"
         ],
@@ -425,7 +425,7 @@ const initialState = {
           "이 카드를 보고 동화를 녹음해보세요."
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "카드 보고 동화 녹음해봐!"
         ],
@@ -436,7 +436,7 @@ const initialState = {
           "카드 보고 동화를 녹음해봐. 천천히 해도 돼."
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "이 카드 보고 동화를 녹음해볼래?"
         ],
@@ -447,7 +447,7 @@ const initialState = {
           "이 카드를 보고 동화를 녹음해봐! 천천히 해도 괜찮아."
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "이 카드 보고 동화를 녹음해봐!"
         ],
@@ -460,7 +460,7 @@ const initialState = {
       }
     },
     avatar: {
-      geyomi: {
+      GYEOMI: {
         ONE: [
           "오늘도 신나게 놀아보자! 기대돼!"
         ],
@@ -471,7 +471,7 @@ const initialState = {
           "오늘도 멋진 동화를 만들어보자!"
         ]
       },
-      bini: {
+      BINI: {
         ONE: [
           "오늘도 재미있게 동화를 만들어봐요."
         ],
@@ -482,7 +482,7 @@ const initialState = {
           "오늘 기분은 어때요? 함께 동화를 만들어볼까요?"
         ]
       },
-      geoni: {
+      GEONI: {
         ONE: [
           "오늘 기분은 어때? 오늘도 재미있는 동화를 만들어볼까?"
         ],
@@ -493,7 +493,7 @@ const initialState = {
           "오늘도 함께 멋진 동화를 만들어보자."
         ]
       },
-      ili: {
+      ILI: {
         ONE: [
           "오늘도 재미있게 동화를 만들어보자."
         ],
@@ -504,7 +504,7 @@ const initialState = {
           "오늘은 우리 어떤 동화를 만들어 볼까?"
         ]
       },
-      minni: {
+      MINI: {
         ONE: [
           "오늘 기분은 어때? 오늘도 신나게 놀아보자!"
         ],
