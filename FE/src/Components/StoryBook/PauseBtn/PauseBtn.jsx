@@ -7,9 +7,9 @@ function PauseBtn() {
   
   return (
     <div className='pausebtn'>
-        <button onClick={()=>{setModal(true)}}>
+        <div onClick={()=>{setModal(true)}}>
           <img src="/img/storybook/pausebtn/PauseBtn.png" alt="일시정지" />
-        </button>
+        </div>
         {modal === true ? <Modal setModal={setModal}/> :null}
     </div>
   )

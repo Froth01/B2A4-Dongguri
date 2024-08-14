@@ -2,12 +2,33 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  width: 5%;
-  height: 5%;
+  width: 7%;
+  height: 7%;
   background-color: #FCE73C;
+  border: gray;
   transition: 3s;
   text-align: center; 
   cursor: pointer;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+}
+
+.myworldbgupdatebtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myworldbgupdatebtn:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.myworldbgupdatebtn:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
 }
 
 .worldbgedit {
@@ -17,7 +38,7 @@
   width: 200%;
   height: 1500%;
   background-color: #fcf7d6;
-  z-index: 1000;
+  z-index: 1500;
   transition: 0.6s;
   display: flex;
   flex-direction: column;

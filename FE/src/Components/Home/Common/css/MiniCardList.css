@@ -1,6 +1,14 @@
-.minicardlist {
+/* .minicardlist {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+} */
+
+.minicardlist {
+  width: 100%; /* 너비를 적절히 설정하여 중앙에 위치하게 함 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* 카드들이 왼쪽 정렬로 추가됨 */
+  /* overflow: scroll; */
 }

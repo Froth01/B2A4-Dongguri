@@ -1,56 +1,74 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import './css/CommentItem.css'
 
 const CommentItem = ({ comment, onUpdate, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(comment.content);
-    const [showActions, setShowActions] = useState(false); // 액션 메뉴를 표시할지 여부
+    const [showActions, setShowActions] = useState(false);
 
-    const handleEdit = () => {
+   // 댓글 수정 시작
+   const handleEdit = () => {
         setIsEditing(true);
-        setShowActions(false); // 편집을 시작하면 액션 메뉴 숨기기
+        setShowActions(false);
     };
 
+    // 댓글 수정 취소
     const handleCancel = () => {
         setIsEditing(false);
-        setEditText(comment.content); // 원래 내용으로 리셋
+        setEditText(comment.content);
     };
 
+    // 댓글 수정 저장
     const handleSave = () => {
-        onUpdate(comment.commentId, editText); // 부모 컴포넌트의 업데이트 함수 호출
+        if (editText.trim() === '') {
+            alert("내용을 입력하세요.");
+            return;
+        }
+        onUpdate(comment.commentId, editText);
         setIsEditing(false);
     };
 
+    // 댓글 신고
     const handleReport = () => {
-        // 신고하기 전에 사용자에게 확인
         if (window.confirm("이 댓글을 신고하시겠습니까?")) {
+            //신고처리 로직
         }
-        setShowActions(false); // 신고 후 액션 메뉴 숨기기
+        setShowActions(false);
     };
 
     const toggleActions = () => {
-        setShowActions(!showActions); // 액션 메뉴 표시/숨김 토글
+        setShowActions(!showActions);
     };
+
+    // 수정창
+    const textareaRef = useRef(null);
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+    }, [editText]);
 
     return (
         <div className="comment-item">
             <div className='comment-profile-img-container'>
-                <img src={comment.profileImgUrl} alt="Profile" className="comment-profile-img" />
+                <img src={comment.profileImageUrl} alt="Profile" className="comment-profile-img" />
             </div>
             <div className='comment-topic'>
                 <div className="comment-header">
-                    <div className="comment-user-id">{comment.userId}</div>
-                    <div className="comment-date">{new Date(comment.createdDate).toLocaleDateString()}</div>
+                    <div className="comment-user-id">{comment.nickname}</div>
+                    <div className="comment-date">{new Date(comment.created).toLocaleDateString()}</div>
                 </div>
                 <div className='comment-main'>
                     {isEditing ? (
                         <div className='comment-edit-container'>
-                            <input
-                                type="text"
+                            <textarea
+                                ref={textareaRef}
                                 value={editText}
                                 onChange={(e) => setEditText(e.target.value)}
-                                className="comment-edit-input"
+                                className="comment-edit-textarea"
+                                rows={1}
                             />
                             <div className='comment-edit-btn'>
                                 <button onClick={handleSave}>저장</button>
@@ -91,9 +109,9 @@ const CommentItem = ({ comment, onUpdate, onDelete }) => {
 
 CommentItem.propTypes = {
     comment: PropTypes.shape({
-        userId: PropTypes.number.isRequired,
-        profileImgUrl: PropTypes.string.isRequired,
-        createdDate: PropTypes.string.isRequired,
+        nickname: PropTypes.string.isRequired,
+        profileImageUrl: PropTypes.string.isRequired,
+        created: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
         commentId: PropTypes.number.isRequired,
         isMine: PropTypes.bool.isRequired,

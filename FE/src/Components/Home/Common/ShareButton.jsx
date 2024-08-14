@@ -35,6 +35,8 @@ const KakaoShareButton = ({ card }) => {
         : '#기본제목';  // 기본값에도 # 추가
 
       const imageUrl = card.originalImageUrl || 'https://example.com/default-image.png';  // 기본 이미지 설정
+      const shareUrl = `http://${window.location.origin}/sns/${card.storybookId}`
+      console.log('공유 링크',shareUrl)
 
       window.Kakao.Share.createDefaultButton({
         container: '#kakaotalk-sharing-btn',
@@ -44,14 +46,18 @@ const KakaoShareButton = ({ card }) => {
           description: '우리 아이가 만든 동화를 확인하세요!',
           imageUrl: imageUrl,
           link: {
-            webUrl: `https://i11b309.p.ssafy.io/api/sns/${card.storybookId}`,
+            // webUrl: `https://i11b309.p.ssafy.io/sns/${card.storybookId}`,
+            // webUrl: `https://localhost:5173/sns/${card.storybookId}`,
+            webUrl: shareUrl,
           },
         },
         buttons: [
           {
             title: '웹으로 보기',
             link: {
-              webUrl: `https://i11b309.p.ssafy.io/api/sns/${card.storybookId}`,
+              // webUrl: `https://i11b309.p.ssafy.io/sns/${card.storybookId}`,
+              // webUrl: `https://localhost:5173/sns/${card.storybookId}`,
+              webUrl: shareUrl,
             },
           },
         ],

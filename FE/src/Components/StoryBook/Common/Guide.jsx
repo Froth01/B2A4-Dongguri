@@ -9,14 +9,15 @@ import './css/Guide.css'
 const Guide = ({ page }) => {
   const dispatch = useDispatch();
   const representative = useSelector(selectRepresentative);
-
   const dialogs = useSelector(selectDialogs)
-
+  console.log(representative)
   useEffect(() => {
     dispatch(representativeApi());
   }, [dispatch]);
 
+  // data 추가함;
   const representImg = `/img/avatars/${representative.avatarType}_${representative.displayLevel}.png`
+
 
   const getDialogs = () => {
     if (
@@ -30,7 +31,8 @@ const Guide = ({ page }) => {
   };
 
   const dialogList = getDialogs();
-
+  console.log(dialogList)
+  
   return (
     <div className="guide-box">
       {page !== 'avatar' && (

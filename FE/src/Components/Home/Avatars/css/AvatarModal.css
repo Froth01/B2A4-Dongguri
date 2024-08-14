@@ -62,3 +62,18 @@
 .level.selected {
   border: 2px solid blue; /* 선택된 레벨 강조 */
 }
+
+.rep-avatar-submit {
+  position: absolute;
+  right: 27%;
+  bottom: 75%;
+  margin-top: 10px;
+  padding: 5px 10px;
+  width: 8%;
+  height: 5%;
+  font-size: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  cursor: pointer;
+}

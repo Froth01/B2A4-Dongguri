@@ -120,11 +120,19 @@
   overflow-y: auto;
   overflow-x: hidden;
   align-items: flex-start;
+  width: 100%;
 }
 
 .submit-comment-button {
   border: none;
   cursor: pointer;
+}
+
+.no-community-comment {
+  color: #aaa;
+  width: 100%;
+  text-align: center;
+  margin-top: 50%;
 }
 
 .emojis-section {

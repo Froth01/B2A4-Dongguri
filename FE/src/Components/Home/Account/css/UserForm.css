@@ -40,20 +40,21 @@
   transition: 0.3s;
 }
 
-.input {
+.nickinput {
   border-radius: 10px;
   outline: 4px solid #FCE73C;
   height: 40%;
+  width: 70%;
   border: 0;
   font-family: 'SUIT-Regular';
-  font-size: 17px;
+  font-size: 1em;
   background-color: #fffded;
   outline-offset: 3px;
   padding: 10px 1rem;
   transition: 0.25s;
 }
 
-.input:focus {
+.nickinput:focus {
   outline-offset: 5px;
   background-color: #fff
 }
@@ -61,24 +62,24 @@
 .nickname {
   font-family: 'SUIT-Regular';
   /* font-weight: bold; */
-  width: 60%;
+  width: 90%;
   height: 20%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
+.nicknamedetail{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .nickname label {
   font-size: 25px;
   height: 30%;
   letter-spacing: 2px;
-
-}
-
-.nickname input {
-  height: 30%;
-  font-weight: 400;
-  font-size: 20px;
 
 }
 
@@ -95,6 +96,15 @@
   cursor: pointer;
 }
 
+.nickbtn {
+  width: 20%;
+  height: 50%;
+  padding: 0.1em 1em !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .updatebtn:hover {
   transform: translate(-0.05em, -0.05em);
   box-shadow: 0.15em 0.15em;
@@ -103,4 +113,17 @@
 .updatebtn:active {
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.05em 0.05em;
+}
+
+.nickname-check-message {
+  height: 5%;
+  justify-self: start;
+}
+
+.userformbtn { 
+  width: 30% !important;
+}
+
+.userout {
+  background: #fc3c3c;
 }

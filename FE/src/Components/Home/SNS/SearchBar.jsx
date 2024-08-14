@@ -2,14 +2,17 @@
 import { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setKeyword, setSearchType, 
-  fetchSearchResultsThunk, fetchUserResultsThunk, fetchNicknameResultsThunk,
+  fetchSearchResultsThunk, fetchNicknameResultsThunk,
   selectSearchType } from '../../../slices/searchSlice';
 import './css/SearchBar.css';
+import PropTypes from 'prop-types'
 
-function SearchBar() {
+function SearchBar({searchEvent}) {
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
   const searchType = useSelector(selectSearchType);
+
+  const [page, setPage] = useState(0)
 
   useEffect(() => {
     // searchType이 변경될 때 입력값 초기화
@@ -21,19 +24,20 @@ function SearchBar() {
     setInputValue(e.target.value);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    setPage(0)
     console.log('searchBar inputValue:', inputValue);
     console.log('searchBar searchType:', searchType);
-    // dispatch(setKeyword(inputValue));
+    await dispatch(setKeyword(inputValue));
     if (searchType === 'storybook') {
-      dispatch(fetchSearchResultsThunk({
-        keyword: inputValue, page : 0 }))
+      await dispatch(fetchSearchResultsThunk({
+        keyword: inputValue, page : page }))
+        searchEvent('storybook');
         console.log('searchBar',inputValue)
-    } else if (searchType === 'user') {
-      dispatch(fetchUserResultsThunk(inputValue));
-    } else {
-      dispatch(fetchNicknameResultsThunk({
-        nickname: inputValue, page : 0 }))
+    } else if (searchType === 'nickname') {
+      await dispatch(fetchNicknameResultsThunk({
+        nickname: inputValue, page : page }))
+        searchEvent('nickname');
     }
   };
 
@@ -42,10 +46,15 @@ function SearchBar() {
     console.log('검색 타입 바뀜',searchType)
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   // const placeholderText = searchType === 'storybook' ? '동화를 입력해주세요!' : '아이디를 입력해주세요!';
   const placeholderText = {
-    storybook: '동화',
-    user: '아이디',
+    storybook: '키워드',
     nickname: '닉네임',
   };
 
@@ -54,7 +63,6 @@ function SearchBar() {
       <div className="search">
         <select className="search__type" onChange={handleTypeChange} value={searchType}>
           <option value="storybook">동화</option>
-          <option value="user">아이디</option>
           <option value="nickname">닉네임</option>
         </select>
         <input 
@@ -64,17 +72,17 @@ function SearchBar() {
           placeholder={`${placeholderText[searchType]}를 입력해주세요.`}
           value={inputValue}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
         <button className="search__button" onClick={handleSearch}>
-          <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
-            <g>
-              <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-            </g>
-          </svg>
+          <img src="/img/sns/search.png" alt="검색" className='search__icon'/>
         </button>
       </div>
     </div>
   );
 }
 
+SearchBar.propTypes = {
+  searchEvent: PropTypes.func.isRequired,
+}
 export default SearchBar;

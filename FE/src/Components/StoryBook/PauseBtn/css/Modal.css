@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
   z-index: 1000; /* 다른 요소들보다 위에 위치하도록 설정 */
   background-color: rgba(0, 0, 0, 0.685);
-  padding: 20px;
+  padding: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
