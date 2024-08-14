@@ -4,12 +4,14 @@
   align-items: center;
   justify-content: space-between;
   width: 40%;
+  height: 100%;
 }
 
 .expdetail {
   display: flex;
   flex-wrap: wrap;
-  width: 45%;
+  width: 60%;
+  height: 130%;
 }
 
 .book{
@@ -22,7 +24,24 @@
   height: 100%;
 }
 
+.avatarword {
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarword h3 {
+  font-size: 1.3em;
+  margin-top: 2%;
+}
+
 /* 이름 클릭 유도 스타일 */
+.avatarlv {
+  height: 30%;
+  font-size: 1.6em;
+}
+
 .avatarlv.editable {
   cursor: pointer;
   transition: color 0.3s ease;
