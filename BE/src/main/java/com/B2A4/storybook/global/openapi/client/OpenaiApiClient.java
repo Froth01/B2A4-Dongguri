@@ -16,7 +16,7 @@ public class OpenaiApiClient {
 
     public String sendMessageToImage(String prompt) {
         Map<String, Object> requestBody = Map.of(
-                "model", "dall-e-2",
+                "model", "dall-e-3",
                 "prompt", prompt,
                 "size", "1024x1024",
                 "quality", "standard",

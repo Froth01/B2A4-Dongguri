@@ -53,7 +53,7 @@ public class StorybookService implements StorybookServiceUtils {
 
         String content = openAPIServiceUtils.generateChatgpt(transformStorybookRequest);
         String prompt = openAPIServiceUtils.generateClaude(transformStorybookRequest);
-        String transformedImageUrl = openAPIServiceUtils.generateDalle(prompt);
+        String transformedImageUrl = openAPIServiceUtils.generateDalle(prompt, transformStorybookRequest.transformType());
 
         user.addDailyLimitCount();
 
