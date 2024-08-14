@@ -2,7 +2,21 @@
   height: 85%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.storyworld::-webkit-scrollbar {
+  width: 10px;  
+}
+
+.storyworld::-webkit-scrollbar-thumb {
+  background: #FCE73C; /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.storyworld::-webkit-scrollbar-track {
+  background: rgba(49, 45, 16, 0.342);  /*스크롤바 뒷 배경 색상*/
+  border-radius: 30px;
 }
 
 .myworlddiv {
@@ -14,10 +28,16 @@
 }
 
 .minicardlistdiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  margin: 3% 5%;
+  margin: 5% 5%;
 }
 
 .minicardlistdiv > h3 {
   height: 10%;
+  font-size: 3em;
+  margin-bottom: 2%;
 }

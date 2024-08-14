@@ -35,10 +35,8 @@ public class OpenAPIService implements OpenAPIServiceUtils {
 
     @Override
     public String generateClaude(TransformStorybookRequest transformStorybookRequest) {
-        String message = "What is in this image? keyword: " + transformStorybookRequest.keywords()
-                + ". 장르 : " + transformStorybookRequest.genre()
-                + ". 이미지 타입 : " + transformStorybookRequest.transformType()
-                + ". (message_content_max_length:600)";
+        String message = "keyword: " + transformStorybookRequest.keywords()
+                + "\n Analyze this image and describe its key elements, focusing on the subject, background, and any notable features. Please avoid referencing the materials used or making any assumptions about the drawing style. Provide an objective and neutral description within 500 characters.";
         String base64Image = fileUtils.encodeImageToBase64(transformStorybookRequest.originalImageUrl());
         String response = anthropicApiClient.sendMessageWithImage(message, base64Image);
         String prompt = null;
@@ -80,7 +78,8 @@ public class OpenAPIService implements OpenAPIServiceUtils {
     }
 
     @Override
-    public String generateDalle(String prompt) {
+    public String generateDalle(String prompt, String transformType) {
+        prompt = "image style : " + (transformType.equals("CUTE") ? "anime-style" : "3D Pixar Style Characters") + prompt;
         String response = openaiApiClient.sendMessageToImage(prompt);
         String responseImageUrl = null;
         try {
