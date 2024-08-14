@@ -1,9 +1,10 @@
 // import { useState } from 'react';
 import SignupForm from '../../Components/Home/Users/SignupForm'
+import './css/Signup.css'
 
 const Signup = () => {
   return (
-    <div>
+    <div className='signup'>
       <SignupForm />
     </div>
   );

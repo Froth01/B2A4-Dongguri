@@ -4,6 +4,7 @@ import { AddFollow, DeleteFollow } from '../../../slices/followSlice';
 import { useEffect, useState } from 'react';
 import { setUserObject } from '../../../slices/userInfoSlice';
 import { useLocation } from 'react-router-dom';
+import fetchFollowingInfo from '../Main'
 
 function FollowBtn() {
   const dispatch = useDispatch();
@@ -11,14 +12,16 @@ function FollowBtn() {
   const userInfo = useSelector(state => state.userInfo.object)
   const currentUser = useSelector(state => state.auth.object)
   const [hover, setHover] = useState(false)
-  const [followId, setFollowId] = useState(userInfo.followId)
-  const user = location.state?.user;
-
-  console.log('팔로우버튼 state로 온 유져', user)
-
+  const followIdList = useSelector(state => state.follow.list)
+  const targetFollowId = followIdList.filter(follow => follow.userId === userInfo.userId)
+  
   useEffect(() => {
-
-  },[userInfo])
+    
+  },[userInfo, followIdList])
+  console.log('리덕스저장 팔로아디', followIdList)
+  console.log('팔로우버튼 유저인포',userInfo)
+  console.log(targetFollowId)
+  
 
   console.log('팔로우버튼 유저인포',userInfo)
 
@@ -27,7 +30,7 @@ function FollowBtn() {
     if (userInfo.isFollow) {
       try {
 
-        await dispatch(DeleteFollow(user.followId))
+        await dispatch(DeleteFollow(targetFollowId[0].followId))
         if(userInfo.isFollow) {
           dispatch(setUserObject({...userInfo, isFollow: false}))
         }
@@ -38,7 +41,8 @@ function FollowBtn() {
     } else {
       try {
         const followUserInfo = await dispatch(AddFollow(userInfo.userId)).unwrap();
-        dispatch(setUserObject(followUserInfo))
+        await dispatch(setUserObject(followUserInfo))
+        fetchFollowingInfo();
       } catch {
         error => {throw error;};
       }
