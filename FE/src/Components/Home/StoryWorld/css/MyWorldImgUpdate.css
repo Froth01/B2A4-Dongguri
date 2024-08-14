@@ -96,5 +96,6 @@
 
 
 .checked {
+  border: 3px rgb(2, 85, 2) solid ;
   background-color: rgb(135, 207, 129);
 }
