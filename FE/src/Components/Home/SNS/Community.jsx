@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { removeStorybook } from '../../../slices/storyBookSlice';
 import PropTypes from 'prop-types';
 import './css/Community.css';
-import cool from '/img/sns/cool.png';
-import fun from '/img/sns/fun.png';
-import good from '/img/sns/good.png';
-import like from '/img/sns/like.png';
+import FUN from '/img/sns/FUN.png';
+import HAPPY from '/img/sns/HAPPY.png';
+import JOY from '/img/sns/JOY.png';
+import SAD from '/img/sns/SAD.png';
 import CommentItem from './CommentItem';
 import Reports from '../Common/Reports';
 import ShareButton from '../Common/ShareButton';
@@ -47,7 +47,7 @@ const Community = ({ card }) => {
 
     const keyword = useSelector(selectKeyword);
     const page = 0
-
+    
     useEffect(() => {
         if (!card) {
             navigate('/sns');
@@ -76,10 +76,10 @@ const Community = ({ card }) => {
  
     // 공감 상태
     const emojis = [
-        { img: cool, alt: 'FUN', reaction: funReaction, setReaction: setFUN },
-        { img: fun, alt: 'HAPPY', reaction: happyReaction, setReaction: setHAPPY },
-        { img: good, alt: 'SAD', reaction: sadReaction, setReaction: setSAD },
-        { img: like, alt: 'JOY', reaction: joyReaction, setReaction: setJOY }
+        { img: FUN, alt: '기뻐요', reaction: funReaction, setReaction: setFUN },
+        { img: HAPPY, alt: '행복해요', reaction: happyReaction, setReaction: setHAPPY },
+        { img: SAD, alt: '슬퍼요', reaction: sadReaction, setReaction: setSAD },
+        { img: JOY, alt: '즐거워요', reaction: joyReaction, setReaction: setJOY }
     ];
 
     // 공감 클릭
@@ -229,6 +229,7 @@ const Community = ({ card }) => {
                 {emojis.map((emoji, index) => (
                     <div key={index} className="emoji" onClick={() => handleEmojiClick(index)}>
                         <img src={emoji.img} alt={emoji.alt} />
+                        <p>{emoji.alt}</p>
                         <p>{emoji.reaction.count}</p>
                     </div>
                 ))}

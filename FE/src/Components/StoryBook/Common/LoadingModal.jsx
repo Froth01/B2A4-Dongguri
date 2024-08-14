@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import './css/LoadingModal.css';
 import PropTypes from 'prop-types'; 
 import { useEffect } from 'react';
+import LoadingGif from '/img/storybook/loading.gif'
+
 
 Modal.setAppElement('#root');
 
@@ -20,6 +22,7 @@ const LoadingModal = ({ isOpen }) => {
     >
       <div className="loading-content">
         <h2>로딩 중...</h2>
+        <img src={LoadingGif} alt="" />
         {/* 여기에 로딩 스피너 추가 가능 */}
       </div>
     </Modal>
