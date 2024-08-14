@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/file/**").permitAll()
                         .requestMatchers("/api/oauth/**").permitAll()
                         .requestMatchers("/api/users/signup").permitAll()
+                        .requestMatchers("/api/storybooks/**").permitAll()
                         .requestMatchers(SwaggerPatterns).permitAll()
                         .anyRequest().authenticated()
                 )
