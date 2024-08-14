@@ -61,6 +61,11 @@ const storyBookPersistConfig = {
 const searchPersistConfig = {
   key: 'search',
   storage
+};
+
+const followPersistConfig = {
+  key: 'following',
+  storage
 }
 
 
@@ -74,6 +79,7 @@ const persistedRepresentativeReducer = persistReducer(representativePersistConfi
 const persistedUserInfoReducer = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedStoryBookReducer = persistReducer(storyBookPersistConfig, storyBookReducer)
 const persistSearchReducer = persistReducer(searchPersistConfig, searchReducer )
+const persistFollowReducer = persistReducer(followPersistConfig, followReducer )
 // const persistSearchUserReducer = persistReducer(searchUserPersistConfig, searchUserReducer )
 // persist reducer 설정
 
@@ -91,7 +97,7 @@ const store = configureStore({
     pathHistory: persistedPathHistroyReducer,
     // makeStory: makeStoryReducer,
     image: imgReducer, 
-    follow: followReducer,
+    follow: persistFollowReducer,
     representative : persistedRepresentativeReducer,
     cardList: cardListReducer,
     worldInfo: worldInfoReducer,

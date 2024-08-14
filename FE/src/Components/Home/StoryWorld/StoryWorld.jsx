@@ -50,6 +50,7 @@ function StoryWorld() {
       } catch (error) {
         error => {throw error;};
       }
+      
     }
       fetchData();
     }, [userId]);
