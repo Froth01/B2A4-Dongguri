@@ -72,7 +72,9 @@ function MyWorldBackgroundUpdate() {
 
   return (
     <div className='myworldbgupdate' onClick={EditClick}>
+      <div className='myworldbgupdatebtn'>
       배경 수정
+      </div>
       {isEditOpen && (
         <div className={`worldbgedit ${isEditOpen ? 'show' : ''}`}>
           <div className='editbgmenu' onClick={(e) => handleMenuSelect(e, 'WOODS')}>

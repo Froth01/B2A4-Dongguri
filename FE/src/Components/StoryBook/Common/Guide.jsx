@@ -16,16 +16,16 @@ const Guide = ({ page }) => {
   }, [dispatch]);
 
   // data 추가함;
-  const representImg = `/img/avatars/${representative.data.avatarType}_${representative.data.displayLevel}.png`
+  const representImg = `/img/avatars/${representative.avatarType}_${representative.displayLevel}.png`
 
 
   const getDialogs = () => {
     if (
       dialogs[page] &&
-      dialogs[page][representative.data.avatarType] &&
-      dialogs[page][representative.data.avatarType][representative.data.displayLevel]
+      dialogs[page][representative.avatarType] &&
+      dialogs[page][representative.avatarType][representative.displayLevel]
     ) {
-      return dialogs[page][representative.data.avatarType][representative.data.displayLevel];
+      return dialogs[page][representative.avatarType][representative.displayLevel];
     }
     return [];
   };
