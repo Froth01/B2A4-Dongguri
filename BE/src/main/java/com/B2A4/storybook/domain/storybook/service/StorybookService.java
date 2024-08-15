@@ -184,15 +184,13 @@ public class StorybookService implements StorybookServiceUtils {
         Random random = new Random();
         int randomIndex = random.nextInt(storybookList.size());
         Storybook storybook = storybookList.get(randomIndex);
-        User user = userUtils.getUserFromSecurityContext();
-        boolean isMine = user.equals(storybook.getUser());
         List<String> keywords = new ArrayList<>();
 
         for (Keyword keyword : storybook.getKeywords()) {
             keywords.add(keyword.getKeyword());
         }
 
-        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, storybook.getUser().getUserInfo(), isMine);
+        return new StorybookResponse(storybook.getStorybookInfoVO(), keywords, storybook.getUser().getUserInfo(), false);
     }
 
     @Override
