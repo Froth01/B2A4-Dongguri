@@ -4,17 +4,16 @@
   margin: 3% 5% 0% 5%;
   display: flex;
   justify-content: center;
+  transition: none; /* 모든 전환 효과 제거 */
 }
-
 
 .search {
   position: relative;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
-  /* text-align: center; */
   width: 80%;
   height: 100%;
+  transition: none;
 }
 
 .search__type {
@@ -26,9 +25,8 @@
   background-color: #d3d3d3;
   position: absolute;
   font-size: 100%;
-  /* left: 100%; */
+  transition: none;
 }
-
 
 .search__input {
   position: relative;
@@ -38,22 +36,20 @@
   border: none;
   color: #646464;
   padding-left: 13%;
-  /* padding: 0.7rem 1rem; */
   border-radius: 35px;
   width: 100%;
   height: 100%;
-  transition: all ease-in-out .5s;
-  /* margin-right: -6%; */
-  /* margin-left: -10% */
+  transition: none; /* 모든 전환 효과 제거 */
 }
 
 .search__input:hover, .search__input:focus {
-  box-shadow: 0 0 1em #00000013;
+  box-shadow: none; /* Focus 시 그림자 효과 제거 */
+  background-color: #f4f2f2; /* Focus 시 배경색 변화 제거 */
+  transition: none;
 }
 
 .search__input:focus {
-  outline: none;
-  background-color: #f0eeee;
+  outline: none; /* 포커스시 기본 outline 제거 */
 }
 
 .search__input::-webkit-input-placeholder {
@@ -61,12 +57,6 @@
   font-weight: 100;
   font-size: 120%;
   left: 14%;
-  /* margin-left: 50%; */
-  color: #747272;
-}
-
-.search__input:focus + .search__button {
-  background-color: #f0eeee;
 }
 
 .search__button {
@@ -75,16 +65,19 @@
   top: 50%;
   transform: translateY(-50%); /* 버튼을 수직으로 가운데 정렬 */
   border: none;
-  background-color: transparent;
+  background-color: transparent; /* 배경색을 투명하게 설정 */
+  transition: none;
 }
 
-.search__button:hover {
+.search__button:hover, .search__button:focus {
   cursor: pointer;
+  background-color: transparent; /* Hover 시 배경색 변화 제거 */
+  box-shadow: none; /* Hover 시 그림자 효과 제거 */
+  transition: none; /* 모든 전환 효과 제거 */
 }
 
 .search__icon {
   height: 100%;
   width: 60%;
-  /* fill: #b4b4b4; */
-} 
-
+  transition: none;
+}
