@@ -37,9 +37,9 @@ const KakaoShareButton = ({ card }) => {
         : '#기본제목';  // 기본값에도 # 추가
 
       const imageUrl = card.originalImageUrl || 'https://example.com/default-image.png';  // 기본 이미지 설정
-      // const shareUrl = `${window.location.origin}/sns/${card.storybookId}`
+      const shareUrl = `${window.location.origin}/sns/${card.storybookId}`
       // console.log('공유하기로 보낼 스토리북 ID',card.object.storybookId)
-      const shareUrl = `https://localhost:5173/sns/${card.storybookId}`
+      // const shareUrl = `http://localhost:5173/sns/${card.storybookId}`
       console.log('공유 링크',shareUrl)
 
       window.Kakao.Share.createDefaultButton({
