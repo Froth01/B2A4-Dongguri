@@ -52,11 +52,12 @@ function Main() {
   },[currentUser.userId,dispatch]);
 
   useEffect(() => {
+    if (currentUser.userId !== 0) {
     if (infoResult.length > 0 && isLast) {
       dispatch(setFollowingList(infoResult));
     } else if (!isLast) {
       fetchFollowingInfo();
-    }
+    }}
   },[infoResult, isLast, dispatch]);
   return (
     <div className="main">

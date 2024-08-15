@@ -7,7 +7,12 @@
 }
 
 .record-left{
-  width: 50%;
+  display: flex; /* 내부 요소를 정렬하기 위해 flex 사용 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  width: 45%;
+  height: 100%;
+  background-color: rgb(255, 251, 241);
 }
 
 .record-right{

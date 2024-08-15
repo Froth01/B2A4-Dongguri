@@ -1,14 +1,26 @@
+.user-list {
+  height: 100%; /* 높이를 100%로 설정하여 부모 컨테이너의 전체 높이를 차지하게 함 */
+  width: 100%; /* 너비를 100%로 설정하여 중앙에 위치하게 함 */
+}
+
+.no-results {
+  text-align: center;
+  /* font-size: 1.5em; */
+  color: #555;
+  margin-top: 5%;
+}
+
 .user-card {
   display: flex;
   align-items: center;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 1% 0;
   background-color: #f9f9f9;
   transition: box-shadow 0.3s ease;
   flex-direction: row; /* 가로로 배치 */
-  height: 6%;
+  height: 13%;
 }
 
 .user-card:hover {
