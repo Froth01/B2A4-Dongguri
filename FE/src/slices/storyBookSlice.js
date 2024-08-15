@@ -114,6 +114,15 @@ export const removeStorybook = createAsyncThunk(
   }
 );
 
+// const initialState = {
+//   genre: "HAPPY",
+//   keywords: ['집', '기사', '', ''],
+//   content: '작은 마을에 사는 아동은 집 안 건너편의 숲을 탐험하다가 장난감 기사를 발견했다. 그 기사…아이의 용기를 칭찬했다. 아동과 기사는 집으로 돌아와 행복하게 보물 찾아 모험을 떠났다.',
+//   originalImageUrl: 'https://b2a4.s3.ap-northeast-2.amazonaws.com/afa99be1-caa8-4e19-9e15-73d49a9b3531.jpg',
+//   transformedImageUrl: 'https://b2a4.s3.ap-northeast-2.amazonaws.com/f8420cbc-d690-4243-b2cb-986bdf54c11d.jpg',
+//   voiceRecordingFile: 'https://b2a4.s3.ap-northeast-2.amazonaws.com/baddb2a5-e7db-4fa3-9459-4f00dd282923.mp',
+//   storybooks: [],  // 생성된 동화 리스트
+// };
 const initialState = {
   genre: '',
   keywords: ['', '', '', ''],
