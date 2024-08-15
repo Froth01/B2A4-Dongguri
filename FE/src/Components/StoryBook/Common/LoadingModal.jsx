@@ -1,17 +1,156 @@
-// import React from 'react';
+// // // import React from 'react';
+// // import Modal from 'react-modal';
+// // import './css/LoadingModal.css';
+// // import PropTypes from 'prop-types'; 
+// // import { useEffect,useState } from 'react';
+// // import LoadingGif from '/img/storybook/loading.gif'
+// // import { fetchRandomCard } from '../../../Api/api';
+// // import Card from '../../../Components/Home/Common/Card'
+
+// // Modal.setAppElement('#root');
+
+// // const LoadingModal = ({ isOpen }) => {
+// //   const [card, setCard] = useState(null);
+
+// //   useEffect(() => {
+// //     const randomCard = async () => {
+// //       try {
+// //         const Card = await fetchRandomCard(); // 랜덤 카드 데이터 가져오기
+// //         setCard(Card); // 상태에 카드 데이터 설정
+// //       } catch (error) {
+// //         console.error('랜덤 카드를 가져오는 중 오류 발생:', error);
+// //       }
+// //     };
+
+// //     if (isOpen) { // 모달이 열릴 때만 데이터를 가져옴
+// //       randomCard();
+// //     }
+
+// //     console.log('LoadingModal isOpen:', isOpen); // isOpen 상태를 콘솔에 출력
+// //   }, [isOpen]); // isOpen이 변경될 때마다 실행
+
+// //   return (
+// //     <Modal
+// //       isOpen={isOpen}
+// //       contentLabel="Loading"
+// //       className="loading-modal"
+// //       overlayClassName="loading-overlay"
+// //     >
+// //       <div className="loading-content">
+// //         <h2>로딩 중...</h2>
+// //         <img src={LoadingGif} alt="" />
+// //         <Card card={card} />
+// //         {/* 여기에 로딩 스피너 추가 가능 */}
+// //       </div>
+// //     </Modal>
+// //   );
+// // };
+
+// // LoadingModal.propTypes = {
+// //   isOpen: PropTypes.bool.isRequired // isOpen의 타입과 필수 여부 명시
+// // };
+
+// // export default LoadingModal;
+
+
+// import Modal from 'react-modal';
+// import './css/LoadingModal.css';
+// import PropTypes from 'prop-types'; 
+// import { useEffect, useState } from 'react';
+// import LoadingGif from '/img/storybook/loading.gif';
+// import { fetchRandomCard } from '../../../Api/api';
+// import Card from '../../../Components/Home/Common/Card'
+
+// Modal.setAppElement('#root');
+
+// const LoadingModal = ({ isOpen, message, onRequestClose }) => {
+//   const [card, setCard] = useState(null);
+
+//   useEffect(() => {
+//         const randomCard = async () => {
+//           try {
+//             const Card = await fetchRandomCard(); // 랜덤 카드 데이터 가져오기
+//             setCard(Card); // 상태에 카드 데이터 설정
+//           } catch (error) {
+//             console.error('랜덤 카드를 가져오는 중 오류 발생:', error);
+//           }
+//         };
+    
+//         if (isOpen) { // 모달이 열릴 때만 데이터를 가져옴
+//           randomCard();
+//         }
+    
+//         console.log('LoadingModal isOpen:', isOpen); // isOpen 상태를 콘솔에 출력
+//       }, [isOpen]); 
+
+//   return (
+//     <Modal
+//       isOpen={isOpen}
+//       contentLabel="Loading"
+//       className="loading-modal"
+//       overlayClassName="loading-overlay"
+//       onRequestClose={onRequestClose} // 모달이 닫힐 때 호출될 함수
+//     >
+//       <div className="loading-content">
+//         <button onClick={onRequestClose} className="modal-close-btn">동화 보러 가기</button> {/* x 버튼 추가 */}
+//         {message ? (
+//           <div>
+//             <h2>{message}</h2>
+//             <Card card={card} />
+//             </div>
+//         ) : (
+//           <div>
+//             <h2>동그리가 열심히 동화를 만드는 중입니다</h2>
+//             <h2>다른 친구의 동화도 구경해보세요!</h2>
+//             <img src={LoadingGif} alt="로딩 중" />
+//             <Card card={card} />
+//           </div>
+//         )}
+//       </div>
+//     </Modal>
+//   );
+// };
+
+// LoadingModal.propTypes = {
+//   isOpen: PropTypes.bool.isRequired, // isOpen의 타입과 필수 여부 명시
+//   message: PropTypes.string, // 메시지를 표시할 문자열 타입
+//   onRequestClose: PropTypes.func.isRequired, // 모달 닫기 함수
+// };
+
+// export default LoadingModal;
+
+
 import Modal from 'react-modal';
 import './css/LoadingModal.css';
-import PropTypes from 'prop-types'; 
-import { useEffect } from 'react';
-import LoadingGif from '/img/storybook/loading.gif'
-
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import LoadingGif from '/img/storybook/loading.gif';
+import { fetchRandomCard } from '../../../Api/api';
+import Card from '../../../Components/Home/Common/Card';
 
 Modal.setAppElement('#root');
 
-const LoadingModal = ({ isOpen }) => {
+const LoadingModal = ({ isOpen, message, onRequestClose }) => {
+  const [card, setCard] = useState(null);
+  const [loadingComplete, setLoadingComplete] = useState(false);
+
   useEffect(() => {
+    const randomCard = async () => {
+      try {
+        const fetchedCard = await fetchRandomCard(); // 랜덤 카드 데이터 가져오기
+        setCard(fetchedCard); // 상태에 카드 데이터 설정
+        setLoadingComplete(true); // 로딩 완료 상태로 설정
+      } catch (error) {
+        console.error('랜덤 카드를 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    if (isOpen) { // 모달이 열릴 때만 데이터를 가져옴
+      randomCard();
+    }
+
     console.log('LoadingModal isOpen:', isOpen); // isOpen 상태를 콘솔에 출력
-  }, [isOpen]); // isOpen이 변경될 때마다 실행
+  }, [isOpen]);
 
   return (
     <Modal
@@ -19,190 +158,43 @@ const LoadingModal = ({ isOpen }) => {
       contentLabel="Loading"
       className="loading-modal"
       overlayClassName="loading-overlay"
+      onRequestClose={onRequestClose} // 모달이 닫힐 때 호출될 함수
     >
       <div className="loading-content">
-        <h2>로딩 중...</h2>
-        <img src={LoadingGif} alt="" />
-        {/* 여기에 로딩 스피너 추가 가능 */}
+        <div className="content-left">
+          <Card card={card} />
+        </div>
+        <div className="content-right">
+          {message ? (
+            <div className='loading-text'>
+              <h2>{message}</h2>
+
+              <button onClick={onRequestClose} className="modal-close-btn">
+                동화 보러 가기
+              </button>
+            </div>
+          ) : (
+            <div className='loading-making-text'>
+              <h2>동그리가 열심히 동화를 만드는 중입니다</h2>
+              <h2>다른 친구의 동화도 구경해보세요!</h2>
+              <img src={LoadingGif} alt="로딩 중" />
+            </div>
+          )}
+          {/* {loadingComplete && (
+            <button onClick={onRequestClose} className="modal-close-btn">
+              동화 보러 가기
+            </button>
+          )} */}
+        </div>
       </div>
     </Modal>
   );
 };
 
 LoadingModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired // isOpen의 타입과 필수 여부 명시
+  isOpen: PropTypes.bool.isRequired, // isOpen의 타입과 필수 여부 명시
+  message: PropTypes.string, // 메시지를 표시할 문자열 타입
+  onRequestClose: PropTypes.func.isRequired, // 모달 닫기 함수
 };
 
 export default LoadingModal;
-
-
-// import React, { useEffect } from 'react';
-// import Modal from 'react-modal';
-// import PropTypes from 'prop-types'; 
-// import './css/LoadingModal.css';
-
-// Modal.setAppElement('#root');
-
-// const LoadingModal = ({ isOpen, onRequestClose }) => {
-//   useEffect(() => {
-//     console.log('LoadingModal isOpen:', isOpen);
-//     if (isOpen) {
-//       initGame();
-//     }
-//   }, [isOpen]);
-
-//   const initGame = () => {
-//     const canvas = document.getElementById("gameCanvas");
-    
-//     if (!canvas) {
-//       console.error("Canvas element not found!");
-//       return;
-//     }
-
-//     const ctx = canvas.getContext('2d');
-
-//     canvas.width = 400;
-//     canvas.height = 300;
-
-//     let dinoImg = new Image();
-//     let cactusImg = new Image();
-
-//     dinoImg.src = "/img/storybook/dino.png";
-//     cactusImg.src = "/img/storybook/cactus.png";
-
-//     // 이미지 로드 실패 시 대체 텍스트 표시
-//     dinoImg.onerror = () => {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         ctx.fillStyle = 'black';
-//         ctx.font = '20px Arial';
-//         ctx.fillText("공룡 이미지를 불러올 수 없습니다.", 10, 50);
-//     };
-
-//     cactusImg.onerror = () => {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         ctx.fillStyle = 'black';
-//         ctx.font = '20px Arial';
-//         ctx.fillText("선인장 이미지를 불러올 수 없습니다.", 10, 100);
-//     };
-
-//     // 이미지 로드 성공 시 게임 시작
-//     dinoImg.onload = () => {
-//       cactusImg.onload = () => {
-//         startGame(ctx, dinoImg, cactusImg);
-//       };
-//     };
-//   };
-
-//   const startGame = (ctx, dinoImg, cactusImg) => {
-//     let dino = {
-//       x: 10,
-//       y: 200,
-//       width: 25,
-//       height: 25,
-//       draw() {
-//         ctx.drawImage(dinoImg, this.x, this.y, this.width + 25, this.height + 25);
-//       }
-//     };
-
-//     class Cactus {
-//       constructor() {
-//         this.x = 400;
-//         this.y = 190;
-//         this.width = 25;
-//         this.height = 30;
-//       }
-
-//       draw() {
-//         ctx.drawImage(cactusImg, this.x, this.y, this.width + 25, this.height + 30);
-//       }
-//     }
-
-//     let timer = 0;
-//     let cactuses = [];
-//     let isJump = false;
-//     let jumpTimer = 0;
-//     let animation;
-
-//     function init() {
-//       animation = requestAnimationFrame(init);
-//       timer++;
-
-//       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-//       if (timer % 200 === 0) {
-//         let cactus = new Cactus();
-//         cactuses.push(cactus);
-//       }
-
-//       cactuses.forEach((cactus, i, o) => {
-//         if (cactus.x < 0) {
-//           o.splice(i, 1);
-//         }
-//         cactus.x -= 2;
-
-//         collisionDetect(dino, cactus);
-
-//         cactus.draw();
-//       });
-
-//       if (isJump) {
-//         dino.y -= 2;
-//         jumpTimer++;
-//       }
-
-//       if (!isJump) {
-//         if (dino.y < 200) {
-//           dino.y += 2;
-//         }
-//       }
-
-//       if (jumpTimer > 50) {
-//         isJump = false;
-//         jumpTimer = 0;
-//       }
-
-//       dino.draw();
-//     }
-
-//     function collisionDetect(dino, cactus) {
-//       let xDiff = cactus.x - (dino.x + dino.width);
-//       let yDiff = cactus.y - (dino.y + dino.height);
-
-//       if (xDiff < 0 && yDiff < 0) {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         cancelAnimationFrame(animation);
-//         onRequestClose(); // 게임이 끝나면 모달을 닫음
-//       }
-//     }
-
-//     document.addEventListener('keydown', function (e) {
-//       if (e.code === 'Space' && !isJump && dino.y === 200) {
-//         isJump = true;
-//       }
-//     });
-
-//     init();
-//   };
-
-//   return (
-//     <Modal
-//       isOpen={isOpen}
-//       onRequestClose={onRequestClose}
-//       contentLabel="Loading"
-//       className="loading-modal"
-//       overlayClassName="loading-overlay"
-//     >
-//       <div className="loading-content">
-//         <h2>로딩 중...</h2>
-//         <canvas id="gameCanvas"></canvas>
-//       </div>
-//     </Modal>
-//   );
-// };
-
-// LoadingModal.propTypes = {
-//   isOpen: PropTypes.bool.isRequired,
-//   onRequestClose: PropTypes.func.isRequired
-// };
-
-// export default LoadingModal;
