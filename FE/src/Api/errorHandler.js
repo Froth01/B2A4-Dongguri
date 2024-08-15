@@ -9,11 +9,11 @@ export const handleError = (error, navigate) => {
   console.log('에러 status',status)
   console.log('에러 errorCode',errorCode)
 
-  if (status === 401 || status === 403) {
-    alert('인증이 필요합니다. 로그인 페이지로 이동합니다.');
-    navigate('/login'); // 401이나 403 상태일 때 로그인 페이지로 리다이렉트
-    return;
-  }
+  // if (status === 401 || status === 403) {
+  //   alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
+  //   navigate('/login'); // 401이나 403 상태일 때 로그인 페이지로 리다이렉트
+  //   return;
+  // }
   
 
   if (status && errorCode) {
