@@ -18,7 +18,7 @@ const KakaoShareButton = ({ card }) => {
           script.onload = () => {
             if (window.Kakao && !window.Kakao.isInitialized()) {
               // window.Kakao.init('65c79327b948613354ca939c2c67db0f'); // JavaScript 키
-              window.Kakao.init('0536894c82d8dda2013ee7211364733a'); // (서버키)JavaScript 키
+              window.Kakao.init('72f3a79dc0f4715f7c74c8706bc085f5'); // (서버키)JavaScript 키
             }
             resolve();
           };
