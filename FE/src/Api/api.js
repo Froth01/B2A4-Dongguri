@@ -187,7 +187,6 @@ export const fetchRandomCard = () => {
   .catch(error => { throw error; })
 }
 
-
 // 오디오 등록
 export const fetchAudioUrl = (file) => {
   const formData = new FormData();

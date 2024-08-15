@@ -50,7 +50,7 @@ function AvatarList({ onNameChange, onRepChange, refresh }) {
   }
   useEffect(() => {
     refreshAvatarList();
-  }, [dispatch, currentUser, refresh]);
+  }, [refresh]);
 
   useEffect(() => {
     // onNameChange가 호출되면 아바타 목록을 새로고침합니다.
@@ -61,7 +61,9 @@ function AvatarList({ onNameChange, onRepChange, refresh }) {
 
   return (
     <div className='avatarlist'>
-      <h3>내가 키운 동그리</h3>
+      <div className="avatarlistword">
+        <h3>내가 키운 동그리</h3>
+      </div>
       <div className='listdetail'>
         {avatarList.map((avatar, index) => (
           <div key={index} className='avatar' onClick={() => openModal(avatar.avatarId)}>

@@ -13,22 +13,24 @@ function Avatars() {
   const GetAndSetRepresentative = async () => {
         const gaveRepresentative =  await dispatch(representativeApi());
         dispatch(setRepresentative(gaveRepresentative))
-        setRefresh(!refresh)
+        if (!refresh) {
+          setRefresh(true);
+        }
     }
 
   useEffect(() => {
     GetAndSetRepresentative();
   }
  ,[dispatch]);
-
-  useEffect(() => {
-    console.log('결과대표동그리: ', representative);
-    }, [representative]);
-
   
   return (
     <div className='avatars'>
-      <AvatarInfo avatar={representative} onNameChange={GetAndSetRepresentative} onRepChange={GetAndSetRepresentative}/>
+      <AvatarInfo
+        avatar={representative}
+        onNameChange={GetAndSetRepresentative}
+        onRepChange={GetAndSetRepresentative}
+        isModal={false}
+        />
       <AvatarList onRepChange={GetAndSetRepresentative} refresh={refresh}/>
       {/* <AvatarRepresent /> */}
     </div>
