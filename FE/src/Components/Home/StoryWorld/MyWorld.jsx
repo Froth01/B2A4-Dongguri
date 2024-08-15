@@ -6,13 +6,13 @@ import { getWorldInfo, setWorldObject } from '../../../slices/worldInfoSlice';
 import MyWorldBackgroundUpdate from './MyWorldBackgroundUpdate';
 import MyWorldImgUpdate from './MyWorldImgUpdate';
 
-function MyWorld({myCardList}) {
-  const currentUser = useSelector(state => state.auth.object)
-  const userInfo = useSelector(state => state.userInfo.object)
+function MyWorld({ myCardList }) {
+  const currentUser = useSelector(state => state.auth.object);
+  const userInfo = useSelector(state => state.userInfo.object);
   const dispatch = useDispatch();
-  const worldInfo = useSelector(state => state.worldInfo.object)
-  const [storybooks, setStorybooks] = useState([])
-  const [backgroundUrl, setBackgroundUrl] = useState('')
+  const worldInfo = useSelector(state => state.worldInfo.object);
+  const [storybooks, setStorybooks] = useState([]);
+  const [backgroundUrl, setBackgroundUrl] = useState('');
   const myWorldRef = useRef(null);
 
   // 이미지 움직이는거
@@ -35,56 +35,64 @@ function MyWorld({myCardList}) {
     };
 
     const animateImages = () => {
-      const images = myWorldRef.current.querySelectorAll('.floating-image');
-      images.forEach((image) => {
-        animateImage(image); // 각 이미지를 개별적으로 애니메이션 설정
-      });
+      // myWorldRef.current가 null이 아닐 때만 실행
+      if (myWorldRef.current) {
+        const images = myWorldRef.current.querySelectorAll('.floating-image');
+        images.forEach((image) => {
+          animateImage(image); // 각 이미지를 개별적으로 애니메이션 설정
+        });
+      }
     };
 
-    animateImages(); // 초기 위치 설정
+    if (storybooks.length > 0) {
+      animateImages(); // 이미지가 있을 때 애니메이션 실행
+    }
 
     // 컴포넌트가 언마운트될 때 타임아웃 정리
     return () => {
-      const images = myWorldRef.current.querySelectorAll('.floating-image');
-      images.forEach((image) => {
-        clearTimeout(image.timeoutId);
-      });
+      if (myWorldRef.current) {
+        const images = myWorldRef.current.querySelectorAll('.floating-image');
+        images.forEach((image) => {
+          clearTimeout(image.timeoutId);
+        });
+      }
     };
-  }, []);
+  }, [storybooks]); // storybooks가 업데이트될 때마다 애니메이션 적용
 
-  //내 월드 axios요청하여 불러오기
-  useEffect (() => {
-    async function fetchWorldInfo (userId) {
+  // 내 월드 axios 요청하여 불러오기
+  useEffect(() => {
+    async function fetchWorldInfo(userId) {
       try {
-        const resultAction = await dispatch(getWorldInfo(userId))
-        const gaveWorld = resultAction.payload
-        dispatch(setWorldObject(gaveWorld))
+        const resultAction = await dispatch(getWorldInfo(userId));
+        const gaveWorld = resultAction.payload;
+        dispatch(setWorldObject(gaveWorld));
       } catch {
-        error => {throw error;};
-      }}
-    if (userInfo.userId) {
-      fetchWorldInfo(userInfo.userId)
+        error => { throw error; };
+      }
     }
-  }, [dispatch, userInfo.userId])
+    if (userInfo.userId) {
+      fetchWorldInfo(userInfo.userId);
+    }
+  }, [dispatch, userInfo.userId]);
 
-  useEffect (() => {
+  useEffect(() => {
     if (worldInfo && worldInfo.backgroundType !== 'CUSTOM') {
-      setStorybooks(worldInfo.storybooks)
-      setBackgroundUrl(`/img/storyworld/${worldInfo.backgroundType}.jpg`)
-      console.log('MyWorld > worldInfo FIXED : ', worldInfo)
+      setStorybooks(worldInfo.storybooks);
+      setBackgroundUrl(`/img/storyworld/${worldInfo.backgroundType}.jpg`);
+      console.log('MyWorld > worldInfo FIXED : ', worldInfo);
     } else if (worldInfo && worldInfo.backgroundType === 'CUSTOM') {
-      setStorybooks(worldInfo.storybooks)
-      setBackgroundUrl(worldInfo.customBackgroundUrl)
-      console.log('MyWorld > worldInfo CUSTOM : ', worldInfo)
-    } 
-  }, [worldInfo])
+      setStorybooks(worldInfo.storybooks);
+      setBackgroundUrl(worldInfo.customBackgroundUrl);
+      console.log('MyWorld > worldInfo CUSTOM : ', worldInfo);
+    }
+  }, [worldInfo]);
 
   return (
-    <div className="myworld" style={{backgroundImage : `url(${backgroundUrl})`}} ref={myWorldRef}>
+    <div className="myworld" style={{ backgroundImage: `url(${backgroundUrl})` }} ref={myWorldRef}>
       {currentUser.userId === userInfo.userId ?
         <MyWorldBackgroundUpdate /> : null}
       {currentUser.userId === userInfo.userId ?
-        <MyWorldImgUpdate myCardList={myCardList}/> : null}
+        <MyWorldImgUpdate myCardList={myCardList} /> : null}
       {storybooks.map(card => (
         <img key={card.storybookId} src={card.transparentImageUrl} className="floating-image" alt={card.storybookId} />
       ))}
@@ -94,6 +102,6 @@ function MyWorld({myCardList}) {
 
 MyWorld.propTypes = {
   myCardList: PropTypes.array.isRequired
-}
+};
 
 export default MyWorld;
