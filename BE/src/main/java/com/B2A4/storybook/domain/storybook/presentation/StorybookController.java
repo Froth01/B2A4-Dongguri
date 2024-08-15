@@ -56,7 +56,7 @@ public class StorybookController {
         storybookService.deleteStorybook(storybookId);
     }
 
-    @Operation(summary = "동화 삭제")
+    @Operation(summary = "랜덤 동화 조회")
     @GetMapping("/random")
     public StorybookResponse getRandomStorybook() {
         return storybookService.getRandomStorybook();
