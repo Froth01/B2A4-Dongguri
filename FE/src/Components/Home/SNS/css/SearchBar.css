@@ -28,6 +28,16 @@
   transition: none;
 }
 
+
+.search__type option {
+  background-color: #d3d3d3; /* 드롭다운 배경색을 select와 동일하게 설정 */
+  color: #333; /* 텍스트 색상 */
+  border-radius: 30px; /* option 리스트의 끝부분도 둥글게 만듦 */
+  padding: 10px;
+  font-size: 100%;
+}
+
+
 .search__input {
   position: relative;
   font-family: inherit;
