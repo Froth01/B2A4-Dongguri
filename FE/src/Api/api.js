@@ -232,10 +232,10 @@ export const getStorybookReactions = (storybookId) => {
 };
 
 // 댓글 관련 API
-
+//
 // 댓글 리스트 조회
 export const fetchComments = (storybookId, page) => {
-  return axiosInstance.get(`/comments/list${storybookId}?page=${page}`)
+  return axiosInstance.get(`/comments/list/${storybookId}?page=${page}`)
     .then(response => {
       console.log("API Response:", response.data); // 응답 확인
       // 응답 데이터에서 comment 필드를 content로 변경
