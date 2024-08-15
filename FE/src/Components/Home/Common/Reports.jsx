@@ -59,7 +59,7 @@ const Reports = ({ contentId, contentType, onRequestClose }) => {
        
           <fieldset>
           
-            <legend>신고 유형</legend>
+            {/* <legend>신고 유형</legend> */}
             {reportTypes.map((type) => (
               <label className="r-label" key={type.value}>
                 <input
@@ -74,8 +74,8 @@ const Reports = ({ contentId, contentType, onRequestClose }) => {
             ))}
           </fieldset>
 
-          <label className="r-label">
-            신고 사유(필수):
+          <label className="r-label-text">
+            신고 사유:
             <input
               type="text"
               value={reportReason}
@@ -84,6 +84,7 @@ const Reports = ({ contentId, contentType, onRequestClose }) => {
             />
           </label>
 
+          <div className="button-container">
           <button 
             type="submit" 
             disabled={isSubmitDisabled}
@@ -91,7 +92,14 @@ const Reports = ({ contentId, contentType, onRequestClose }) => {
           >
             신고하기
           </button>
-          <button type="button" className="cancel-button" onClick={onRequestClose}>취소하기</button>
+
+          <button type="button" 
+          className="cancel-button" 
+          onClick={onRequestClose}
+          >
+            취소하기
+          </button>
+          </div>
         </form>
       </div>
     </div>

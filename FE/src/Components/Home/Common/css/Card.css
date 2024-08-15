@@ -106,3 +106,9 @@
 .card-storyline::-webkit-scrollbar-thumb:hover, .tags-container::-webkit-scrollbar-thumb:hover {
   background: rgb(255, 236, 190);
 }
+
+
+.card-reverse {
+  margin-top: 3%;
+  height: 6%;
+}

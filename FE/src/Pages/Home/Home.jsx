@@ -14,6 +14,7 @@ import PrivateRoute from '../../PrivateRoute';
 import SnsDetail from '../../Components/Home/SNS/SnsDetail'
 
 function Home() {
+  
   return (
     <div className='home'>
       <Navbar/>

@@ -18,6 +18,7 @@ const KakaoShareButton = ({ card }) => {
           script.onload = () => {
             if (window.Kakao && !window.Kakao.isInitialized()) {
               window.Kakao.init('65c79327b948613354ca939c2c67db0f'); // JavaScript 키
+              // window.Kakao.init('0536894c82d8dda2013ee7211364733a'); // (서버키)JavaScript 키
             }
             resolve();
           };
@@ -36,7 +37,9 @@ const KakaoShareButton = ({ card }) => {
         : '#기본제목';  // 기본값에도 # 추가
 
       const imageUrl = card.originalImageUrl || 'https://example.com/default-image.png';  // 기본 이미지 설정
-      const shareUrl = `http://${window.location.origin}/sns/${card.storybookId}`
+      // const shareUrl = `${window.location.origin}/sns/${card.storybookId}`
+      // console.log('공유하기로 보낼 스토리북 ID',card.object.storybookId)
+      const shareUrl = `https://localhost:5173/sns/${card.storybookId}`
       console.log('공유 링크',shareUrl)
 
       window.Kakao.Share.createDefaultButton({

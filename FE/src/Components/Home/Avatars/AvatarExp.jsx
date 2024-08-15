@@ -3,7 +3,7 @@ import './css/AvatarExp.css';
 import PropTypes from 'prop-types';
 import { fetchAvatarName } from '../../../Api/api';
 
-function AvatarExp({ avatar, onNameChange }) {
+function AvatarExp({ avatar, onNameChange, isModal }) {
   const [isEditing, setIsEditing] = useState(false); // 이름 편집 모드 상태
   const [newName, setNewName] = useState(avatar.name); // 새 이름 상태\
 
@@ -39,7 +39,7 @@ function AvatarExp({ avatar, onNameChange }) {
       patchForm: {
         name: newName
       }
-    }
+    } 
     await fetchAvatarName(avatarNameForm)
     console.log('아바타 이름 변경완료 :', newName);
     onNameChange();
@@ -53,7 +53,7 @@ function AvatarExp({ avatar, onNameChange }) {
   return (
     <div className="avatarexp">
       <div 
-        className={`avatarlv ${isEditing ? '' : 'editable'}`} 
+        className={`avatarlv ${isEditing ? '' : 'editable'} ${isModal ? 'ismodalexplv' : ''}`} 
         onClick={handleNameClick}
       >
         {isEditing ? (
@@ -70,29 +70,34 @@ function AvatarExp({ avatar, onNameChange }) {
           </>
         )}
       </div>
-      <div className="expdetail">
+      <div className={`expdetail ${isModal ? 'ismodaldetail': ''}`}>
         {[...Array(parseInt(done)).keys()].map((num) => (
-          <div key={`${num}-open`} className="book">
+          <div key={`${num}-open`} className='book'>
             <img src="/img/avatars/bookopen.png" alt="exp1" />
           </div>
         ))}
         {[...Array(parseInt(10-done)).keys()].map((num) => (
-          <div key={`${num}-close`} className="book">
+          <div key={`${num}-close`} className='book'>
             <img src="/img/avatars/bookclose.png" alt="exp0" />
           </div>
         ))}
       </div>
-      {done !== 10 ? 
-      <h3>동화를 {10-done}권 더 만들면 동그리가 자라나요!</h3> :
-      <h3>동그리가 다 컸어요!</h3>
-      }
+      <div className={`avatarword ${isModal ? 'ismodalexp' : ''}`}>
+        {done < 4 ? 
+        <h3>동화를 {4-done}권 더 만들면 동그리가 자라나요!</h3> :
+        done < 10 ?
+        <h3>동화를 {10-done}권 더 만들면 동그리가 자라나요!</h3> :
+        <h3>동그리가 다 컸어요!</h3>
+        }
+      </div>
     </div>
   );
 }
 
 AvatarExp.propTypes = {
   avatar: PropTypes.object.isRequired,
-  onNameChange: PropTypes.func
+  onNameChange: PropTypes.func,
+  isModal: PropTypes.bool
 };
 
 export default AvatarExp;
