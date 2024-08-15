@@ -2,6 +2,7 @@ package com.B2A4.storybook.domain.comment.service;
 
 import com.B2A4.storybook.domain.comment.domain.Comment;
 import com.B2A4.storybook.domain.comment.domain.repository.CommentRepository;
+import com.B2A4.storybook.domain.comment.domain.vo.CommentInfoVO;
 import com.B2A4.storybook.domain.comment.exception.CommentNotFoundException;
 import com.B2A4.storybook.domain.comment.presentation.dto.request.CreateCommentRequest;
 import com.B2A4.storybook.domain.comment.presentation.dto.request.UpdateCommentRequest;
@@ -9,15 +10,19 @@ import com.B2A4.storybook.domain.comment.presentation.dto.response.CommentRespon
 import com.B2A4.storybook.domain.storybook.domain.Storybook;
 import com.B2A4.storybook.domain.storybook.service.StorybookServiceUtils;
 import com.B2A4.storybook.domain.user.domain.User;
+import com.B2A4.storybook.domain.user.domain.vo.UserInfoVO;
 import com.B2A4.storybook.global.utils.user.UserUtils;
+import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -46,15 +51,32 @@ public class CommentService {
     }
 
     public Slice<CommentResponse> getComments(Long storybookId, int page) {
-        User user = userUtils.getUserFromSecurityContext();
         Storybook storybook = storybookServiceUtils.queryStorybook(storybookId);
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.ASC, "id"));
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         Slice<Comment> commentList = commentRepository.findAllByStorybook(storybook, pageRequest);
 
-        return commentList.map(comment -> new CommentResponse(comment.getCommentInfoVO(), comment.getUser().getUserInfo(),
-                comment.getUser().getId().equals(user.getId())));
+        List<CommentResponse> commentResponses = new ArrayList<>();
+
+        for (Comment comment : commentList.getContent()) {
+            CommentInfoVO commentInfo = comment.getCommentInfoVO();
+            UserInfoVO userInfo = comment.getUser().getUserInfo();
+
+            boolean isMine = false;
+
+            isMine = (authentication == null ||
+                    !"anonymousUser".equals(authentication.getPrincipal())) &&
+                    userUtils.getUserFromSecurityContext().equals(comment.getUser());
+
+            CommentResponse response = new CommentResponse(commentInfo, userInfo, isMine);
+            commentResponses.add(response);
+        }
+
+        return new SliceImpl<>(commentResponses, pageRequest, commentList.hasNext());
     }
+
 
     @Transactional
     public void updateComment(Long commentId, UpdateCommentRequest updateCommentRequest) {
