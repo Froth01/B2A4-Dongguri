@@ -31,7 +31,7 @@ public class ReactionController {
     }
 
     @Operation(summary = "공감 수 조회")
-    @GetMapping("/{storybookId}")
+    @GetMapping("/count/{storybookId}")
     public ReactionCountIsReactionResponse getReactionCount(@PathVariable Long storybookId) {
         return reactionService.getReactionCount(storybookId);
     }

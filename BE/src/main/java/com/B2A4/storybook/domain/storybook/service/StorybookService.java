@@ -99,7 +99,7 @@ public class StorybookService implements StorybookServiceUtils {
         boolean isMine = true;
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info(authentication.getPrincipal().toString());
+        
         if ("anonymousUser".equals(authentication.getPrincipal()) || !userUtils.getUserFromSecurityContext().equals(storybook.getUser())) {
             isMine = false;
         }
