@@ -37,15 +37,13 @@
 .user-card__details {
   display: flex;
   flex-direction: row; /* 가로로 배치 */
-  align-items: center;
+  align-items: center; /* 수직 중앙 정렬 */
 }
 
 .user-card__name {
   font-size: 1.2em;
   margin: 0;
   margin-right: 10px; /* 가로 간격 추가 */
-}
-
-.user-card__id {
-  color: #777;
+  display: flex;
+  align-items: center; /* 텍스트가 이미지와 수평으로 정렬되도록 설정 */
 }
