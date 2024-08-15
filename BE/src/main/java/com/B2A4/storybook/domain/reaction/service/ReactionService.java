@@ -18,6 +18,8 @@ import com.B2A4.storybook.domain.user.domain.User;
 import com.B2A4.storybook.global.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,9 +76,16 @@ public class ReactionService implements ReactionServiceUtils{
     }
 
     public ReactionCountIsReactionResponse getReactionCount(Long storybookId) {
-        User user = userUtils.getUserFromSecurityContext();
         Storybook storybook = storybookServiceUtils.queryStorybook(storybookId);
         ReactionCountResponse response = reactionCountServiceUtils.getReactionCount(storybookId);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ("anonymousUser".equals(authentication.getPrincipal()) || !userUtils.getUserFromSecurityContext().equals(storybook.getUser())) {
+            return new ReactionCountIsReactionResponse(response, false, false, false, false);
+        }
+
+        User user = userUtils.getUserFromSecurityContext();
 
         boolean isFun = reactionRepository.existsByStorybookAndReactionTypeAndUser(storybook, FUN, user);
         boolean isHappy = reactionRepository.existsByStorybookAndReactionTypeAndUser(storybook, HAPPY, user);

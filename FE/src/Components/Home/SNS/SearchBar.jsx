@@ -63,7 +63,7 @@ function SearchBar({searchEvent}) {
       <div className="search">
         <select className="search__type" onChange={handleTypeChange} value={searchType}>
           <option value="storybook">동화</option>
-          <option value="nickname">닉네임</option>
+          <option value="nickname">유저</option>
         </select>
         <input 
           type="text" 

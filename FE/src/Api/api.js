@@ -224,7 +224,7 @@ export const unlikeStorybook = (data) => {
 
 // 공감 보기
 export const getStorybookReactions = (storybookId) => {
-  return axiosInstance.get(`/reactions/${storybookId}`,{
+  return axiosInstance.get(`/reactions/count/${storybookId}`,{
     params: {storybookId}
   })
     .then(response => response.data)

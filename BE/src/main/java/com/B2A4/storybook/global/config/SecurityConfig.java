@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/signup").permitAll()
                         .requestMatchers("/api/users/check-nickname").permitAll()
                         .requestMatchers("/api/storybooks/**").permitAll()
+                        .requestMatchers("/api/reactions/count/**").permitAll()
                         .requestMatchers(SwaggerPatterns).permitAll()
                         .anyRequest().authenticated()
                 )
