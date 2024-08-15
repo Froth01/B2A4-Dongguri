@@ -45,10 +45,22 @@
 
 .dialogdiv {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 300;
   height: 30%;
   animation: float 4s ease-in-out infinite;
 }
+
+.ismodal {
+  font-size: 1.1em;
+}
+
+.ismodal img {
+  height: 80%;
+}
+
 
 /* 말풍선이 원을 그리며 움직이는 애니메이션 */
 @keyframes float {

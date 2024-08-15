@@ -14,9 +14,13 @@
   height: 130%;
 }
 
+.ismodaldetail {
+  width: 80%;
+}
+
 .book{
   width: 20%;
-  height: 50%;
+  height: 45%;
 }
 
 .expdetail img {
@@ -40,6 +44,14 @@
 .avatarlv {
   height: 30%;
   font-size: 1.6em;
+}
+
+.ismodalexp {
+  font-size: 0.8em;
+}
+
+.ismodalexplv {
+  font-size: 1.4em;
 }
 
 .avatarlv.editable {
