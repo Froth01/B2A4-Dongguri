@@ -25,7 +25,7 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 리스트 조회")
-    @GetMapping("/{storybookId}")
+    @GetMapping("/list/{storybookId}")
     public Slice<CommentResponse> getComments(@PathVariable Long storybookId, @RequestParam int page) {
         return commentService.getComments(storybookId, page);
     }
