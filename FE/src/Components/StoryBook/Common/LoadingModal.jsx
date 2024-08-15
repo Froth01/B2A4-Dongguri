@@ -135,19 +135,21 @@ const LoadingModal = ({ isOpen, message, onRequestClose }) => {
   const [loadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
-    const randomCard = async () => {
-      try {
-        const fetchedCard = await fetchRandomCard(); // 랜덤 카드 데이터 가져오기
-        setCard(fetchedCard); // 상태에 카드 데이터 설정
-        setLoadingComplete(true); // 로딩 완료 상태로 설정
-      } catch (error) {
-        console.error('랜덤 카드를 가져오는 중 오류 발생:', error);
-      }
-    };
-
-    if (isOpen) { // 모달이 열릴 때만 데이터를 가져옴
-      randomCard();
-    }
+     const randomCard = async () => {
+       try {
+         const fetchedCard = await fetchRandomCard(); // 랜덤 카드 데이터 가져오기
+ 
+         setCard(fetchedCard.data); // 상태에 카드 데이터 설정
+         setLoadingComplete(true); // 로딩 완료 상태로 설정
+         console.log(fetchedCard)
+       } catch (error) {
+         console.error('랜덤 카드를 가져오는 중 오류 발생:', error);
+       }
+     };
+ 
+     if (isOpen) { // 모달이 열릴 때만 데이터를 가져옴
+       randomCard();
+     }
 
     console.log('LoadingModal isOpen:', isOpen); // isOpen 상태를 콘솔에 출력
   }, [isOpen]);
