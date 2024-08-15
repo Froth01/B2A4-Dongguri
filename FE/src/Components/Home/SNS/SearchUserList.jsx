@@ -29,7 +29,7 @@ function SearchUserList({ userList = [] }) { // user를 userList로 변경하고
             />
             <div className='user-card__details'>
               <h3 className='user-card__name'>{user.nickname || '닉네임'}</h3>
-              <p className='user-card__id'>ID: {user.userId || 'ID'}</p>
+              {/* <p className='user-card__id'>ID: {user.userId || 'ID'}</p> */}
             </div>
           </div>
         ))
