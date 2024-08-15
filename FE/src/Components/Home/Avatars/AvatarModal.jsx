@@ -53,12 +53,12 @@ function AvatarModal({ isOpen, onClose, avatar, onNameChange, onRepChange }) {
 
   if (!isOpen) return null;
 
-  console.log('모달로 받은 아바타정보 :',avatar)
+
 
   return (
     <div className="a-modal-overlay" onClick={() => onClose()}>
       <div className="a-modal-content" onClick={e => e.stopPropagation()}>
-        <AvatarInfo avatar={avatar} onNameChange={handleNameChange}/>
+        <AvatarInfo avatar={avatar} onNameChange={handleNameChange} isModal={true}/>
         <div className='avatarlevel'>
           {Object.keys(levelRequirements).map((level) => (
             <div
@@ -67,13 +67,15 @@ function AvatarModal({ isOpen, onClose, avatar, onNameChange, onRepChange }) {
               onClick={() => handleLevelClick(level, avatar)}
             >
               <img src={`/img/avatars/${avatar.avatarType}_${level}.png`} alt={avatar.name} />
-              <button>Lv. {levelMap[level]}</button>
+              <button className='avatarbtn levelbtn'>Lv. {levelMap[level]}</button>
             </div>
           ))}
         </div>
+        <div className='avatarsubmit'>
+          <button onClick={() => ChangeRep(avatar)} className="avatarbtn">대표동그리로 설정</button>
+        </div>
       </div>
-      <button onClick={() => onClose()} className="f-close-button">X</button>
-      <button onClick={() => ChangeRep(avatar)} className="rep-avatar-submit">대표동그리로 설정</button>
+      <button onClick={() => onClose()} className="a-close-button">X</button>
     </div>
   );
 }

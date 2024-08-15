@@ -41,7 +41,6 @@ export const representativeApi = () => async () => {
     //   displayLevel: 'TWO'
     // };
     const data = await fetchRepresentative();
-    console.log('api요청',data.data)
     return data.data // 응답이 배열 형태이므로 첫 번째 요소를 사용
   } catch (error) {
     console.error('error', error);
