@@ -135,7 +135,7 @@ public class StorybookService implements StorybookServiceUtils {
     public Slice<StorybookResponse> getStorybookListByKeyword(int page, String keyword) {
 
         User user = userUtils.getUserFromSecurityContext();
-        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
+        PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
         Set<StorybookResponse> responseSet = new LinkedHashSet<>();
         Slice<Storybook> storybookList;
