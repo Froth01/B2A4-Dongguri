@@ -65,9 +65,9 @@ const StoryKeyword = () => {
       dispatch(setOriginalImageUrl(data.originalImageUrl));
       dispatch(setTransformedImageUrl(data.transformedImageUrl));
 
-      setLoading(true); // 로딩 상태를 false로 변경
-      // setModalMessage('동화 생성이 완료되었습니다.')
-      // navigate('/storybook/storyend'); // 응답을 받은 후에 페이지 이동
+      setLoading(false); // 로딩 상태를 false로 변경
+      setModalMessage('동화 생성이 완료되었습니다.')
+      navigate('/storybook/storyend'); // 응답을 받은 후에 페이지 이동
     } catch (error) {
       console.error('API 요청 실패:', error);
       setLoading(false); // 로딩 상태 해제
@@ -120,3 +120,4 @@ const StoryKeyword = () => {
 }
 
 export default StoryKeyword;
+
