@@ -28,18 +28,30 @@
   height: 40%;
 }
 
-.a-close-button {
+/* .a-close-button {
   position: absolute;
   right: 15%;
   bottom: 82%;
+  border: none;
   margin-top: 10px;
   padding: 5px 10px;
   width: 3%;
   height: 5%;
-  font-size: 30px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
+  font-size: 200%;
+  font-weight: 900;
+  cursor: pointer;
+} */
+.a-close-button {
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: none;
+  top: 0%;
+  right: -1%;
+  background: none;
+  font-size: 200%;
+  font-weight: 900;
+  color: white;
   cursor: pointer;
 }
 
