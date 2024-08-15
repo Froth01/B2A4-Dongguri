@@ -180,6 +180,13 @@ export const fetchStoryBooks = (formData) => {
   .catch(error => { throw error })
 }
 
+// 동화 랜덤 가져오기
+export const fetchRandomCard = () => {
+  return axiosInstance.get('/storyworlds/random')
+  .then(response => response.data)
+  .catch(error => { throw error; })
+}
+
 
 // 오디오 등록
 export const fetchAudioUrl = (file) => {

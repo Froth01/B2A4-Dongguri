@@ -4,3 +4,11 @@
   flex-direction: column;
   overflow: scroll;
 }
+
+.searchbar {
+  height: 10%;
+}
+
+.searchresult-box{
+  height: 65%;
+}

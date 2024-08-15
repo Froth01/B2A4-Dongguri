@@ -19,6 +19,7 @@ const StoryKeyword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // 컴포넌트 내 로딩 상태 관리
+  const [modalMessage, setModalMessage] = useState('');
 
   const disabled = !keywords.some(keyword => keyword.trim() !== '');
 
@@ -64,17 +65,30 @@ const StoryKeyword = () => {
       dispatch(setOriginalImageUrl(data.originalImageUrl));
       dispatch(setTransformedImageUrl(data.transformedImageUrl));
 
-      setLoading(false); // 로딩 상태를 false로 변경
-      navigate('/storybook/storyend'); // 응답을 받은 후에 페이지 이동
+      setLoading(true); // 로딩 상태를 false로 변경
+      // setModalMessage('동화 생성이 완료되었습니다.')
+      // navigate('/storybook/storyend'); // 응답을 받은 후에 페이지 이동
     } catch (error) {
       console.error('API 요청 실패:', error);
       setLoading(false); // 로딩 상태 해제
     }
   };
 
+  const handleCloseModal = () => {
+    setModalMessage(''); // 메시지 초기화
+    navigate('/storybook/storyend'); // 모달이 닫힐 때 페이지 이동
+  };
+
   return (
     <div className="page-container">
-      <LoadingModal isOpen={loading} /> {/* 로딩 모달 추가 */}
+      {/*<LoadingModal isOpen={loading} />  로딩 모달 추가 */}
+      <LoadingModal 
+        isOpen={loading || modalMessage !== ''} // 로딩 중이거나 메시지가 있을 때 모달을 띄움
+        // isOpen={loading } // 로딩 중이거나 메시지가 있을 때 모달을 띄움
+        message={modalMessage} 
+        onRequestClose={handleCloseModal} // 모달 닫기 함수
+      />
+      
       <Guide page="storyKeyword"/>
 
       <div className="keyword-wrapper">
@@ -97,10 +111,10 @@ const StoryKeyword = () => {
           </div>
         </div>
       </div>
-      <div className="redux-state">
+      {/* <div className="redux-state">
         <h3>Redux State:</h3>
         <pre>{JSON.stringify(makeStory, null, 2)}</pre>
-      </div>
+      </div> */}
     </div>
   );
 }

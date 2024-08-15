@@ -4,14 +4,24 @@
   align-items: center;
   height: 85%;
   width: 100%;
+  gap: 4%;
 }
 
-.end-left{
-  width: 50%;
+.end-left {
+  display: flex; /* 내부 요소를 정렬하기 위해 flex 사용 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  width: 45%;
+  height: 100%;
+  background-color: rgb(255, 251, 241);
 }
 
 .end-right{
-  width: 50%;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .replay-btn{
