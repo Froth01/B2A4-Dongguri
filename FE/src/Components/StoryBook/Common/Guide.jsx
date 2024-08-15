@@ -10,6 +10,7 @@ const Guide = ({ page }) => {
   const dispatch = useDispatch();
   const representative = useSelector(selectRepresentative);
   const dialogs = useSelector(selectDialogs)
+  console.log('대사',dialogs)
   console.log(representative)
   useEffect(() => {
     dispatch(representativeApi());
