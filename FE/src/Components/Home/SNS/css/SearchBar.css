@@ -5,7 +5,9 @@
   display: flex;
   justify-content: center;
   transition: none; /* 모든 전환 효과 제거 */
+  border-color: none;
 }
+
 
 .search {
   position: relative;
@@ -22,15 +24,20 @@
   border: none;
   width: 11%;
   text-align: center;
-  background-color: #d3d3d3;
+  /* background-color: #d3d3d3; */
+  background-color: transparent;
   position: absolute;
   font-size: 100%;
   transition: none;
+  border-color: none;
+  border: none;
+  outline: none;
 }
 
 
 .search__type option {
-  background-color: #d3d3d3; /* 드롭다운 배경색을 select와 동일하게 설정 */
+  background-color: transparent;
+  /* background-color: #d3d3d3; 드롭다운 배경색을 select와 동일하게 설정 */
   color: #333; /* 텍스트 색상 */
   border-radius: 30px; /* option 리스트의 끝부분도 둥글게 만듦 */
   padding: 10px;
@@ -56,10 +63,12 @@
   box-shadow: none; /* Focus 시 그림자 효과 제거 */
   background-color: #f4f2f2; /* Focus 시 배경색 변화 제거 */
   transition: none;
+  border-color: none;
 }
 
 .search__input:focus {
   outline: none; /* 포커스시 기본 outline 제거 */
+  border-color: none;
 }
 
 .search__input::-webkit-input-placeholder {
@@ -91,3 +100,4 @@
   width: 60%;
   transition: none;
 }
+
