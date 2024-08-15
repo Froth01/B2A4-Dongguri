@@ -99,7 +99,7 @@ public class StorybookService implements StorybookServiceUtils {
         boolean isMine = true;
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        log.info(authentication.getPrincipal().toString());
         if ("anonymousUser".equals(authentication.getPrincipal()) || !userUtils.getUserFromSecurityContext().equals(storybook.getUser())) {
             isMine = false;
         }
@@ -133,12 +133,13 @@ public class StorybookService implements StorybookServiceUtils {
 
     @Override
     public Slice<StorybookResponse> getStorybookListByKeyword(int page, String keyword) {
-
-        User user = userUtils.getUserFromSecurityContext();
         PageRequest pageRequest = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "lastModifyDate"));
 
         Set<StorybookResponse> responseSet = new LinkedHashSet<>();
         Slice<Storybook> storybookList;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 
         if (keyword.isEmpty()) {
             storybookList = storybookRepository.findAll(pageRequest);
@@ -148,7 +149,12 @@ public class StorybookService implements StorybookServiceUtils {
 
         for (Storybook storybook : storybookList) {
             List<String> keywordList = storybook.getKeywords().stream().map(Keyword::getKeyword).toList();
-            boolean isMine = user.equals(storybook.getUser());
+            boolean isMine = true;
+
+            if ("anonymousUser".equals(authentication.getPrincipal()) || !userUtils.getUserFromSecurityContext().equals(storybook.getUser())) {
+                isMine = false;
+            }
+
             responseSet.add(new StorybookResponse(storybook.getStorybookInfoVO(), keywordList, storybook.getUser().getUserInfo(), isMine));
         }
 
