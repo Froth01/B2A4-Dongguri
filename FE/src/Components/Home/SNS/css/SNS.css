@@ -5,6 +5,20 @@
   overflow: scroll;
 }
 
+.sns::-webkit-scrollbar {
+  width: 10px;  
+}
+
+.sns::-webkit-scrollbar-thumb {
+  background: #FCE73C; /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.sns::-webkit-scrollbar-track {
+  background: rgba(49, 45, 16, 0.342);  /*스크롤바 뒷 배경 색상*/
+  border-radius: 30px;
+}
+
 .searchbar {
   height: 10%;
 }
