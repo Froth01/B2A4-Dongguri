@@ -81,7 +81,7 @@ public class ReactionService implements ReactionServiceUtils{
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if ("anonymousUser".equals(authentication.getPrincipal()) || !userUtils.getUserFromSecurityContext().equals(storybook.getUser())) {
+        if ("anonymousUser".equals(authentication.getPrincipal())) {
             return new ReactionCountIsReactionResponse(response, false, false, false, false);
         }
 
